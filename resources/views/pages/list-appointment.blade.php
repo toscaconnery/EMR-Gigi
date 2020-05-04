@@ -11,6 +11,7 @@
     <div class="wrapper-pro">
         @include('layouts/sidebar') 
         
+        
         <div class="content-inner-all">
             <!-- Header top area start-->
             @include('layouts/header')
@@ -23,12 +24,37 @@
                         <div class="col-lg-12">
                             <div class="breadcome-list map-mg-t-40-gl shadow-reset">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    {{-- <div class="col-lg-6">
                                         <div class="breadcome-heading">
                                             <form role="search" class="">
                                                 <input type="text" placeholder="Search..." class="form-control">
                                                 <a href=""><i class="fa fa-search"></i></a>
                                             </form>
+                                        </div>
+                                    </div> --}}
+                                    <div class="col-lg-6">
+                                        <div class="form-group-inner">
+                                            <div class="row">
+                                                {{-- <div class="col-lg-3 col-md-9 col-sm-9 col-xs-9">
+                                                    <label class="login2 pull-right pull-right-pro">Default Radio</label>
+                                                </div> --}}
+                                                <div class="col-lg-9 col-md-3 col-sm-3 col-xs-3">
+                                                    <div class="bt-df-checkbox">
+                                                        <label for="radio-opd" class="mr-10">
+                                                            <input class="pull-left radio-checked" type="radio" id="radio-opd" name="pasien-list-status">
+                                                            OPD
+                                                        </label>
+                                                        <label for="radio-ed" class="mr-10">
+                                                            <input class="pull-left" type="radio"  id="radio-ed" name="pasien-list-status">
+                                                            ED
+                                                        </label>
+                                                        <label for="radio-opd" class="mr-10">
+                                                            <input class="pull-left" type="radio" id="radio-ipd" name="pasien-list-status">
+                                                            IPD
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">

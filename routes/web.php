@@ -18,3 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('test', 'HomeController@test');
+
+Route::get('list-appointment', 'AppointmentController@listAppointment');
