@@ -4119,3 +4119,20 @@ ul.breadcome-menu {
 .tr-green td {
 	background-color: #81fc85 !important;
 }
+
+.footfix {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+  height: 20px;
+
+  /* position: absolute;
+  height: 50px;
+  width: 100%;
+  bottom: 0px;
+  border-top: solid 1px black; */
+}

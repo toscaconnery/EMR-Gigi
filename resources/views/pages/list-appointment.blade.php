@@ -82,7 +82,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for ($x = 1; $x < 5; $x++)
+                                    @for ($x = 1; $x < 10; $x++)
                                     <tr>
                                         <td class="td-mid">00:00 - 00:00</td>
                                         <td>143</td>
