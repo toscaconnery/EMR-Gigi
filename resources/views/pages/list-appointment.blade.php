@@ -56,7 +56,7 @@
          
 
             <!-- Patient List start -->
-            <div class="col-lg-12">
+            <div class="col-lg-12 mg-t-15">
                 <div class="sparkline10-list shadow-reset mg-t-10">
                     <div class="sparkline10-hd">
                         <div class="main-sparkline10-hd">

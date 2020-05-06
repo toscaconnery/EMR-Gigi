@@ -1,3 +1,4 @@
+<div style="height: 20px;"></div>
 <div class="footer-copyright-area footfix">
     <div class="container-fluid">
         <div class="row">

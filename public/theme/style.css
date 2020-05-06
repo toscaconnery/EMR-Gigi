@@ -85,6 +85,9 @@ padding: 0
 .mg-t-10{
 	margin-top:10px;
 }
+.mg-t-15{
+	margin-top:15px;
+}
 .mg-b-30{
 	margin-bottom:30px;
 }
@@ -771,9 +774,11 @@ ul.setting-panel-list li{
 	text-align:center;
 }
 .footer-copy-right p{
-	margin:0px;
+	/* margin:0px; */
 	font-size:15px;
-	color:#fff;
+	color: black !important;
+	margin-bottom: 10px !important;
+	padding-bottom: 10px !important;
 }
 .footer-copy-right a{
 	color:#fff;
@@ -4125,14 +4130,9 @@ ul.breadcome-menu {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: red;
   color: white;
   text-align: center;
-  height: 20px;
-
-  /* position: absolute;
-  height: 50px;
-  width: 100%;
-  bottom: 0px;
-  border-top: solid 1px black; */
+  height: 30px !important;
+  padding-top: 5px;
+  padding-bottom: 20px;
 }
