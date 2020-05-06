@@ -7,7 +7,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <div class="admin-logo logo-wrap-pro">
-                        <a href="#"><img src="{{ asset('theme/img/logo/log.png') }}" alt="" />
+                        <a href="#"><img src="theme/img/logo/log.png" alt="" />
                         </a>
                     </div>
                 </div>

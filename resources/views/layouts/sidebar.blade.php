@@ -1,7 +1,7 @@
 <div class="left-sidebar-pro">
     <nav id="sidebar">
         <div class="sidebar-header">
-            <a href="#"><img src="{{ asset('theme/img/message/1.jpg') }}" alt="" />
+            <a href="#"><img src="theme/img/message/1.jpg" alt="" />
             </a>
             <h3>Andrar Son</h3>
             <p>Developer</p>
