@@ -35,7 +35,7 @@
 	border-radius:10px;
 }
 .btn-custon-rounded-three{
-	border-radius:20px;
+	border-radius:20px !important;
 }
 .btn-custom-groups .btn{
 	border-radius:0px;
@@ -325,4 +325,10 @@
 }
 .btn-default.btn-bg-cl-facebook-tw .adminpro-icon, .btn-default.btn-bg-cl-twitter-tw .adminpro-icon, .btn-default.btn-bg-cl-google-tw .adminpro-icon, .btn-default.btn-bg-cl-pinterest-tw .adminpro-icon, .btn-default.btn-bg-cl-linkedin-tw .adminpro-icon, .btn-default.btn-bg-cl-youtube-tw i, .btn-default.btn-bg-cl-dropbox-tw i, .btn-default.btn-bg-cl-digg-tw i, .btn-default.btn-bg-cl-dribbble-tw i, .btn-default.btn-bg-cl-edge-tw i, .btn-default.btn-bg-cl-skype-tw i{
 	color:#fff;
+}
+
+.btn-gray {
+	background: #979797;
+	border-color: #979797;
+	color: #fff;
 }

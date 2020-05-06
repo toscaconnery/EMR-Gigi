@@ -7,6 +7,9 @@
     <!-- favicon
 		============================================ -->
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- jquery
+		============================================ -->
+    <script src="{{ asset('theme/js/vendor/jquery-1.11.3.min.js') }}"></script>
     <!-- Google Fonts
 		============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i,800" rel="stylesheet">
@@ -25,6 +28,9 @@
     <!-- mCustomScrollbar CSS
 		============================================ -->
     <link rel="stylesheet" href="{{ asset('theme/css/jquery.mCustomScrollbar.min.css') }}">
+    <!-- buttons CSS
+		============================================ -->
+    <link rel="stylesheet" href="{{ asset('theme/css/buttons.css') }}">
     <!-- animate CSS
 		============================================ -->
     <link rel="stylesheet" href="{{ asset('theme/css/animate.css') }}">
@@ -50,4 +56,8 @@
     <!-- modernizr JS
 		============================================ -->
     <script src="{{ asset('theme/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+    
+
+    <link rel="stylesheet" href="{{ asset('theme/css/datapicker/datepicker3.css') }}">
+  
 </head>

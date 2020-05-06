@@ -79,6 +79,12 @@ padding: 0
 .mg-t-30{
 	margin-top:30px;
 }
+.mg-t-20{
+	margin-top:20px;
+}
+.mg-t-10{
+	margin-top:10px;
+}
 .mg-b-30{
 	margin-bottom:30px;
 }
@@ -4090,5 +4096,26 @@ ul.breadcome-menu {
 	font-size:12px;
 }
 .mr-10 {
-	margin-right:10px;
+	margin-right: 10px;
+}
+
+.ml-10 {
+	margin-left: 10px;
+}
+
+.stack {
+	flex-direction: column;
+}
+
+.tablenormal td {
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+}
+
+.td-mid {
+	text-align: center;
+}
+
+.tr-green td {
+	background-color: #81fc85 !important;
 }

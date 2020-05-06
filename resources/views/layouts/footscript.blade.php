@@ -57,6 +57,13 @@
 <script src="{{ asset('theme/js/data-table/bootstrap-table-resizable.js') }}"></script>
 <script src="{{ asset('theme/js/data-table/colResizable-1.5.source.js') }}"></script>
 <script src="{{ asset('theme/js/data-table/bootstrap-table-export.js') }}"></script>
+
+<!-- datapicker CSS
+    ============================================ -->
+<script src="{{ asset('theme/js/datapicker/bootstrap-datepicker.js') }}"></script>
+<script src="{{ asset('theme/js/datapicker/datepicker-active.js') }}"></script>
+
+
 <!-- main JS
     ============================================ -->
 <script src="{{ asset('theme/js/main.js') }}"></script>
