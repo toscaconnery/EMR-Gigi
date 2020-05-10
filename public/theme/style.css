@@ -4100,8 +4100,13 @@ ul.breadcome-menu {
 .materialdesign .progress-circular4 p{
 	font-size:12px;
 }
+
+.mr-15 {
+	margin-right: 15px !important;
+}
+
 .mr-10 {
-	margin-right: 10px;
+	margin-right: 10px !important;
 }
 
 .ml-10 {
@@ -4139,4 +4144,12 @@ ul.breadcome-menu {
 
 .top-zero {
 	top: 0 !important;
+}
+
+.f-12 {
+	font-size: 12px;
+}
+
+.center-horizon {
+	text-align: center;
 }
