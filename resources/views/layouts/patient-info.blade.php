@@ -14,7 +14,7 @@
                                     </div>
                                     <div class="col-lg-11 pl-55" >
                                         <div class="inline">
-                                            <h5>ALODIA NESYA BRILIANE</h5>
+                                            <h5><b>ALODIA NESYA BRILIANE</b></h5>
                                             <h5 class="ml-10 gray">|</h5>
                                             <h5 class="ml-10">662565</h5>
                                             <h5 class="ml-10 gray">|</h5>
@@ -25,23 +25,23 @@
                                                 <div>Admission No.</div>
                                                 <div><b>OPA1912101231</b></div>
                                             </div>
-                                            <div class="ml-30">
+                                            <div class="ml-50">
                                                 <div>DOB</div>
                                                 <div><b>17 Jan 2012</b></div>
                                             </div>
-                                            <div class="ml-30">
+                                            <div class="ml-50">
                                                 <div>Age</div>
                                                 <div><b>8Y 3M 3D</b></div>
                                             </div>
-                                            <div class="ml-30">
+                                            <div class="ml-50">
                                                 <div>Religion</div>
                                                 <div><b>KATOLIK</b></div>
                                             </div>
-                                            <div class="ml-30">
+                                            <div class="ml-50">
                                                 <div>Payer</div>
                                                 <div><b>PRIVATE</b></div>
                                             </div>
-                                            <div class="ml-30">
+                                            <div class="ml-50">
                                                 <div>Patient Type</div>
                                                 <div><b>PRIVATE</b></div>
                                             </div>
