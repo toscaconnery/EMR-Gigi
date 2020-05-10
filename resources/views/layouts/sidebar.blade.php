@@ -14,6 +14,11 @@
                         <i class="fa big-icon fa-list"></i> <span class="mini-dn">Patient List</span> <span class="indicator-right-menu mini-dn"></span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{url('list-appointment')}}" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                        <i class="fa big-icon fa-user"></i> <span class="mini-dn">Patient Dashboard</span> <span class="indicator-right-menu mini-dn"></span>
+                    </a>
+                </li>
                 {{-- <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-envelope"></i> <span class="mini-dn">Mailbox</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                     <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                         <a href="inbox.html" class="dropdown-item">Inbox</a>

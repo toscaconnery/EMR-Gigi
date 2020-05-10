@@ -68,17 +68,17 @@
                             <table class="table border-table tablenormal">
                                 <thead>
                                     <tr>
-                                        <th style="width: 7%">Time Slot</th>
+                                        <th style="width: 8%">Time Slot</th>
                                         <th style="width: 5%">Visit No</th>
-                                        <th style="width: 21%">Patient Name</th>
+                                        <th style="width: 17%">Patient Name</th>
                                         <th style="width: 5%"></th>
-                                        <th style="width: 5%"></th>
+                                        <th style="width: 7%"></th>
                                         <th style="width: 8%">Age</th>
                                         <th style="width: 4%">Sex</th>
                                         <th style="width: 10%">MR No</th>
                                         <th style="width: 21%">Payer</th>
                                         <th style="width: 7%">Status</th>
-                                        <th style="width: 7%">Time</th>
+                                        <th style="width: 8%">Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,8 +87,17 @@
                                         <td class="td-mid">00:00 - 00:00</td>
                                         <td>143</td>
                                         <td>Roshid</td>
-                                        <td class="td-mid">smting</td>
-                                        <td class="td-mid">smting</td>
+                                        <td class="td-mid ">
+                                            <button type="button" class="btn btn-custon-rounded-four btn-primary btn-sm">Call</button>
+                                        </td>
+                                        <td class="td-mid" style="padding-left: 5px;">
+                                            <div class="support-list-img td-mid">
+                                                <a href="#"><img src="theme/img/notification/1.jpg" alt="">
+                                                </a>
+                                                <a href="#"><img src="theme/img/notification/1.jpg" alt="">
+                                                </a>
+                                            </div>
+                                        </td>
                                         <td class="td-mid">19Y 11M 22D</td>
                                         <td class="td-mid">F</td>
                                         <td>LCODESS</td>
@@ -119,17 +128,17 @@
                             <table class="table border-table tablenormal">
                                 <thead>
                                     <tr>
-                                        <th style="width: 7%">Time Slot</th>
+                                        <th style="width: 8%">Time Slot</th>
                                         <th style="width: 5%">Visit No</th>
-                                        <th style="width: 21%">Patient Name</th>
+                                        <th style="width: 17%">Patient Name</th>
                                         <th style="width: 5%"></th>
-                                        <th style="width: 5%"></th>
+                                        <th style="width: 7%"></th>
                                         <th style="width: 8%">Age</th>
                                         <th style="width: 4%">Sex</th>
                                         <th style="width: 10%">MR No</th>
                                         <th style="width: 21%">Payer</th>
                                         <th style="width: 7%">Status</th>
-                                        <th style="width: 7%">Time</th>
+                                        <th style="width: 8%">Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -138,8 +147,17 @@
                                         <td class="td-mid">00:00 - 00:00</td>
                                         <td>143</td>
                                         <td>Roshid</td>
-                                        <td class="td-mid">smting</td>
-                                        <td class="td-mid">smting</td>
+                                        <td class="td-mid ">
+                                            <button type="button" class="btn btn-custon-rounded-four btn-primary btn-sm" disabled>Call</button>
+                                        </td>
+                                        <td class="td-mid" style="padding-left: 5px;">
+                                            <div class="support-list-img td-mid">
+                                                <a href="#"><img src="theme/img/notification/1.jpg" alt="">
+                                                </a>
+                                                <a href="#"><img src="theme/img/notification/1.jpg" alt="">
+                                                </a>
+                                            </div>
+                                        </td>
                                         <td class="td-mid">19Y 11M 22D</td>
                                         <td class="td-mid">F</td>
                                         <td>LCODESS</td>
