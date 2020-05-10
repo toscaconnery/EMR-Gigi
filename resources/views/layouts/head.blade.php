@@ -57,7 +57,10 @@
     <!-- modernizr JS
 		============================================ -->
     <script src="theme/js/vendor/modernizr-2.8.3.min.js"></script>
-    
+    <!-- notifications CSS
+		============================================ -->
+    <link rel="stylesheet" href="theme/css/Lobibox.min.css">
+    <link rel="stylesheet" href="theme/css/notifications.css">
 
     <link rel="stylesheet" href="theme/css/datapicker/datepicker3.css">
   

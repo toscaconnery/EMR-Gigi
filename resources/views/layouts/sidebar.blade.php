@@ -19,17 +19,17 @@
                         <i class="fas big-icon fa-address-card"></i> <span class="mini-dn"> Patient Dashboard</span> <span class="indicator-right-menu mini-dn"></span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="basicInfoSedangDibuat1">
                     <a href="#" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                         <i class="fas big-icon fa-edit"></i> <span class="mini-dn"> SOAP</span> <span class="indicator-right-menu mini-dn"></span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="basicInfoSedangDibuat2">
                     <a href="#" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                         <i class="fas big-icon fa-history"></i> <span class="mini-dn"> Patient History</span> <span class="indicator-right-menu mini-dn"></span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="basicInfoSedangDibuat3">
                     <a href="#" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                         <i class="fas big-icon fa-pills"></i> <span class="mini-dn"> Medication History</span> <span class="indicator-right-menu mini-dn"></span>
                     </a>

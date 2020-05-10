@@ -321,6 +321,21 @@
                     msg: 'Lorem ipsum dolor sit amet against apennine any created, spend loveliest, building stripes.'
                 });
             });
+            $('#basicInfoSedangDibuat1').on('click', function () {
+                Lobibox.notify('info', {
+                    msg: 'Fitur belum tersedia.'
+                });
+            });
+            $('#basicInfoSedangDibuat2').on('click', function () {
+                Lobibox.notify('info', {
+                    msg: 'Fitur belum tersedia.'
+                });
+            });
+            $('#basicInfoSedangDibuat3').on('click', function () {
+                Lobibox.notify('info', {
+                    msg: 'Fitur belum tersedia.'
+                });
+            });
             $('#basicWarning').on('click', function () {
                 Lobibox.notify('warning', {
                     msg: 'Lorem ipsum dolor sit amet against apennine any created, spend loveliest, building stripes.'

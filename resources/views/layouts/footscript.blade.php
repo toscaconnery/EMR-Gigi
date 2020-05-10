@@ -67,3 +67,9 @@
 <!-- main JS
     ============================================ -->
 <script src="theme/js/main.js"></script>
+
+
+<!-- notification JS
+    ============================================ -->
+<script src="theme/js/Lobibox.js"></script>
+<script src="theme/js/notification-active.js"></script>
