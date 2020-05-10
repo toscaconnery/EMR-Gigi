@@ -23,17 +23,17 @@
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    <span class="admin-name">Monday, 20 April</span>
+                                    <span class="admin-name top-zero">Monday, 20 April</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    <span class="admin-name">Siloam Hospitals Lippo Village</span>
+                                    <span class="admin-name top-zero">Siloam Hospitals Lippo Village</span>
                                 </a>
                             </li>
                             <li class="nav-item" style="margin-right: 10px;">
                                 <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                    <span class="admin-name">drg. Monica Santosa, SpKGA</span>
+                                    <span class="admin-name top-zero">drg. Monica Santosa, SpKGA</span>
                                     <span class="author-project-icon adminpro-icon adminpro-down-arrow"></span>
                                 </a>
                                 <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX">
