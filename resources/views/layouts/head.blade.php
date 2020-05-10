@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="theme/css/bootstrap.min.css">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" href="theme/css/font-awesome.min.css">
+    {{-- <link rel="stylesheet" href="theme/css/font-awesome.min.css"> --}}
+    <script src="https://kit.fontawesome.com/2e53fa6365.js" crossorigin="anonymous"></script>
     <!-- adminpro icon CSS
 		============================================ -->
     <link rel="stylesheet" href="theme/css/adminpro-custon-icon.css">

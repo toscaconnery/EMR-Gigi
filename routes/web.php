@@ -19,10 +19,12 @@ Route::get('/', function () {
 
 Route::get('list-appointment', 'AppointmentController@listAppointment');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('patient-dashboard', 'PatientController@patientDashboard');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
