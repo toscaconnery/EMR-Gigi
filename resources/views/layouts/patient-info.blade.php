@@ -47,65 +47,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-lg-5 col-md-3 col-sm-3 col-xs-3">
-                                        <label>MR No. or patient name</label>
-                                        <input type="email" class="form-control" placeholder="MR or patient name">
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                        <label>MR Status</label>
-                                        <select class="form-control">
-                                            <option value="">All</option>
-                                            <option value="">DEF</option>
-                                            <option value="">GHI</option>
-                                        </select>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="col-lg-5">
-                            <ul class="breadcome-menu">
-                                <li class="mr-10">
-                                    <div class="stack">
-                                        <div>
-                                            <span class="btn btn-custon-rounded-three btn-gray f-12">Patient Total</span>
-                                        </div>
-                                        <div >
-                                            <h3>2</h3>
-                                        </div>
-                                    <div>
-                                </li>
-                                <li class="mr-15">
-                                    <div style="" class="stack">
-                                        <div>
-                                            <span class="btn btn-custon-rounded-three btn-primary f-12">Check In</span>
-                                        </div>
-                                        <div>
-                                            <h3>2</h3>
-                                        </div>
-                                    <div>
-                                </li>
-                                <li class="mr-15">
-                                    <div style="" class="stack">
-                                        <div>
-                                            <span class="btn btn-custon-rounded-three btn-success f-12">Submit</span>
-                                        </div>
-                                        <div>
-                                            <h3>2</h3>
-                                        </div>
-                                    <div>
-                                </li>
-                                <li class="mr-15">
-                                    <div style="" class="stack">
-                                        <div>
-                                            <span class="btn btn-custon-rounded-three btn-danger f-12">Cancel</span>
-                                        </div>
-                                        <div>
-                                            <h3>2</h3>
-                                        </div>
-                                    <div>
-                                </li>
-                            </ul>
-                        </div> --}}
                     </div>
                 </div>
             </div>

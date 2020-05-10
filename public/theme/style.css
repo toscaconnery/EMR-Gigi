@@ -4146,6 +4146,10 @@ ul.breadcome-menu {
 	text-align: center;
 }
 
+.td-left {
+	text-align: left;
+}
+
 .tr-green td {
 	background-color: #81fc85 !important;
 }
