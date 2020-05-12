@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="col-lg-5 col-md-3 col-sm-3 col-xs-3">
                                         <label>MR No. or patient name</label>
-                                        <input type="email" class="form-control" placeholder="MR or patient name">
+                                        <input type="email" class="form-control br-5" placeholder="MR or patient name">
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                         <label>MR Status</label>

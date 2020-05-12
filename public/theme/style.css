@@ -4208,8 +4208,8 @@ ul.breadcome-menu {
 	/* float: right; */
 }
 
-.row .pl-55 {
-	padding-left: 55px !important;
+.row .pl-35 {
+	padding-left: 35px !important;
 }
 
 .center-horizon {
@@ -4219,7 +4219,7 @@ ul.breadcome-menu {
 .patient-image {
 	margin: 10px;
 	display: block !important;
-	width: 100% !important;
+	width: 80% !important;
 	transform: scale(2);
 }
 
@@ -4305,5 +4305,9 @@ ul.breadcome-menu {
 	margin-left: 3px;
 	margin-right: 3px;
 	box-sizing: border-box;
+}
+
+.br-5 {
+	border-radius: 5px !important;
 }
 

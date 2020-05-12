@@ -12,7 +12,7 @@
                                             <img src="theme/img/message/3.jpg" class="patient-image" alt="">
                                         </div>
                                     </div>
-                                    <div class="col-lg-11 pl-55" >
+                                    <div class="col-lg-11 pl-35" >
                                         <div class="inline">
                                             <h5><b>ALODIA NESYA BRILIANE</b></h5>
                                             <h5 class="ml-10 gray">|</h5>
