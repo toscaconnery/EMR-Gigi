@@ -31,8 +31,8 @@
                                         <label>MR Status</label>
                                         <select class="form-control">
                                             <option value="">All</option>
-                                            <option value="">DEF</option>
-                                            <option value="">GHI</option>
+                                            <option value="">Check In</option>
+                                            <option value="">Submit</option>
                                         </select>
                                     </div>
                                 </div>
