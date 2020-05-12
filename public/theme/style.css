@@ -4194,6 +4194,20 @@ ul.breadcome-menu {
 	margin-bottom: 0 !important;
 }
 
+.mb-1 {
+	margin-bottom: 1em;
+}
+
+.mb-05 {
+	margin-bottom: 0.5em;
+}
+
+.data-value {
+	font-weight: 700;
+	margin-left: 10px;
+	/* float: right; */
+}
+
 .row .pl-55 {
 	padding-left: 55px !important;
 }
@@ -4236,4 +4250,28 @@ ul.breadcome-menu {
 
 .card-procedure-result {
 	color: #16BAC2;
+}
+
+.admission-history-head {
+	/* width: 12.5%; */
+	width: 7.69%;
+	text-align: center !important;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}
+
+.admission-history-content {
+	background: red;
+	border: 1px solid black;
+	height: 100%;
+	width: 25%;
+	/* box-sizing:border-box; */
+	box-sizing: border-box;
+}
+
+.admission-history-spec {
+	margin:0;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 4px !important;
 }

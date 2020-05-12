@@ -15,11 +15,11 @@
                                             </label>
                                             <label for="radio-ed" style="margin-left: 15px;">
                                                 <input class="pull-left" type="radio"  id="radio-ed" name="pasien-list-status" value="ed" disabled>
-                                                <span class="ml-10">ED</span>
+                                                <span class="ml-10 gray">ED</span>
                                             </label>
                                             <label for="radio-ipd" style="margin-left: 15px;">
                                                 <input class="pull-left" type="radio" id="radio-ipd" name="pasien-list-status" value="ipd" disabled>
-                                                <span class="ml-10">IPD</span>
+                                                <span class="ml-10 gray">IPD</span>
                                             </label>
                                         </div>
                                     </div>

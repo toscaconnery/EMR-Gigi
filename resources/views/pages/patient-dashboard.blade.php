@@ -76,7 +76,7 @@
             </div>
          
 
-            <!-- Patient List start -->
+            <!-- 5 Latest SOAP -->
             <div class="col-lg-12 mg-b-30">
                 <div class="sparkline10-list shadow-reset mg-t-10">
                     <div class="sparkline10-hd">
@@ -92,10 +92,10 @@
                                         <th style="width: 12.5%">Date</th>
                                         <th style="width: 12.5%">Doctor</th>
                                         <th style="width: 12.5%">S</th>
-                                        <th style="width: 12.5%">O</th>
+                                        <th style="width: 17.5%">O</th>
                                         <th style="width: 12.5%">A</th>
                                         <th style="width: 12.5%">P</th>
-                                        <th style="width: 25%">Prescription</th>
+                                        <th style="width: 20%">Prescription</th>
                                     </tr>
                                 </thead>
                                 <?php
@@ -152,10 +152,27 @@
                                             <div>{{ $s[$x]['c_complaint'] }}</div>
                                             <div>{{ $s[$x]['anamnesis'] }}</div>
                                         </td>
-                                        <td>143</td>
-                                        <td>143</td>
-                                        <td>143</td>
-                                        <td>143</td>
+                                        <td style="font-size: 13px">
+                                            <div class="mb-1">Gigi 22 ada bukal</div>
+                                            <div class="mb-05">Vital Sign</div>
+                                            <div class="mb-05">Blood Pressure: <span class="data-value">80/120 mmHg</span></div>
+                                            <div class="mb-05">Pulse Rate: <span class="data-value">60 X/mnt</span></div>
+                                            <div class="mb-05">Respiratory Rate: <span class="data-value">60 X/mnt</span></div>
+                                            <div class="mb-05">SpO2: <span class="data-value">80%</span></div>
+                                            <div class="mb-05">Temperature: <span class="data-value">28°C</span></div>
+                                            <div class="mb-05">Weight: <span class="data-value">78kg</span></div>
+                                            <div class="mb-05">Height: <span class="data-value">170cm</span></div>
+                                            <div class="mb-05">Head Circumference: <span class="data-value">40cm</span></div>
+                                        </td>
+                                        <td>
+                                            <div>75: GP</div>
+                                            <div>85: GP + abses</div>
+                                        </td>
+                                        <td>
+                                            <div>75 pengisian +GIC</div>
+                                            <div>85: Fc+ts</div>
+                                        </td>
+                                        <td></td>
                                     </tr>
                                     @endfor
 
@@ -165,58 +182,130 @@
                     </div>
                 </div>
             </div>
-            <!-- Patient List end -->
+            <!-- 5 Latest SOAP -->
 
-            <!-- Submited Patient start -->
-            {{-- <div class="col-lg-12 mg-b-30">
-                <div class="sparkline10-list shadow-reset mg-t-30">
+            <!-- Admission History -->
+            <div class="col-lg-12 mg-b-30">
+                <div class="sparkline10-list shadow-reset mg-t-10">
                     <div class="sparkline10-hd">
                         <div class="main-sparkline10-hd">
-                            <h1>SUBMITTED PATIENT</h1>
+                            <h1 style="color:#F29200"><b>Admission History</b></h1>
                         </div>
                     </div>
-                    <div class="sparkline10-graph">
+                    <div class="sparkline10-graph" style="padding: 0;">
                         <div class="static-table-list">
                             <table class="table border-table tablenormal">
                                 <thead>
-                                    <tr>
-                                        <th style="width: 8%">Time Slot</th>
-                                        <th style="width: 5%">Visit No</th>
-                                        <th style="width: 17%">Patient Name</th>
-                                        <th style="width: 5%"></th>
-                                        <th style="width: 7%"></th>
-                                        <th style="width: 8%">Age</th>
-                                        <th style="width: 4%">Sex</th>
-                                        <th style="width: 10%">MR No</th>
-                                        <th style="width: 21%">Payer</th>
-                                        <th style="width: 7%">Status</th>
-                                        <th style="width: 8%">Time</th>
+                                    <tr style="color: #0202bd">
+                                        <th class="admission-history-head">Specialities</th>
+                                        <th class="admission-history-head" colspan="4">January</th>
+                                        <th class="admission-history-head" colspan="4">February</th>
+                                        <th class="admission-history-head" colspan="4">March</th>
+                                        <th class="admission-history-head" colspan="4">April</th>
+                                        <th class="admission-history-head" colspan="4">May</th>
+                                        <th class="admission-history-head" colspan="4">June</th>
+                                        <th class="admission-history-head" colspan="4">July</th>
+                                        <th class="admission-history-head" colspan="4">August</th>
+                                        <th class="admission-history-head" colspan="4">September</th>
+                                        <th class="admission-history-head" colspan="4">October</th>
+                                        <th class="admission-history-head" colspan="4">November</th>
+                                        <th class="admission-history-head" colspan="4">December</th>
                                     </tr>
                                 </thead>
+                        
                                 <tbody>
-                                    @for ($x = 1; $x < 5; $x++)
-                                    <tr class="tr-green">
-                                        <td class="td-mid">00:00 - 00:00</td>
-                                        <td>143</td>
-                                        <td>Roshid</td>
-                                        <td class="td-mid ">
-                                            <button type="button" class="btn btn-custon-rounded-four btn-primary btn-sm" disabled>Call</button>
-                                        </td>
-                                        <td class="td-mid" style="padding-left: 5px;">
-                                            <div class="support-list-img td-mid">
-                                                <a href="#"><img src="theme/img/notification/1.jpg" alt="">
-                                                </a>
-                                                <a href="#"><img src="theme/img/notification/1.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td class="td-mid">19Y 11M 22D</td>
-                                        <td class="td-mid">F</td>
-                                        <td>LCODESS</td>
-                                        <td>ADM-ASURANSI SOMPO JAPAN NIPPONKOA INDONESIA</td>
-                                        <td>Submit</td>
-                                        <td class="td-mid">00:00 - 00:00</td>
+                                    <tr>
+                                        <td class="center-horizon"><b>OPD</b></td>
+                                        <td colspan="4"></td>
+                                        <td colspan="4"></td>
+                                        <td colspan="4"></td>
+                                        <td colspan="4"></td>
+                                        <td colspan="4"></td>
+                                        <td colspan="4"></td>
+                                        <td colspan="4"></td>
+                                        <td colspan="4"></td>
+                                        <td colspan="4"></td>
+                                        <td colspan="4"></td>
+                                        <td colspan="4"></td>
+                                        <td colspan="4"></td>
                                     </tr>
+                                    @for ($x = 1; $x <= 5; $x++)
+                                        <tr style="height: 20px;">
+                                            <td class="admission-history-spec">Dentistry</td>
+
+                                            {{-- January --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                            {{-- February --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                            {{-- March --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                            {{-- April --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                            {{-- May --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                            {{-- June --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                            {{-- July --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                            {{-- August --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                            {{-- September --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                            {{-- October --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                            {{-- November --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                            {{-- December --}}
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
                                     @endfor
 
                                 </tbody>
@@ -224,8 +313,9 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
-            <!-- Submited Patient end -->
+            </div>
+            <!-- Admission History -->
+
             
             <div class="feed-mesage-project-area">
                 <div class="container-fluid">
