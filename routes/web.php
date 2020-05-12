@@ -13,13 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', 'AppointmentController@redirect');
 
 Route::get('list-appointment', 'AppointmentController@listAppointment');
 
 Route::get('patient-dashboard', 'PatientController@patientDashboard');
+
+Route::get('soap', 'SoapController@form');
 
 Auth::routes();
 
