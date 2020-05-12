@@ -189,7 +189,17 @@
                 <div class="sparkline10-list shadow-reset mg-t-10">
                     <div class="sparkline10-hd">
                         <div class="main-sparkline10-hd">
-                            <h1 style="color:#F29200"><b>Admission History</b></h1>
+                            <div class="inline">
+
+                                <h1 style="color:#F29200"><b><i class="fas fa-calendar-alt"></i> Admission History</b></h1>
+                                <div class="admission-history-year">
+                                    <div class="inline" style="padding: 4px;">
+                                        <button class="col-lg-2 ah-year ah-year-edge"><</button>
+                                        <div id="selected-admission-history-year" class="col-lg-8 ah-year" style="width: 100px;">2020</div>
+                                        <button class="col-lg-2 ah-year ah-year-edge">></button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="sparkline10-graph" style="padding: 0;">
