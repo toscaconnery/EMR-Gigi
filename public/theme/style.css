@@ -4217,10 +4217,14 @@ ul.breadcome-menu {
 }
 
 .patient-image {
+	max-width: 80px;
+	max-height: 80px;
+	width: 80px !important;
+	height: 80px !important;
 	margin: 10px;
 	display: block !important;
-	width: 80% !important;
-	transform: scale(2);
+	/* width: 80% !important; */
+	/* transform: scale(2); */
 }
 
 .inline {

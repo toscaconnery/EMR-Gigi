@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <div class="breadcome-list map-mg-t-40-gl shadow-reset">
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                             <div class="form-group-inner mb-0-i">
                                 <div class="row">
                                     <div class="col-lg-1">
