@@ -8,6 +8,6 @@ class SoapController extends Controller
 {
     public function form()
     {
-        return view('pages.patient-dashboard');
+        return view('pages.soap');
     }
 }
