@@ -4315,3 +4315,35 @@ ul.breadcome-menu {
 	border-radius: 5px !important;
 }
 
+.hospital-logo {
+	max-width: 47px;
+	max-height: 43px;
+	width: 47px !important;
+	height: 43px !important;
+	position: sticky;
+	z-index: 1000;
+	display: block !important;
+	border-radius: 0 !important;
+}
+
+.hospital-logo-long {
+	max-width: 150px;
+	max-height: 46.59px;
+	width: 150px !important;
+	height: 46.59px !important;
+	position: sticky;
+	z-index: 1001;
+	display: none !important;
+}
+
+nav.active img.hospital-logo {
+	display: none !important;
+}
+
+nav.active img.hospital-logo-long {
+	width: 150px !important;
+	height: 46.59px !important;
+	display: block !important;
+	border-radius: 0;
+	margin-left: 0 !important;
+}

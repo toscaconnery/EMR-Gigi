@@ -1,11 +1,12 @@
 <div class="left-sidebar-pro">
     <nav id="sidebar" style="width: 71px;">
         <div class="sidebar-header">
-            <a href="#"><img src="theme/img/message/1.jpg" alt="" />
+            <a href="/">
+                <img src="{{url('')}}/image/logo-square.png" alt="" class="hospital-logo">
             </a>
-            <h3 style="font-size: 1.2em;">Rise EMR</h3>
-            <p>RS. ABCD</p>
-            <strong>RS </strong>
+            <a href="/">
+                <img src="{{url('')}}/image/logo-long.png" alt="" class="hospital-logo-long">
+            </a>
         </div>
         <div class="left-custom-menu-adp-wrap">
             <ul class="nav navbar-nav left-sidebar-menu-pro">

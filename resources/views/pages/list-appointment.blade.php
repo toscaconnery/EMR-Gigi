@@ -53,6 +53,10 @@
                     </div>
                 </div>
             </div>
+
+            {{-- <div style="width: 500px; height: 500px; background-color: red;">
+                <img src="{{url('')}}/image/logo-square.png" alt="" class="hospital-logox" >
+            </div> --}}
          
 
             <!-- Patient List start -->
