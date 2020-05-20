@@ -94,16 +94,20 @@
                             <table class="table border-table tablenormal">
                                 <tbody>
                                     <tr>
-                                        <div class="row" style="border: 1px solid black">
-                                            <div class="col-lg-3">
-                                                <div>S []</div>
+                                        <div class="row" style="border: 1px solid black;">
+                                            <div class="col-lg-3 pt-10">
+                                                <div class="inline">
+                                                    <h4><b class="required-label">S</b></h4>[]
+                                                </div>
                                                 <div>Chief Complaint:</div>
                                                 <div>
                                                     <textarea name="" id="" style="width: 100%; resize: none;" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-9">
-                                                <div>[]</div>
+                                            <div class="col-lg-9 pt-20">
+                                                <div class="inline">
+                                                    <h4><b class="required-label-hide"></b></h4>[]
+                                                </div>
                                                 <div>Anamnesis:</div>
                                                 <div class="row">
                                                     <div style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
@@ -138,6 +142,165 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+
+                                    <tr>
+                                        <div class="row" style="border: 1px solid black">
+                                            <div class="col-lg-12 pt-10">
+                                                <div class="inline">
+                                                    <h4><b class="required-label">O</b></h4>[]
+                                                </div>
+                                                <div>
+                                                    <textarea name="" id="" style="width: 100%; resize: none;" cols="30" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+
+                                    <tr>
+                                        <div class="row" style="border: 1px solid black">
+                                            <div class="col-lg-12">
+                                                <div class="inline pt-10 pb-10">
+                                                    <h4><b>Vital Sign</b></h4>
+                                                    <div class="ml-20">
+                                                        <div class="small-form-label">Blood Pressure</div>
+                                                        <div class="small-form">
+                                                            <input type="text" class=" br-5"> / <input type="text" class="br-5"> mmHg
+                                                        </div>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <div class="small-form-label">Pulse Rate</div>
+                                                        <div class="small-form">
+                                                            <input type="text" class="br-5"> X/mnt
+                                                        </div>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <div class="small-form-label">Respiratory Rate</div>
+                                                        <div class="small-form">
+                                                            <input type="text" class="br-5"> X/mnt
+                                                        </div>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <div class="small-form-label">SpO2</div>
+                                                        <div class="small-form">
+                                                            <input type="text" class="br-5"> %
+                                                        </div>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <div class="small-form-label">Temperature</div>
+                                                        <div class="small-form">
+                                                            <input type="text" class="br-5"> °C
+                                                        </div>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <div class="small-form-label">Weight</div>
+                                                        <div class="small-form">
+                                                            <input type="text" class="br-5"> kg
+                                                        </div>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <div class="small-form-label">Height</div>
+                                                        <div class="small-form">
+                                                            <input type="text" class="br-5"> cm
+                                                        </div>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <div class="small-form-label">Head Circumference</div>
+                                                        <div class="small-form">
+                                                            <input type="text" class="br-5"> cm
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+
+                                    <tr>
+                                        <div class="row" style="border: 1px solid black">
+                                            <div class="col-lg-12">
+                                                <div class="inline pt-10 pb-10">
+                                                    <h4><b class="required-label">A</b></h4>
+                                                    <div class="ml-20 dark-gray">
+                                                        <div class="inline">
+                                                            <h4><b>ICD 10</b></h4>
+                                                            <div class="small-form">
+                                                                <select name="" id="" class="br-5 ml-10" style="width: 180px;">
+                                                                    <option value="">ABC</option>
+                                                                    <option value="">DEF</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ml-80">
+                                                        <span class="btn btn-custon-rounded-three btn-gray f-12 small-tag">HBS</span>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <span class="btn btn-custon-rounded-three btn-gray f-12 small-tag">HCS</span>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <span class="btn btn-custon-rounded-three btn-gray f-12 small-tag">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <span class="btn btn-custon-rounded-three btn-gray f-12 small-tag">HAD</span>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <span class="btn btn-custon-rounded-three btn-gray f-12 small-tag">HCS</span>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <span class="btn btn-custon-rounded-three btn-gray f-12 small-tag">RHN</span>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <span class="btn btn-custon-rounded-three btn-gray f-12 small-tag">MRS</span>
+                                                    </div>
+                                                    <div class="ml-20">
+                                                        <span class="btn btn-custon-rounded-three btn-gray f-12 small-tag">CV&nbsp;&nbsp;&nbsp;</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="ml-0" style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
+                                                    <textarea name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+
+
+                                    <tr>
+                                        <div class="row" style="border: 1px solid black">
+                                            <div class="col-lg-12">
+                                                <div class="inline pt-10 pb-10">
+                                                    <h4><b class="required-label">P</b></h4>
+                                                    <div class="ml-20 dark-gray">
+                                                        <div class="inline">
+                                                            <div>Quick scroll to : </div>
+                                                            <span class="btn btn-gray ml-10">Lab/Rad</span>
+                                                            <span class="btn btn-gray ml-10">Prescription</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="ml-0" style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
+                                                    <textarea name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+
+                                    <tr>
+                                        <div class="row" style="border: 1px solid black">
+                                            <div class="col-lg-12">
+                                                <div class="inline pt-10 pb-10">
+                                                    <h4><b class="">Procedure Result</b></h4>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="ml-0" style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
+                                                    <textarea name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
                                         </div>

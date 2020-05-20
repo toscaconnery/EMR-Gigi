@@ -4101,6 +4101,10 @@ ul.breadcome-menu {
 	font-size:12px;
 }
 
+.ml-80 {
+	margin-left: 80px !important;
+}
+
 .ml-50 {
 	margin-left: 50px !important;
 }
@@ -4146,7 +4150,11 @@ ul.breadcome-menu {
 }
 
 .ml-10 {
-	margin-left: 10px;
+	margin-left: 10px !important;
+}
+
+.ml-0 {
+	margin-left: 0 !important;
 }
 
 .stack {
@@ -4238,6 +4246,10 @@ ul.breadcome-menu {
 
 .gray {
 	color: rgb(202, 202, 202) !important;
+}
+
+.dark-gray {
+	color: rgb(122, 121, 121) !important;
 }
 
 .card-reminder {
@@ -4379,16 +4391,16 @@ nav.active img.hospital-logo-long {
 	padding-top: 15px !important;
 }
 
+.pt-20 {
+	padding-top: 20px !important;
+}
+
 .pr-40 {
 	padding-right: 40px !important;
 }
 
 .pb-10 {
 	padding-bottom: 10px;
-}
-
-.ml-0 {
-	margin-left: 0;
 }
 
 .soap-s-1 {
@@ -4401,4 +4413,34 @@ nav.active img.hospital-logo-long {
 	width: 70%;
 	background-color: gray;
 	box-sizing: border-box;
+}
+
+.small-form input {
+	width: 70px;
+	border: 1px solid gray;
+	color: black;
+}
+
+.small-form {
+	color: rgb(148, 148, 148) !important;
+}
+
+.small-form input {
+	height: 26px;
+	padding: 5px;
+}
+
+.small-form-label {
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.required-label::after {
+	content: '*';
+	color: red;
+}
+
+.small-tag {
+	padding: 3px 6px 3px 6px;
+	width: 40px;
 }
