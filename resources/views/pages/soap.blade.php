@@ -89,19 +89,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sparkline10-graph">
+                    <div class="sparkline10-graph" style="padding-left: 29px; padding-right: 29px;">
                         <div class="static-table-list">
                             <table class="table border-table tablenormal">
                                 <tbody>
                                     <tr>
-                                        <div class="row" style="border: 1px solid black;">
+                                        <div class="row" style="border: 1px solid lightgray;">
                                             <div class="col-lg-3 pt-10">
                                                 <div class="inline">
                                                     <h4><b class="required-label">S</b></h4>[]
                                                 </div>
                                                 <div>Chief Complaint:</div>
                                                 <div>
-                                                    <textarea name="" id="" style="width: 100%; resize: none;" cols="30" rows="5"></textarea>
+                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize: none;" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-lg-9 pt-20">
@@ -111,9 +111,9 @@
                                                 <div>Anamnesis:</div>
                                                 <div class="row">
                                                     <div style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
-                                                        <textarea name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
+                                                        <textarea class="br-5" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
                                                     </div>
-                                                    <div style="width: 29%; box-sizing: border-box; position: absolute; top: 0; right: 0; border-bottom-left-radius: 12px; padding: 10px; padding-left: 20px; border: 1px solid gray">
+                                                    <div style="width: 29%; box-sizing: border-box; position: absolute; top: 0; right: 0; border-bottom-left-radius: 12px; padding: 10px; padding-left: 20px; border: 1px solid lightgray">
                                                         <div class="row">
                                                             <div class="col-lg-6 mg-t-10"><b>Is pregnant</b></div>
                                                             <div class="bt-df-checkbox col-lg-6">
@@ -148,20 +148,20 @@
                                     </tr>
 
                                     <tr>
-                                        <div class="row" style="border: 1px solid black">
-                                            <div class="col-lg-12 pt-10">
+                                        <div class="row" style="border: 1px solid lightgray">
+                                            <div class="col-lg-12 pt-10 pb-10">
                                                 <div class="inline">
                                                     <h4><b class="required-label">O</b></h4>[]
                                                 </div>
                                                 <div>
-                                                    <textarea name="" id="" style="width: 100%; resize: none;" cols="30" rows="5"></textarea>
+                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize: none;" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                     </tr>
 
                                     <tr>
-                                        <div class="row" style="border: 1px solid black">
+                                        <div class="row" style="border: 1px solid lightgray">
                                             <div class="col-lg-12">
                                                 <div class="inline pt-10 pb-10">
                                                     <h4><b>Vital Sign</b></h4>
@@ -219,7 +219,7 @@
                                     </tr>
 
                                     <tr>
-                                        <div class="row" style="border: 1px solid black">
+                                        <div class="row" style="border: 1px solid lightgray">
                                             <div class="col-lg-12">
                                                 <div class="inline pt-10 pb-10">
                                                     <h4><b class="required-label">A</b></h4>
@@ -262,7 +262,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="ml-0" style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
-                                                    <textarea name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
+                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -270,7 +270,7 @@
 
 
                                     <tr>
-                                        <div class="row" style="border: 1px solid black">
+                                        <div class="row" style="border: 1px solid lightgray">
                                             <div class="col-lg-12">
                                                 <div class="inline pt-10 pb-10">
                                                     <h4><b class="required-label">P</b></h4>
@@ -285,14 +285,14 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="ml-0" style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
-                                                    <textarea name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
+                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                     </tr>
 
                                     <tr>
-                                        <div class="row" style="border: 1px solid black">
+                                        <div class="row" style="border: 1px solid lightgray">
                                             <div class="col-lg-12">
                                                 <div class="inline pt-10 pb-10">
                                                     <h4><b class="">Procedure Result</b></h4>
@@ -300,7 +300,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="ml-0" style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
-                                                    <textarea name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
+                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
                                         </div>
