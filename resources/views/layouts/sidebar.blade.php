@@ -12,27 +12,37 @@
             <ul class="nav navbar-nav left-sidebar-menu-pro">
                 <li class="nav-item">
                     <a href="{{url('list-appointment')}}" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                        <i class="fa big-icon fa-list"></i> <span class="mini-dn"> Patient List</span> <span class="indicator-right-menu mini-dn"></span>
+                        <i class="fa big-icon">
+                            <img src="image/list_icon.svg" class="fa big-icon image-icon" alt="Kiwi standing on oval">
+                        </i> <span class="mini-dn"> Patient List</span> <span class="indicator-right-menu mini-dn"></span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{url('patient-dashboard')}}" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                        <i class="fas big-icon fa-address-card"></i> <span class="mini-dn"> Patient Dashboard</span> <span class="indicator-right-menu mini-dn"></span>
+                        <i class="fa big-icon">
+                            <img src="image/patient_icon.svg" class="fa big-icon image-icon" alt="Kiwi standing on oval">
+                        </i> <span class="mini-dn"> Patient Dashboard</span> <span class="indicator-right-menu mini-dn"></span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{url('soap')}}" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                        <i class="fas big-icon fa-edit"></i> <span class="mini-dn"> SOAP</span> <span class="indicator-right-menu mini-dn"></span>
+                        <i class="fa big-icon">
+                            <img src="image/soap_icon.svg" class="fa big-icon image-icon" alt="Kiwi standing on oval">
+                        </i> <span class="mini-dn"> SOAP</span> <span class="indicator-right-menu mini-dn"></span>
                     </a>
                 </li>
                 <li class="nav-item" id="basicInfoSedangDibuat2">
                     <a href="#" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                        <i class="fas big-icon fa-history"></i> <span class="mini-dn"> Patient History</span> <span class="indicator-right-menu mini-dn"></span>
+                        <i class="fa big-icon">
+                            <img src="image/history_icon.svg" class="fa big-icon image-icon" alt="Kiwi standing on oval">
+                        </i> <span class="mini-dn"> Patient History</span> <span class="indicator-right-menu mini-dn"></span>
                     </a>
                 </li>
                 <li class="nav-item" id="basicInfoSedangDibuat3">
                     <a href="#" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                        <i class="fas big-icon fa-pills"></i> <span class="mini-dn"> Medication History</span> <span class="indicator-right-menu mini-dn"></span>
+                        <i class="fa big-icon">
+                            <img src="image/medication_icon.svg" class="fa big-icon image-icon" alt="Kiwi standing on oval">
+                        </i> <span class="mini-dn"> Medication History</span> <span class="indicator-right-menu mini-dn"></span>
                     </a>
                 </li>
                 

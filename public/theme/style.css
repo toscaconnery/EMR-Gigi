@@ -4440,7 +4440,63 @@ nav.active img.hospital-logo-long {
 	color: red;
 }
 
+.required-label-hide {
+	color: white;
+}
+
 .small-tag {
 	padding: 3px 6px 3px 6px;
 	width: 40px;
+}
+
+.gray-b {
+	border: 1px solid lightgray;
+	box-sizing: border-box;
+}
+
+.title-dropdown {
+	position: absolute;
+	right: 0px;
+	margin-right: 10px;
+	width: 150px;
+}
+
+.thick-label {
+	font-weight: 600;
+}
+
+.hint-label {
+	font-weight: 500;
+	color: gray;
+}
+
+.scroll-button {
+	height: 28px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+
+}
+
+.mt-10 {
+	margin-top: 10px;
+}
+
+.mb-10 {
+	margin-bottom: 10px;
+}
+
+.ml-n-30 {
+	margin-left: -30px;
+}
+
+.mr-n-30 {
+	margin-right: -30px;
+}
+
+#sidebar.active .image-icon {
+	height: 14px;
+}
+
+.p-none {
+	padding: 0px !important;
 }
