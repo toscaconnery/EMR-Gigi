@@ -138,14 +138,14 @@
                                             <div class="col-lg-3">
                                                 <div class="thick-label">Chief Complaint:</div>
                                                 <div>
-                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize: none;" cols="30" rows="5"></textarea>
+                                                    <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize: none;" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-lg-8">
                                                 <div class="thick-label">Anamnesis:</div>
                                                 <div class="row">
                                                     <div style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
-                                                        <textarea class="br-5" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
+                                                        <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,7 +159,7 @@
                                                     <h4><b class="required-label">O</b></h4>
                                                 </div>
                                                 <div>
-                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize: none;" cols="30" rows="5"></textarea>
+                                                    <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize: none;" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -267,7 +267,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="ml-0" style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
-                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
+                                                    <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -290,7 +290,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="ml-0" style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
-                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
+                                                    <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -305,7 +305,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="ml-0" style="width: 68%; box-sizing: border-box; margin-left: 16px; margin-bottom: 16px">
-                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
+                                                    <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize:none" cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -360,14 +360,14 @@
                                             <div class="col-lg-12 gray-b pt-10 pb-10">
                                                 <div class="thick-label">Others<span class="hint-label"> (Misal: order diagnostik atau order lab/radiology yang tidak ada dalam form</span></div>
                                                 <div>
-                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize: none;" cols="30" rows="5" placeholder="Type here..."></textarea>
+                                                    <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize: none;" cols="30" rows="5" placeholder="Type here..."></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-12 gray-b pt-10 pb-10">
                                                 <div class="thick-label">Clinical diagnosis</div>
                                                 <div>
-                                                    <textarea class="br-5" name="" id="" style="width: 100%; resize: none;" cols="30" rows="5" placeholder="Type here..."></textarea>
+                                                    <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize: none;" cols="30" rows="5" placeholder="Type here..."></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -398,19 +398,19 @@
                                                 <div class="col-lg-4 pt-10 pb-10">
                                                     <div class="thick-label">Drugs</div>
                                                     <div>
-                                                        <textarea class="br-5" name="" id="" style="width: 100%; resize: none;" cols="30" rows="3" placeholder="No Drugs Allergy"></textarea>
+                                                        <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize: none;" cols="30" rows="3" placeholder="No Drugs Allergy"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 pt-10 pb-10 pl-0">
                                                     <div class="thick-label">Foods</div>
                                                     <div>
-                                                        <textarea class="br-5" name="" id="" style="width: 100%; resize: none;" cols="30" rows="3" placeholder="No Food Allergy"></textarea>
+                                                        <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize: none;" cols="30" rows="3" placeholder="No Food Allergy"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 pt-10 pb-10 pl-0">
                                                     <div class="thick-label">Others</div>
                                                     <div>
-                                                        <textarea class="br-5" name="" id="" style="width: 100%; resize: none;" cols="30" rows="3" placeholder="No other allergy"></textarea>
+                                                        <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize: none;" cols="30" rows="3" placeholder="No other allergy"></textarea>
                                                     </div>
                                                 </div>
 
@@ -418,7 +418,7 @@
                                             <div class="col-lg-6 gray-b p-none">
                                                 <div class="col-lg-12 pt-10 pb-10">
                                                     <div>
-                                                        <textarea class="br-5" name="" id="" style="width: 100%; resize: none;" cols="30" rows="4" placeholder="No Routine Medication"></textarea>
+                                                        <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize: none;" cols="30" rows="4" placeholder="No Routine Medication"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
