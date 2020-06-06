@@ -25,6 +25,8 @@ Route::get('patient-dashboard', 'PatientController@patientDashboard');
 
 Route::get('soap', 'SoapController@form');
 
+Route::get('patient-history', 'PatientController@patientHistory');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

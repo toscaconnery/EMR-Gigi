@@ -4,9 +4,6 @@
 @include('layouts.head')
 
 <body class="materialdesign">
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
     <!-- Header top area start-->
     <div class="wrapper-pro">
         @include('layouts/sidebar') 
@@ -21,7 +18,6 @@
             @include('layouts/filter-info')
             <!-- Breadcome End-->
 
-            
             <div class="pull-right">
                 <div class="sparkline10-list">
                     <div class="row" style="width: 268px;">

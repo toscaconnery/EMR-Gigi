@@ -31,8 +31,8 @@
                         </i> <span class="mini-dn"> SOAP</span> <span class="indicator-right-menu mini-dn"></span>
                     </a>
                 </li>
-                <li class="nav-item" id="basicInfoSedangDibuat2">
-                    <a href="#" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                <li class="nav-item">
+                    <a href="{{url('patient-history')}}" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                         <i class="fa big-icon">
                             <img src="image/history_icon.svg" class="fa big-icon image-icon" alt="Kiwi standing on oval">
                         </i> <span class="mini-dn"> Patient History</span> <span class="indicator-right-menu mini-dn"></span>
