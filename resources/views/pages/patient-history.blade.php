@@ -24,7 +24,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="income-dashone-total shadow-reset nt-mg-b-30" style="background-color: #c5c5c5">
                             <div class="inline">
-                                <div class="pt-10 pl-30">
+                                <div class="pt-10 pl-30 pb-10">
                                     <button type="button" class="btn btn-light-gray">Electronic MR</button>
                                 </div>
                                 <div class="pt-10 pl-10">
@@ -32,10 +32,6 @@
                                 </div>
                                 <div class="pt-10 pl-10">
                                     <button type="button" class="btn btn-light-gray">Scanned MR</button>
-                                </div>
-
-                                <div class="pt-10 pl-10 pb-10">
-                                    <button type="button" class="btn btn-light-gray">Hope MR</button>
                                 </div>
                             </div>
                         </div>
