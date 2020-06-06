@@ -4494,7 +4494,10 @@ nav.active img.hospital-logo-long {
 	height: 28px;
 	padding-top: 3px;
 	padding-bottom: 3px;
+}
 
+.mt-6 {
+	margin-top: 6px;
 }
 
 .mt-10 {

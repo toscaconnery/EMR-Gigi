@@ -18,56 +18,16 @@
             @include('layouts/patient-info')
             <!-- Breadcome End-->
 
-            <div class="container-fluid" style="margin-top: -2px;">
-                <div class="row">
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="income-dashone-total shadow-reset nt-mg-b-30" style="background-color: #c5c5c5">
-                            <div class="inline">
-                                <div class="pt-10 pl-30 pb-10">
-                                    <button type="button" class="btn btn-light-gray">Electronic MR</button>
-                                </div>
-                                <div class="pt-10 pl-10">
-                                    <button type="button" class="btn btn-light-gray">Other Unit MR</button>
-                                </div>
-                                <div class="pt-10 pl-10">
-                                    <button type="button" class="btn btn-light-gray">Scanned MR</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="col-lg-12 mg-t-15">
                 <div class="sparkline10-list shadow-reset mg-t-10">
                     <div class="sparkline10-hd">
                         <div class="main-sparkline10-hd">
-                            <h1>PATIENT HISTORY</h1>
+                            <h1><b>Sun, 21 Jun 2019</b></h1>
+                            <span class="f-12">OPA1906230078 | dr. Michael, SpTHT | FULLERTON HEALTH INDONESIA</span>
                             <div class="outline-icon inline">
-                                <label class="mr-10">Filter : </label>
-                                <div class="form-group data-custon-pick mt-n-5" id="data_1">
-                                    <div class="input-group date">
-                                        <span class="input-group-addon" style="display: none"></span>
-                                        <input type="text" class="form-control" value="10/04/2018" style="width: 100px;">
-                                    </div>
-                                </div>
-                                <label class="mr-10 ml-10"> - </label>
-                                <div class="form-group data-custon-pick mt-n-5" id="data_1">
-                                    <div class="input-group date">
-                                        <span class="input-group-addon" style="display: none"></span>
-                                        <input type="text" class="form-control" value="10/04/2018" style="width: 100px;">
-                                    </div>
-                                </div>
-                                <div class="form-group data-custon-pick mt-n-5 ml-10">
+                                <div class="form-group data-custon-pick mt-6 ml-10">
                                     <select name="" id="" class="form-control" style="width: 200px">
-                                        <option value="">All</option>
-                                        <option value="">GHIJKL</option>
-                                    </select>
-                                </div>
-                                <div class="form-group data-custon-pick mt-n-5 ml-10">
-                                    <select name="" id="" class="form-control" style="width: 200px">
-                                        <option value="">Dokter</option>
+                                        <option value="">-- All Items --</option>
                                         <option value="">GHIJKL</option>
                                     </select>
                                 </div>
@@ -139,7 +99,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="feed-mesage-project-area">
                 <div class="container-fluid">
                     <div class="row">
