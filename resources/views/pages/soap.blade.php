@@ -319,7 +319,7 @@
             </div>
             <!-- SOAP -->
 
-            {{-- Laboratory --}}
+            {{--  Allergies, Drugs, And Routine Medication --}}
             <div class="col-lg-9 mg-b-30">
                 <div class="sparkline10-list shadow-reset mg-t-10">
                     <div class="sparkline10-graph" style="padding-left: 29px; padding-right: 29px;">
@@ -380,13 +380,13 @@
                 </div>
 
                 <div class="sparkline10-list shadow-reset mg-t-10">
-                    <div class="sparkline10-hd col-lg-6 pb-10" style="background-color: red; color: white">
+                    <div class="sparkline10-hd col-lg-6" style="background-color: #c43e32; color: white">
                         <h4 class=""> <i class="fas fa-virus"></i> <b>Allergies</b></h4>
                     </div>
-                    <div class="sparkline10-hd col-lg-6 pb-10" style="background-color: #7b88ff; color: white">
+                    <div class="sparkline10-hd col-lg-6" style="background-color: #7b88ff; color: white">
                         <h4 class=""> <i class="fa fa-pills"></i> <b>Current/Routine Medication</b></h4>
                     </div>
-                    <div class="sparkline10-graph" style="padding-left: 29px; padding-right: 29px;">
+                    <div class="sparkline10-graph" style="padding-left: 29px; padding-right: 29px; padding-bottom: 0px;">
                         <div class="static-table-list">
                             <table class="table border-table tablenormal">
                                 <tbody>
@@ -431,9 +431,151 @@
                             </table>
                         </div>
                     </div>
+                    <div class="sparkline10-hd col-lg-3 pb-10" style="background-color: #f88705; color: white">
+                        <h4 class=""> <i class="fas fa-prescription"></i> <b>Drugs Prescription</b></h4>
+                    </div>
+                    <div class="sparkline10-hd col-lg-9 pb-10" style="background-color: #fff; color: white">
+                        <div class="i-checks c-black pull-right">
+                            <label class="mr-30"><u>Save As Order Set</u></label>
+                            <label> <input type="checkbox" class="mr-5">Drugs Outside Formulation </label>
+                        </div>
+                    </div>
+                    <div class="sparkline10-graph" style="padding-left: 3px; padding-right: 3px; padding-bottom: 0px;">
+                        <div class="static-table-list">
+                            <table class="table sparkle-table br-5 f-12">
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Dose</th>
+                                    <th>Dose UoM</th>
+                                    <th>Frequency</th>
+                                    <th>Route</th>
+                                    <th>Instruction</th>
+                                    <th>Qty</th>
+                                    <th>UoM</th>
+                                    <th>Iter</th>
+                                    <th>Routine</th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <td>ABACAVIR 300MG TAB (DINKES)</td>
+                                    <td><input name="" type="text" style="width: 40px"></td>
+                                    <td>
+                                        <select name="" id="" style="width: 100px">
+                                            <option value="">TABLET</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="" id="" style="width: 100px">
+                                            <option value="">1 X SEHARI</option>
+                                            <option value="">2 X SEHARI</option>
+                                            <option value="">3 X SEHARI</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="" id="" style="width: 100px;">
+                                            <option value="">ORAL</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" value="SESUDAH MAKAN" style="width: 130px"></td>
+                                    <td><input type="text" style="width: 40px"></td>
+                                    <td><label>TAB</label></td>
+                                    <td><input type="text" style="width: 40px"></td>
+                                    <td><input type="checkbox"></td>
+                                    <td><span class="sparkline11-collapse-close"><i class="fa fa-times"></i></span></td>
+                                </tr>
+                                <tr>
+                                    <td>ABACAVIR 300MG TAB (DINKES)</td>
+                                    <td><input name="" type="text" style="width: 40px"></td>
+                                    <td>
+                                        <select name="" id="" style="width: 100px">
+                                            <option value="">TABLET</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="" id="" style="width: 100px">
+                                            <option value="">1 X SEHARI</option>
+                                            <option value="">2 X SEHARI</option>
+                                            <option value="">3 X SEHARI</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="" id="" style="width: 100px;">
+                                            <option value="">ORAL</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" value="SESUDAH MAKAN" style="width: 130px"></td>
+                                    <td><input type="text" style="width: 40px"></td>
+                                    <td><label>TAB</label></td>
+                                    <td><input type="text" style="width: 40px"></td>
+                                    <td><input type="checkbox"></td>
+                                    <td><span class="sparkline11-collapse-close"><i class="fa fa-times"></i></span></td>
+                                </tr>
+                                <tr>
+                                    <td>ABACAVIR 300MG TAB (DINKES)</td>
+                                    <td><input name="" type="text" style="width: 40px"></td>
+                                    <td>
+                                        <select name="" id="" style="width: 100px">
+                                            <option value="">TABLET</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="" id="" style="width: 100px">
+                                            <option value="">1 X SEHARI</option>
+                                            <option value="">2 X SEHARI</option>
+                                            <option value="">3 X SEHARI</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="" id="" style="width: 100px;">
+                                            <option value="">ORAL</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" value="SESUDAH MAKAN" style="width: 130px"></td>
+                                    <td><input type="text" style="width: 40px"></td>
+                                    <td><label>TAB</label></td>
+                                    <td><input type="text" style="width: 40px"></td>
+                                    <td><input type="checkbox"></td>
+                                    <td><span class="sparkline11-collapse-close"><i class="fa fa-times"></i></span></td>
+                                </tr>
+                            </table>
+                            <div>
+                                <select name="" id="" class="ml-10 mb-10" style="width: 200px;">
+                                    <option value="">Add item here..</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline10-graph" style="padding-left: 3px; padding-right: 3px; padding-bottom: 0px;">
+                        <div class="static-table-list">
+                            <table class="table sparkle-table br-5 f-12">
+                                <div class="static-table-list">
+                                    <div class="col-lg-12 gray-b pt-10 pb-10">
+                                        <div class="thick-label">Prescription Notes</div>
+                                        <div>
+                                            <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize: none;" cols="30" rows="3" placeholder="Type here..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="sparkline10-graph" style="padding-left: 3px; padding-right: 3px; padding-bottom: 0px;">
+                        <div class="static-table-list">
+                            <table class="table sparkle-table br-5 f-12">
+                                <div class="static-table-list">
+                                    <div class="col-lg-12 gray-b pt-10 pb-10">
+                                        <div class="thick-label">Pharmacist Notes</div>
+                                        <div>
+                                            <textarea class="br-5 ta-soft" name="" id="" style="width: 100%; resize: none;" cols="30" rows="3" placeholder="Type here..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-            {{-- Laboratory --}}
+            {{-- Allergies, Drugs, And Routine Medication --}}
 
             {{-- Frequently Used Drugs --}}
             <div class="col-lg-3 mg-b-30 br-5">
