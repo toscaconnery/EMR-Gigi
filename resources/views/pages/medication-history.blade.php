@@ -39,57 +39,35 @@
                             <table class="table border-table tablenormal">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10%">Admisi</th>
-                                        <th style="width: 10%">Dokter</th>
-                                        <th style="width: 15%">S</th>
-                                        <th style="width: 15%">O</th>
-                                        <th style="width: 15%">A</th>
-                                        <th style="width: 15%">P</th>
-                                        <th style="width: 20%">Obat & Alkes</th>
+                                        <th style="width: 8%">XXXXXX</th>
+                                        <th style="width: 10%">XXXX Date</th>
+                                        <th style="width: 22%">Item</th>
+                                        <th style="width: 5%">Dose</th>
+                                        <th style="width: 6%">Dose UOM</th>
+                                        <th style="width: 10%">Frequency</th>
+                                        <th style="width: 6%">Route</th>
+                                        <th style="width: 13%">Instruction</th>
+                                        <th style="width: 5%">R/Qty</th>
+                                        <th style="width: 5%">U.O.M</th>
+                                        <th style="width: 5%">Iter</th>
+                                        <th style="width: 5%">Routine</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @for ($x = 1; $x < 10; $x++)
                                     <tr>
-                                        <td>
-                                            <div><b>10 Dec 2019</b></div>
-                                            <div class="f-12">OPA1912101085</div>
-                                            <div class="f-12"><b>Tanggal dibuat</b></div>
-                                            <div class="f-12">10 Dec 2019</div>
-                                            <div class="f-12">18:51:58</div>
-                                            <div class="f-12"><b>Terakhir diubah</b></div>
-                                            <div class="f-12">10 Dec 2019</div>
-                                            <div class="f-12">18:51:58</div>
-                                            <div class="support-list-img td-mid">
-                                                <a href="#"><img src="theme/img/notification/1.jpg" alt="">
-                                                </a>
-                                                <a href="#"><img src="theme/img/notification/1.jpg" alt="">
-                                                </a>
-                                                <a href="#"><img src="theme/img/notification/1.jpg" alt="">
-                                                </a>
-                                                <a href="#"><img src="theme/img/notification/1.jpg" alt="">
-                                                </a>
-                                                <a href="#"><img src="theme/img/notification/1.jpg" alt="">
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>drg. Monica Santosa, SpKGA</td>
-                                        <td>ingin cek gigi <br> gigi ada yg tumbuh keatas</td>
-                                        <td>
-                                            <div>gigi 22 ada bukal</div>
-                                            <div class="mt-10 pt-10">TTV</div>
-                                            <div>Tekanan darah: -/- mmHg</div>
-                                            <div>Nadi: - x/mnt</div>
-                                            <div>Pernapasan: - x/mnt</div>
-                                            <div>SpO2: -%</div>
-                                            <div>Suhu: -°C</div>
-                                            <div>Berat badan: - kg</div>
-                                            <div>Tinggi badan: - cm</div>
-                                            <div>Lingkar kepala: - cm</div>
-                                        </td>
-                                        <td>22 bukoversi</td>
-                                        <td>22 observasi</td>
-                                        <td></td>
+                                        <td>SHLV</td>
+                                        <td>20 Apr 2020</td>
+                                        <td>MONARIN 10MG TAB</td>
+                                        <td>1</td>
+                                        <td>TABLET</td>
+                                        <td>1 X SEHARI</td>
+                                        <td>ORAL</td>
+                                        <td>SETELAH MAKAN</td>
+                                        <td>20</td>
+                                        <td>TAB</td>
+                                        <td>0</td>
+                                        <td>NO</td>
                                     </tr>
                                     @endfor
 
