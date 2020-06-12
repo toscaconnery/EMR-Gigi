@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::get('new-login', 'TempController@newLogin');
+
+Route::get('new-register', 'TempController@newRegister');
+
 Route::get('/', 'AppointmentController@redirect');
 
 Route::get('list-appointment', 'AppointmentController@listAppointment');

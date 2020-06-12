@@ -43,8 +43,8 @@
                                         <th style="width: 10%">XXXX Date</th>
                                         <th style="width: 22%">Item</th>
                                         <th style="width: 5%">Dose</th>
-                                        <th style="width: 6%">Dose UOM</th>
-                                        <th style="width: 10%">Frequency</th>
+                                        <th style="width: 7%">Dose UOM</th>
+                                        <th style="width: 9%">Frequency</th>
                                         <th style="width: 6%">Route</th>
                                         <th style="width: 13%">Instruction</th>
                                         <th style="width: 5%">R/Qty</th>
