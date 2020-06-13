@@ -69,8 +69,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <span class="register-link">Belum punya akun? <br><a href="">Daftar disini.</a></span>
-                                            {{-- <span class="forgot-link"><a href="">Forgot Your Password?</a></span> --}}
+                                            <span class="register-link">Belum punya akun? <br><a href="{{url('/register')}}">Daftar disini.</a></span>
                                         </div>
                                     </div>
                                 </div>

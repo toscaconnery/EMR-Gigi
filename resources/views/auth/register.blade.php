@@ -5,23 +5,12 @@
 
 <body class="materialdesign">
     <div class="wrapper-pro">
-        {{-- @include('layouts/sidebar')  --}}
-        
         
         <div class="">
-            <!-- Header top area start-->
-            {{-- @include('layouts/header') --}}
-            <!-- Header top area end-->
-    
-            <!-- Breadcome start-->
-            {{-- @include('layouts/patient-info') --}}
-            <!-- Breadcome End-->
-
             <!-- login Start-->
             <div class="login-form-area mg-t-30 mg-b-40">
                 <div class="container-fluid">
                     <div class="row">
-                        {{-- <div class="col-lg-4"></div> --}}
                         <form id="adminpro-form" class="adminpro-form">
                             <div class="col-lg-4 register-form-container">
                                 <div class="login-bg">
@@ -96,15 +85,10 @@
                                 </div>
                             </div>
                         </form>
-                        {{-- <div class="col-lg-4"></div> --}}
                     </div>
                 </div>
             </div>
-            <!-- login End-->
-         
-
-
-            
+            <!-- login End-->            
             <div class="feed-mesage-project-area">
                 <div class="container-fluid">
                     <div class="row">
@@ -116,9 +100,7 @@
     </div>
 
     @include('layouts/footer') 
-
     @include('layouts/footscript')
 
 </body>
-
 </html>

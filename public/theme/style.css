@@ -2944,6 +2944,12 @@ ul.profile-contact-menu {
 .border-table{
 	border: 1px solid #EBEBEB;
 }
+.bo-l {
+	border-left: 1px solid #ddd;
+}
+.bo-r {
+    border-right: 1px solid #ddd;
+}
 .border-table > thead > tr > th{
 	background-color: #F5F5F6;
 }
@@ -4204,6 +4210,22 @@ ul.breadcome-menu {
 
 .f-12 {
 	font-size: 12px;
+}
+
+.f-13 {
+	font-size: 13px;
+}
+
+.f-14 {
+	font-size: 14px;
+}
+
+.f-15 {
+	font-size: 15px;
+}
+
+.f-16 {
+	font-size: 16px;
 }
 
 .mb-0-i {
