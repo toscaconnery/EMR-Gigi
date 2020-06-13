@@ -4107,6 +4107,10 @@ ul.breadcome-menu {
 	font-size:12px;
 }
 
+.ml-auto {
+	margin-left: auto;
+}
+
 .ml-80 {
 	margin-left: 80px !important;
 }
@@ -4272,6 +4276,10 @@ ul.breadcome-menu {
 
 .no-data {
 	color: gray !important;
+}
+
+.black {
+	color: black;
 }
 
 .gray {
@@ -4712,4 +4720,16 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active  {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.header-right-checkbox {
+	background-color: white;
+	height: 35px;
+	color: black;
+	border-radius: 7px;
+	padding: 7px;
+}
+
+.header-right-checkbox label {
+	margin-left: 4px;
 }

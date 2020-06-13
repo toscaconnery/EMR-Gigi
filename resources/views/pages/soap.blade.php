@@ -381,10 +381,26 @@
 
                 <div class="sparkline10-list shadow-reset mg-t-10">
                     <div class="sparkline10-hd col-lg-6" style="background-color: #c43e32; color: white">
-                        <h4 class=""> <i class="fas fa-virus"></i> <b>Allergies</b></h4>
+                        <div class="inline">
+                            <h4 class=""> <i class="fas fa-virus"></i> <b>Allergies</b></h4>
+                            <div class="ml-auto inline header-right-checkbox">
+                                <input type="radio" name="has_allergies" id="has_allergies_no">
+                                <label for="has_allergies_no">No</label>
+                                <input type="radio" name="has_allergies" id="has_allergies_yes" style="margin-left: 10px;">
+                                <label for="has_allergies_yes">Yes</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="sparkline10-hd col-lg-6" style="background-color: #7b88ff; color: white">
-                        <h4 class=""> <i class="fa fa-pills"></i> <b>Current/Routine Medication</b></h4>
+                        <div class="inline">
+                            <h4 class=""> <i class="fa fa-pills"></i> <b>Current/Routine Medication</b></h4>
+                            <div class="ml-auto inline header-right-checkbox">
+                                <input type="radio" name="current_medication" id="current_medication_no">
+                                <label for="current_medication_no">No</label>
+                                <input type="radio" name="current_medication" id="current_medication_yes" style="margin-left: 10px;">
+                                <label for="current_medication_yes">Yes</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="sparkline10-graph" style="padding-left: 29px; padding-right: 29px; padding-bottom: 0px;">
                         <div class="static-table-list">
