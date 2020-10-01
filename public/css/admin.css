@@ -1,0 +1,163 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #eeecad;
+}
+
+header {
+    position: fixed;
+    background: #ff9a76;
+    padding: 15px;
+    width: 100%;
+    height: 60px;
+}
+
+.icon-btn {
+    padding: 5px;
+    font-size: 2rem;
+    text-decoration: none;
+    float: right;
+    margin-top: -6px;
+    margin-right: 18px;
+    color: white;
+    transition: 0.5s;
+    transition-property: color;
+}
+
+.icon-btn:hover {
+    color: #679b9b;
+}
+
+.scn-head {
+    margin-top: 60px;
+    position: fixed;
+    background: white;
+    padding: 15px;
+    width: 100%;
+    height: 60px;
+}
+
+.left-area h3 {
+    color: tomato;
+    margin: 0 0 0 23px;
+    text-transform: uppercase;
+    font-size: 2em;
+    font-weight: 900;
+}
+
+.left-area h3 span {
+    color: #19b3d3;
+}
+
+.add-btn {
+    padding: 8px;
+    background:#1a1c20;
+    text-decoration: none;
+    float: right;
+    margin-top: -33px;
+    margin-right: 15px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: white;
+}
+
+.add-btn:hover {
+    background: #ff9a76;
+    color: white;
+}
+
+.add-btn i {
+    padding-right: 5px;
+}
+
+.sidebar {
+    background: #637373;
+    margin-top: 120px;
+    padding-top: 30px;
+    position: fixed;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    transition: 0.5s;
+    transition-property: left;
+}
+
+.sidebar .profile-img {
+    background: white;
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border-radius: 100px;
+    margin-bottom: 30px;
+}
+
+.sidebar h4 {
+    color: #ccc;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    color: white;
+    display: block;
+    width: 100%;
+    line-height: 50px;
+    text-decoration: none;
+    padding-left: 40px;
+    box-sizing: border-box;
+    transition: 0.5s;
+    transition-property: background;
+}
+
+.sidebar a:hover {
+    background: #19b3d3;
+}
+
+.sidebar i {
+    padding-right: 10px;
+}
+
+label #sidebar-btn {
+    z-index: 1;
+    color: white;
+    position: fixed;
+    cursor: pointer;
+    left: 40px;
+    font-size: 2rem;
+    margin: 4px 0;
+    transition: 0.5s;
+    transition-property: color;
+}
+
+label #sidebar-btn:hover {
+    color: #679b9b;
+}
+
+#check:checked ~ .sidebar {
+    left: -250px;
+}
+
+.content {
+    margin-left: 250px;
+    transition: 0.5s;
+}
+
+/* .upload-img {
+    margin-top: 100px;
+    background: white;
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border-radius: 100px;
+    margin-bottom: 30px;
+} */
+
+#check:checked ~ .content {
+    margin-left: 40px;
+}
+
+#check {
+    display: none;
+}
+

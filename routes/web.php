@@ -37,6 +37,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/company', 'AdminController@company');
+
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
