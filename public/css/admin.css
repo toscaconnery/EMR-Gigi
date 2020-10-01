@@ -161,3 +161,45 @@ label #sidebar-btn:hover {
     display: none;
 }
 
+/* Style the list */
+.breadcrumb {
+    background-color: transparent;
+}
+
+ul.breadcrumb {
+    float: right;
+    width: fit-content;
+    margin-top: -33px;
+    margin-right: 15px;
+    list-style: none;
+  }
+  
+  /* Display list items side by side */
+  ul.breadcrumb li {
+    display: inline;
+    font-size: 1em;
+  }
+  
+  /* Add a slash symbol (>) before/behind each list item */
+  ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "\003e";
+  }
+  
+  /* Add a color to all links inside the list */
+  ul.breadcrumb li a {
+    color: #ff9a76;
+    text-decoration: none;
+  }
+  
+  /* Add a color on mouse-over */
+  ul.breadcrumb li a:hover {
+    color: #679b9b;
+  }
+
+  @media only screen and (max-width: 568px) {
+    ul.breadcrumb {
+      display: none;
+    }
+  }

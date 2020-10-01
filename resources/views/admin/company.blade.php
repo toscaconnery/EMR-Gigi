@@ -24,6 +24,11 @@
 
     <div class="right-area">
         <a href="#" class="add-btn"><i class="fas fa-plus-circle"></i>Add New</a>
+        
+        <ul class="breadcrumb">
+            <li>Home</li>
+            <li><a href="#">Company</a></li>
+        </ul>
     </div>
 </section>
 {{-- second header end --}}
