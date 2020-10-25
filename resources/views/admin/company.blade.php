@@ -8,12 +8,12 @@
     </label>
 
     <div class="icn-area">
-        <a href="#" class="icon-btn"><i class="fas fa-sign-out-alt"></i></a>
-        <a href="#" class="icon-btn"><i class="fas fa-cogs"></i></a>
-        <a href="#" class="icon-btn"><i class="far fa-edit"></i></a>
-        <a href="#" class="icon-btn"><i class="far fa-envelope"></i></a>
+        <a href="#" class="icon-btn"><i class="fas fa-sign-out-alt" data-toggle="tooltip" title="Sign Out"></i></a>
+        <a href="#" class="icon-btn"><i class="fas fa-cogs" data-toggle="tooltip" title="Setting"></i></a>
+        <a href="#" class="icon-btn"><i class="far fa-edit" data-toggle="tooltip" title="Edit"></i></a>
+        <a href="#" class="icon-btn"><i class="far fa-envelope" data-toggle="tooltip" title="Message"></i></a>
     </div>
-</header>
+</header> 
 {{-- header end --}}
 
 {{-- second header --}}
@@ -50,8 +50,6 @@
 
 {{-- content --}}
 <section class="content">
-    {{-- <div class="profile">
-        <img src="image/logo-square.png" class="upload-img" alt="image profile">
-    </div> --}}
+
 </section>
 {{-- content end --}}

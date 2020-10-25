@@ -6,23 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
 		============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- jquery
-		============================================ -->
-    <script src="theme/js/vendor/jquery-1.11.3.min.js"></script>
+    {{-- <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"> --}}
+    
     <!-- Google Fonts
 		============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i,800" rel="stylesheet">
-    <!-- Bootstrap CSS
-		============================================ -->
-    <link rel="stylesheet" href="theme/css/bootstrap.min.css">
-    <!-- Bootstrap CSS
-		============================================ -->
+    
     {{-- <link rel="stylesheet" href="theme/css/font-awesome.min.css"> --}}
     <script src="https://kit.fontawesome.com/2e53fa6365.js" crossorigin="anonymous"></script>
+   
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{asset('admin/css/bootstrap.css')}}">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{asset('admin/css/admin.css')}}">
+
+    <!-- Main JS -->
+    <link rel="stylesheet" href="{{asset('admin/js/admin.js')}}">
+    
+    <!-- Jquery -->
+    <link rel="stylesheet" href="{{asset('admin/jquery.min.js')}}">
+
     <!-- adminpro icon CSS
 		============================================ -->
-    <link rel="stylesheet" href="theme/css/adminpro-custon-icon.css">
+    {{-- <link rel="stylesheet" href="theme/css/adminpro-custon-icon.css">
     <!-- meanmenu icon CSS
 		============================================ -->
     <link rel="stylesheet" href="theme/css/meanmenu.min.css">
@@ -47,24 +54,22 @@
     <link rel="stylesheet" href="theme/css/normalize.css">
     <!-- charts CSS
 		============================================ -->
-    <link rel="stylesheet" href="theme/css/c3.min.css">
+    <link rel="stylesheet" href="theme/css/c3.min.css"> --}}
     <!-- style CSS
 		============================================ -->
-    <link rel="stylesheet" href="theme/style.css">
+    {{-- <link rel="stylesheet" href="theme/style.css">
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="theme/css/responsive.css">
     <!-- modernizr JS
 		============================================ -->
-    <script src="theme/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="theme/js/vendor/modernizr-2.8.3.min.js"></script> --}}
     <!-- notifications CSS
         ============================================ -->
-    {{-- main css --}}
-    <link rel="stylesheet" href="css/admin.css">
 
-    <link rel="stylesheet" href="theme/css/Lobibox.min.css">
+    {{-- <link rel="stylesheet" href="theme/css/Lobibox.min.css">
     <link rel="stylesheet" href="theme/css/notifications.css">
 
-    <link rel="stylesheet" href="theme/css/datapicker/datepicker3.css">
+    <link rel="stylesheet" href="theme/css/datapicker/datepicker3.css"> --}}
   
 </head>
