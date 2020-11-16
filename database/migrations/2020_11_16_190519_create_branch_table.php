@@ -17,6 +17,7 @@ class CreateBranchTable extends Migration
             $table->id();
             $table->integer('hospital_id')->unsigned();
             $table->string('name', 255);
+            $table->string('address', 255);
             $table->timestamps();
         });
     }
