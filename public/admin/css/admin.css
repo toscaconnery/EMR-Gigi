@@ -1,206 +1,248 @@
+
 body {
     margin: 0;
     padding: 0;
-    background: #eeecad;
+    background: #EDF1F5;
     overflow: hidden !important;
+    font-family: Segoe UI;
 }
 
-header {
-    position: fixed;
-    background: #ff9a76;
-    padding: 15px;
-    width: 100%;
-    height: 60px;
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #ff9a76;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
 }
 
-.icon-btn {
-    padding: 5px;
-    font-size: 1.4rem;
-    text-decoration: none;
-    float: right;
-    margin-top: -6px;
-    margin-right: 18px;
-    color: white;
-    transition: 0.5s;
-    transition-property: color;
+.sidenav .main-menu a {
+  padding: 15px 35px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #FFFFFF;
+  display: block;
+  transition: 0.3s;
+  transition-property: color;
+  position: relative;
 }
 
-.icon-btn:hover {
-    color: #679b9b;
+
+.sidenav .dropdown-btn {
+  text-decoration: none;
+  font-size: 20px;
+  color: #fff;
+  display: block;
+  border: none;
+  background: none;
+  padding: 15px 35px;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
 }
 
-.scn-head {
-    margin-top: 60px;
-    position: fixed;
-    background: white;
-    padding: 15px;
-    width: 100%;
-    height: 60px;
+.sidenav .main-menu a:hover, .dropdown-btn:hover {
+  color: #818181;
 }
 
-.left-area h3 {
-    color: tomato;
-    margin: 0 0 0 23px;
-    text-transform: uppercase;
-    font-size: 1.5em;
-    font-weight: 900;
+/*.active {
+  background-color: #FF7F58;
+  color: white;
+}*/
+
+.dropdown-container {
+  display: none;
+  background-color: #FF7F58;
+  padding-left: 20px;
 }
 
-.left-area h3 span {
-    color: #19b3d3;
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+  padding-top: 8px;
 }
 
-.add-btn {
-    padding: 8px;
-    background:#1a1c20;
-    text-decoration: none !important;
-    float: right;
-    margin-top: -33px;
-    margin-right: 15px;
-    border-radius: 5px;
-    font-size: 1em;
-    font-weight: 600;
-    color: white;
+.profile img {
+  margin: 20px o;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 30px;
+  border-radius: 50%; 
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
 }
 
-.add-btn:hover {
-    background: #ff9a76;
-    color: white;
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  color: white;
+  text-decoration: none;
 }
 
-.add-btn i {
-    padding-right: 5px;
+/*Navbar*/
+nav {
+  display: flex;
+  background-color: #ff9a76;
+  justify-content: space-between;
+  padding-left: 15px;
+  color: white;
+  height: 60px;
+  align-items: center;
 }
 
-.sidebar {
-    background: #637373;
-    margin-top: 120px;
-    padding-top: 30px;
-    position: fixed;
-    left: 0;
-    width: 250px;
-    height: 100vh;
-    transition: 0.5s;
-    transition-property: left;
+nav .nav-menu {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  padding-right: 5px;
+  padding-top: 15px;
+  font-size: 18px;
 }
 
-.sidebar .profile-img {
-    background: white;
-    width: 100px;
-    height: 100px;
-    padding: 5px;
-    border-radius: 100px;
-    margin-bottom: 30px;
+nav ul li a {
+  color: white;
+  margin: 0px 10px;
 }
 
-.sidebar h4 {
-    color: #ccc;
-    margin-top: 0;
-    margin-bottom: 20px;
+nav ul li a:hover {
+  color: #679b9b;
 }
 
-.sidebar a {
-    color: white;
-    display: block;
-    width: 100%;
-    line-height: 50px;
-    text-decoration: none;
-    padding-left: 40px;
-    box-sizing: border-box;
-    transition: 0.5s;
-    transition-property: background;
+#main {
+  transition: margin-left 0.5s;
+
 }
 
-.sidebar a:hover {
-    background: #19b3d3;
+
+.card {
+  z-index: 1;
+  border-radius: 0px;
 }
 
-.sidebar i {
-    padding-right: 10px;
+.card-box{
+  height: 200px;
 }
 
-label #sidebar-btn {
-    z-index: 1;
-    color: white;
-    position: fixed;
-    cursor: pointer;
-    left: 40px;
-    font-size: 1.5rem;
-    margin: 4px 0;
-    transition: 0.5s;
-    transition-property: color;
+.card-header {
+  background-color: #ff9a76;
+  color: white;
 }
 
-label #sidebar-btn:hover {
-    color: #679b9b;
+.card-body {
+  padding: 10px;
 }
 
-#check:checked ~ .sidebar {
-    left: -250px;
+.card-body .form-row span{
+  color: red;
+  padding-left: 5px;
 }
 
-.content {
-    margin-left: 250px;
-    transition: 0.5s;
+.card-body .ava {
+  padding: 10px;
 }
 
-/* .upload-img {
-    margin-top: 100px;
-    background: white;
-    width: 100px;
-    height: 100px;
-    padding: 5px;
-    border-radius: 100px;
-    margin-bottom: 30px;
-} */
-
-#check:checked ~ .content {
-    margin-left: 40px;
-}
-
-#check {
-    display: none;
-}
-
-/* Style the list */
 .breadcrumb {
-    background-color: transparent;
+  background-color: white;
+  padding: 10px 16px;
+  list-style: none;
 }
 
-ul.breadcrumb {
-    float: right;
-    width: fit-content;
-    margin-top: -35px;
-    margin-right: 10px;
-    list-style: none;
-  }
-  
-  /* Display list items side by side */
-  ul.breadcrumb li {
-    display: inline;
-    font-size: 0.8em;
-  }
-  
-  /* Add a slash symbol (>) before/behind each list item */
-  ul.breadcrumb li+li:before {
-    padding: 8px;
-    color: black;
-    content: "\003e";
-  }
-  
-  /* Add a color to all links inside the list */
-  ul.breadcrumb li a {
-    color: #ff9a76;
-    text-decoration: none;
-  }
-  
-  /* Add a color on mouse-over */
-  ul.breadcrumb li a:hover {
-    color: #679b9b;
-  }
+.breadcrumb li {
+  display: inline;
+  font-size: 15px;
+  margin: 5px 10px 10px 0px;
+}
 
-  @media only screen and (max-width: 568px) {
+.breadcrumb li+li:before {
+  padding: 8px;
+  color: #C0C0C0;
+  content: ">\00a0";
+}
+
+.breadcrumb li .active {
+  color: black;
+}
+
+.breadcrumb li a {
+  color: #ff9a76;
+  text-decoration: none;
+}
+
+.breadcrumb li a:hover {
+  color: #01447e;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.btn-group-edit .btn-custom { 
+  color: #ffffff; 
+  background-color:#ff9a76; 
+}
+
+.btn-group-edit .btn-custom:hover{
+  background-color: #FF7F58;
+  color: #ffffff; 
+}
+
+.btn-group-edit {
+  float: right;
+}
+
+.btn-edit i {
+  padding-right: 5px;
+  font-size: 15px;
+}
+
+.dropdown-nominal {
+  display: inline-block;
+}
+   
+ul.pagination a {
+   color: black;
+}
+
+ul.pagination li a.active {
+  background-color: #ff9a76;
+  color: white;
+}
+   
+ul.pagination li a:hover:not(.active) {
+  color: #ff9a76;
+}
+   
+.show {
+  display: inline-flex;
+  align-items: center;
+  padding-right: 5px;
+}
+
+.write-satu {
+  padding-right: 5px;
+}
+   
+.input-group {
+  padding-right: 5px;
+  padding-bottom: 10px;
+}
+   
+.btn i{
+  padding-right: 5px;
+}
+
+
+@media only screen and (max-width: 992px) {
     ul.breadcrumb {
       display: none;
     }
-  }

@@ -39,6 +39,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/company', 'AdminController@company');
 
+Route::get('/company2', 'AdminController@company2');
+
+Route::get('/company-show', 'AdminController@companyshow');
+
+Route::get('/branch', 'AdminController@branch');
+
+Route::get('/branch-list', 'AdminController@branchlist');
+
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
