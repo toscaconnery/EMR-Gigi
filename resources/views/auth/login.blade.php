@@ -22,7 +22,8 @@
                 <div class="container-fluid">
                     <div class="row">
                         {{-- <div class="col-lg-4"></div> --}}
-                        <form id="adminpro-form" class="adminpro-form">
+                        <form id="adminpro-form" class="adminpro-form" method="POST" action="{{ route('login') }}">
+                            @csrf
                             <div class="col-lg-4 login-form-container">
                                 <div class="login-bg">
                                     <div class="row">
