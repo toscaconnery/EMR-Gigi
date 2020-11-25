@@ -27,14 +27,14 @@
 			<!-- navbar start -->
 			<nav>
 				<span style="font-size:30px;cursor:pointer" id="open_sidenav_btn">&#9776;</span>
-					<ul>
-						<div class="nav-menu">
-						  <li><a href=""><i class="far fa-envelope"></i></a></li>
-						  <li><a href=""><i class="far fa-edit"></i></a></li>
-						  <li><a href=""><i class="fas fa-cog"></i></a></li>
-						  <li><a href=""><i class="fas fa-sign-out-alt"></i></a></li>
-					  </div>
-				  </ul>
+				<ul>
+					<div class="nav-menu">
+						<li><a href=""><i class="far fa-envelope"></i></a></li>
+						<li><a href=""><i class="far fa-edit"></i></a></li>
+						<li><a href=""><i class="fas fa-cog"></i></a></li>
+						<li><a href=""><i class="fas fa-sign-out-alt"></i></a></li>
+					</div>
+				</ul>
 			</nav>
 			<!-- navbar end -->
 
@@ -48,8 +48,6 @@
 
 			<!-- Breadcrumb End -->
 
-
-
 			<div class="container col md-6">
 				<div class="card ">
 					<div class="card-header text-white mb-3">
@@ -57,7 +55,7 @@
 					</div>
 					<div class="card-body">
 						<div class="Show">
-							<p class="write-satu">Show</p>
+							<span class="write-satu">Show</span>
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<select id="nominal" name="nominal">
@@ -67,7 +65,7 @@
 									</select>
 								</div>
 							</div>
-							<p class="write-dua	">entries</p>
+							<span class="write-dua" style="display:inline-block">entries</span>
 						</div>
 						
 						<table id="tabel-data" class="table table-bordered table-hover">
@@ -75,9 +73,9 @@
 								<tr>
 									<th>No<i class="fas fa-sort"></i></th>
 									<th>Name <i class="fas fa-sort"></i></th>
-									<th>Username <i class="fas fa-sort"></i></th>
+									<th>Address <i class="fas fa-sort"></i></th>
 									<th>Email<i class="fas fa-sort"></i></th>
-									<th>Role <i class="fas fa-sort"></i></th>
+									<th>Number of branch<i class="fas fa-sort"></i></th>
 									<th>Status <i class="fas fa-sort"></i></th>
 								</tr>
 							</thead>
@@ -137,10 +135,34 @@
 					</div>
 				</div>
 			</div>
-			
-			
+		</div>
 	</body>
+
 	
 	@include('admin_layout.sidenav-script')
-	
+
+	<script>
+		$(document).ready(function(){
+
+			function getCompanyListData() {
+				let url = '/api/get-company-list';
+
+				$.ajax({
+					type: "GET",
+					url: url,
+					dataType: 'json',
+					success: function (data) {
+						console.log('result of api')
+						console.log(data);
+					},
+					error: function (data) {
+						console.log(data);
+					}
+				});
+			}
+
+			getCompanyListData();
+		});
+	</script>
+
 </html>
