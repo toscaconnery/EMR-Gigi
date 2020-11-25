@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    // public function company()
+    // {
+    //     return view('admin.company');
+    // }
     public function company()
     {
-        return view('admin.company');
-    }
-    public function company2()
-    {
-    	return view('admin.company2');
+    	return view('admin.company');
     }
     public function companyshow()
     {

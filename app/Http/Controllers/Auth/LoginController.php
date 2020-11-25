@@ -42,10 +42,11 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        // if ( $user->isAdmin() ) {// do your magic here
-        //     return redirect()->route('dashboard');
-        // }
-
+        if ($user->position == 'doctor') {
+            return redirect('/list-appointment');
+        } elseif ($user->position == 'admin') {
+            return redirect('/company');
+        }
         return redirect('/home');
     }
 
