@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::check()) {
+            return redirect('/list-appointment');
+        } else {
+            dd('you are not logged in');
+        }
         return view('home');
     }
 }
