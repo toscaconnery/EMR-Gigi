@@ -32,7 +32,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/company', 'AdminController@company');
 // Route::get('/company2', 'AdminController@company2');
-Route::get('/company-show', 'AdminController@companyshow');
+Route::get('/list-company', 'AdminController@listCompany');
 Route::get('/branch', 'AdminController@branch');
 Route::get('/branch-list', 'AdminController@branchlist');
 
