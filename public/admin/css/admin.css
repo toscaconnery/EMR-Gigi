@@ -58,8 +58,16 @@ body {
 
 .dropdown-container {
     display: none;
+    padding: 10px 15px;
     background-color: #FF7F58;
-    padding-left: 20px;
+    padding-left: 10px;
+    font-size: 12px;
+}
+.sidenav .dropdown-container a {
+    padding: 8px 15px;
+    /* background-color: #FF7F58; */
+    padding-left: 40px;
+    font-size: 18px;
 }
 
 .fa-caret-down {
@@ -359,8 +367,14 @@ ul.pagination li a:hover:not(.active) {
     color: #01447e;
 }
 
+.navbar {
+    justify-content: left;
+
+}
+
 .navbar-brand {
     font-size: 30px;
+    padding-left: 8px;
 }
 
 .role-name {

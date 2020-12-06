@@ -30,7 +30,7 @@
 <div id="main">
 <!-- navbar start -->
   <nav class="navbar navbar-light bg-light">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <span style="color:black;font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
     <span class="navbar-brand mb-0 h1">Users</span>
   </nav>
 <!--Breadcrumb-->

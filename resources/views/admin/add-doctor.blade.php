@@ -30,7 +30,7 @@
 <div id="main">
 <!-- navbar start -->
   <nav class="navbar navbar-light bg-light">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <span style="color:black;font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
     <span class="navbar-brand mb-0 h1">Doctors</span>
   </nav>
   <!--Breadcrumb-->
@@ -83,7 +83,7 @@
                   </div>
           </div>
           <div class="form-row row">
-            <div class="button" style="margin-left: auto;">
+            <div class="button" style="margin-left: auto;padding-right: 4px;">
                 <button type="button" class="btn btn-add-act btn-sm">Add Action</button>
             </div>
           </div>
@@ -104,9 +104,11 @@
                   <div class="col-sm-5">
                       <input type="text" class="form-control form-add mb-2" placeholder="Time..">
                   </div>
-          </div>
-          <div class="button">
-              <button type="button" class="btn btn-add-sch btn-sm">Add Schedule</button>
+            </div>
+            <div class="form-row row">
+              <div class="button" style="margin-left: auto;padding-right: 4px;">
+                  <button type="button" class="btn btn-add-sch btn-sm">Add Schedule</button>
+              </div>
           </div>
         </div>
       </div>
