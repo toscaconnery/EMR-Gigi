@@ -14,7 +14,7 @@
         <img src="image/logo-square.png" class="profile-img" alt="image">
       </center>
     </div>
-    <div class="main-menu">
+      <div class="main-menu">
       <a href="#">Company</a>
       <a href="#">Branch</a>
       <button class="dropdown-btn">Master <i class="fa fa-caret-down"></i></button>

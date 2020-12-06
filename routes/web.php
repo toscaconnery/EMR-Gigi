@@ -47,6 +47,24 @@ Route::get('/branch', 'AdminController@branch');
 
 Route::get('/branch-list', 'AdminController@branchlist');
 
+Route::get('/roles', 'AdminController@roles');
+
+Route::get('/users', 'AdminController@users');
+
+Route::get('/doctors', 'AdminController@doctor');
+
+Route::get('/prescription', 'AdminController@prescription');
+
+Route::get('/add-roles', 'AdminController@addroles');
+
+Route::get('/add-user','AdminController@adduser');
+
+Route::get('/add-doctor', 'AdminController@adddoctor');
+
+Route::get('/add-prescription', 'AdminController@addprescript');
+
+
+
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
