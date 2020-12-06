@@ -11,7 +11,8 @@
             <div class="login-form-area mg-t-30 mg-b-40">
                 <div class="container-fluid">
                     <div class="row">
-                        <form id="adminpro-form" class="adminpro-form">
+                        <form id="adminpro-form" method="POST" class="adminpro-form" action="{{ route('register') }}">
+                            @csrf
                             <div class="col-lg-4 register-form-container">
                                 <div class="login-bg">
                                     <div class="row">

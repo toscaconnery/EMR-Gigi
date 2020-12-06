@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/get-company-list', 'Api\CompanyController@getCompanyList');
+
+Route::get('/get-company-detail', 'Api\CompanyController@getCompanyDetail');

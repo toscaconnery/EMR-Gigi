@@ -10,13 +10,9 @@ class AdminController extends Controller
     {
         return view('admin.company');
     }
-    public function company2()
+    public function listCompany()
     {
-    	return view('admin.company2');
-    }
-    public function companyshow()
-    {
-    	return view('admin.company-show');
+        return view('admin.list-company');
     }
     public function branch()
     {
@@ -26,6 +22,7 @@ class AdminController extends Controller
     {
         return view('admin.branch-list');
     }
+
     public function roles()
     {
         return view('admin.roles');
