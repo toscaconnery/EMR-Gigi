@@ -82,8 +82,10 @@
                       <input type="password" class="form-control form-add mb-2" placeholder="Price..">
                   </div>
           </div>
-          <div class="button">
-              <button type="button" class="btn btn-add-act btn-sm">Add Action</button>
+          <div class="form-row row">
+            <div class="button" style="margin-left: auto;">
+                <button type="button" class="btn btn-add-act btn-sm">Add Action</button>
+            </div>
           </div>
           <div class="form-row">
               <label for="inputdoctors" class="col-sm-2 col-form-label">Schedule</label>
