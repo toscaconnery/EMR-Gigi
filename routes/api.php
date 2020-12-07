@@ -33,6 +33,11 @@ Route::get('/user/self', [
     'uses'  => 'Api\DoctorController@self'
 ]);
 
+Route::post('/doctor/create', [
+    'as'    => 'doctor.create',
+    'uses'  => 'Api\DoctorController@create'
+]);
+
 Route::get('/get-company-list', 'Api\CompanyController@getCompanyList');
 
 Route::get('/get-company-detail', 'Api\CompanyController@getCompanyDetail');
