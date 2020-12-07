@@ -25,6 +25,7 @@ class DoctorController extends Controller
         ]);
     }
 
+    // Todo : create validation
     public function create(Request $request)
     {
         $user = $this->authUser();
@@ -38,41 +39,60 @@ class DoctorController extends Controller
         ];
 
         $newUser = User::create($payload);
-        
-
-        // $validatedData = $this->validate($request, [
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|string|email|max:255|unique:users',
-        //     'password' => 'required|string|min:8|confirmed',
-        // ]);
-
-        // $x = Validator::make($payload, [
-        //     'name' => ['required', 'string', 'max:255'],
-        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        //     'password' => ['required', 'string', 'min:8', 'confirmed'],
-        // ]);
-
-        // $validatedData = $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|string|email|max:255|unique:users',
-        //     'password' => 'required|string|min:8|confirmed',
-        // ]);
-
-        // $rules = [
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|string|email|max:255|unique:users',
-        //     'password' => 'required|string|min:8|confirmed',
-        // ];
-
-        // $validatedData = $this->validate($request, $rules);
 
         return response()->json([
             $data = $newUser,
             'error' => null
-        ]);
-        
-        // return response()->json($payload);
+        ]);   
     }
+
+    public function delete($doctor_id)
+    {
+        $user = $this->authUser();
+
+        $doctor = User::where('active_doctor', true)
+                        ->where('id', $doctor_id)
+                        ->first();
+        if ($doctor) {
+            $doctor->delete();
+            return response()->json([
+                'data'  => [
+                    'messages'  => 'Doctor deleted',
+                    'status'    => 'success'
+                ],
+                'error' => null
+            ]);
+        } else {
+            return response()->json($this->createErrorMessage('Cannot find the doctor.'));
+        }
+    }
+
+    public function update(Request $request, $doctor_id) {
+        $user = $this->authUser();
+
+        $doctor = User::where('active_doctor', true)
+                        ->where('id', $doctor_id)
+                        ->first();
+
+        if ($doctor) {
+            $payload = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ];
+            $doctor->update($payload);
+            return response()->json([
+                'data'  => [
+                    'messages'  => 'Doctor updated',
+                    'status'    => 'success'
+                ],
+                'error' => null
+            ]);
+        } else {
+            return response()->json($this->createErrorMessage('Cannot find the doctor.'));
+        }
+    }
+
 
     // STILL IN DEVELOPMENT, NOT WORKING YET
     public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
@@ -90,8 +110,6 @@ class DoctorController extends Controller
             ]);
         }
     }
-
-    // 'name', 'email', 'password', 'active_doctor'
 
     public function self()
     {
