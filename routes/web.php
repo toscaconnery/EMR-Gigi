@@ -41,8 +41,6 @@ Route::get('check-user-list', 'TestController@checkUserList');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 
-
-
 Route::get('/roles', 'AdminController@roles');
 
 Route::get('/users', 'AdminController@users');
