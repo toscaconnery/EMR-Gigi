@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/get-company-list', 'Api\CompanyController@getCompanyList');
 
 Route::get('/get-company-detail', 'Api\CompanyController@getCompanyDetail');
+
+// Route::get('/patient-list', 'Api\PatientCoan')
