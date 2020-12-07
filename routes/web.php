@@ -49,7 +49,7 @@ Route::get('/doctor-list', 'AdminController@doctor');
 
 Route::get('/prescription', 'AdminController@prescription');
 
-Route::get('/add-roles', 'AdminController@addroles');
+Route::get('/add-role', 'AdminController@addrole');
 
 Route::get('/add-user','AdminController@adduser');
 
