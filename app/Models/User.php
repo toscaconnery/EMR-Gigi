@@ -23,7 +23,7 @@ class User extends Model
 
     public $timestamps = true;
 
-    public static function isAdmin() {
-        return 'x';
-    }
+    // public static function isAdmin() {
+    //     return 'x';
+    // }
 }
