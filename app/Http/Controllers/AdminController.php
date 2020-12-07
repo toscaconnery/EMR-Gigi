@@ -37,7 +37,7 @@ class AdminController extends Controller
     }
     public function doctor()
     {
-        return view('admin.doctors');
+        return view('admin.doctor-list');
     }
     public function prescription()
     {

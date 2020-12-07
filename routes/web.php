@@ -47,7 +47,7 @@ Route::get('/roles', 'AdminController@roles');
 
 Route::get('/users', 'AdminController@users');
 
-Route::get('/doctors', 'AdminController@doctor');
+Route::get('/doctor-list', 'AdminController@doctor');
 
 Route::get('/prescription', 'AdminController@prescription');
 
