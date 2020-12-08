@@ -12,7 +12,7 @@
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
    <div class="profile">
       <center>
-        <img src="image/logo-square.png" class="profile-img" alt="image">
+        <img src="image/logo-square.png" class="profile-img" alt="image"><hr class = "bg-light">
       </center>
     </div>
       <div class="main-menu">
@@ -35,14 +35,14 @@
   </nav>
 <!--Breadcrumb-->
   <div class="bread mr-auto">
-    <ul class="breadcrumb-role ">
+    <ul class="breadcrumb-role font-weight-normal">
         <li><a class="active">Settings</a></li>
         <li><a href="#">Users</a></li>
     </ul>
   </div>
 <!-- Breadcrumb End -->
 <!-- navbar end -->
-  <div class="container fluid">
+  <div class="container-fluid">
     <div class="card col-md-12">
       <div class="class"><button type="button" class="btn btn-roles btn-addcustom btn-sm">Add Users</button></div>
       <table id="tabel-roles" class="table table-bordered">
@@ -54,7 +54,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr heigth="45px">
+            <tr height="45px">
               <td>User 1</td>
               <td>20-Jun-2020</td>
               <td>
@@ -62,7 +62,7 @@
                 <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
               </td>
             </tr>
-            <tr heigth="45px">
+            <tr height="45px">
               <td>User 2</td>
               <td>20-Jun-2020</td>
               <td>
@@ -70,7 +70,7 @@
                 <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
               </td>
             </tr>
-            <tr heigth="45px">
+            <tr height="45px">
               <td>User 3</td>
               <td>20-Jun-2020</td>
               <td>

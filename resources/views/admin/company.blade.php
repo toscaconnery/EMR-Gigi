@@ -7,7 +7,7 @@
                 <a href="javascript:void(0)" class="closebtn" id="close_sidenav_btn">&times;</a>
                 <div class="profile">
                     <center>
-                        <img src="image/logo-square.png" class="profile-img" alt="image">
+                        <img src="image/logo-square.png" class="profile-img" alt="image"><hr class="bg-light">
                     </center>
                 </div>
                 <div class="main-menu">

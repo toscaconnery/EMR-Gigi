@@ -12,7 +12,7 @@
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
    <div class="profile">
       <center>
-        <img src="image/logo-square.png" class="profile-img" alt="image">
+        <img src="image/logo-square.png" class="profile-img" alt="image"><hr class="bg-light">
       </center>
     </div>
       <div class="main-menu">
@@ -34,7 +34,7 @@
     </nav>
 <!--Breadcrumb-->
     <div class="bread mr-auto">
-        <ul class="breadcrumb-role ">
+        <ul class="breadcrumb-role font-weight-normal">
             <li><a class="active">Settings</a></li>
             <li><a href="#">Roles</a></li>
             <li><a href="#">Add Role</a></li>
@@ -43,18 +43,18 @@
 <!-- Breadcrumb End -->
 <!-- navbar end -->
 
-    <div class="container fluid">
+    <div class="container-fluid">
         <div class="card col-md-12">
             <div class="card-body mt-2 mb-2">
                 <div class="form-group row has-feedback">
-                    <label for="inputUname" class="col-sm col-form-label">Role Name</label>
+                    <label for="inputUname" class="col-md col-form-label" style="font-size:22px;">Role Name</label>
                     <div class="input-group inputrole col-sm-10">
                         <div class="input-group-prepend">
                         <button class="btn inputrole btn-outline-secondary" type="button">
                             <i class="fas fa-search"></i>
                         </button>
                         </div>
-                        <input type="Username" class="form-control" id="inputrole" placeholder="Search..">
+                        <input type="Username" class="form-control mr-2" id="inputrole" placeholder="Search..">
                     </div>
                 </div>
                 <table id="tabel-add-roles" class="table table-bordered">

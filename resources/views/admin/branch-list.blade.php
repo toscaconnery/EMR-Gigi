@@ -9,18 +9,18 @@
 <!-- sidenav start -->
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-   <div class="profile">
-      <center>
-        <img src="image/logo-square.png" class="profile-img" alt="image">
-      </center>
-    </div>
+    <div class="profile">
+        <center>
+            <img src="image/logo-square.png" class="profile-img" alt="image"><hr class="bg-light">
+        </center>
+        </div>
       <div class="main-menu">
-      <a href="#">Company</a>
-      <a href="#">Branch</a>
+            <a href="#">Company</a>
+            <a href="#">Branch</a>
       <button class="dropdown-btn">Master <i class="fa fa-caret-down"></i></button>
       <div class="dropdown-container">
-        <a href="#">Roles</a>
-        <a href="#">User</a>
+            <a href="#">Roles</a>
+            <a href="#">User</a>
       </div>
     </div>
 </div>
@@ -32,11 +32,11 @@
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
       <ul>
         <div class="nav-menu">
-        <li><a href=""><i class="far fa-envelope"></i></a></li>
-        <li><a href=""><i class="far fa-edit"></i></a></li>
-        <li><a href=""><i class="fas fa-cog"></i></a></li>
-        <li><a href=""><i class="fas fa-sign-out-alt"></i></a></li>
-      </div>
+            <li><a href=""><i class="far fa-envelope"></i></a></li>
+            <li><a href=""><i class="far fa-edit"></i></a></li>
+            <li><a href=""><i class="fas fa-cog"></i></a></li>
+            <li><a href=""><i class="fas fa-sign-out-alt"></i></a></li>
+        </div>
     </ul>
   </nav>
 <!-- navbar end -->

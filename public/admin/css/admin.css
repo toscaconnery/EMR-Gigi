@@ -3,9 +3,8 @@ body {
     padding: 0;
     background: #EDF1F5;
     overflow: hidden !important;
-    font-family: Segoe UI;
+    font-family: 'Segoe UI';
 }
-
 
 .sidenav {
     height: 100%;
@@ -123,6 +122,16 @@ nav ul li a {
 
 nav ul li a:hover {
     color: #679b9b;
+}
+
+.navbar {
+    justify-content: left;
+
+}
+
+.navbar-brand {
+    font-size: 30px;
+    padding-left: 8px;
 }
 
 #main {
@@ -365,16 +374,6 @@ ul.pagination li a:hover:not(.active) {
 
 .breadcrumb-role li a:hover {
     color: #01447e;
-}
-
-.navbar {
-    justify-content: left;
-
-}
-
-.navbar-brand {
-    font-size: 30px;
-    padding-left: 8px;
 }
 
 .role-name {
