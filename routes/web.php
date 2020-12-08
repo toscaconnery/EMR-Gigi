@@ -41,17 +41,15 @@ Route::get('check-user-list', 'TestController@checkUserList');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 
-
-
 Route::get('/roles', 'AdminController@roles');
 
 Route::get('/users', 'AdminController@users');
 
-Route::get('/doctors', 'AdminController@doctor');
+Route::get('/doctor-list', 'AdminController@doctor');
 
 Route::get('/prescription', 'AdminController@prescription');
 
-Route::get('/add-roles', 'AdminController@addroles');
+Route::get('/add-role', 'AdminController@addrole');
 
 Route::get('/add-user','AdminController@adduser');
 

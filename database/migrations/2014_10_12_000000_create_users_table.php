@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('employee_id', 30)->nullable();
             $table->enum('gender', ['m', 'f']);
+            $table->enum('active_doctor', [true, false]);
             $table->string('position')->nullable();
             $table->rememberToken();
             $table->timestamps();

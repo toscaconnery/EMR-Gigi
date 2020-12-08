@@ -3,7 +3,11 @@ body {
     padding: 0;
     background: #EDF1F5;
     overflow: hidden !important;
+<<<<<<< HEAD
     font-family: 'Segoe UI';
+=======
+    font-family: ReithSerif,Helvetica,Arial,freesans,sans-serif;
+>>>>>>> 46725b7f35d0644375670f6593f494f992de2ca4
 }
 
 .sidenav {

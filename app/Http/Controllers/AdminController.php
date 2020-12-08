@@ -27,9 +27,9 @@ class AdminController extends Controller
     {
         return view('admin.roles');
     }
-    public function addroles()
+    public function addrole()
     {
-        return view('admin.add-roles');
+        return view('admin.add-role');
     }
     public function users()
     {
@@ -37,7 +37,7 @@ class AdminController extends Controller
     }
     public function doctor()
     {
-        return view('admin.doctors');
+        return view('admin.doctor-list');
     }
     public function prescription()
     {
