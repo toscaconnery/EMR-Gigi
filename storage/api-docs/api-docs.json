@@ -134,16 +134,6 @@
                     }
                 }
             }
-        },
-        "/projects": {
-            "get": {
-                "operationId": "App\\Http\\Controllers\\TestingController::index",
-                "responses": {
-                    "200": {
-                        "description": "Display a listing of projects."
-                    }
-                }
-            }
         }
     },
     "security": [
