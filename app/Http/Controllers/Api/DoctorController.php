@@ -11,8 +11,17 @@ use Auth;
 
 class DoctorController extends Controller
 {
-
-
+    /**
+     * @OA\Get(
+     *      path="/api/doctor/list",
+     *      tags={"doctor"},
+     *      description="Get doctors list",
+     *      @OA\Response(
+     *          response="200",
+     *          description="Display a listing of doctors."
+     *      )
+     * )
+     */
     public function doctorList()
     {
         $user = $this->authUser();
@@ -25,7 +34,46 @@ class DoctorController extends Controller
         ]);
     }
 
-    // Todo : create validation
+    /**
+     * @OA\Post(
+     *      path="/api/doctor/create",
+     *      tags={"doctor"},
+     *      description="Register a new doctor",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *                  type="object",
+     *                  @OA\Property(
+     *                      property="name",
+     *                      description="Doctor name",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="email",
+     *                      description="Doctor email, used for login",
+     *                      type="email",
+     *                  ),
+     *                  @OA\Property(
+     *                      property="password",
+     *                      description="Doctor password, used for login",
+     *                      type="password"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="gender",
+     *                      description="Doctor gender (f/m)",
+     *                      type="enum"
+     *                  ),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="New doctor added to database."
+     *      ),
+     * )
+     */
     public function create(Request $request)
     {
         $user = $this->authUser();
@@ -45,7 +93,28 @@ class DoctorController extends Controller
             'error' => null
         ]);   
     }
+    
 
+    /**
+     * @OA\Get(
+     *      path="/api/doctor/delete/{doctor_id}",
+     *      tags={"doctor"},
+     *      description="Remove a doctor",
+     *      @OA\Parameter(
+     *          name="doctor_id",
+     *          in="query",
+     *          description="ID of doctor that you want to delete",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Doctor deleted."
+     *      )
+     * )
+     */
     public function delete($doctor_id)
     {
         $user = $this->authUser();
@@ -67,6 +136,50 @@ class DoctorController extends Controller
         }
     }
 
+        /**
+     * @OA\Post(
+     *      path="/api/doctor/update/{doctor_id}",
+     *      tags={"doctor"},
+     *      description="Update doctor data",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *                  type="object",
+     *                  @OA\Property(
+     *                      property="name",
+     *                      description="Doctor name",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="email",
+     *                      description="Doctor email, used for login",
+     *                      type="email",
+     *                  ),
+     *                  @OA\Property(
+     *                      property="password",
+     *                      description="Doctor password, used for login",
+     *                      type="password"
+     *                  ),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="doctor_id",
+     *          in="query",
+     *          description="ID of doctor that you want to update",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Doctor data updated."
+     *      ),
+     * )
+     */
     public function update(Request $request, $doctor_id) {
         $user = $this->authUser();
 

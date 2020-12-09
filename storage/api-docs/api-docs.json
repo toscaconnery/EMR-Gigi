@@ -1,0 +1,152 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "EMR - API Docs",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/doctor/list": {
+            "get": {
+                "tags": [
+                    "doctor"
+                ],
+                "description": "Get doctors list",
+                "operationId": "App\\Http\\Controllers\\Api\\DoctorController::doctorList",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of doctors."
+                    }
+                }
+            }
+        },
+        "/api/doctor/create": {
+            "post": {
+                "tags": [
+                    "doctor"
+                ],
+                "description": "Register a new doctor",
+                "operationId": "App\\Http\\Controllers\\Api\\DoctorController::create",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Doctor name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "Doctor email, used for login",
+                                        "type": "email"
+                                    },
+                                    "password": {
+                                        "description": "Doctor password, used for login",
+                                        "type": "password"
+                                    },
+                                    "gender": {
+                                        "description": "Doctor gender (f/m)",
+                                        "type": "enum"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "New doctor added to database."
+                    }
+                }
+            }
+        },
+        "/api/doctor/delete/{doctor_id}": {
+            "get": {
+                "tags": [
+                    "doctor"
+                ],
+                "description": "Remove a doctor",
+                "operationId": "App\\Http\\Controllers\\Api\\DoctorController::delete",
+                "parameters": [
+                    {
+                        "name": "doctor_id",
+                        "in": "query",
+                        "description": "ID of doctor that you want to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Doctor deleted."
+                    }
+                }
+            }
+        },
+        "/api/doctor/update/{doctor_id}": {
+            "post": {
+                "tags": [
+                    "doctor"
+                ],
+                "description": "Update doctor data",
+                "operationId": "App\\Http\\Controllers\\Api\\DoctorController::update",
+                "parameters": [
+                    {
+                        "name": "doctor_id",
+                        "in": "query",
+                        "description": "ID of doctor that you want to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Doctor name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "Doctor email, used for login",
+                                        "type": "email"
+                                    },
+                                    "password": {
+                                        "description": "Doctor password, used for login",
+                                        "type": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Doctor data updated."
+                    }
+                }
+            }
+        },
+        "/projects": {
+            "get": {
+                "operationId": "App\\Http\\Controllers\\TestingController::index",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of projects."
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
