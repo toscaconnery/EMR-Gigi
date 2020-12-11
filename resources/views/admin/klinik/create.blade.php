@@ -7,7 +7,7 @@
                 <a href="javascript:void(0)" class="closebtn" id="close_sidenav_btn">&times;</a>
                 <div class="profile">
                     <center>
-                        <img src="image/logo-square.png" class="profile-img" alt="image"><hr class="bg-light">
+                        <img src="{{getasset('image/logo-square.png')}}" class="profile-img" alt="image"><hr class="bg-light">
                     </center>
                 </div>
                 <div class="main-menu">
@@ -56,7 +56,7 @@
                         <div class="card-body">
                             <div class="container">
                                 <div class="ava">
-                                    <img src="image/profile.png" class="mx-auto d-block"  style="width: 150px; height: 150px; border-radius: 50%; margin-right: 25px; margin-bottom: 10px;">
+                                    <img src="{{getasset('image/profile.png')}}" class="mx-auto d-block"  style="width: 150px; height: 150px; border-radius: 50%; margin-right: 25px; margin-bottom: 10px;">
                                 </div>
                                 <div class="input-group mb-3">
                                      <div class="input-group-prepend">

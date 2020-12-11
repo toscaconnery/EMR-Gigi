@@ -58,6 +58,7 @@ class AdminController extends Controller
 
     public function createKlinik()
     {
+        // testenv();
         return view('admin.klinik.create');
     }
 }
