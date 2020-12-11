@@ -56,9 +56,8 @@ class AdminController extends Controller
         return view('admin.add-prescription');
     }
 
-    public function createKlinik()
+    public function createClinic()
     {
-        // testenv();
-        return view('admin.klinik.create');
+        return view('admin.clinic.create');
     }
 }
