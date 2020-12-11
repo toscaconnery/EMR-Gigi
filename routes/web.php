@@ -57,6 +57,10 @@ Route::get('/add-doctor', 'AdminController@adddoctor');
 
 Route::get('/add-prescription', 'AdminController@addprescript');
 
+Route::name('admin.')->prefix('admin')->group(function () {
+    Route::get('klinik/create', 'AdminController@createKlinik');
+});
+
 
 
 // Auth::routes();

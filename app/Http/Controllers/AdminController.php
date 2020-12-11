@@ -55,4 +55,9 @@ class AdminController extends Controller
     {
         return view('admin.add-prescription');
     }
+
+    public function createKlinik()
+    {
+        return view('admin.klinik.create');
+    }
 }

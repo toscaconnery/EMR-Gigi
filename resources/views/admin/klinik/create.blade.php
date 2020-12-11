@@ -158,10 +158,4 @@
 
     @include('admin_layout.sidenav-script')
 
-    <script>
-        window.addEventListener('load', function () {
-            alert("This page was moved to /admin/klinik/create")
-        })
-    </script>
-
 </html>
