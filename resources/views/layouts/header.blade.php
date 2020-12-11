@@ -33,7 +33,7 @@
                             </li>
                             <li class="nav-item" style="margin-right: 10px;">
                                 <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                    <span class="admin-name top-zero">drg. Monica Santosa, SpKGA</span>
+                                    <span class="admin-name top-zero">{{Auth::user()->name}}</span>
                                     <span class="author-project-icon adminpro-icon adminpro-down-arrow"></span>
                                 </a>
                                 <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX">

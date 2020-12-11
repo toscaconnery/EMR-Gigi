@@ -2,6 +2,7 @@
 <html>
     @include('admin_layout.head')
     <body>
+        {{-- { S{d d(JWTAuth::user())}} --}}
         <!-- sidenav start -->
             <div id="mySidenav" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" id="close_sidenav_btn">&times;</a>
@@ -72,10 +73,16 @@
                     </div>
                 </div>
     
-                <form class="container col responsive" id="create_klinik">
+                <form class="container col responsive" id="create_clinic">
                     <div class="card">
                         <div class="card-header text-white mb-1">
                             Input clinic data
+                        </div>
+                        <div class="card-header text-white mb-1">
+                        <?php
+                            $trydd = JWTAuth::user();
+                            print_r($trydd);
+                        ?>
                         </div>
                         <div class="card-body">
                             <div class="container col-md-12">
@@ -99,29 +106,17 @@
                                             <input type="tel" class="form-control" id="clinic_phone_number" placeholder="812341234" name="clinic_phone_number" autocomplete="off">
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-6" >
                                         <label for="clinic_join_date">Join Date<span>*</span></label>
-                                        <input type="text" class="form-control" placeholder="Start joining platform since date..." id="clinic_join_date" name="clinic_join_date" autocomplete="off">
+                                        <input type="text" class="form-control datepicker" placeholder="Start joining platform since date..." id="clinic_join_date" name="clinic_join_date" autocomplete="off" data-provide="datepicker">
                                     </div>
-                                    
                                     <div class="form-group col-md-12">
                                         <label for="clinic_address">Clinic Address</label>
                                         <input type="text" class="form-control" id="clinic_address" placeholder="Address" name="clinic_address" autocomplete="off">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="clinic_start_work_date">Start Work Date<span>*</span></label>
-                                        <input type="text" class="form-control" placeholder="Start work date" id="clinic_start_work_date" name="clinic_start_work_date">
-                                    </div>
-
-                                    <div class="btn-group-edit btn-group-sm	ml-auto mr-1">
-                                        <button type="button" class="btn btn-danger" id="cancel_button">
-                                            <i class="fas fa-times"></i>Cancel
-                                        </button>
-                                    </div>
-                                    <div class="btn-group-edit btn-group-sm">
-                                        <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown">
-                                            <i class="far fa-save"></i>Save
-                                        </button>
+                                        <input type="text" class="form-control datepicker" placeholder="Start work date" id="clinic_start_work_date" name="clinic_start_work_date" data-provide="datepicker">
                                     </div>
                                 </div>
                             </div>
@@ -129,76 +124,59 @@
                     </div>
 
                     <div class="card mt-4">
-                        {{-- <div class="card-header text-white mb-1">
-                            Input clinic data
-                        </div> --}}
+                        <div class="card-header text-white mb-1">
+                            Input clinic admin data
+                        </div>
+                        <div class="card-header text-white mb-1">
+                            <?php
+                                $token = JWTAuth::getToken();
+                                dd($token);
+                            ?>
+                        </div>
                         <div class="card-body mt-3">
                             <div class="container col-md-12">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="clinic_name">Clinic Name<span>*</span></label>
-                                        <input type="text" class="form-control" placeholder="Name" autocomplete="off" id="clinic_name" name="clinic_name">
+                                        <label for="admin_name">Admin Name<span>*</span></label>
+                                        <input type="text" class="form-control" placeholder="Full name" autocomplete="off" id="admin_name" name="admin_name">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="clinic_email">Clinic Email<span>*</span></label>
-                                        <input type="email" class="form-control" id="clinic_email" name="clinic_email" placeholder="Email address" autocomplete="off">
+                                        <label for="admin_email">Admin Email<span>*</span></label>
+                                        <input type="email" class="form-control" id="admin_email" name="admin_email" placeholder="Email address" autocomplete="off">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="clinic_phone_number">Clinic Phone<span>*</span></label>
+                                        <label for="admin_phone_number">Admin Phone<span>*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <button class="btn btn-outline-secondary" type="button" disabled>
                                                     +62
                                                 </button>
                                             </div>
-                                            <input type="tel" class="form-control" id="clinic_phone_number" placeholder="812341234" name="clinic_phone_number" autocomplete="off">
+                                            <input type="tel" class="form-control" id="admin_phone_number" placeholder="812341234" name="admin_phone_number" autocomplete="off">
                                         </div>
                                     </div>
+
+                                    <div class="form-group col-md-6"></div>
+
                                     <div class="form-group col-md-6">
-                                        <label for="clinic_join_date">Join Date<span>*</span></label>
-                                        <input type="text" class="form-control" placeholder="Start joining platform since date..." id="clinic_join_date" name="clinic_join_date" autocomplete="off">
+                                        <label for="admin_password">Password<span>*</span></label>
+                                        <input type="password" class="form-control" placeholder="Admin password" id="admin_password" name="admin_password" autocomplete="off">
                                     </div>
-                                    
-                                    <div class="form-group col-md-12">
-                                        <label for="clinic_address">Clinic Address</label>
-                                        <input type="text" class="form-control" id="clinic_address" placeholder="Address" name="clinic_address" autocomplete="off">
-                                    </div>
+
                                     <div class="form-group col-md-6">
-                                        <label for="clinic_start_work_date">Start Work Date<span>*</span></label>
-                                        <input type="text" class="form-control" placeholder="Start work date" id="clinic_start_work_date" name="clinic_start_work_date">
+                                        <label for="admin_password_confirm">Confirm Password<span>*</span></label>
+                                        <input type="password" class="form-control" placeholder="Confirm admin password" id="admin_password_confirm" name="admin_password_confirm" autocomplete="off">
                                     </div>
-                                    {{-- <div class="form-group col-md-6">
-                                        <label for="username">Username</label>
-                                        <input type="text" class="form-control" id="username" placeholder="Username" name="username" autocomplete="new-password">
-                                    </div> --}}
-                                    {{-- <div class="form-group col-md-6">
-                                        <label for="inputname">Password</label>
-                                        <div class="input-group mb-3">
-                                            <input type="password"  id="password" name="password" class="form-control">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="far fa-eye"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <div class="form-group col-md-6">
-                                        <label for="Role">Role<span>*</span></label>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="">
-                                        </div>
+
+                                    <div class="btn-group-edit btn-group-sm	ml-auto mr-2">
+                                        <button type="button" class="btn btn-custom" data-toggle="dropdown" id="submit_button">
+                                            <i class="far fa-save"></i>Submit
+                                        </button>
                                     </div>
-                                    <div class="btn-group-edit btn-group-sm	ml-auto">
-                                    <button type="button" class="btn btn-danger" id="cancel_button">
-                                        <i class="fas fa-times"></i>Cancel</button>
-                                        <div class="btn-group-edit btn-group-sm">
-                                        <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown"><i class="far fa-save"></i>Save</button>
-                                        </div>	
+                                    <div class="btn-group-edit btn-group-sm">
+                                        <button type="button" class="btn btn-danger" id="cancel_button">
+                                            <i class="fas fa-times"></i>Cancel
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -210,6 +188,8 @@
     </body>
 
     @include('admin_layout.sidenav-script')
+    @include('admin_layout.footscript')
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
         $(document).ready(function(){
@@ -217,11 +197,25 @@
                 alert('cancel button clicked');
             })
             
-            $('.join_date').datepicker({
-                format: 'mm/dd/yyyy',
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
                 startDate: '-3d'
             });
 
+            $('#submit_button').on('click', async function() {
+                console.log('SENDING AXIOS POST REQUEST')
+                let clinicData = {
+                    'clinicName': 'Rumah Sakit Ibu dan Anak',
+                    'clinicEmail': 'rumahsakit@gmail.com'
+                }
+                var base_url = window.location.origin
+                console.log(base_url)
+                // const axios = require('axios');
+                const res = await axios.post(`${base_url}/api/admin/clinic/store`, clinicData);
+                // const addedTodo = res.data;
+                console.log('>>> HASIL')
+                console.log(res);
+            })
         });
     </script>
 

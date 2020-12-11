@@ -55,6 +55,13 @@ Route::name('doctor.')->prefix('doctor')->group(function () {
     ]);
 });
 
+Route::name('admin.')->prefix('admin')->group(function () {
+    Route::post('clinic/store', [
+        'as'    => 'admin.createclinic',
+        'uses'  => 'Api\ClinicController@store'
+    ]);
+});
+
 
 Route::get('/get-company-list', 'Api\CompanyController@getCompanyList');
 

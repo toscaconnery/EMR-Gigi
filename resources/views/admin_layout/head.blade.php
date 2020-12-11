@@ -22,5 +22,7 @@
     
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+    <link rel="stylesheet" href="{{getasset('theme/css/datapicker/datepicker3.css')}}">
   
 </head>

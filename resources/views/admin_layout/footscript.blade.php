@@ -1,0 +1,1 @@
+<script src="{{getasset('theme/js/datapicker/bootstrap-datepicker.js')}}"></script>
