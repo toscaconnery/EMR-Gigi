@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use JWTAuth;
+use Session;
 
 class AdminController extends Controller
 {
@@ -56,8 +58,26 @@ class AdminController extends Controller
         return view('admin.add-prescription');
     }
 
-    public function createClinic()
+    public function createClinic(Request $request)
     {
-        return view('admin.clinic.create');
+        // dd('oke');
+        // $user = JWTAuth::user();
+        // $value = 'new value of session';
+        // Session::set('variableName', $value);
+        // session()->put('hello', 'hello');
+        // dd($request->session());
+        // dd($user->password);
+        // $email = $user->email;
+        // $password = $user->password;
+        // $credentials = [
+        //     'email' => $email,
+        //     'password' => '12345678'
+        // ];
+        // $token = JWTAuth::attempt($credentials);
+        // dd($token);
+        $jwtToken = $request->session()->get('jwtApiToken');
+        // dd($jwtToken);
+
+        return view('admin.clinic.create', compact('jwtToken'));
     }
 }

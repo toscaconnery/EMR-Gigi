@@ -33,6 +33,11 @@ Route::get('/user/self', [
     'uses'  => 'Api\DoctorController@self'
 ]);
 
+Route::get('/jwt/get-current-token', [
+    'as'    => 'jwt.getCurrentToken',
+    'uses'  => 'Api\SessionController@getJWTToken'
+]);
+
 Route::name('doctor.')->prefix('doctor')->group(function () {
     Route::post('create', [
         'as'    => 'doctor.create',

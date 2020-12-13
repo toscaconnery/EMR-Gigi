@@ -17,10 +17,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone', 40)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('employee_id', 30)->nullable();
-            $table->enum('gender', ['m', 'f']);
+            $table->enum('gender', ['m', 'f'])->nullable();
             $table->enum('active_doctor', [true, false]);
             $table->string('position')->nullable();
             $table->rememberToken();

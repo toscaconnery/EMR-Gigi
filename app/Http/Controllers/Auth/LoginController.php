@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use Session;
+use JWTAuth;
 
 class LoginController extends Controller
 {
@@ -42,7 +44,9 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if ($user->position == 'doctor') {
+        $jwtToken = $this->getJWTTokenForAPI($request->email, $request->password);
+        session()->put('jwtApiToken', $jwtToken);
+        if ($user->active_doctor == 1) {
             return redirect('/list-appointment');
         } elseif ($user->position == 'admin') {
             return redirect('/company');
@@ -53,5 +57,14 @@ class LoginController extends Controller
     public function logout(Request $request) {
         Auth::logout();
         return redirect('/login');
+    }
+
+    public function getJWTTokenForAPI($email, $password) {
+        $credentials = [
+            'email' => $email,
+            'password' => $password
+        ];
+        $token = JWTAuth::attempt($credentials);
+        return $token;
     }
 }

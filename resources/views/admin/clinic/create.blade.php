@@ -78,12 +78,12 @@
                         <div class="card-header text-white mb-1">
                             Input clinic data
                         </div>
-                        <div class="card-header text-white mb-1">
-                        <?php
+                        {{-- <div class="card-header text-white mb-1"> --}}
+                        {{-- < ?php
                             $trydd = JWTAuth::user();
                             print_r($trydd);
-                        ?>
-                        </div>
+                        ?> --}}
+                        {{-- </div> --}}
                         <div class="card-body">
                             <div class="container col-md-12">
                                 <div class="form-row">
@@ -93,7 +93,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="clinic_email">Clinic Email<span>*</span></label>
-                                        <input type="email" class="form-control" id="clinic_email" name="clinic_email" placeholder="Email address" autocomplete="off">
+                                        <input type="email" class="form-control" id="clinic_email" name="clinic_email" placeholder="Email address" autocomplete="new-password">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="clinic_phone_number">Clinic Phone<span>*</span></label>
@@ -103,7 +103,7 @@
                                                     +62
                                                 </button>
                                             </div>
-                                            <input type="tel" class="form-control" id="clinic_phone_number" placeholder="812341234" name="clinic_phone_number" autocomplete="off">
+                                            <input type="tel" class="form-control" id="clinic_phone_number" placeholder="812341xxx" name="clinic_phone_number" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6" >
@@ -123,16 +123,16 @@
                         </div>
                     </div>
 
-                    <div class="card mt-4">
+                    <div class="card mt-4 mb-4">
                         <div class="card-header text-white mb-1">
-                            Input clinic admin data
+                            Input clinic administrator data
                         </div>
-                        <div class="card-header text-white mb-1">
-                            <?php
+                        {{-- <div class="card-header text-white mb-1"> --}}
+                            {{-- < ?php
                                 $token = JWTAuth::getToken();
                                 dd($token);
-                            ?>
-                        </div>
+                            ?> --}}
+                        {{-- </div> --}}
                         <div class="card-body mt-3">
                             <div class="container col-md-12">
                                 <div class="form-row">
@@ -152,7 +152,7 @@
                                                     +62
                                                 </button>
                                             </div>
-                                            <input type="tel" class="form-control" id="admin_phone_number" placeholder="812341234" name="admin_phone_number" autocomplete="off">
+                                            <input type="tel" class="form-control" id="admin_phone_number" placeholder="812341xxx" name="admin_phone_number" autocomplete="off">
                                         </div>
                                     </div>
 
@@ -167,6 +167,8 @@
                                         <label for="admin_password_confirm">Confirm Password<span>*</span></label>
                                         <input type="password" class="form-control" placeholder="Confirm admin password" id="admin_password_confirm" name="admin_password_confirm" autocomplete="off">
                                     </div>
+
+                                    <input type="hidden" id="user_token" value="{{$jwtToken}}">
 
                                     <div class="btn-group-edit btn-group-sm	ml-auto mr-2">
                                         <button type="button" class="btn btn-custom" data-toggle="dropdown" id="submit_button">
@@ -189,7 +191,6 @@
 
     @include('admin_layout.sidenav-script')
     @include('admin_layout.footscript')
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
         $(document).ready(function(){
@@ -204,18 +205,160 @@
 
             $('#submit_button').on('click', async function() {
                 console.log('SENDING AXIOS POST REQUEST')
-                let clinicData = {
-                    'clinicName': 'Rumah Sakit Ibu dan Anak',
-                    'clinicEmail': 'rumahsakit@gmail.com'
+
+                let hasError = false;
+                let errorMessage = '';
+
+                let clinicName = $('#clinic_name').val();
+                if (clinicName == '') {
+                    hasError = true;
+                    errorMessage += '<li>Clinic name is required</li>';
                 }
-                var base_url = window.location.origin
-                console.log(base_url)
+
+                let clinicEmail = $('#clinic_email').val();
+                if (clinicEmail == '') {
+                    hasError = true;
+                    errorMessage += '<li>Clinic email is required</li>';
+                }
+
+                let clinicPhone = $('#clinic_phone_number').val();
+                if (clinicPhone == '') {
+                    hasError = true;
+                    errorMessage += '<li>Clinic phone is required</li>';
+                }
+
+                let clinicJoinDate = $('#clinic_join_date').val();
+                if (clinicJoinDate == '') {
+                    hasError = true;
+                    errorMessage += '<li>Clinic join date is required</li>';
+                }
+
+                let clinicAddress = $('#clinic_address').val();
+                if (clinicAddress == '') {
+                    hasError = true;
+                    errorMessage += '<li>Clinic address is required</li>';
+                }
+
+                let clinicStartWorkDate = $('#clinic_start_work_date').val();
+                if (clinicStartWorkDate == '') {
+                    hasError = true;
+                    errorMessage += '<li>Clinic start work date is required</li>';
+                }
+
+                let adminName = $('#admin_name').val();
+                if (adminName == '') {
+                    hasError = true;
+                    errorMessage += '<li>Admin name is required</li>';
+                }
+
+                let adminEmail = $('#admin_email').val();
+                if (adminEmail == '') {
+                    hasError = true;
+                    errorMessage += '<li>Admin email is required</li>';
+                }
+
+                let adminPhone = $('#admin_phone_number').val();
+                if (adminPhone == '') {
+                    hasError = true;
+                    errorMessage += '<li>Admin phone is required</li>';
+                }
+
+                // Admin password
+                let adminPassword = $('#admin_password').val();
+                console.log(adminPassword)
+                let adminConfirmPassword = $('#admin_password_confirm').val();
+
+                if (adminPassword == '' && adminConfirmPassword != '') {
+                    hasError = true;
+                    errorMessage += '<li>Admin password is required</li>';
+                } else if (adminPassword != '' && adminConfirmPassword == '') {
+                    hasError = true;
+                    errorMessage += '<li>Admin password confirmation is required</li>';
+                } else if (adminPassword.length < 8) {
+                    hasError = true;
+                    errorMessage += '<li>Admin password minimum length is 8</li>';
+                } else if (adminPassword != adminConfirmPassword) {
+                    hasError = true;
+                    errorMessage += '<li>Admin password and password confirmation does not match</li>';
+                }
+
+                if (hasError) {
+                    toastr.warning(errorMessage)
+                } else {
+                    let clinicData = {
+                        clinicName,
+                        clinicEmail,
+                        clinicPhone,
+                        clinicJoinDate,
+                        clinicAddress,
+                        clinicStartWorkDate,
+                        adminName,
+                        adminEmail,
+                        adminPhone,
+                        adminPassword,
+                        adminConfirmPassword
+                    }
+
+                    var base_url = window.location.origin
+
+                    const userToken = $('#user_token').val();
+
+                    const createURL = `${base_url}/api/admin/clinic/store`;
+                    const res = axios.post(createURL, clinicData, {
+                        headers: {
+                            'Authorization': `Bearer ${userToken}`
+                        },
+                    }).then(function (response) {
+                        console.log(response);
+                        let responseData = response.data.data;
+                        if (responseData.status == 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Clinic created.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Failed to create clinic.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    })
+                }
+
+                // let clinicData = {
+                //     'clinicName': 'Rumah Sakit Ibu dan Anak',
+                //     'clinicEmail': 'rumahsakit@gmail.com'
+                // }
+                // var base_url = window.location.origin
+                // console.log(base_url)
                 // const axios = require('axios');
-                const res = await axios.post(`${base_url}/api/admin/clinic/store`, clinicData);
+                // const res = await axios.post(`${base_url}/api/admin/clinic/store`, clinicData);
                 // const addedTodo = res.data;
-                console.log('>>> HASIL')
-                console.log(res);
-            })
+                // console.log('>>> HASIL')
+                // console.log(res);
+                // const userToken = $('#user_token').val();
+                // console.log('USER TOKEN')
+                // console.log(userToken)
+                // const createURL = `${base_url}/api/admin/clinic/store`;
+                // const res = axios.post(createURL, clinicData, {
+                //     headers: {
+                //         'Authorization': `Bearer ${userToken}`
+                //     },
+                // })
+            });
+
+            // function getJWTToken() {
+            //     console.log('GETTING JWT TOKEN')
+            //     axios.get('/api/jwt/get-current-token')
+            //         .then((response)=>{
+            //             console.log(response)
+            //             this.users = response.data.users
+            //         })
+            // }
         });
     </script>
 

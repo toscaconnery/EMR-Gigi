@@ -18,6 +18,10 @@ class CreateHospitalTable extends Migration
             $table->string('name', 255);
             $table->string('address', 255);
             $table->string('email', 255);
+            $table->string('phone', 40);
+            $table->date('join_date');
+            $table->date('start_work_date');
+            $table->integer('admin_id');
             $table->timestamps();
         });
     }

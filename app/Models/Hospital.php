@@ -13,6 +13,11 @@ class Hospital extends Model
     protected $fillable = [
         'name',
         'address',
+        'phone',
+        'email',
+        'join_date',
+        'start_work_date',
+        'admin_id'
     ];
 
     public $timestamps = true;

@@ -24,5 +24,13 @@
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
     <link rel="stylesheet" href="{{getasset('theme/css/datapicker/datepicker3.css')}}">
+
+    {{-- Swal --}}
+    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    {{-- Toastr --}}
+    <link href="{{getasset('css/toastr.css')}}" rel="stylesheet">
+    <script src="{{getasset('js/toastr.js')}}"></script>
   
 </head>
