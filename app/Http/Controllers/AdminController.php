@@ -76,13 +76,14 @@ class AdminController extends Controller
         // $token = JWTAuth::attempt($credentials);
         // dd($token);
         $jwtToken = $request->session()->get('jwtApiToken');
-        // dd($jwtToken);
 
         return view('admin.clinic.create', compact('jwtToken'));
     }
 
     public function listClinic(Request $request)
     {
-        dd("show list of clinics");
+        $jwtToken = $request->session()->get('jwtApiToken');
+
+        return view('admin.clinic.list', compact('jwtToken'));
     }
 }

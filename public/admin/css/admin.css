@@ -356,6 +356,10 @@ ul.pagination li a:hover:not(.active) {
     padding-bottom: 10px;
 }
 
+.non-visible {
+    visibility: hidden;
+}
+
 .breadcrumb-role li+li:before {
     /* padding: 5px; */
     color: black;

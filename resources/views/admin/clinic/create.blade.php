@@ -2,7 +2,6 @@
 <html>
     @include('admin_layout.head')
     <body>
-        {{-- { S{d d(JWTAuth::user())}} --}}
         <!-- sidenav start -->
             <div id="mySidenav" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" id="close_sidenav_btn">&times;</a>
@@ -24,7 +23,7 @@
         <!-- sidenav end -->
 
         <div id="main">
-        <!-- navbar start -->
+            <!-- navbar start -->
             <nav>
                 <span style="font-size:30px;cursor:pointer" id="open_sidenav_btn">&#9776;</span>
                     <ul>
@@ -36,7 +35,7 @@
                     </div>
                 </ul>
             </nav>
-        <!-- navbar end -->
+            <!-- navbar end -->
 
         <!--Breadcrumb-->
         <ul class="breadcrumb">

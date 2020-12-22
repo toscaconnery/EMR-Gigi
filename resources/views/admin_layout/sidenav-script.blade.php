@@ -11,11 +11,15 @@
         }
 
         $('#close_sidenav_btn').on('click', function() {
+            document.getElementById("close_sidenav_btn").classList.add("non-visible");
             closeNav();
+            document.getElementById("open_sidenav_btn").classList.remove("non-visible");
         });
 
         $('#open_sidenav_btn').on('click', function() {
+            document.getElementById("open_sidenav_btn").classList.add("non-visible");
             openNav();
+            document.getElementById("close_sidenav_btn").classList.remove("non-visible");
         });
 
         var dropdown = document.getElementsByClassName("dropdown-btn");
