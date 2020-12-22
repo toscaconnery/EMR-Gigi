@@ -59,6 +59,7 @@ Route::get('/add-prescription', 'AdminController@addprescript');
 
 Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('clinic/create', 'AdminController@createClinic');
+    Route::get('clinic/list', 'AdminController@listClinic');
 });
 
 

@@ -41,7 +41,8 @@ class ClinicController extends Controller
             'phone'     => $request->adminPhone,
             'password'  => $request->adminPassword,
             'password_confirmation'  => $request->adminConfirmPassword,
-            'active_doctor' => 'false'
+            'active_doctor' => false,
+            'active_admin'  => true
         ];
         
         $adminValidate = $this->adminValidator($adminArray);
@@ -52,7 +53,8 @@ class ClinicController extends Controller
                 'email'     => $request->adminEmail,
                 'phone'     => $request->adminPhone,
                 'password'  => Hash::make($request->adminPassword),
-                'active_doctor' => ''
+                'active_doctor' => false,
+                'active_admin'  => true,
             ]);
 
             $clinicArray['admin_id'] = $newAdmin->id;

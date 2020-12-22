@@ -80,4 +80,9 @@ class AdminController extends Controller
 
         return view('admin.clinic.create', compact('jwtToken'));
     }
+
+    public function listClinic(Request $request)
+    {
+        dd("show list of clinics");
+    }
 }

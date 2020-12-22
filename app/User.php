@@ -17,7 +17,13 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'password', 'active_doctor', 'gender'
+        'name',
+        'email',
+        'phone',
+        'password',
+        'active_doctor',
+        'active_admin',
+        'gender'
     ];
 
     /**
@@ -51,5 +57,10 @@ class User extends Authenticatable implements JWTSubject
     public function getIsdoctorAttribute()
     {
         return $this->active_doctor;
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->active_admin;
     }
 }
