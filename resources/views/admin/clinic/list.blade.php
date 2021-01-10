@@ -99,7 +99,7 @@
                             //     showConfirmButton: false,
                             //     timer: 1500
                             // });
-                            showData(responseData.hospital);
+                            showData(responseData.hospitals);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({

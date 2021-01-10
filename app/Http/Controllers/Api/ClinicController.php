@@ -89,23 +89,23 @@ class ClinicController extends Controller
 
         if ($user) {
             if ($user->id == 1) {
-                $hospital = Hospital::take($limit)
+                $hospitals = Hospital::take($limit)
                                     ->skip($skip)
                                     ->get();
             } elseif ($user->active_admin == true) {
-                $hospital = Hospital::where('admin_id', $user->id)
+                $hospitals = Hospital::where('admin_id', $user->id)
                                     ->take($limit)
                                     ->skip($skip)
                                     ->get();
             } else {
-                $hospital = null;
+                $hospitals = null;
             }
         }
         
         $response = [
             'data'  => [
                 'status'    => 'success',
-                'hospital'  => $hospital,
+                'hospitals'  => $hospitals,
                 'limit'     => $limit,
                 'page'      => $page,
                 'user'      => $this->authUser(),

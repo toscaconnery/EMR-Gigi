@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Hospital;
+use App\Models\Branch;
 use JWTAuth;
 use Session;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -87,11 +90,27 @@ class AdminController extends Controller
         return view('admin.clinic.list', compact('jwtToken'));
     }
 
-    public function branchList(Request $request)
+    public function branchList(Request $request, $clinic_id = null)
     {
+        if ( ! Auth::check()) {
+            // return redirect('/list-appointment');
+            return redirect('/login');
+        } else {
+            $user = Auth::user();
+            if ($user->active_superadmin == false && $clinic_id == null) {
+                $clinic = Hospital::where('admin_id', $user->id)
+                                  ->first();
+                return redirect('/admin/branch/list/' . $clinic->id);
+            }
+            // else {
+            //     $branch = Branch::where('hospital_id', $clinic_id)
+            //                     ->get();
+            // }
+        }
+        // dd($user);
         $jwtToken = $request->session()->get('jwtApiToken');
 
-        return view('admin.branch.list', compact('jwtToken'));
+        return view('admin.branch.list', compact('jwtToken', 'clinic_id'));
     }
     
     public function branchCreate(Request $request)

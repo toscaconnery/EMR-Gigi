@@ -3,6 +3,7 @@
     @include('admin_layout.head')
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
+        <input type="hidden" value="{{$clinic_id}}" id="clinic_id">
 
 		@include('admin_layout.sidenav')
 
@@ -81,7 +82,7 @@
 
                 if (userToken != '') {
                     showLoadingCircle();
-                    const fetchURL = `${base_url}/api/admin/clinic/list`;
+                    const fetchURL = `${base_url}/api/admin/branch/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -93,7 +94,7 @@
                     }).then(function (response) {
                         let responseData = response.data.data;
                         if (responseData.status == 'success') {
-                            showData(responseData.hospital);
+                            showData(responseData.branchs);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({
@@ -116,9 +117,9 @@
 
             }
 
-            function showData(hospitalList) {
+            function showData(branchList) {
                 let i = 1;
-                hospitalList.forEach(function(item) {
+                branchList.forEach(function(item) {
                     console.log('++++++++++')
                     console.log(item)
                     $('#hospital_placer').before(`

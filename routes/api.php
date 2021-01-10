@@ -70,6 +70,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'as'    => 'admin.getclinic',
         'uses'  => 'Api\ClinicController@list'
     ]);
+
+    Route::get('branch/list', [
+        'as'    => 'admin.getbranch',
+        'uses'  => 'Api\BranchController@list'
+    ]);
 });
 
 

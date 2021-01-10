@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['m', 'f'])->nullable();
             $table->boolean('active_doctor')->default(false);
             $table->boolean('active_admin')->default(false);
+            $table->boolean('active_superadmin')->default(false);
+            $table->boolean('active_patient')->default(false);
             $table->string('position')->nullable();
             $table->rememberToken();
             $table->timestamps();

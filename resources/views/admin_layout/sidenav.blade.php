@@ -7,8 +7,8 @@
     </div>
     <div class="main-menu">
         <a href="#">Dashboard</a>
-        <a href="#">Clinic</a>
-        <a href="#">Branch</a>
+        <a href="{{url('/admin/clinic/list')}}">Clinic</a>
+        <a href="{{url('/admin/branch/list')}}">Branch</a>
         <button class="dropdown-btn">Settings <i class="fa fa-caret-down"></i></button>
         <div class="dropdown-container">
             <a href="#">Roles</a>

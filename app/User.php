@@ -23,6 +23,8 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'active_doctor',
         'active_admin',
+        'active_superadmin',
+        'active_patient',
         'gender'
     ];
 

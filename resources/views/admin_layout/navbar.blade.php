@@ -3,7 +3,7 @@
     <ul>
             <div class="nav-menu">
             <li class="mr-4">{{Auth::user()->name}}</li>
-            <li><a href="">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+            <li><a href="{{url('/logout')}}">Logout <i class="fas fa-sign-out-alt"></i></a></li>
         </div>
     </ul>
 </nav>
