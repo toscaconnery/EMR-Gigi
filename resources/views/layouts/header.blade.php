@@ -22,7 +22,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{url('/admin/clinic/create')}}" class="nav-link">
+                                <a href="{{url('/admin/clinic/list')}}" class="nav-link">
                                     <span class="admin-name top-zero">GOTOADMIN</span>
                                 </a>
                             </li>

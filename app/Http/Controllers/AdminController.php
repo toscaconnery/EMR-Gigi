@@ -20,7 +20,7 @@ class AdminController extends Controller
     {
         return view('admin.branch');
     }
-    public function branchlist()
+    public function branchlist2()
     {
         return view('admin.branch-list');
     }
@@ -58,7 +58,7 @@ class AdminController extends Controller
         return view('admin.add-prescription');
     }
 
-    public function createClinic(Request $request)
+    public function clinicCreate(Request $request)
     {
         // dd('oke');
         // $user = JWTAuth::user();
@@ -80,10 +80,17 @@ class AdminController extends Controller
         return view('admin.clinic.create', compact('jwtToken'));
     }
 
-    public function listClinic(Request $request)
+    public function clinicList(Request $request)
     {
         $jwtToken = $request->session()->get('jwtApiToken');
 
         return view('admin.clinic.list', compact('jwtToken'));
+    }
+
+    public function branchList(Request $request)
+    {
+        $jwtToken = $request->session()->get('jwtApiToken');
+
+        return view('admin.branch.list', compact('jwtToken'));
     }
 }

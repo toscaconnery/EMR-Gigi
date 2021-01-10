@@ -35,7 +35,7 @@ Route::get('/company', 'AdminController@company');          //moved
 Route::get('/list-company', 'AdminController@listCompany'); //moved
 
 Route::get('/branch', 'AdminController@branch');            //need to  move
-Route::get('/branch-list', 'AdminController@branchlist');   //need to move
+Route::get('/branch-list', 'AdminController@branchlist2');   //need to move
 Route::get('check-user-list', 'TestController@checkUserList');  //testing purpose
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
@@ -57,9 +57,9 @@ Route::get('/add-doctor', 'AdminController@adddoctor');
 Route::get('/add-prescription', 'AdminController@addprescript');
 
 Route::name('admin.')->prefix('admin')->group(function () {
-    Route::get('clinic/create', 'AdminController@createClinic');
-    Route::get('clinic/list', 'AdminController@listClinic');
-    Route::get('clinic/branch', 'AdminController@branch');
+    Route::get('clinic/list', 'AdminController@clinicList');
+    Route::get('clinic/create', 'AdminController@clinicCreate');
+    Route::get('branch/list/{branch_id}', 'AdminController@branchList');
 });
 
 

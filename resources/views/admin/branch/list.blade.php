@@ -115,7 +115,6 @@
                 const userToken = $('#user_token').val();
 
                 if (userToken != '') {
-                    showLoadingCircle();
                     const fetchURL = `${base_url}/api/admin/clinic/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
@@ -134,7 +133,7 @@
                             //     showConfirmButton: false,
                             //     timer: 1500
                             // });
-                            // showLoadingCircle();
+                            showLoadingCircle();
                             showData(responseData.hospital);
                         } else {
                             hideLoadingCircle();
@@ -160,12 +159,13 @@
 
             function showData(hospitalList) {
                 let i = 1;
-                var base_url = window.location.origin;
                 hospitalList.forEach(function(item) {
+                    console.log('++++++++++')
+                    console.log(item)
                     $('#hospital_placer').before(`
                         <tr>
                             <td>${i++}</td>
-                            <td><a href="${base_url}/admin/branch/list/${item.id}">${item.name}</a></td>
+                            <td>${item.name}</td>
                             <td>${item.address}</td>
                             <td>${item.phone}</td>
                             <td>${item.email}</td>
