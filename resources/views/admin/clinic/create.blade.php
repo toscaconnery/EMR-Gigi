@@ -126,12 +126,7 @@
                         <div class="card-header text-white mb-1">
                             Input clinic administrator data
                         </div>
-                        {{-- <div class="card-header text-white mb-1"> --}}
-                            {{-- < ?php
-                                $token = JWTAuth::getToken();
-                                dd($token);
-                            ?> --}}
-                        {{-- </div> --}}
+
                         <div class="card-body mt-3">
                             <div class="container col-md-12">
                                 <div class="form-row">

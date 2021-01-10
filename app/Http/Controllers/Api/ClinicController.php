@@ -79,6 +79,42 @@ class ClinicController extends Controller
         return response()->json($response);
     }
 
+    public function list(Request $request)
+    {
+        $user = $this->authUser();
+
+        $limit = $request->limit ? $request->limit : 10;
+        $page = $request->page ? $request->page : 1;
+        $skip = ($limit * $page) - $limit;
+
+        if ($user) {
+            if ($user->id == 1) {
+                $hospital = Hospital::take($limit)
+                                    ->skip($skip)
+                                    ->get();
+            } elseif ($user->active_admin == true) {
+                $hospital = Hospital::where('admin_id', $user->id)
+                                    ->take($limit)
+                                    ->skip($skip)
+                                    ->get();
+            } else {
+                $hospital = null;
+            }
+        }
+        
+        $response = [
+            'data'  => [
+                'status'    => 'success',
+                'hospital'  => $hospital,
+                'limit'     => $limit,
+                'page'      => $page,
+                'user'      => $this->authUser(),
+            ],
+            'error' => null
+        ];
+        return response()->json($response);
+    }
+
     protected function adminValidator(array $data)
     {
         $validator =  Validator::make($data, [

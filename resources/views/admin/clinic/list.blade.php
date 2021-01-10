@@ -2,7 +2,7 @@
 <html>
     @include('admin_layout.head')
     <body>
-
+        <input type="hidden" value="{{$jwtToken}}" id="user_token">
 		<!-- sidenav start -->
 		<div id="mySidenav" class="sidenav">
 			<a href="javascript:void(0)" class="closebtn" id="close_sidenav_btn">&times;</a>
@@ -66,105 +66,42 @@
 						</div>
 					</div>
 					<div class="card-body">
-						{{-- <div class="button text-right">
-							<button type="button" class="btn text-white" style="background-color: #ff9a76"><i class="fas fa-search"></i>Search</button>
-						</div> --}}
-						{{-- <div class="Show">
-							<p class="write-satu">Show</p>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<select id="nominal" name="nominal">
-										<option value="satu">10</option>
-										<option value="dua">25</option>
-										<option value="tiga">50</option>
-									</select>
-								</div>
-							</div>
-							<p class="write-dua ">entries</p>
-						</div> --}}
-
 						<table id="tabel-data" class="table table-bordered table-hover">
 							<thead>
 								<tr>
-									<th>No<i class="fas fa-sort"></i></th>
-									<th>Name <i class="fas fa-sort"></i></th>
-									<th>Address <i class="fas fa-sort"></i></th>
-									<th>Phone Number<i class="fas fa-sort"></i></th>
-									<th>Latitude <i class="fas fa-sort"></i></th>
-									<th>Longitude <i class="fas fa-sort"></i></th>
-									<th>Radius <i class="fas fa-sort"></i></th>
-									<th>Status <i class="fas fa-sort"></i></th>
+									<th>No</th>
+									<th>Name</th>
+									<th>Address</th>
+									<th>Phone Number</th>
+									<th>Email</th>
+									<th>Join Date</th>
+									<th>Start Date</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Cabang Bandung</td>
-									<td>Griya Pesantren Indah. Jalan Pesantren, cibabat, C</td>
-									<td>081200001</td>
-									<td>-6.878278029915829</td>
-									<td>107.5579755353232</td>
-									<td>100</td>
-									<td>
-										<span class="badge badge-dark bg-success">Active</span>
-									</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>Center</td>
-									<td>Kaspea Bangunan, Jalan Raya Jati Asih, RT.007/RW.0</td>
-									<td></td>
-									<td>-6.2928153</td>
-									<td>106.9604993</td>
-									<td>100</td>
-									<td>
-										<span class="badge badge-dark bg-success">Active</span>
-									</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>Gudang</td>
-									<td>Dualitas Coffee,Jalan Prof.DR Soepomo RT.5/RW.</td>
-									<td>081220805453</td>
-									<td>-6.2406953999999999</td>
-									<td>106.8452503</td>
-									<td>3000</td>
-									<td>
-										<span class="badge badge-dark bg-success">Active</span>
-									</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>Gudang</td>
-									<td>Indomaret Bendungan Hilir Raya 78, Jalan Bendungan</td>
-									<td></td>
-									<td>-6.212236</td>
-									<td>106.8124042</td>
-									<td>3000</td>
-									<td>
-										<span class="badge badge-dark bg-success">Active</span>
-									</td>
-								</tr>
+                                <tr id="hospital_placer"></tr>
 							</tbody>
 						</table>
 						<div class="show">
-							<p class="write-satu">Show</p>
-							<div class="input-group">
+							<p class="page-conf-left">Show</p>
+							<div class="input-group page-conf-val">
 								<div class="input-group-prepend">
 									<select id="nominal" name="nominal">
-										<option value="satu">10</option>
-										<option value="dua">25</option>
-										<option value="tiga">50</option>
+										<option value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
 									</select>
 								</div>
 							</div>
-							<p class="write-dua ">entries</p>
+							<p>entries</p>
 						</div>
 					</div> 
 				</div>
 			</div>
 			<!-- branch list end -->
-		</div>
+        </div>
+        <div class="lds-roller" id="loading_circle" style="display: none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
     </body>
     
@@ -172,7 +109,213 @@
     @include('admin_layout.footscript')
 
     <script>
-        
+        $(document).ready(function(){
+            function fetchClinicList() {
+                var base_url = window.location.origin;
+                const userToken = $('#user_token').val();
+
+                if (userToken != '') {
+                    const fetchURL = `${base_url}/api/admin/clinic/list`;
+                    const res = axios.get(fetchURL, {
+                        headers: {
+                            'Authorization': `Bearer ${userToken}`
+                        },
+                        params: {
+                            'limit': 10,
+                            'page': 1
+                        }
+                    }).then(function (response) {
+                        let responseData = response.data.data;
+                        if (responseData.status == 'success') {
+                            // Swal.fire({
+                            //     icon: 'success',
+                            //     title: 'Clinic fetched.',
+                            //     showConfirmButton: false,
+                            //     timer: 1500
+                            // });
+                            showLoadingCircle();
+                            showData(responseData.hospital);
+                        } else {
+                            hideLoadingCircle();
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Failed to fetch clinic.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    })
+                } else {
+                    hideLoadingCircle();
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'You are not logged in',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+
+            }
+
+            function showData(hospitalList) {
+                let i = 1;
+                hospitalList.forEach(function(item) {
+                    console.log('++++++++++')
+                    console.log(item)
+                    $('#hospital_placer').before(`
+                        <tr>
+                            <td>${i++}</td>
+                            <td>${item.name}</td>
+                            <td>${item.address}</td>
+                            <td>${item.phone}</td>
+                            <td>${item.email}</td>
+                            <td>${item.join_date}</td>
+                            <td>${item.start_work_date}</td>
+                        </tr>
+                    `)
+                });
+                hideLoadingCircle();
+            }
+
+            function showLoadingCircle() {
+                $('#loading_circle').show();
+            }
+
+            function hideLoadingCircle() {
+                $('#loading_circle').hide();
+            }
+
+            fetchClinicList()
+
+            // $('#submit_button').on('click', async function() {
+            //     console.log('SENDING AXIOS POST REQUEST')
+
+            //     let hasError = false;
+            //     let errorMessage = '';
+
+            //     let clinicName = $('#clinic_name').val();
+            //     if (clinicName == '') {
+            //         hasError = true;
+            //         errorMessage += '<li>Clinic name is required</li>';
+            //     }
+
+            //     let clinicEmail = $('#clinic_email').val();
+            //     if (clinicEmail == '') {
+            //         hasError = true;
+            //         errorMessage += '<li>Clinic email is required</li>';
+            //     }
+
+            //     let clinicPhone = $('#clinic_phone_number').val();
+            //     if (clinicPhone == '') {
+            //         hasError = true;
+            //         errorMessage += '<li>Clinic phone is required</li>';
+            //     }
+
+            //     let clinicJoinDate = $('#clinic_join_date').val();
+            //     if (clinicJoinDate == '') {
+            //         hasError = true;
+            //         errorMessage += '<li>Clinic join date is required</li>';
+            //     }
+
+            //     let clinicAddress = $('#clinic_address').val();
+            //     if (clinicAddress == '') {
+            //         hasError = true;
+            //         errorMessage += '<li>Clinic address is required</li>';
+            //     }
+
+            //     let clinicStartWorkDate = $('#clinic_start_work_date').val();
+            //     if (clinicStartWorkDate == '') {
+            //         hasError = true;
+            //         errorMessage += '<li>Clinic start work date is required</li>';
+            //     }
+
+            //     let adminName = $('#admin_name').val();
+            //     if (adminName == '') {
+            //         hasError = true;
+            //         errorMessage += '<li>Admin name is required</li>';
+            //     }
+
+            //     let adminEmail = $('#admin_email').val();
+            //     if (adminEmail == '') {
+            //         hasError = true;
+            //         errorMessage += '<li>Admin email is required</li>';
+            //     }
+
+            //     let adminPhone = $('#admin_phone_number').val();
+            //     if (adminPhone == '') {
+            //         hasError = true;
+            //         errorMessage += '<li>Admin phone is required</li>';
+            //     }
+
+            //     // Admin password
+            //     let adminPassword = $('#admin_password').val();
+            //     console.log(adminPassword)
+            //     let adminConfirmPassword = $('#admin_password_confirm').val();
+
+            //     if (adminPassword == '' && adminConfirmPassword != '') {
+            //         hasError = true;
+            //         errorMessage += '<li>Admin password is required</li>';
+            //     } else if (adminPassword != '' && adminConfirmPassword == '') {
+            //         hasError = true;
+            //         errorMessage += '<li>Admin password confirmation is required</li>';
+            //     } else if (adminPassword.length < 8) {
+            //         hasError = true;
+            //         errorMessage += '<li>Admin password minimum length is 8</li>';
+            //     } else if (adminPassword != adminConfirmPassword) {
+            //         hasError = true;
+            //         errorMessage += '<li>Admin password and password confirmation does not match</li>';
+            //     }
+
+            //     if (hasError) {
+            //         toastr.warning(errorMessage)
+            //     } else {
+            //         let clinicData = {
+            //             clinicName,
+            //             clinicEmail,
+            //             clinicPhone,
+            //             clinicJoinDate,
+            //             clinicAddress,
+            //             clinicStartWorkDate,
+            //             adminName,
+            //             adminEmail,
+            //             adminPhone,
+            //             adminPassword,
+            //             adminConfirmPassword
+            //         }
+
+            //         var base_url = window.location.origin
+
+            //         const userToken = $('#user_token').val();
+
+            //         const createURL = `${base_url}/api/admin/clinic/store`;
+            //         const res = axios.post(createURL, clinicData, {
+            //             headers: {
+            //                 'Authorization': `Bearer ${userToken}`
+            //             },
+            //         }).then(function (response) {
+            //             console.log(response);
+            //             let responseData = response.data.data;
+            //             if (responseData.status == 'success') {
+            //                 Swal.fire({
+            //                     icon: 'success',
+            //                     title: 'Clinic created.',
+            //                     showConfirmButton: false,
+            //                     timer: 1500
+            //                 });
+            //             } else {
+            //                 Swal.fire({
+            //                     icon: 'warning',
+            //                     title: 'Failed to create clinic.',
+            //                     showConfirmButton: false,
+            //                     timer: 1500
+            //                 });
+            //             }
+            //         })
+            //     }
+
+
+
+            });
     </script>
 
 </html>

@@ -65,6 +65,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'as'    => 'admin.createclinic',
         'uses'  => 'Api\ClinicController@store'
     ]);
+
+    Route::get('clinic/list', [
+        'as'    => 'admin.getclinic',
+        'uses'  => 'Api\ClinicController@list'
+    ]);
 });
 
 
