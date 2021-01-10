@@ -4,49 +4,57 @@
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
 
-		@include('admin_layout.sidenav')
+        @include('admin_layout.sidenav')
 
         <div id="main">
             @include('admin_layout.navbar')
 
             <ul class="breadcrumb">
-                <h4 class="mr-auto">Clinic Form</h4>
-                <li><a class="active">Clinic</a></li>
+                <h4 class="mr-auto">Branch Form</h4>
+                <li><a class="active">Branch</a></li>
                 <li><a href="#">Create</a></li>
             </ul>
 
             <div class="Container-fluid container col md-6">
                 <div class="row">
+
                     <div class="Container col-4">
-                        <div class="card">
-                            <div class="card-header mb-1">
-                                Clinic Logo
+                        <div class="card"">
+                            <div class="card-header text-white mb-1">
+                                Add Data
                             </div>
                             <div class="card-body">
-                                <div class="container">
-                                    <div class="ava">
-                                        <img src="{{getasset('image/logo-square.png')}}" class="mx-auto d-block"  style="width: 150px; height: 150px; border-radius: 50%; margin-right: 25px; margin-bottom: 10px;">
+                                <div class="container col-md-12">
+                                    <div class="form-row">
+                                        <div class="form-group  col-md-12">
+                                            <label for="inputname">Name<span>*</span></label>
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                        <div class="form-group  col-md-12">
+                                            <label for="inputphone">Phone Number</label>
+                                            <input type="Telp" class="form-control" id="inputnumber" placeholder="">
+                                        </div>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text mb-3">Upload</span>
-                                        </div>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="inputGroupFile01">
-                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                        </div>
+                                    <div class="btn-group-edit btn-group-sm">
+                                        <button type="button" class="btn btn-danger">
+                                            <i class="fas fa-times"></i>Cancel
+                                        </button>
+                                        <div class="btn-group-edit btn-group-sm">
+                                            <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown">
+                                                <i class="far fa-save"></i>Save
+                                            </button>
+                                        </div>	
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+        
                     <form class="container col responsive" id="create_clinic">
                         <div class="card">
                             <div class="card-header text-white mb-1">
                                 Input clinic data
                             </div>
-        
                             <div class="card-body">
                                 <div class="container col-md-12">
                                     <div class="form-row">

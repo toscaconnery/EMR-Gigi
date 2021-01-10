@@ -34,11 +34,13 @@ Route::get('/company', 'AdminController@company');          //moved
 // Route::get('/company2', 'AdminController@company2');
 Route::get('/list-company', 'AdminController@listCompany'); //moved
 
-Route::get('/branch', 'AdminController@branch');            //need to  move
-Route::get('/branch-list', 'AdminController@branchlist2');   //need to move
-Route::get('check-user-list', 'TestController@checkUserList');  //testing purpose
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
+// Route::get('check-user-list', 'TestController@checkUserList');  //testing purpose
+
+///////////////
+Route::get('/branch', 'AdminController@branch');            //need to  move
+Route::get('/branch-list', 'AdminController@branchlist2');   //need to move
 
 Route::get('/roles', 'AdminController@roles');
 
@@ -46,7 +48,7 @@ Route::get('/users', 'AdminController@users');
 
 Route::get('/doctor-list', 'AdminController@doctor');
 
-Route::get('/prescription', 'AdminController@prescription');
+Route::get('/prescription', 'AdminController@prescription');    // price
 
 Route::get('/add-role', 'AdminController@addrole');
 
@@ -55,11 +57,15 @@ Route::get('/add-user','AdminController@adduser');
 Route::get('/add-doctor', 'AdminController@adddoctor');
 
 Route::get('/add-prescription', 'AdminController@addprescript');
+////////////////////
+
+
 
 Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('clinic/list', 'AdminController@clinicList');
     Route::get('clinic/create', 'AdminController@clinicCreate');
     Route::get('branch/list/{branch_id}', 'AdminController@branchList');
+    Route::get('branch/create', 'AdminController@branchCreate');
 });
 
 

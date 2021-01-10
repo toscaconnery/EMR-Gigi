@@ -74,11 +74,14 @@
 							</div>
 							<div class="btn-group-edit btn-group-sm">
 								<button type="button" class="btn btn-danger">
-								   <i class="fas fa-times"></i>Cancel</button>
-								   <div class="btn-group-edit btn-group-sm">
-								  	<button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown"><i class="far fa-save"></i>Save</button>
-								  </div>	
-						  	</div>
+									<i class="fas fa-times"></i>Cancel
+								</button>
+								<div class="btn-group-edit btn-group-sm">
+									<button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown">
+										<i class="far fa-save"></i>Save
+									</button>
+								</div>	
+							</div>
 						</div>
 					</div>
 				</div>

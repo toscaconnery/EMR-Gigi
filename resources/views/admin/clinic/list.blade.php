@@ -3,59 +3,24 @@
     @include('admin_layout.head')
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
-		<!-- sidenav start -->
-		<div id="mySidenav" class="sidenav">
-			<a href="javascript:void(0)" class="closebtn" id="close_sidenav_btn">&times;</a>
-			<div class="profile">
-				<center>
-					<img src="{{getasset('image/logo-square.png')}}" class="profile-img" alt="image"><hr class="bg-light">
-				</center>
-			</div>
-			<div class="main-menu">
-				<a href="#">Clinic</a>
-				<a href="#">List</a>
-				<button class="dropdown-btn">Master <i class="fa fa-caret-down"></i></button>
-				<div class="dropdown-container">
-					<a href="#">Roles</a>
-					<a href="#">User</a>
-				</div>
-			</div>
-		</div>
-		<!-- sidenav end -->
+
+        @include('admin_layout.sidenav')
 
 		<div id="main">
-			<!-- navbar start -->
-            <nav>
-                <span style="font-size:30px;cursor:pointer" id="open_sidenav_btn">&#9776;</span>
-                    <ul>
-                        <div class="nav-menu">
-                        <li><a href=""><i class="far fa-envelope"></i></a></li>
-                        <li><a href=""><i class="far fa-edit"></i></a></li>
-                        <li><a href=""><i class="fas fa-cog"></i></a></li>
-                        <li><a href=""><i class="fas fa-sign-out-alt"></i></a></li>
-                    </div>
-                </ul>
-            </nav>
-            <!-- navbar end -->
+			@include('admin_layout.navbar')
 
-			<!--Breadcrumb-->
 			<ul class="breadcrumb">
 				<h4 class="mr-auto">Clinic</h4>
 				<li><a class="active">Clinic</a></li>
 				<li><a href="#">List</a></li>
-				{{-- <a href="#" class="btn btn-dark btn-sm float-right"><i class="fas fa-plus-circle"></i>Add New</a> --}}
 			</ul>
 
-			<!-- Breadcrumb End -->
-
-			<!-- start branch list -->
 			<div class="container col md-6">
 				<div class="card ">
 					<div class="card-header text-white mb-3" style="background-color: #ff9a76">
 						List Data
 					</div>
 					<div class="form-group col-md-3 mb-0">
-						{{-- <label for="inputname">Search</label> --}}
 						<div class="input-group">
 							<div class="input-group-prepend">
 								<button class="btn btn-outline-secondary" disabled type="button">
@@ -99,9 +64,9 @@
 					</div> 
 				</div>
 			</div>
-			<!-- branch list end -->
         </div>
-        <div class="lds-roller" id="loading_circle" style="display: none"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+        @include('admin_layout.loading-animation')
 
     </body>
     
@@ -134,7 +99,6 @@
                             //     showConfirmButton: false,
                             //     timer: 1500
                             // });
-                            // showLoadingCircle();
                             showData(responseData.hospital);
                         } else {
                             hideLoadingCircle();
@@ -167,7 +131,7 @@
                             <td>${i++}</td>
                             <td><a href="${base_url}/admin/branch/list/${item.id}">${item.name}</a></td>
                             <td>${item.address}</td>
-                            <td>${item.phone}</td>
+                            <td>+62${item.phone}</td>
                             <td>${item.email}</td>
                             <td>${item.join_date}</td>
                             <td>${item.start_work_date}</td>
@@ -186,7 +150,7 @@
             }
 
             fetchClinicList()
-            });
+        });
     </script>
 
 </html>
