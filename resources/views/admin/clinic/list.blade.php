@@ -113,7 +113,6 @@
             function fetchClinicList() {
                 var base_url = window.location.origin;
                 const userToken = $('#user_token').val();
-                alert(userToken)
 
                 if (userToken != '') {
                     const fetchURL = `${base_url}/api/admin/clinic/list`;
