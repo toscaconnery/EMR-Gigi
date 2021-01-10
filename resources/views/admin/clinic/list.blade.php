@@ -113,6 +113,7 @@
             function fetchClinicList() {
                 var base_url = window.location.origin;
                 const userToken = $('#user_token').val();
+                alert(userToken)
 
                 if (userToken != '') {
                     const fetchURL = `${base_url}/api/admin/clinic/list`;
@@ -186,135 +187,6 @@
             }
 
             fetchClinicList()
-
-            // $('#submit_button').on('click', async function() {
-            //     console.log('SENDING AXIOS POST REQUEST')
-
-            //     let hasError = false;
-            //     let errorMessage = '';
-
-            //     let clinicName = $('#clinic_name').val();
-            //     if (clinicName == '') {
-            //         hasError = true;
-            //         errorMessage += '<li>Clinic name is required</li>';
-            //     }
-
-            //     let clinicEmail = $('#clinic_email').val();
-            //     if (clinicEmail == '') {
-            //         hasError = true;
-            //         errorMessage += '<li>Clinic email is required</li>';
-            //     }
-
-            //     let clinicPhone = $('#clinic_phone_number').val();
-            //     if (clinicPhone == '') {
-            //         hasError = true;
-            //         errorMessage += '<li>Clinic phone is required</li>';
-            //     }
-
-            //     let clinicJoinDate = $('#clinic_join_date').val();
-            //     if (clinicJoinDate == '') {
-            //         hasError = true;
-            //         errorMessage += '<li>Clinic join date is required</li>';
-            //     }
-
-            //     let clinicAddress = $('#clinic_address').val();
-            //     if (clinicAddress == '') {
-            //         hasError = true;
-            //         errorMessage += '<li>Clinic address is required</li>';
-            //     }
-
-            //     let clinicStartWorkDate = $('#clinic_start_work_date').val();
-            //     if (clinicStartWorkDate == '') {
-            //         hasError = true;
-            //         errorMessage += '<li>Clinic start work date is required</li>';
-            //     }
-
-            //     let adminName = $('#admin_name').val();
-            //     if (adminName == '') {
-            //         hasError = true;
-            //         errorMessage += '<li>Admin name is required</li>';
-            //     }
-
-            //     let adminEmail = $('#admin_email').val();
-            //     if (adminEmail == '') {
-            //         hasError = true;
-            //         errorMessage += '<li>Admin email is required</li>';
-            //     }
-
-            //     let adminPhone = $('#admin_phone_number').val();
-            //     if (adminPhone == '') {
-            //         hasError = true;
-            //         errorMessage += '<li>Admin phone is required</li>';
-            //     }
-
-            //     // Admin password
-            //     let adminPassword = $('#admin_password').val();
-            //     console.log(adminPassword)
-            //     let adminConfirmPassword = $('#admin_password_confirm').val();
-
-            //     if (adminPassword == '' && adminConfirmPassword != '') {
-            //         hasError = true;
-            //         errorMessage += '<li>Admin password is required</li>';
-            //     } else if (adminPassword != '' && adminConfirmPassword == '') {
-            //         hasError = true;
-            //         errorMessage += '<li>Admin password confirmation is required</li>';
-            //     } else if (adminPassword.length < 8) {
-            //         hasError = true;
-            //         errorMessage += '<li>Admin password minimum length is 8</li>';
-            //     } else if (adminPassword != adminConfirmPassword) {
-            //         hasError = true;
-            //         errorMessage += '<li>Admin password and password confirmation does not match</li>';
-            //     }
-
-            //     if (hasError) {
-            //         toastr.warning(errorMessage)
-            //     } else {
-            //         let clinicData = {
-            //             clinicName,
-            //             clinicEmail,
-            //             clinicPhone,
-            //             clinicJoinDate,
-            //             clinicAddress,
-            //             clinicStartWorkDate,
-            //             adminName,
-            //             adminEmail,
-            //             adminPhone,
-            //             adminPassword,
-            //             adminConfirmPassword
-            //         }
-
-            //         var base_url = window.location.origin
-
-            //         const userToken = $('#user_token').val();
-
-            //         const createURL = `${base_url}/api/admin/clinic/store`;
-            //         const res = axios.post(createURL, clinicData, {
-            //             headers: {
-            //                 'Authorization': `Bearer ${userToken}`
-            //             },
-            //         }).then(function (response) {
-            //             console.log(response);
-            //             let responseData = response.data.data;
-            //             if (responseData.status == 'success') {
-            //                 Swal.fire({
-            //                     icon: 'success',
-            //                     title: 'Clinic created.',
-            //                     showConfirmButton: false,
-            //                     timer: 1500
-            //                 });
-            //             } else {
-            //                 Swal.fire({
-            //                     icon: 'warning',
-            //                     title: 'Failed to create clinic.',
-            //                     showConfirmButton: false,
-            //                     timer: 1500
-            //                 });
-            //             }
-            //         })
-            //     }
-
-
-
             });
     </script>
 

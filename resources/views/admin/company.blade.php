@@ -160,7 +160,7 @@
 
     <script>
         window.addEventListener('load', function () {
-            alert("This page was moved to /admin/klinik/create")
+            alert("This page was moved to /admin/clinic/create")
         })
     </script>
 

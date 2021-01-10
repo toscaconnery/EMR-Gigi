@@ -30,14 +30,13 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index');
 
 
-Route::get('/company', 'AdminController@company');
+Route::get('/company', 'AdminController@company');          //moved
 // Route::get('/company2', 'AdminController@company2');
-Route::get('/list-company', 'AdminController@listCompany');
-Route::get('/branch', 'AdminController@branch');
-Route::get('/branch-list', 'AdminController@branchlist');
+Route::get('/list-company', 'AdminController@listCompany'); //moved
 
-Route::get('check-user-list', 'TestController@checkUserList');
-
+Route::get('/branch', 'AdminController@branch');            //need to  move
+Route::get('/branch-list', 'AdminController@branchlist');   //need to move
+Route::get('check-user-list', 'TestController@checkUserList');  //testing purpose
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 
@@ -60,6 +59,7 @@ Route::get('/add-prescription', 'AdminController@addprescript');
 Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('clinic/create', 'AdminController@createClinic');
     Route::get('clinic/list', 'AdminController@listClinic');
+    Route::get('clinic/branch', 'AdminController@branch');
 });
 
 
