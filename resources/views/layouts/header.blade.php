@@ -22,6 +22,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{url('/admin/clinic/create')}}" class="nav-link">
+                                    <span class="admin-name top-zero">GOTOADMIN</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <span class="admin-name top-zero">Monday, 20 April</span>
                                 </a>
