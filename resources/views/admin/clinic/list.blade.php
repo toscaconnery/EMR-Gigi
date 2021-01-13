@@ -20,16 +20,21 @@
 					<div class="card-header text-white mb-3" style="background-color: #ff9a76">
 						List Data
 					</div>
-					<div class="form-group col-md-3 mb-0">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<button class="btn btn-outline-secondary" disabled type="button">
-									<i class="fas fa-search"></i>
-								</button>
-							</div>
-							<input type="text" class="form-control" placeholder="Search clinic">
-						</div>
-					</div>
+					<div class="row ml-0 mr-0">
+                        <div class="form-group col-md-3 mb-0">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary" disabled type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Search branch">
+                            </div>
+                        </div>
+                        <a href="{{url('/admin/clinic/create')}}" class="btn create-button">
+                            Add clinic
+                        </a>
+                    </div>
 					<div class="card-body">
 						<table id="tabel-data" class="table table-bordered table-hover">
 							<thead>

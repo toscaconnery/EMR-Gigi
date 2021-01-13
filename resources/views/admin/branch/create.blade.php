@@ -39,7 +39,7 @@
                                         <button type="button" class="btn btn-danger">
                                             <i class="fas fa-times"></i>Cancel
                                         </button>
-                                        <div class="btn-group-edit btn-group-sm">
+                                        <div class="btn-group-edit btn-group-sm ml-1">
                                             <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown">
                                                 <i class="far fa-save"></i>Save
                                             </button>
@@ -58,11 +58,23 @@
                             <div class="card-body">
                                 <div class="container col-md-12">
                                     <div class="form-row">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-12">
+                                            <label for="branch_address">Branch Address</label>
+                                            <input type="text" class="form-control" id="branch_address" placeholder="Address" name="branch_address" autocomplete="off">
+                                        </div>
+                                        <div class="form-group col-md-4">
                                             <label for="clinic_name">Clinic Name<span>*</span></label>
                                             <input type="text" class="form-control" placeholder="Name" autocomplete="off" id="clinic_name" name="clinic_name">
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
+                                            <label for="clinic_name">Clinic Name<span>*</span></label>
+                                            <input type="text" class="form-control" placeholder="Name" autocomplete="off" id="clinic_name" name="clinic_name">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="clinic_name">Clinic Name<span>*</span></label>
+                                            <input type="text" class="form-control" placeholder="Name" autocomplete="off" id="clinic_name" name="clinic_name">
+                                        </div>
+                                        {{-- <div class="form-group col-md-6">
                                             <label for="clinic_email">Clinic Email<span>*</span></label>
                                             <input type="email" class="form-control" id="clinic_email" name="clinic_email" placeholder="Email address" autocomplete="new-password">
                                         </div>
@@ -76,8 +88,8 @@
                                                 </div>
                                                 <input type="tel" class="form-control" id="clinic_phone_number" placeholder="812341xxx" name="clinic_phone_number" autocomplete="off">
                                             </div>
-                                        </div>
-                                        <div class="form-group col-md-6" >
+                                        </div> --}}
+                                        {{-- <div class="form-group col-md-6" >
                                             <label for="clinic_join_date">Join Date<span>*</span></label>
                                             <input type="text" class="form-control datepicker" placeholder="Start joining platform since date..." id="clinic_join_date" name="clinic_join_date" autocomplete="off" data-provide="datepicker">
                                         </div>
@@ -88,13 +100,13 @@
                                         <div class="form-group col-md-6">
                                             <label for="clinic_start_work_date">Start Work Date<span>*</span></label>
                                             <input type="text" class="form-control datepicker" placeholder="Start work date" id="clinic_start_work_date" name="clinic_start_work_date" data-provide="datepicker">
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card mt-4 mb-4">
+                        {{-- <div class="card mt-4 mb-4">
                             <div class="card-header text-white mb-1">
                                 Input clinic administrator data
                             </div>
@@ -149,7 +161,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </form>
 
                 </div>

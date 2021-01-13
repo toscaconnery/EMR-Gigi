@@ -94,7 +94,7 @@ class BranchController extends Controller
             if ($user->active_superadmin == true) {
                 $branchs = Branch::take($limit)
                                  ->skip($skip)
-                                 ->all();
+                                 ->get();
             } elseif ($user->active_admin == true) {
                 $branchs = Branch::where('hospital_id', $hospital_id)
                                     ->take($limit)

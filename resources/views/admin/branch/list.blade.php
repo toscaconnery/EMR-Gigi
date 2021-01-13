@@ -16,21 +16,28 @@
 				<li><a href="#">List</a></li>
 			</ul>
 
-			<div class="container col md-6">
+			<div class="container col-lg-12 col-md-6">
 				<div class="card ">
 					<div class="card-header text-white mb-3" style="background-color: #ff9a76">
 						List Data
-					</div>
-					<div class="form-group col-md-3 mb-0">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<button class="btn btn-outline-secondary" disabled type="button">
-									<i class="fas fa-search"></i>
-								</button>
-							</div>
-							<input type="text" class="form-control" placeholder="Search clinic">
-						</div>
-					</div>
+                    </div>
+                    <div class="row ml-0 mr-0">
+                        <div class="form-group col-md-3 mb-0">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary" disabled type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Search branch">
+                            </div>
+                        </div>
+                        @if($clinic_id != null)
+                            <a href="{{url('/admin/branch/create/' . $clinic_id)}}" class="btn create-button">
+                                Add branch
+                            </a>
+                        @endif
+                    </div>
 					<div class="card-body">
 						<table id="tabel-data" class="table table-bordered table-hover">
 							<thead>

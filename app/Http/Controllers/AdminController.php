@@ -113,10 +113,10 @@ class AdminController extends Controller
         return view('admin.branch.list', compact('jwtToken', 'clinic_id'));
     }
     
-    public function branchCreate(Request $request)
+    public function branchCreate(Request $request, $clinic_id)
     {
         $jwtToken = $request->session()->get('jwtApiToken');
 
-        return view('admin.branch.create', compact('jwtToken'));
+        return view('admin.branch.create', compact('jwtToken', 'clinic_id'));
     }
 }
