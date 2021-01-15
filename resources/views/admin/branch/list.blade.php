@@ -19,7 +19,7 @@
 			<div class="container col-lg-12 col-md-6">
 				<div class="card ">
 					<div class="card-header text-white mb-3" style="background-color: #ff9a76">
-						List Data
+						Branch List <span id="hospital_name"></span>
                     </div>
                     <div class="row ml-0 mr-0">
                         <div class="form-group col-md-3 mb-0">
@@ -34,7 +34,7 @@
                         </div>
                         @if($clinic_id != null)
                             <a href="{{url('/admin/branch/create/' . $clinic_id)}}" class="btn create-button">
-                                Add branch
+                                Add Branch
                             </a>
                         @endif
                     </div>
@@ -86,6 +86,7 @@
             function fetchClinicList() {
                 var base_url = window.location.origin;
                 const userToken = $('#user_token').val();
+                const clinicId = $('#clinic_id').val();
 
                 if (userToken != '') {
                     showLoadingCircle();
@@ -96,11 +97,15 @@
                         },
                         params: {
                             'limit': 10,
-                            'page': 1
+                            'page': 1,
+                            'clinicId': clinicId,
                         }
                     }).then(function (response) {
                         let responseData = response.data.data;
                         if (responseData.status == 'success') {
+                            if (responseData.hospital !== null) {
+                                $('#hospital_name').text(' - ' + responseData.hospital.name)
+                            }
                             showData(responseData.branchs);
                         } else {
                             hideLoadingCircle();

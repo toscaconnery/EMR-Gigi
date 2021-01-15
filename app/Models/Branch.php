@@ -13,7 +13,9 @@ class Branch extends Model
     protected $fillable = [
         'name',
         'hospital_id',
-        'address'
+        'address',
+        'latitude',
+        'longitude'
     ];
 
     public $timestamps = true;

@@ -93,10 +93,10 @@ class AdminController extends Controller
     public function branchList(Request $request, $clinic_id = null)
     {
         if ( ! Auth::check()) {
-            // return redirect('/list-appointment');
             return redirect('/login');
         } else {
             $user = Auth::user();
+            $clinic = null;
             if ($user->active_superadmin == false && $clinic_id == null) {
                 $clinic = Hospital::where('admin_id', $user->id)
                                   ->first();
@@ -110,7 +110,7 @@ class AdminController extends Controller
         // dd($user);
         $jwtToken = $request->session()->get('jwtApiToken');
 
-        return view('admin.branch.list', compact('jwtToken', 'clinic_id'));
+        return view('admin.branch.list', compact('jwtToken', 'clinic_id', 'clinic'));
     }
     
     public function branchCreate(Request $request, $clinic_id)

@@ -18,6 +18,8 @@ class CreateBranchTable extends Migration
             $table->integer('hospital_id')->unsigned();
             $table->string('name', 255);
             $table->string('address', 255);
+            $table->decimal('latitude', 10, 8);
+            $table->decimal('longitude', 11, 8);
             $table->timestamps();
         });
     }

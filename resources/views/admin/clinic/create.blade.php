@@ -128,16 +128,18 @@
 
                                         <input type="hidden" id="user_token" value="{{$jwtToken}}">
 
-                                        <div class="btn-group-edit btn-group-sm	ml-auto mr-2">
-                                            <button type="button" class="btn btn-custom" data-toggle="dropdown" id="submit_button">
-                                                <i class="far fa-save"></i>Submit
-                                            </button>
-                                        </div>
-                                        <div class="btn-group-edit btn-group-sm">
+                                        <div class="btn-group-edit btn-group-sm ml-auto mr-2">
                                             <button type="button" class="btn btn-danger" id="cancel_button">
                                                 <i class="fas fa-times"></i>Cancel
                                             </button>
                                         </div>
+
+                                        <div class="btn-group-edit btn-group-sm">
+                                            <button type="button" class="btn btn-custom" data-toggle="dropdown" id="submit_button">
+                                                <i class="far fa-save"></i>Submit
+                                            </button>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -278,6 +280,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
+                            window.history.back();
                         } else {
                             Swal.fire({
                                 icon: 'warning',

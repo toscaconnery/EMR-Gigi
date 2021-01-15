@@ -3,6 +3,7 @@
     @include('admin_layout.head')
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
+        <input type="hidden" value="{{$clinic_id}}" id="clinic_id">
 
         @include('admin_layout.sidenav')
 
@@ -21,26 +22,26 @@
                     <div class="Container col-4">
                         <div class="card"">
                             <div class="card-header text-white mb-1">
-                                Add Data
+                                Main Info
                             </div>
                             <div class="card-body">
                                 <div class="container col-md-12">
                                     <div class="form-row">
                                         <div class="form-group  col-md-12">
-                                            <label for="inputname">Name<span>*</span></label>
-                                            <input type="text" class="form-control" placeholder="">
+                                            <label for="branch_name">Name<span>*</span></label>
+                                            <input type="text" class="form-control" placeholder="" id="branch_name" name="branch_name">
                                         </div>
                                         <div class="form-group  col-md-12">
-                                            <label for="inputphone">Phone Number</label>
-                                            <input type="Telp" class="form-control" id="inputnumber" placeholder="">
+                                            <label for="branch_phone_number">Phone Number</label>
+                                            <input type="Telp" class="form-control" id="branch_phone_number" name="branch_phone_number" placeholder="">
                                         </div>
                                     </div>
                                     <div class="btn-group-edit btn-group-sm">
-                                        <button type="button" class="btn btn-danger">
+                                        <button type="button" class="btn btn-danger" id="cancel_button">
                                             <i class="fas fa-times"></i>Cancel
                                         </button>
                                         <div class="btn-group-edit btn-group-sm ml-1">
-                                            <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown">
+                                            <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown" id="submit_button">
                                                 <i class="far fa-save"></i>Save
                                             </button>
                                         </div>	
@@ -50,10 +51,10 @@
                         </div>
                     </div>
         
-                    <form class="container col responsive" id="create_clinic">
+                    <form class="container col responsive" id="create_branch">
                         <div class="card">
                             <div class="card-header text-white mb-1">
-                                Input clinic data
+                                Additional Info
                             </div>
                             <div class="card-body">
                                 <div class="container col-md-12">
@@ -62,106 +63,19 @@
                                             <label for="branch_address">Branch Address</label>
                                             <input type="text" class="form-control" id="branch_address" placeholder="Address" name="branch_address" autocomplete="off">
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="clinic_name">Clinic Name<span>*</span></label>
-                                            <input type="text" class="form-control" placeholder="Name" autocomplete="off" id="clinic_name" name="clinic_name">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="clinic_name">Clinic Name<span>*</span></label>
-                                            <input type="text" class="form-control" placeholder="Name" autocomplete="off" id="clinic_name" name="clinic_name">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="clinic_name">Clinic Name<span>*</span></label>
-                                            <input type="text" class="form-control" placeholder="Name" autocomplete="off" id="clinic_name" name="clinic_name">
-                                        </div>
-                                        {{-- <div class="form-group col-md-6">
-                                            <label for="clinic_email">Clinic Email<span>*</span></label>
-                                            <input type="email" class="form-control" id="clinic_email" name="clinic_email" placeholder="Email address" autocomplete="new-password">
+                                        <div class="form-group col-md-6">
+                                            <label for="latitude">Latitude<span>*</span></label>
+                                            <input type="text" class="form-control" placeholder="Latitude" autocomplete="off" id="branch_latitude" name="latitude">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="clinic_phone_number">Clinic Phone<span>*</span></label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <button class="btn btn-outline-secondary" type="button" disabled>
-                                                        +62
-                                                    </button>
-                                                </div>
-                                                <input type="tel" class="form-control" id="clinic_phone_number" placeholder="812341xxx" name="clinic_phone_number" autocomplete="off">
-                                            </div>
-                                        </div> --}}
-                                        {{-- <div class="form-group col-md-6" >
-                                            <label for="clinic_join_date">Join Date<span>*</span></label>
-                                            <input type="text" class="form-control datepicker" placeholder="Start joining platform since date..." id="clinic_join_date" name="clinic_join_date" autocomplete="off" data-provide="datepicker">
+                                            <label for="longitude">Longitude<span>*</span></label>
+                                            <input type="text" class="form-control" placeholder="Longitude" autocomplete="off" id="branch_longitude" name="longitude">
                                         </div>
-                                        <div class="form-group col-md-12">
-                                            <label for="clinic_address">Clinic Address</label>
-                                            <input type="text" class="form-control" id="clinic_address" placeholder="Address" name="clinic_address" autocomplete="off">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="clinic_start_work_date">Start Work Date<span>*</span></label>
-                                            <input type="text" class="form-control datepicker" placeholder="Start work date" id="clinic_start_work_date" name="clinic_start_work_date" data-provide="datepicker">
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {{-- <div class="card mt-4 mb-4">
-                            <div class="card-header text-white mb-1">
-                                Input clinic administrator data
-                            </div>
-
-                            <div class="card-body mt-3">
-                                <div class="container col-md-12">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="admin_name">Admin Name<span>*</span></label>
-                                            <input type="text" class="form-control" placeholder="Full name" autocomplete="off" id="admin_name" name="admin_name">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="admin_email">Admin Email<span>*</span></label>
-                                            <input type="email" class="form-control" id="admin_email" name="admin_email" placeholder="Email address" autocomplete="off">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="admin_phone_number">Admin Phone<span>*</span></label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <button class="btn btn-outline-secondary" type="button" disabled>
-                                                        +62
-                                                    </button>
-                                                </div>
-                                                <input type="tel" class="form-control" id="admin_phone_number" placeholder="812341xxx" name="admin_phone_number" autocomplete="off">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group col-md-6"></div>
-
-                                        <div class="form-group col-md-6">
-                                            <label for="admin_password">Password<span>*</span></label>
-                                            <input type="password" class="form-control" placeholder="Admin password" id="admin_password" name="admin_password" autocomplete="off">
-                                        </div>
-
-                                        <div class="form-group col-md-6">
-                                            <label for="admin_password_confirm">Confirm Password<span>*</span></label>
-                                            <input type="password" class="form-control" placeholder="Confirm admin password" id="admin_password_confirm" name="admin_password_confirm" autocomplete="off">
-                                        </div>
-
-                                        <input type="hidden" id="user_token" value="{{$jwtToken}}">
-
-                                        <div class="btn-group-edit btn-group-sm	ml-auto mr-2">
-                                            <button type="button" class="btn btn-custom" data-toggle="dropdown" id="submit_button">
-                                                <i class="far fa-save"></i>Submit
-                                            </button>
-                                        </div>
-                                        <div class="btn-group-edit btn-group-sm">
-                                            <button type="button" class="btn btn-danger" id="cancel_button">
-                                                <i class="fas fa-times"></i>Cancel
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                     </form>
 
                 </div>
@@ -175,13 +89,9 @@
     <script>
         $(document).ready(function(){
             $('#cancel_button').on('click', function() {
-                alert('cancel button clicked');
+                // alert('cancel button clicked');
+                window.location.href = window.location.origin + "/admin/branch/list";
             })
-            
-            $('.datepicker').datepicker({
-                format: 'dd/mm/yyyy',
-                // startDate: '-3d'
-            });
 
             $('#submit_button').on('click', async function() {
                 console.log('SENDING AXIOS POST REQUEST')
@@ -189,102 +99,54 @@
                 let hasError = false;
                 let errorMessage = '';
 
-                let clinicName = $('#clinic_name').val();
-                if (clinicName == '') {
+                let branchName = $('#branch_name').val();
+                if (branchName == '') {
                     hasError = true;
-                    errorMessage += '<li>Clinic name is required</li>';
+                    errorMessage += '<li>Branch name is required</li>';
                 }
 
-                let clinicEmail = $('#clinic_email').val();
-                if (clinicEmail == '') {
+                let branchPhone = $('#branch_phone_number').val();
+                if (branchPhone == '') {
                     hasError = true;
-                    errorMessage += '<li>Clinic email is required</li>';
+                    errorMessage += '<li>Branch phone number is required</li>';
                 }
 
-                let clinicPhone = $('#clinic_phone_number').val();
-                if (clinicPhone == '') {
+                let branchAddress = $('#branch_address').val();
+                if (branchAddress == '') {
                     hasError = true;
-                    errorMessage += '<li>Clinic phone is required</li>';
+                    errorMessage += '<li>Branch address is required</li>';
                 }
 
-                let clinicJoinDate = $('#clinic_join_date').val();
-                if (clinicJoinDate == '') {
+                let branchLatitude = $('#branch_latitude').val();
+                if (branchLatitude == '') {
                     hasError = true;
-                    errorMessage += '<li>Clinic join date is required</li>';
+                    errorMessage += '<li>Branch latitude is required</li>';
                 }
 
-                let clinicAddress = $('#clinic_address').val();
-                if (clinicAddress == '') {
+                let branchLongitude = $('#branch_longitude').val();
+                if (branchLongitude == '') {
                     hasError = true;
-                    errorMessage += '<li>Clinic address is required</li>';
-                }
-
-                let clinicStartWorkDate = $('#clinic_start_work_date').val();
-                if (clinicStartWorkDate == '') {
-                    hasError = true;
-                    errorMessage += '<li>Clinic start work date is required</li>';
-                }
-
-                let adminName = $('#admin_name').val();
-                if (adminName == '') {
-                    hasError = true;
-                    errorMessage += '<li>Admin name is required</li>';
-                }
-
-                let adminEmail = $('#admin_email').val();
-                if (adminEmail == '') {
-                    hasError = true;
-                    errorMessage += '<li>Admin email is required</li>';
-                }
-
-                let adminPhone = $('#admin_phone_number').val();
-                if (adminPhone == '') {
-                    hasError = true;
-                    errorMessage += '<li>Admin phone is required</li>';
-                }
-
-                // Admin password
-                let adminPassword = $('#admin_password').val();
-                console.log(adminPassword)
-                let adminConfirmPassword = $('#admin_password_confirm').val();
-
-                if (adminPassword == '' && adminConfirmPassword != '') {
-                    hasError = true;
-                    errorMessage += '<li>Admin password is required</li>';
-                } else if (adminPassword != '' && adminConfirmPassword == '') {
-                    hasError = true;
-                    errorMessage += '<li>Admin password confirmation is required</li>';
-                } else if (adminPassword.length < 8) {
-                    hasError = true;
-                    errorMessage += '<li>Admin password minimum length is 8</li>';
-                } else if (adminPassword != adminConfirmPassword) {
-                    hasError = true;
-                    errorMessage += '<li>Admin password and password confirmation does not match</li>';
+                    errorMessage += '<li>Branch longitude is required</li>';
                 }
 
                 if (hasError) {
                     toastr.warning(errorMessage)
                 } else {
-                    let clinicData = {
-                        clinicName,
-                        clinicEmail,
-                        clinicPhone,
-                        clinicJoinDate,
-                        clinicAddress,
-                        clinicStartWorkDate,
-                        adminName,
-                        adminEmail,
-                        adminPhone,
-                        adminPassword,
-                        adminConfirmPassword
+                    let branchData = {
+                        branchName,
+                        branchPhone,
+                        branchAddress,
+                        branchLatitude,
+                        branchLongitude
                     }
 
                     var base_url = window.location.origin
 
                     const userToken = $('#user_token').val();
+                    const clinic_id = $('#clinic_id').val();
 
-                    const createURL = `${base_url}/api/admin/clinic/store`;
-                    const res = axios.post(createURL, clinicData, {
+                    const createURL = `${base_url}/api/admin/branch/store/${clinic_id}`;
+                    const res = axios.post(createURL, branchData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
                         },
@@ -294,51 +156,53 @@
                         if (responseData.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Clinic created.',
+                                title: 'Branch created.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
+                            window.history.back();
                         } else {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to create clinic.',
+                                title: 'Failed to create branch.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
                         }
                     })
                 }
-
-                // let clinicData = {
-                //     'clinicName': 'Rumah Sakit Ibu dan Anak',
-                //     'clinicEmail': 'rumahsakit@gmail.com'
-                // }
-                // var base_url = window.location.origin
-                // console.log(base_url)
-                // const axios = require('axios');
-                // const res = await axios.post(`${base_url}/api/admin/clinic/store`, clinicData);
-                // const addedTodo = res.data;
-                // console.log('>>> HASIL')
-                // console.log(res);
-                // const userToken = $('#user_token').val();
-                // console.log('USER TOKEN')
-                // console.log(userToken)
-                // const createURL = `${base_url}/api/admin/clinic/store`;
-                // const res = axios.post(createURL, clinicData, {
-                //     headers: {
-                //         'Authorization': `Bearer ${userToken}`
-                //     },
-                // })
             });
 
-            // function getJWTToken() {
-            //     console.log('GETTING JWT TOKEN')
-            //     axios.get('/api/jwt/get-current-token')
-            //         .then((response)=>{
-            //             console.log(response)
-            //             this.users = response.data.users
-            //         })
-            // }
+            function showPosition(position) {
+                $('#branch_latitude').val(position.coords.latitude)
+                $('#branch_longitude').val(position.coords.longitude)
+            }
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError, {timeout:10000});
+                }
+            }
+
+            function showError(error) {
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        console.log('User denied the request for Geolocation.')
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        console.log('Location information is unavailable.')
+                        break;
+                    case error.TIMEOUT:
+                        console.log('The request to get user location timed out.')
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        console.log('An unknown error occurred.')
+                        break;
+                }
+            }
+
+            getLocation();
+
         });
     </script>
 

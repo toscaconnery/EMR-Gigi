@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <a href="{{url('/admin/clinic/create')}}" class="btn create-button">
-                            Add clinic
+                            Add Clinic
                         </a>
                     </div>
 					<div class="card-body">

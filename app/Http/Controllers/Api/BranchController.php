@@ -13,9 +13,46 @@ use Illuminate\Support\Facades\Validator;
 
 class BranchController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, $clinic_id)
     {
-        // $user = $this->authUser();
+        $user = $this->authUser();
+
+        $branchName = $request->branchName;
+        $branchPhone = $request->branchPhone;
+        $branchAddress = $request->branchAddress;
+        $branchLatitude = $request->branchLatitude;
+        $branchLongitude = $request->branchLongitude;
+
+        $branchArray = [
+            'hospital_id'   => $clinic_id,
+            'name'          => $branchName,
+            'address'       => $branchAddress,
+            'latitude'      => $branchLatitude,
+            'longitude'     => $branchLongitude,
+        ];
+
+        $branchValidate = $this->branchValidator($branchArray);
+
+        if ($branchValidate == true) {
+            $newBranch = Branch::create($branchArray);
+
+            $response = [
+                'data'  => [
+                    'status'    => 'success'
+                ],
+                'error' => null,
+            ];
+        } else {
+            $response = [
+                'data'  => [
+                    'status'    => 'failed'
+                ],
+                'error' => 'error',
+            ];
+        }
+
+        return response()->json($response);
+
         // $joinDateObject = DateTime::createFromFormat('d/m/Y', $request->clinicJoinDate);
         // $joinDate = $joinDateObject->format('Y-m-d H:i:s');
 
@@ -88,14 +125,16 @@ class BranchController extends Controller
         $page = $request->page ? $request->page : 1;
         $skip = ($limit * $page) - $limit;
 
-        $hospital_id = $request->hospital_id ? $request->hospital_id : null;
+        $hospital_id = $request->clinicId ? $request->clinicId : null;
+        $hospital = null;
 
         if ($user) {
             if ($user->active_superadmin == true) {
                 $branchs = Branch::take($limit)
                                  ->skip($skip)
                                  ->get();
-            } elseif ($user->active_admin == true) {
+                $hospital = null;
+            } elseif ($user->active_admin == true && $hospital_id != null) {
                 $branchs = Branch::where('hospital_id', $hospital_id)
                                     ->take($limit)
                                     ->skip($skip)
@@ -103,12 +142,17 @@ class BranchController extends Controller
             } else {
                 $branchs = null;
             }
+
+            if ($hospital_id != null) {
+                $hospital = Hospital::where('id', $hospital_id)->first();
+            }
         }
         
         $response = [
             'data'  => [
                 'status'    => 'success',
                 'branchs'   => $branchs,
+                'hospital'  => $hospital,
                 'limit'     => $limit,
                 'page'      => $page,
                 'user'      => $this->authUser(),
@@ -118,18 +162,20 @@ class BranchController extends Controller
         return response()->json($response);
     }
 
-    protected function adminValidator(array $data)
+    protected function branchValidator(array $data)
     {
-        // $validator =  Validator::make($data, [
-        //     'name' => ['required', 'string', 'max:255'],
-        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        //     'password' => ['required', 'string', 'min:8', 'confirmed'],
-        // ]);
+        $validator = Validator::make($data, [
+            'hospital_id'   => ['required'],
+            'name'      => ['required', 'string', 'max:255'],
+            'address'   => ['required', 'string', 'max:255'],
+            'latitude'  => ['required', 'between:-90,90'],
+            'longitude' => ['required', 'between:-180,180'],
+        ]);
 
-        // if ($validator->fails()) {
-        //     return false;
-        // } else {
-        //     return true;
-        // }
+        if ($validator->fails()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

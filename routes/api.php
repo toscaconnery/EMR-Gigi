@@ -75,6 +75,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'as'    => 'admin.getbranch',
         'uses'  => 'Api\BranchController@list'
     ]);
+
+    Route::post('branch/store/{clinic_id}', [
+        'as'    => 'admin.createbranch',
+        'uses'  => 'Api\BranchController@store'
+    ]);
 });
 
 
