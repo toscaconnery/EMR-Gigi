@@ -29,7 +29,7 @@
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Search branch">
+                                <input type="text" class="form-control" placeholder="Search branch" id="search">
                             </div>
                         </div>
                         @if($clinic_id != null)
@@ -88,6 +88,9 @@
 
                 if (userToken != '') {
                     showLoadingCircle();
+
+                    let searchValue = $('#search').val();
+
                     const fetchURL = `${base_url}/api/admin/branch/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
@@ -97,14 +100,18 @@
                             'limit': 10,
                             'page': 1,
                             'clinicId': clinicId,
+                            'search': searchValue
                         }
                     }).then(function (response) {
                         let responseData = response.data.data;
                         if (responseData.status == 'success') {
+                            console.log(responseData)
+                            console.log('success');
                             if (responseData.hospital !== null) {
-                                $('#hospital_name').text(' - ' + responseData.hospital.name)
+                                $('#hospital_name').text(' - ' + responseData.hospital.name);
                             }
-                            showData(responseData.branchs);
+                            let startIndex = (responseData.limit * responseData.page) - responseData.limit + 1;
+                            showData(responseData.branchs, startIndex);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({
@@ -127,13 +134,12 @@
 
             }
 
-            function showData(branchList) {
-                let i = 1;
+            function showData(branchList, startIndex) {
+                let i = startIndex;
+                $('tbody tr.tr-list').remove();
                 branchList.forEach(function(item) {
-                    console.log('++++++++++')
-                    console.log(item)
                     $('#hospital_placer').before(`
-                        <tr>
+                        <tr class="tr-list">
                             <td>${i++}</td>
                             <td>${item.name}</td>
                             <td>${item.address}</td>
@@ -151,6 +157,32 @@
 
             function hideLoadingCircle() {
                 $('#loading_circle').hide();
+            }
+
+            // $('#search').on('keyup', () => {
+            //     alert('changed')
+            // })
+
+            var typingTimer;                //timer identifier
+            var doneTypingInterval = 1000;  //time in ms, 1 second for example
+            var $search = $('#search');
+
+            //on keyup, start the countdown
+            $search.on('keyup', function () {
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(doneTyping, doneTypingInterval);
+            });
+
+            //on keydown, clear the countdown 
+            $search.on('keydown', function () {
+                clearTimeout(typingTimer);
+            });
+
+            //user is "finished typing," do something
+            function doneTyping () {
+                //do something
+                // alert('okay')
+                fetchClinicList();
             }
 
             fetchClinicList()

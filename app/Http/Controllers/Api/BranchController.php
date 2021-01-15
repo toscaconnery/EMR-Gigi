@@ -64,6 +64,7 @@ class BranchController extends Controller
         $limit = $request->limit ? $request->limit : 10;
         $page = $request->page ? $request->page : 1;
         $skip = ($limit * $page) - $limit;
+        $search = $request->search;
 
         $hospital_id = $request->clinicId ? $request->clinicId : null;
         $hospital = null;
@@ -71,14 +72,22 @@ class BranchController extends Controller
         if ($user) {
             if ($user->active_superadmin == true) {
                 $branchs = Branch::take($limit)
-                                 ->skip($skip)
-                                 ->get();
-                $hospital = null;
+                                 ->skip($skip);
+                if ($hospital_id != null) {
+                    $branchs->where('hospital_id', $hospital_id);
+                }
+                if ($search != '') {
+                    $branchs->where('name', 'like', '%' . $search . '%');
+                }
+                $branchs =  $branchs->get();
             } elseif ($user->active_admin == true && $hospital_id != null) {
                 $branchs = Branch::where('hospital_id', $hospital_id)
                                     ->take($limit)
-                                    ->skip($skip)
-                                    ->get();
+                                    ->skip($skip);
+                if ($search != '') {
+                    $branchs->where('name', 'like', '%' . $search . '%');
+                }
+                $branchs = $branchs->get();
             } else {
                 $branchs = null;
             }

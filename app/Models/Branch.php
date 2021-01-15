@@ -25,8 +25,6 @@ class Branch extends Model
         'updated_at',
     ];
 
-    protected $dateFormat = 'Y';
-
     public $timestamps = true;
 
     protected function serializeDate(DateTimeInterface $date)
