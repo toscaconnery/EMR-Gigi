@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DateTimeInterface;
 
 class Branch extends Model
 {
@@ -15,8 +16,21 @@ class Branch extends Model
         'hospital_id',
         'address',
         'latitude',
-        'longitude'
+        'longitude',
+        'phone'
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    protected $dateFormat = 'Y';
+
     public $timestamps = true;
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('d M Y');
+    }
 }

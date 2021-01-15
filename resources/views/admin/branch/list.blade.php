@@ -46,9 +46,7 @@
 									<th>Name</th>
 									<th>Address</th>
 									<th>Phone Number</th>
-									<th>Email</th>
-									<th>Join Date</th>
-									<th>Start Date</th>
+									<th>Created At</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -140,9 +138,7 @@
                             <td>${item.name}</td>
                             <td>${item.address}</td>
                             <td>${item.phone}</td>
-                            <td>${item.email}</td>
-                            <td>${item.join_date}</td>
-                            <td>${item.start_work_date}</td>
+                            <td>${item.created_at}</td>
                         </tr>
                     `)
                 });

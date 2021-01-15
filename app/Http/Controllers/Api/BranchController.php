@@ -8,6 +8,7 @@ use App\Models\Hospital;
 use App\Models\Branch;
 use Auth;
 use DateTime;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,6 +21,7 @@ class BranchController extends Controller
         $branchName = $request->branchName;
         $branchPhone = $request->branchPhone;
         $branchAddress = $request->branchAddress;
+        $branchPhone = $request->branchPhone;
         $branchLatitude = $request->branchLatitude;
         $branchLongitude = $request->branchLongitude;
 
@@ -27,6 +29,7 @@ class BranchController extends Controller
             'hospital_id'   => $clinic_id,
             'name'          => $branchName,
             'address'       => $branchAddress,
+            'phone'         => $branchPhone,
             'latitude'      => $branchLatitude,
             'longitude'     => $branchLongitude,
         ];
@@ -52,69 +55,6 @@ class BranchController extends Controller
         }
 
         return response()->json($response);
-
-        // $joinDateObject = DateTime::createFromFormat('d/m/Y', $request->clinicJoinDate);
-        // $joinDate = $joinDateObject->format('Y-m-d H:i:s');
-
-        // $startWorkDateObject = DateTime::createFromFormat('d/m/Y', $request->clinicStartWorkDate);
-        // $startWorkDate = $startWorkDateObject->format('Y-m-d H:i:s');
-
-        // $hospitalExists = Hospital::where('name', $request->clinicName)
-        //                          ->where('email', $request->clinicEmail)
-        //                          ->first();
-
-        // $clinicArray = [
-        //     'name'      => $request->clinicName,
-        //     'email'     => $request->clinicEmail,
-        //     'phone'     => $request->clinicPhone,
-        //     'address'   => $request->clinicAddress,
-        //     'join_date' => $joinDate,
-        //     'start_work_date' => $startWorkDate,
-        //     'admin_id'  => null
-        // ];
-
-        // $adminArray = [
-        //     'name'      => $request->adminName,
-        //     'email'     => $request->adminEmail,
-        //     'phone'     => $request->adminPhone,
-        //     'password'  => $request->adminPassword,
-        //     'password_confirmation'  => $request->adminConfirmPassword,
-        //     'active_doctor' => false,
-        //     'active_admin'  => true
-        // ];
-        
-        // $adminValidate = $this->adminValidator($adminArray);
-
-        // if ($adminValidate == true && ! $hospitalExists) {
-        //     $newAdmin = User::create([
-        //         'name'      => $request->adminName,
-        //         'email'     => $request->adminEmail,
-        //         'phone'     => $request->adminPhone,
-        //         'password'  => Hash::make($request->adminPassword),
-        //         'active_doctor' => false,
-        //         'active_admin'  => true,
-        //     ]);
-
-        //     $clinicArray['admin_id'] = $newAdmin->id;
-        //     $newHospital = Hospital::create($clinicArray);
-
-        //     $response = [
-        //         'data'  => [
-        //             'status'    => 'success'
-        //         ],
-        //         'error' => null,
-        //     ];
-
-        // } else {
-        //     $response = [
-        //         'data'  => [
-        //             'status'    => 'failed'
-        //         ],
-        //         'error' => 'error',
-        //     ];
-        // }
-
-        // return response()->json($response);
     }
 
     public function list(Request $request)
@@ -143,6 +83,12 @@ class BranchController extends Controller
                 $branchs = null;
             }
 
+            foreach($branchs as $branch) {
+                if ($branch->phone == null) {
+                    $branch->phone = '';
+                }
+            }
+
             if ($hospital_id != null) {
                 $hospital = Hospital::where('id', $hospital_id)->first();
             }
@@ -168,6 +114,7 @@ class BranchController extends Controller
             'hospital_id'   => ['required'],
             'name'      => ['required', 'string', 'max:255'],
             'address'   => ['required', 'string', 'max:255'],
+            'phone'     => ['required', 'max:40'],
             'latitude'  => ['required', 'between:-90,90'],
             'longitude' => ['required', 'between:-180,180'],
         ]);
