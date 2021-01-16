@@ -119,4 +119,11 @@ class AdminController extends Controller
 
         return view('admin.branch.create', compact('jwtToken', 'clinic_id'));
     }
+
+    public function prescriptionList(Request $request)
+    {
+        $jwtToken = $request->session()->get('jwtApiToken');
+
+        return view('admin.prescription.list', compact('jwtToken'));
+    }
 }

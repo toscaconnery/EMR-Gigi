@@ -104,7 +104,6 @@ class ClinicController extends Controller
                 $hospitals = Hospital::where('admin_id', $user->id)
                                     ->take($limit)
                                     ->skip($skip);
-                                    // ->get();
                 if ($search != '') {
                     $hospitals->where('name', 'like', '%' . $search . '%');
                 }

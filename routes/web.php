@@ -67,6 +67,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('branch/list', 'AdminController@branchList');
     Route::get('branch/list/{clinic_id}', 'AdminController@branchList');
     Route::get('branch/create/{clinic_id}', 'AdminController@branchCreate');
+    Route::get('prescription/list', 'AdminController@prescriptionList');
 });
 
 
