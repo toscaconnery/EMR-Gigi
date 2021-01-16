@@ -4,6 +4,7 @@
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
         <input type="hidden" value="{{$clinic_id}}" id="clinic_id">
+        <input type="hidden" value="1" id="branch_page">
 
 		@include('admin_layout.sidenav')
 
@@ -50,14 +51,15 @@
 								</tr>
 							</thead>
 							<tbody>
-                                <tr id="hospital_placer"></tr>
+                                <tr id="branch_placer"></tr>
 							</tbody>
 						</table>
 						<div class="show">
 							<p class="page-conf-left">Show</p>
 							<div class="input-group page-conf-val">
 								<div class="input-group-prepend">
-									<select id="nominal" name="nominal">
+									<select id="branch_limit" name="branch_limit">
+                                        <option value="5" selected>5</option>
 										<option value="10">10</option>
 										<option value="25">25</option>
 										<option value="50">50</option>
@@ -66,7 +68,14 @@
 								</div>
 							</div>
 							<p>entries</p>
-						</div>
+                        </div>
+                        
+                        <div class="show">
+                            <ul class="pagination">
+                                <li id="pagination_list">
+                                </li>
+                            </ul>
+                        </div>
 					</div> 
 				</div>
 			</div>
@@ -81,10 +90,12 @@
 
     <script>
         $(document).ready(function(){
-            function fetchClinicList() {
+            function fetchBranchList() {
                 var base_url = window.location.origin;
                 const userToken = $('#user_token').val();
                 const clinicId = $('#clinic_id').val();
+                var branchLimit = $('#branch_limit').val();
+                var branchPage = $('#branch_page').val();
 
                 if (userToken != '') {
                     showLoadingCircle();
@@ -97,26 +108,24 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                         params: {
-                            'limit': 10,
-                            'page': 1,
+                            'limit': branchLimit,
+                            'page': branchPage,
                             'clinicId': clinicId,
                             'search': searchValue
                         }
                     }).then(function (response) {
                         let responseData = response.data.data;
                         if (responseData.status == 'success') {
-                            console.log(responseData)
-                            console.log('success');
                             if (responseData.hospital !== null) {
                                 $('#hospital_name').text(' - ' + responseData.hospital.name);
                             }
-                            let startIndex = (responseData.limit * responseData.page) - responseData.limit + 1;
-                            showData(responseData.branchs, startIndex);
+
+                            showData(responseData.branchs, responseData.pagination);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to fetch clinic.',
+                                title: 'Failed to fetch branch.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -134,11 +143,11 @@
 
             }
 
-            function showData(branchList, startIndex) {
-                let i = startIndex;
+            function showData(branchList, pagination) {
+                let i = (pagination.page * pagination.limit) - pagination.limit + 1;
                 $('tbody tr.tr-list').remove();
                 branchList.forEach(function(item) {
-                    $('#hospital_placer').before(`
+                    $('#branch_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
                             <td>${item.name}</td>
@@ -148,7 +157,34 @@
                         </tr>
                     `)
                 });
+
+                handlePagination(pagination);
+
                 hideLoadingCircle();
+            }
+
+            function handlePagination(pagination) {
+                $('#pagination_list a').remove();
+
+                if (pagination.lastButton > 1) {
+                    $('#pagination_list').append(`
+                        <a href="#" class="pagination-button" direction="1">First</a>
+                    `);
+                }
+
+                pagination.index.forEach(function(item) {
+                    $('#pagination_list').append(`
+                        <a href="#" class="pagination-button" direction="${item}">${item}</a>
+                    `);
+                });
+
+                if (pagination.lastButton > 1) {
+                    $('#pagination_list').append(`
+                        <a href="#" class="pagination-button" direction="${pagination.lastButton}">Last</a>
+                    `);
+                }
+
+                listenPageChange();
             }
 
             function showLoadingCircle() {
@@ -159,19 +195,28 @@
                 $('#loading_circle').hide();
             }
 
-            // $('#search').on('keyup', () => {
-            //     alert('changed')
-            // })
+            function listenPageChange() {
+                $('.pagination-button').on('click', function(e) {
+                    let direction = $(this).attr('direction');
+                    $('#branch_page').val(direction)
+                    fetchBranchList();
+                })
+            }
 
             var typingTimer;                //timer identifier
             var doneTypingInterval = 1000;  //time in ms, 1 second for example
             var $search = $('#search');
+            var $entriesLimit = $('#branch_limit');
 
             //on keyup, start the countdown
             $search.on('keyup', function () {
                 clearTimeout(typingTimer);
                 typingTimer = setTimeout(doneTyping, doneTypingInterval);
             });
+
+            $entriesLimit.on('change', () => {
+                fetchBranchList();
+            })
 
             //on keydown, clear the countdown 
             $search.on('keydown', function () {
@@ -180,12 +225,10 @@
 
             //user is "finished typing," do something
             function doneTyping () {
-                //do something
-                // alert('okay')
-                fetchClinicList();
+                fetchBranchList();
             }
 
-            fetchClinicList()
+            fetchBranchList()
         });
     </script>
 

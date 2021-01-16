@@ -11,6 +11,7 @@ use DateTime;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class BranchController extends Controller
 {
@@ -101,6 +102,8 @@ class BranchController extends Controller
             if ($hospital_id != null) {
                 $hospital = Hospital::where('id', $hospital_id)->first();
             }
+
+            $pagination = $this->generatePagination($page, $limit, $hospital_id, $search);
         }
         
         $response = [
@@ -110,6 +113,7 @@ class BranchController extends Controller
                 'hospital'  => $hospital,
                 'limit'     => $limit,
                 'page'      => $page,
+                'pagination' => $pagination,
                 'user'      => $this->authUser(),
             ],
             'error' => null
@@ -133,5 +137,52 @@ class BranchController extends Controller
         } else {
             return true;
         }
+    }
+
+    public function generatePagination($page, $limit, $clinic_id = null, $search) {
+        if ($clinic_id == null) {
+            $dataCount = DB::table('branch');
+            if ($search == '') {
+                $dataCount = $dataCount->count();
+            } else {
+                $dataCount = $dataCount->where('name', 'like', '%' . $search . '%')->count();
+            }
+        } else {
+            $dataCount = DB::table('branch')->where('hospital_id', '=', $clinic_id);
+            if ($search == '') {
+                $dataCount = $dataCount->count();
+            } else {
+                $dataCount = $dataCount->where('name', 'like', '%' . $search . '%')->count();
+            }
+        }
+        
+        $index = [];
+        if ($dataCount > 0) {
+            $firstButton = 1;
+            $lastButton = ceil($dataCount / $limit);
+            $firstIndex = $page - 5;
+            $lastIndex = $page + 5;
+            if ($firstIndex < 1) {
+                $firstIndex = 1;
+            }
+            if ($lastIndex > $lastButton) {
+                $lastIndex = $lastButton;
+            }
+            for ($i = $firstIndex; $i <= $lastIndex; $i++) {
+                array_push($index, $i);
+            }
+        } else {
+            $firstButton = null;
+            $firstButton = null;
+        }
+
+        return [
+            'page'  => $page,
+            'limit' => $limit,
+            'total' => $dataCount,
+            'firstButton' => $firstButton,
+            'lastButton'  => $lastButton,
+            'index' => $index
+        ];
     }
 }
