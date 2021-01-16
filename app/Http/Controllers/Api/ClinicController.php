@@ -9,6 +9,7 @@ use Auth;
 use DateTime;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class ClinicController extends Controller
 {
@@ -86,20 +87,41 @@ class ClinicController extends Controller
         $limit = $request->limit ? $request->limit : 10;
         $page = $request->page ? $request->page : 1;
         $skip = ($limit * $page) - $limit;
+        $search = $request->search;
 
         if ($user) {
             if ($user->id == 1) {
                 $hospitals = Hospital::take($limit)
-                                    ->skip($skip)
-                                    ->get();
+                                    ->skip($skip);
+                if ($search != '') {
+                    $hospitals->where('name', 'like', '%' . $search . '%');
+                }
+
+                $hospitals = $hospitals->get();
+
+                $onlyOwnedBySelf = false;
             } elseif ($user->active_admin == true) {
                 $hospitals = Hospital::where('admin_id', $user->id)
                                     ->take($limit)
-                                    ->skip($skip)
-                                    ->get();
+                                    ->skip($skip);
+                                    // ->get();
+                if ($search != '') {
+                    $hospitals->where('name', 'like', '%' . $search . '%');
+                }
+
+                $hospitals = $hospitals->get();
+
+                $onlyOwnedBySelf = true;
             } else {
-                $hospitals = null;
+                $response = [
+                    'data'  => null,
+                    'error' => 'Not allowed'
+                ];
+                return response()->json($response);
             }
+
+            $pagination = $this->generatePagination($page, $limit, $user->id, $search, $onlyOwnedBySelf);
+            // $pagination = 1;
         }
         
         $response = [
@@ -108,6 +130,7 @@ class ClinicController extends Controller
                 'hospitals'  => $hospitals,
                 'limit'     => $limit,
                 'page'      => $page,
+                'pagination' => $pagination,
                 'user'      => $this->authUser(),
             ],
             'error' => null
@@ -128,5 +151,52 @@ class ClinicController extends Controller
         } else {
             return true;
         }
+    }
+
+    public function generatePagination($page, $limit, $user_id, $search, $only_owned_by_self) {
+        if ($only_owned_by_self == false) {
+            $dataCount = DB::table('hospital');
+            if ($search == '') {
+                $dataCount = $dataCount->count();
+            } else {
+                $dataCount = $dataCount->where('name', 'like', '%' . $search . '%')->count();
+            }
+        } else {
+            $dataCount = DB::table('hospital')->where('admin_id', '=', $user_id);
+            if ($search == '') {
+                $dataCount = $dataCount->count();
+            } else {
+                $dataCount = $dataCount->where('name', 'like', '%' . $search . '%')->count();
+            }
+        }
+        
+        $index = [];
+        if ($dataCount > 0) {
+            $firstButton = 1;
+            $lastButton = ceil($dataCount / $limit);
+            $firstIndex = $page - 5;
+            $lastIndex = $page + 5;
+            if ($firstIndex < 1) {
+                $firstIndex = 1;
+            }
+            if ($lastIndex > $lastButton) {
+                $lastIndex = $lastButton;
+            }
+            for ($i = $firstIndex; $i <= $lastIndex; $i++) {
+                array_push($index, $i);
+            }
+        } else {
+            $firstButton = null;
+            $firstButton = null;
+        }
+
+        return [
+            'page'  => $page,
+            'limit' => $limit,
+            'total' => $dataCount,
+            'firstButton' => $firstButton,
+            'lastButton'  => $lastButton,
+            'index' => $index
+        ];
     }
 }

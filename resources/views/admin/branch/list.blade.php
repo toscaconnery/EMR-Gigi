@@ -96,11 +96,10 @@
                 const clinicId = $('#clinic_id').val();
                 var branchLimit = $('#branch_limit').val();
                 var branchPage = $('#branch_page').val();
+                let searchValue = $('#search').val();
 
                 if (userToken != '') {
                     showLoadingCircle();
-
-                    let searchValue = $('#search').val();
 
                     const fetchURL = `${base_url}/api/admin/branch/list`;
                     const res = axios.get(fetchURL, {
@@ -208,7 +207,6 @@
             var $search = $('#search');
             var $entriesLimit = $('#branch_limit');
 
-            //on keyup, start the countdown
             $search.on('keyup', function () {
                 clearTimeout(typingTimer);
                 typingTimer = setTimeout(doneTyping, doneTypingInterval);
@@ -216,7 +214,7 @@
 
             $entriesLimit.on('change', () => {
                 fetchBranchList();
-            })
+            });
 
             //on keydown, clear the countdown 
             $search.on('keydown', function () {
