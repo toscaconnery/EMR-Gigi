@@ -145,11 +145,12 @@
             function showData(branchList, pagination) {
                 let i = (pagination.page * pagination.limit) - pagination.limit + 1;
                 $('tbody tr.tr-list').remove();
+                var base_url = window.location.origin;
                 branchList.forEach(function(item) {
                     $('#branch_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
-                            <td>${item.name}</td>
+                            <td><a href="${base_url}/admin/branch/detail/${item.id}">${item.name}</a></td>
                             <td>${item.address}</td>
                             <td>${item.phone}</td>
                             <td>${item.created_at}</td>

@@ -80,6 +80,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'as'    => 'admin.createbranch',
         'uses'  => 'Api\BranchController@store'
     ]);
+
+    Route::get('branch/detail/{branch_id}', [
+        'as'    => 'admin.detailbranch',
+        'uses'  => 'Api\BranchController@detail'
+    ]);
 });
 
 

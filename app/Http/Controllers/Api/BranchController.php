@@ -121,6 +121,46 @@ class BranchController extends Controller
         return response()->json($response);
     }
 
+    public function detail(Request $request, $branch_id)
+    {
+        $user = $this->authUser();
+
+        if ($user) {
+            if ($user->active_superadmin == true || $user->active_admin == true) {
+                $branch = Branch::find($branch_id);
+                // if ($hospital_id != null) {
+                //     $branchs->where('hospital_id', $hospital_id);
+                // }
+                // if ($search != '') {
+                //     $branchs->where('name', 'like', '%' . $search . '%');
+                // }
+                // $branchs =  $branchs->get();
+            }
+            // elseif ($user->active_admin == true && $hospital_id != null) {
+            //     $branchs = Branch::where('hospital_id', $hospital_id)
+            //                         ->take($limit)
+            //                         ->skip($skip);
+            //     if ($search != '') {
+            //         $branchs->where('name', 'like', '%' . $search . '%');
+            //     }
+            //     $branchs = $branchs->get();
+            // } else {
+            //     $branchs = null;
+            // }
+        } else {
+            $branch = null;
+        }
+
+        $response = [
+            'data'  => [
+                'status'    => 'success',
+                'branch'   => $branch,
+            ],
+            'error' => null
+        ];
+        return response()->json($response);
+    }
+
     protected function branchValidator(array $data)
     {
         $validator = Validator::make($data, [
