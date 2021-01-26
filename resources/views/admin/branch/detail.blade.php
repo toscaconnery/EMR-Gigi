@@ -13,7 +13,7 @@
             <ul class="breadcrumb">
                 <h4 class="mr-auto">Branch Form</h4>
                 <li><a class="active">Branch</a></li>
-                <li><a href="#">Create</a></li>
+                <li><a href="#">Detail</a></li>
             </ul>
 
             <div class="Container-fluid container col md-6">
@@ -75,14 +75,13 @@
                                 </div>
                             </div>
                         </div>
-
                     </form>
 
                 </div>
 
                 <div class="row mt-4">
                     <div class="Container col-4">
-                        <div class="card"">
+                        <div class="card">
                             <div class="card-header text-white mb-1">
                                 Action
                             </div>
@@ -104,7 +103,32 @@
                             </div>
                         </div>
                     </div>
+                    <div class="Container col-8">
+                        <div class="card">
+                            <img src="workplace.jpg" alt="Workplace" usemap="#workmap" width="400" height="379">
+
+                            <map name="workmap">
+                                <area shape="rect" coords="34,44,270,350" alt="Computer" href="computer.htm">
+                                <area shape="rect" coords="290,172,333,250" alt="Phone" href="phone.htm">
+                                <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="coffee.htm">
+                            </map>
+                        </div>
+                    </div>
                 </div>
+
+                {{-- <div class="row mt-4">
+                    <div class="Container col-4">
+                        <div class="card">
+                            <img src="workplace.jpg" alt="Workplace" usemap="#workmap" width="400" height="379">
+
+                            <map name="workmap">
+                                <area shape="rect" coords="34,44,270,350" alt="Computer" href="computer.htm">
+                                <area shape="rect" coords="290,172,333,250" alt="Phone" href="phone.htm">
+                                <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="coffee.htm">
+                            </map>
+                        </div>
+                    </div>
+                </div> --}}
 
             </div>
         </div>
@@ -183,7 +207,7 @@
 
                 var base_url = window.location.origin;
                 // $('#manage_price_button').attr('href', base_url + '/admin/prescription/list' + branchId);
-                $('#manage_price_button').attr('href', base_url + '/admin/prescription/list');
+                $('#manage_price_button').attr('href', base_url + '/admin/price/list');
                 hideLoadingCircle();
             }
 

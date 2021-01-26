@@ -44,13 +44,22 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        // Create JWT token and put it on session
         $jwtToken = $this->getJWTTokenForAPI($request->email, $request->password);
         session()->put('jwtApiToken', $jwtToken);
-        if ($user->active_doctor == 1) {
-            return redirect('/list-appointment');
-        } elseif ($user->position == 'admin') {
-            return redirect('/company');
+
+        if ($user->hasRole('admin')) {
+            return redirect('/admin/dashboard');
         }
+
+        elseif ($user->hasRole('staff')) {
+            return redirect('/staff/dashboard');
+        }
+
+        elseif ($user->hasRole('patient')) {
+            return redirect('/patient/dashboard');
+        }
+
         return redirect('/home');
     }
 

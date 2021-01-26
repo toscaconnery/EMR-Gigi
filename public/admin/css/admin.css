@@ -513,3 +513,14 @@ ul.pagination li a:hover:not(.active) {
     box-shadow: 1px 1px 4px #632d1a;
     height: 80%;
 }
+
+.create-button.active {
+    background-color: #ff7c4c;
+}
+
+.tablinks.create-button {
+	color: #1f1f1f;
+	font-weight: 600;
+	/* background-color: red !important; */
+	/* margin-bottom: 50px; */
+}

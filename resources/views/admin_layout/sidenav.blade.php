@@ -6,7 +6,7 @@
         </center>
     </div>
     <div class="main-menu">
-        <a href="#">Dashboard</a>
+        <a href="{{url('/admin/dashboard')}}">Dashboard</a>
         <a href="{{url('/admin/clinic/list')}}">Clinic</a>
         <a href="{{url('/admin/branch/list')}}">Branch</a>
         <button class="dropdown-btn">Settings <i class="fa fa-caret-down"></i></button>

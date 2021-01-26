@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
     @include('admin_layout.head')
     <body>
@@ -11,22 +12,108 @@
 			@include('admin_layout.navbar')
 
 			<ul class="breadcrumb">
-				<h4 class="mr-auto">Prescription</h4>
-				<li><a class="active">Prescriptionic</a></li>
+				<h4 class="mr-auto">Price</h4>
+				<li><a class="active">Price</a></li>
 				<li><a href="#">List</a></li>
             </ul>
             
             <div class="container col-lg-12 col md-6">
                 <div class="card col-md-12">
-                    <div class="row ml-0 mr-0">
+                    {{-- <div class="row ml-0 mr-0">
                         <a href="{{url('/admin/clinic/create')}}" class="btn create-button mt-2 mr-0">
-                            Add Prescription
+                            Add Price
                         </a>
+                    </div> --}}
+                    <div class="tab">
+                        <button class="tablinks btn create-button mt-2 mr-0 active" onclick="openTable(event, 'table-prescription')">Prescriptions</button>
+                        <button class="tablinks btn create-button mt-2 mr-0" onclick="openTable(event, 'table-action')">Actions</button>
+                        <button class="tablinks btn create-button mt-2 mr-0" onclick="openTable(event, 'table-item')">Items</button>
                     </div>
-                    <table id="tabel-roles" class="table table-bordered">
+                      
+                    <table id="table-prescription" class="table table-bordered tabcontent">
                         <thead class="thead-custom">
                             <tr>
-                                <th width="400px">Prescription</th>
+                                <th width="400px">Prescription Name</th>
+                                <th width="300px">Price</th>
+                                <th width="300px">Stocks</th>
+                                <th width="300px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr height="45px">
+                                <td>Prescription 1</td>
+                                <td>IDR 50.000</td>
+                                <td>100</td>
+                                <td>
+                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                                </td>
+                            </tr>
+                            <tr height="45px">
+                                <td>Prescription 2</td>
+                                <td>IDR 50.000</td>
+                                <td>100</td>
+                                <td>
+                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                                </td>
+                            </tr>
+                            <tr height="45px">
+                                <td>Prescription 3</td>
+                                <td>IDR 50.000</td>
+                                <td>100</td>
+                                <td>
+                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table id="table-action" class="table table-bordered tabcontent" style="display: none">
+                        <thead class="thead-custom">
+                            <tr>
+                                <th width="400px">Action Name</th>
+                                <th width="300px">Price</th>
+                                <th width="300px">Stocks</th>
+                                <th width="300px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr height="45px">
+                                <td>Prescription 1</td>
+                                <td>IDR 50.000</td>
+                                <td>100</td>
+                                <td>
+                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                                </td>
+                            </tr>
+                            <tr height="45px">
+                                <td>Prescription 2</td>
+                                <td>IDR 50.000</td>
+                                <td>100</td>
+                                <td>
+                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                                </td>
+                            </tr>
+                            <tr height="45px">
+                                <td>Prescription 3</td>
+                                <td>IDR 50.000</td>
+                                <td>100</td>
+                                <td>
+                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table id="table-item" class="table table-bordered tabcontent" style="display: none">
+                        <thead class="thead-custom">
+                            <tr>
+                                <th width="400px">Item Name</th>
                                 <th width="300px">Price</th>
                                 <th width="300px">Stocks</th>
                                 <th width="300px">Action</th>
@@ -65,67 +152,6 @@
                 </div>
             </div>
 
-			{{-- <div class="container col-lg-12 col md-6">
-				<div class="card ">
-					<div class="card-header text-white mb-3" style="background-color: #ff9a76">
-						Clinic List
-					</div>
-					<div class="row ml-0 mr-0">
-                        <div class="form-group col-md-3 mb-0">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-secondary" disabled type="button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                                <input type="text" class="form-control" placeholder="Search clinic" id="search">
-                            </div>
-                        </div>
-                        <a href="{{url('/admin/clinic/create')}}" class="btn create-button">
-                            Add Clinic
-                        </a>
-                    </div>
-					<div class="card-body">
-						<table id="tabel-data" class="table table-bordered table-hover">
-							<thead>
-								<tr>
-									<th>No</th>
-									<th>Name</th>
-									<th>Address</th>
-									<th>Phone Number</th>
-									<th>Email</th>
-									<th>Join Date</th>
-									<th>Start Date</th>
-								</tr>
-							</thead>
-							<tbody>
-                                <tr id="hospital_placer"></tr>
-							</tbody>
-						</table>
-						<div class="show">
-							<p class="page-conf-left">Show</p>
-							<div class="input-group page-conf-val">
-								<div class="input-group-prepend">
-									<select id="clinic_limit" name="clinic_limit">
-                                        <option value="5" selected>5</option>
-										<option value="10">10</option>
-										<option value="25">25</option>
-										<option value="50">50</option>
-										<option value="100">100</option>
-									</select>
-								</div>
-							</div>
-							<p>entries</p>
-                        </div>
-                        <div class="show">
-                            <ul class="pagination">
-                                <li id="pagination_list">
-                                </li>
-                            </ul>
-                        </div>
-					</div> 
-				</div>
-			</div> --}}
         </div>
 
         @include('admin_layout.loading-animation')
@@ -134,6 +160,22 @@
     
     @include('admin_layout.sidenav-script')
     @include('admin_layout.footscript')
+
+    <script>
+        function openTable(evt, tableType) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tableType).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
 
     <script>
         $(document).ready(function(){

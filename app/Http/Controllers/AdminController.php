@@ -61,6 +61,13 @@ class AdminController extends Controller
         return view('admin.add-prescription');
     }
 
+    public function dashboard(Request $request)
+    {
+        // dd('You are on Admin Dashboard');
+        $jwtToken = $request->session()->get('jwtApiToken');
+        return view('admin.dashboard.index', compact('jwtToken'));
+    }
+
     public function clinicCreate(Request $request)
     {
         // dd('oke');
@@ -127,10 +134,27 @@ class AdminController extends Controller
         return view('admin.branch.detail', compact('jwtToken', 'branch_id'));
     }
 
-    public function prescriptionList(Request $request)
+    public function priceList(Request $request, $branch_id)
     {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        } else {
+            $user = Auth::user();
+            // $clinic = null;
+            // $branch = Branch::where('id', $branch_id)
+            //                 ->where('')
+            // if ($user->active_superadmin == false && $clinic_id == null) {
+            //     $clinic = Hospital::where('admin_id', $user->id)
+            //                       ->first();
+            //     return redirect('/admin/branch/list/' . $clinic->id);
+            // }
+            // else {
+            //     $branch = Branch::where('hospital_id', $clinic_id)
+            //                     ->get();
+            // }
+        }
         $jwtToken = $request->session()->get('jwtApiToken');
 
-        return view('admin.prescription.list', compact('jwtToken'));
+        return view('admin.price.list', compact('jwtToken'));
     }
 }
