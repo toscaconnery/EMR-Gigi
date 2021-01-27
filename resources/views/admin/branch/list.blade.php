@@ -34,9 +34,11 @@
                             </div>
                         </div>
                         @if($clinic_id != null)
-                            <a href="{{url('/admin/branch/create/' . $clinic_id)}}" class="btn create-button">
-                                Add Branch
-                            </a>
+                            @role('admin')
+                                <a href="{{url('/admin/branch/create/' . $clinic_id)}}" class="btn create-button">
+                                    Add Branch
+                                </a>
+                            @endrole
                         @endif
                     </div>
 					<div class="card-body">

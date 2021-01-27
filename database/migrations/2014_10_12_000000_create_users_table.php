@@ -22,10 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('employee_id', 30)->nullable();
             $table->enum('gender', ['m', 'f'])->nullable();
-            $table->boolean('active_doctor')->default(false);
-            $table->boolean('active_admin')->default(false);
-            $table->boolean('active_superadmin')->default(false);
-            $table->boolean('active_patient')->default(false);
+            $table->json('branch_ids')->nullable();
+            $table->integer('hospital_id')->nullable();             // only for staff/doctor
             $table->string('position')->nullable();
             $table->rememberToken();
             $table->timestamps();

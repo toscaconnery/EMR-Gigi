@@ -21,7 +21,6 @@ class CreateHospitalTable extends Migration
             $table->string('phone', 40);
             $table->date('join_date');
             $table->date('start_work_date');
-            $table->integer('admin_id');
             $table->timestamps();
         });
     }

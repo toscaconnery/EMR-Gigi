@@ -48,16 +48,12 @@ class LoginController extends Controller
         $jwtToken = $this->getJWTTokenForAPI($request->email, $request->password);
         session()->put('jwtApiToken', $jwtToken);
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('staff')) {
             return redirect('/admin/dashboard');
         }
 
-        elseif ($user->hasRole('staff')) {
-            return redirect('/staff/dashboard');
-        }
-
         elseif ($user->hasRole('patient')) {
-            return redirect('/patient/dashboard');
+            return redirect('/dashboard');
         }
 
         return redirect('/home');

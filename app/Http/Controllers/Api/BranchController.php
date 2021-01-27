@@ -71,7 +71,8 @@ class BranchController extends Controller
         $hospital = null;
 
         if ($user) {
-            if ($user->active_superadmin == true) {
+            if ($user->hasRole('admin')) {
+            // if ($user->active_superadmin == true) {
                 $branchs = Branch::take($limit)
                                  ->skip($skip);
                 if ($hospital_id != null) {
@@ -81,7 +82,8 @@ class BranchController extends Controller
                     $branchs->where('name', 'like', '%' . $search . '%');
                 }
                 $branchs =  $branchs->get();
-            } elseif ($user->active_admin == true && $hospital_id != null) {
+            // } elseif ($user->active_admin == true && $hospital_id != null) {
+            } elseif($user->hasRole('staff')) {
                 $branchs = Branch::where('hospital_id', $hospital_id)
                                     ->take($limit)
                                     ->skip($skip);
@@ -124,31 +126,12 @@ class BranchController extends Controller
     public function detail(Request $request, $branch_id)
     {
         $user = $this->authUser();
+        $branch = null;
 
         if ($user) {
-            if ($user->active_superadmin == true || $user->active_admin == true) {
+            if ($user->hasRole('admin') || $user->hasRole('staff')) {
                 $branch = Branch::find($branch_id);
-                // if ($hospital_id != null) {
-                //     $branchs->where('hospital_id', $hospital_id);
-                // }
-                // if ($search != '') {
-                //     $branchs->where('name', 'like', '%' . $search . '%');
-                // }
-                // $branchs =  $branchs->get();
             }
-            // elseif ($user->active_admin == true && $hospital_id != null) {
-            //     $branchs = Branch::where('hospital_id', $hospital_id)
-            //                         ->take($limit)
-            //                         ->skip($skip);
-            //     if ($search != '') {
-            //         $branchs->where('name', 'like', '%' . $search . '%');
-            //     }
-            //     $branchs = $branchs->get();
-            // } else {
-            //     $branchs = null;
-            // }
-        } else {
-            $branch = null;
         }
 
         $response = [
@@ -197,6 +180,8 @@ class BranchController extends Controller
         }
         
         $index = [];
+        $firstButton = null;
+        $lastButton = null;
         if ($dataCount > 0) {
             $firstButton = 1;
             $lastButton = ceil($dataCount / $limit);

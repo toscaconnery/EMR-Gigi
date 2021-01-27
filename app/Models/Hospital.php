@@ -17,7 +17,6 @@ class Hospital extends Model
         'email',
         'join_date',
         'start_work_date',
-        'admin_id'
     ];
 
     public $timestamps = true;

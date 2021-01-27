@@ -63,7 +63,6 @@ class AdminController extends Controller
 
     public function dashboard(Request $request)
     {
-        // dd('You are on Admin Dashboard');
         $jwtToken = $request->session()->get('jwtApiToken');
         return view('admin.dashboard.index', compact('jwtToken'));
     }

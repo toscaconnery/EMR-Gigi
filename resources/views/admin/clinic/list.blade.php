@@ -32,9 +32,11 @@
                                 <input type="text" class="form-control" placeholder="Search clinic" id="search">
                             </div>
                         </div>
-                        <a href="{{url('/admin/clinic/create')}}" class="btn create-button">
-                            Add Clinic
-                        </a>
+                        @role('admin')
+                            <a href="{{url('/admin/clinic/create')}}" class="btn create-button">
+                                Add Clinic
+                            </a>
+                        @endrole
                     </div>
 					<div class="card-body">
 						<table id="tabel-data" class="table table-bordered table-hover">

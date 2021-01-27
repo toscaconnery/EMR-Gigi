@@ -58,15 +58,33 @@ Route::get('/add-doctor', 'AdminController@adddoctor');
 Route::get('/add-prescription', 'AdminController@addprescript');
 ////////////////////
 
-Route::name('patient.')->prefix('patient')->group(function () {
-    Route::get('dashboard', 'PatientController@dashboard');
+// Route::name('patient.')->prefix('patient')->group(function () {
+//     Route::get('dashboard', 'PatientController@dashboard');
+// });
+
+// Route::middleware('role:staff')->name('staff.')->prefix('staff')->group(function () {
+//     Route::get('dashboard', 'StaffController@dashboard');
+// });
+// Route::name('admin.')->prefix('admin')->group(['middleware' => ['role:admin|staff'], ])->group(function () {
+// Route::name('admin.')->prefix('admin')->group(['middleware' => ['role:admin|staff'], function() {
+//     Route::get('dashboard', 'AdminController@dashboard');
+//     Route::get('clinic/list', 'AdminController@clinicList');
+//     Route::get('clinic/create', 'AdminController@clinicCreate');
+//     Route::get('branch/list', 'AdminController@branchList');
+//     Route::get('branch/list/{clinic_id}', 'AdminController@branchList');
+//     Route::get('branch/detail/{branch_id}', 'AdminController@branchDetail');
+//     Route::get('branch/create/{clinic_id}', 'AdminController@branchCreate');
+//     Route::get('price/list/{branch_id}', 'AdminController@priceList');
+
+// }]);
+    // Route::get('prescription/create')
+// });
+
+Route::group(['middleware' => ['role:patient']], function() {
+    Route::get('dashboard', 'AdminController@dashboard');
 });
 
-Route::name('staff.')->prefix('staff')->group(function () {
-    Route::get('dashboard', 'StaffController@dashboard');
-});
-
-Route::name('admin.')->prefix('admin')->group(function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|staff']], function() {
     Route::get('dashboard', 'AdminController@dashboard');
     Route::get('clinic/list', 'AdminController@clinicList');
     Route::get('clinic/create', 'AdminController@clinicCreate');
@@ -75,9 +93,4 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('branch/detail/{branch_id}', 'AdminController@branchDetail');
     Route::get('branch/create/{clinic_id}', 'AdminController@branchCreate');
     Route::get('price/list/{branch_id}', 'AdminController@priceList');
-    // Route::get('prescription/create')
 });
-
-
-
-// Auth::routes();

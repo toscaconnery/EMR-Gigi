@@ -33,7 +33,6 @@ class ClinicController extends Controller
             'address'   => $request->clinicAddress,
             'join_date' => $joinDate,
             'start_work_date' => $startWorkDate,
-            'admin_id'  => null
         ];
 
         $adminArray = [
@@ -41,25 +40,23 @@ class ClinicController extends Controller
             'email'     => $request->adminEmail,
             'phone'     => $request->adminPhone,
             'password'  => $request->adminPassword,
-            'password_confirmation'  => $request->adminConfirmPassword,
-            'active_doctor' => false,
-            'active_admin'  => true
+            'password_confirmation'  => $request->adminConfirmPassword
         ];
         
         $adminValidate = $this->adminValidator($adminArray);
 
         if ($adminValidate == true && ! $hospitalExists) {
+            $newHospital = Hospital::create($clinicArray);
+
             $newAdmin = User::create([
                 'name'      => $request->adminName,
                 'email'     => $request->adminEmail,
                 'phone'     => $request->adminPhone,
                 'password'  => Hash::make($request->adminPassword),
-                'active_doctor' => false,
-                'active_admin'  => true,
+                'hospital_id'   => $newHospital->id
             ]);
 
-            $clinicArray['admin_id'] = $newAdmin->id;
-            $newHospital = Hospital::create($clinicArray);
+            $newAdmin->assignRole('staff');
 
             $response = [
                 'data'  => [
@@ -90,26 +87,22 @@ class ClinicController extends Controller
         $search = $request->search;
 
         if ($user) {
-            if ($user->id == 1) {
+            if ($user->hasRole('admin')) {
                 $hospitals = Hospital::take($limit)
-                                    ->skip($skip);
+                                        ->skip($skip);
                 if ($search != '') {
                     $hospitals->where('name', 'like', '%' . $search . '%');
                 }
-
                 $hospitals = $hospitals->get();
-
                 $onlyOwnedBySelf = false;
-            } elseif ($user->active_admin == true) {
+            } elseif ($user->hasRole('staff')) {
                 $hospitals = Hospital::where('admin_id', $user->id)
-                                    ->take($limit)
-                                    ->skip($skip);
+                                        ->take($limit)
+                                        ->skip($skip);
                 if ($search != '') {
                     $hospitals->where('name', 'like', '%' . $search . '%');
                 }
-
                 $hospitals = $hospitals->get();
-
                 $onlyOwnedBySelf = true;
             } else {
                 $response = [
@@ -118,9 +111,7 @@ class ClinicController extends Controller
                 ];
                 return response()->json($response);
             }
-
             $pagination = $this->generatePagination($page, $limit, $user->id, $search, $onlyOwnedBySelf);
-            // $pagination = 1;
         }
         
         $response = [
@@ -152,8 +143,8 @@ class ClinicController extends Controller
         }
     }
 
-    public function generatePagination($page, $limit, $user_id, $search, $only_owned_by_self) {
-        if ($only_owned_by_self == false) {
+    public function generatePagination($page, $limit, $userId, $search, $onlyOwnedBySelf) {
+        if ($onlyOwnedBySelf == false) {
             $dataCount = DB::table('hospital');
             if ($search == '') {
                 $dataCount = $dataCount->count();
@@ -161,7 +152,7 @@ class ClinicController extends Controller
                 $dataCount = $dataCount->where('name', 'like', '%' . $search . '%')->count();
             }
         } else {
-            $dataCount = DB::table('hospital')->where('admin_id', '=', $user_id);
+            $dataCount = DB::table('hospital')->where('admin_id', '=', $userId);
             if ($search == '') {
                 $dataCount = $dataCount->count();
             } else {
@@ -170,6 +161,8 @@ class ClinicController extends Controller
         }
         
         $index = [];
+        $firstButton = null;
+        $lastButton = null;
         if ($dataCount > 0) {
             $firstButton = 1;
             $lastButton = ceil($dataCount / $limit);

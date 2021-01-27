@@ -23,10 +23,8 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'phone',
         'password',
-        'active_doctor',
-        'active_admin',
-        'active_superadmin',
-        'active_patient',
+        'branch_ids',
+        'hospital_id',
         'gender'
     ];
 
@@ -56,15 +54,5 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
-    }
-
-    public function getIsdoctorAttribute()
-    {
-        return $this->active_doctor;
-    }
-
-    public function getIsAdminAttribute()
-    {
-        return $this->active_admin;
     }
 }
