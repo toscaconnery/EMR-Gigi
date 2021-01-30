@@ -4,7 +4,8 @@
     @include('admin_layout.head')
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
-        <input type="hidden" value="1" id="clinic_page">
+        <input type="hidden" value="1" id="clinic_page">    {{-- delete --}}
+        <input type="hidden" value="{{$branchId}}" id="branch_id">
 
         @include('admin_layout.sidenav')
 
@@ -40,33 +41,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr height="45px">
-                                <td>Prescription 1</td>
-                                <td>IDR 50.000</td>
-                                <td>100</td>
-                                <td>
-                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
-                                </td>
-                            </tr>
-                            <tr height="45px">
-                                <td>Prescription 2</td>
-                                <td>IDR 50.000</td>
-                                <td>100</td>
-                                <td>
-                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
-                                </td>
-                            </tr>
-                            <tr height="45px">
-                                <td>Prescription 3</td>
-                                <td>IDR 50.000</td>
-                                <td>100</td>
-                                <td>
-                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
-                                </td>
-                            </tr>
+                            <tr id="prescription_placer"></tr>
                         </tbody>
                     </table>
 
@@ -75,38 +50,11 @@
                             <tr>
                                 <th width="400px">Action Name</th>
                                 <th width="300px">Price</th>
-                                <th width="300px">Stocks</th>
                                 <th width="300px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr height="45px">
-                                <td>Prescription 1</td>
-                                <td>IDR 50.000</td>
-                                <td>100</td>
-                                <td>
-                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
-                                </td>
-                            </tr>
-                            <tr height="45px">
-                                <td>Prescription 2</td>
-                                <td>IDR 50.000</td>
-                                <td>100</td>
-                                <td>
-                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
-                                </td>
-                            </tr>
-                            <tr height="45px">
-                                <td>Prescription 3</td>
-                                <td>IDR 50.000</td>
-                                <td>100</td>
-                                <td>
-                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
-                                </td>
-                            </tr>
+                            <tr id="action_placer"></tr>
                         </tbody>
                     </table>
 
@@ -120,33 +68,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr height="45px">
-                                <td>Prescription 1</td>
-                                <td>IDR 50.000</td>
-                                <td>100</td>
-                                <td>
-                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
-                                </td>
-                            </tr>
-                            <tr height="45px">
-                                <td>Prescription 2</td>
-                                <td>IDR 50.000</td>
-                                <td>100</td>
-                                <td>
-                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
-                                </td>
-                            </tr>
-                            <tr height="45px">
-                                <td>Prescription 3</td>
-                                <td>IDR 50.000</td>
-                                <td>100</td>
-                                <td>
-                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                    <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
-                                </td>
-                            </tr>
+                            <tr id="item_placer"></tr>
                         </tbody>
                     </table>
                 </div>
@@ -179,97 +101,141 @@
 
     <script>
         $(document).ready(function(){
-            function fetchClinicList() {
-                var base_url = window.location.origin;
-                const userToken = $('#user_token').val();
-                var clinicLimit = $('#clinic_limit').val();
-                var clinicPage = $('#clinic_page').val();
-                let searchValue = $('#search').val();
-
-                if (userToken != '') {
-                    showLoadingCircle();
-
-                    const fetchURL = `${base_url}/api/admin/clinic/list`;
-                    const res = axios.get(fetchURL, {
-                        headers: {
-                            'Authorization': `Bearer ${userToken}`
-                        },
-                        params: {
-                            'limit': clinicLimit,
-                            'page': clinicPage,
-                            'search': searchValue
-                        }
-                    }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
-                            showData(responseData.hospitals, responseData.pagination);
-                        } else {
-                            hideLoadingCircle();
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Failed to fetch clinic.',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                        }
-                    })
-                } else {
-                    hideLoadingCircle();
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'You are not logged in',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-
+            function fetchPrescription(baseUrl, branchId, userToken) {
+                const fetchURL = `${baseUrl}/api/admin/branch/price/prescription`;
+                const res = axios.get(fetchURL, {
+                    headers: {
+                        'Authorization': `Bearer ${userToken}`
+                    },
+                    params: {
+                        'branch_id': branchId
+                    }
+                }).then(function (response) {
+                    let responseData = response.data.data;
+                    if (responseData.status == 'success') {
+                        showPrescription(responseData.prescriptionlist);
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Failed to fetch prescription.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
             }
 
-            function showData(hospitalList, pagination) {
-                let i = (pagination.page * pagination.limit) - pagination.limit + 1;
-                $('tbody tr.tr-list').remove();
+            function fetchAction(baseUrl, branchId, userToken) {
+                console.table('FETCHING ACTION', baseUrl, branchId, userToken)
+                const fetchURL = `${baseUrl}/api/admin/branch/price/action`;
+                const res = axios.get(fetchURL, {
+                    headers: {
+                        'Authorization': `Bearer ${userToken}`
+                    },
+                    params: {
+                        'branch_id': branchId
+                    }
+                }).then(function (response) {
+                    let responseData = response.data.data;
+                    if (responseData.status == 'success') {
+                        showAction(responseData.actionlist);
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Failed to fetch action.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            }
+
+            function fetchItem(baseUrl, branchId, userToken) {
+                const fetchURL = `${baseUrl}/api/admin/branch/price/item`;
+                const res = axios.get(fetchURL, {
+                    headers: {
+                        'Authorization': `Bearer ${userToken}`
+                    },
+                    params: {
+                        'branch_id': branchId
+                    }
+                }).then(function (response) {
+                    let responseData = response.data.data;
+                    if (responseData.status == 'success') {
+                        showItem(responseData.itemlist);
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Failed to fetch item.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            }
+
+            function showPrescription(prescriptionList) {
                 var base_url = window.location.origin;
-                hospitalList.forEach(function(item) {
-                    $('#hospital_placer').before(`
-                        <tr class="tr-list">
-                            <td>${i++}</td>
-                            <td><a href="${base_url}/admin/branch/list/${item.id}">${item.name}</a></td>
-                            <td>${item.address}</td>
-                            <td>+62${item.phone}</td>
-                            <td>${item.email}</td>
-                            <td>${item.join_date}</td>
-                            <td>${item.start_work_date}</td>
+                prescriptionList.forEach(function(item) {
+                    $('#prescription_placer').before(`
+                        <tr height="45px">
+                            <td>${item.name}</td>
+                            <td>IDR ${item.price}</td>
+                            <td>${item.stock}</td>
+                            <td>
+                                <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                            </td>
                         </tr>
                     `)
                 });
-
-                handlePagination(pagination);
-
-                hideLoadingCircle();
             }
 
-            function handlePagination(pagination) {
-                $('#pagination_list a').remove();
-
-                if (pagination.lastButton > 1) {
-                    $('#pagination_list').append(`
-                        <a href="#" class="pagination-button" direction="1">First</a>
-                    `);
-                }
-
-                pagination.index.forEach(function(item) {
-                    $('#pagination_list').append(`
-                        <a href="#" class="pagination-button" direction="${item}">${item}</a>
-                    `);
+            function showAction(actionList) {
+                var base_url = window.location.origin;
+                actionList.forEach(function(item) {
+                    $('#action_placer').before(`
+                        <tr height="45px">
+                            <td>${item.name}</td>
+                            <td>IDR ${item.price}</td>
+                            <td>
+                                <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                            </td>
+                        </tr>
+                    `)
                 });
+            }
 
-                if (pagination.lastButton > 1) {
-                    $('#pagination_list').append(`
-                        <a href="#" class="pagination-button" direction="${pagination.lastButton}">Last</a>
-                    `);
+            function showItem(itemList) {
+                var base_url = window.location.origin;
+                itemList.forEach(function(item) {
+                    $('#item_placer').before(`
+                        <tr height="45px">
+                            <td>${item.name}</td>
+                            <td>IDR ${item.price}</td>
+                            <td>${item.stock}</td>
+                            <td>
+                                <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                            </td>
+                        </tr>
+                    `)
+                });
+            }
+
+            function fetchPriceList() {
+                var baseUrl = window.location.origin;
+                const userToken = $('#user_token').val();
+                const branchId = $('#branch_id').val();
+
+                if (userToken != '') {
+                    showLoadingCircle();
+                    fetchPrescription(baseUrl, branchId, userToken);
+                    fetchAction(baseUrl, branchId, userToken);
+                    fetchItem(baseUrl, branchId, userToken);
+                    hideLoadingCircle();
                 }
-
-                listenPageChange();
             }
 
             function showLoadingCircle() {
@@ -280,39 +246,86 @@
                 $('#loading_circle').hide();
             }
 
-            function listenPageChange() {
-                $('.pagination-button').on('click', function(e) {
-                    let direction = $(this).attr('direction');
-                    $('#clinic_page').val(direction)
-                    fetchClinicList();
-                })
-            }
+            // function showData(hospitalList, pagination) {
+            //     let i = (pagination.page * pagination.limit) - pagination.limit + 1;
+            //     $('tbody tr.tr-list').remove();
+            //     var base_url = window.location.origin;
+            //     hospitalList.forEach(function(item) {
+            //         $('#hospital_placer').before(`
+            //             <tr class="tr-list">
+            //                 <td>${i++}</td>
+            //                 <td><a href="${base_url}/admin/branch/list/${item.id}">${item.name}</a></td>
+            //                 <td>${item.address}</td>
+            //                 <td>+62${item.phone}</td>
+            //                 <td>${item.email}</td>
+            //                 <td>${item.join_date}</td>
+            //                 <td>${item.start_work_date}</td>
+            //             </tr>
+            //         `)
+            //     });
 
-            var typingTimer;                //timer identifier
-            var doneTypingInterval = 1000;  //time in ms, 1 second for example
-            var $search = $('#search');
-            var $entriesLimit = $('#clinic_limit');
+            //     // handlePagination(pagination);
 
-            $search.on('keyup', function () {
-                clearTimeout(typingTimer);
-                typingTimer = setTimeout(doneTyping, doneTypingInterval);
-            });
+            //     // hideLoadingCircle();
+            // }
 
-            $entriesLimit.on('change', () => {
-                fetchClinicList();
-            });
+            // function handlePagination(pagination) {
+            //     $('#pagination_list a').remove();
+
+            //     if (pagination.lastButton > 1) {
+            //         $('#pagination_list').append(`
+            //             <a href="#" class="pagination-button" direction="1">First</a>
+            //         `);
+            //     }
+
+            //     pagination.index.forEach(function(item) {
+            //         $('#pagination_list').append(`
+            //             <a href="#" class="pagination-button" direction="${item}">${item}</a>
+            //         `);
+            //     });
+
+            //     if (pagination.lastButton > 1) {
+            //         $('#pagination_list').append(`
+            //             <a href="#" class="pagination-button" direction="${pagination.lastButton}">Last</a>
+            //         `);
+            //     }
+
+            //     listenPageChange();
+            // }
+
+            // function listenPageChange() {
+            //     $('.pagination-button').on('click', function(e) {
+            //         let direction = $(this).attr('direction');
+            //         $('#clinic_page').val(direction)
+            //         fetchClinicList();
+            //     })
+            // }
+
+            // var typingTimer;                //timer identifier
+            // var doneTypingInterval = 1000;  //time in ms, 1 second for example
+            // var $search = $('#search');
+            // var $entriesLimit = $('#clinic_limit');
+
+            // $search.on('keyup', function () {
+            //     clearTimeout(typingTimer);
+            //     typingTimer = setTimeout(doneTyping, doneTypingInterval);
+            // });
+
+            // $entriesLimit.on('change', () => {
+            //     fetchClinicList();
+            // });
 
             //on keydown, clear the countdown 
-            $search.on('keydown', function () {
-                clearTimeout(typingTimer);
-            });
+            // $search.on('keydown', function () {
+            //     clearTimeout(typingTimer);
+            // });
 
             //user is "finished typing," do something
-            function doneTyping () {
-                fetchClinicList();
-            }
+            // function doneTyping () {
+            //     fetchClinicList();
+            // }
 
-            // fetchClinicList()
+            fetchPriceList()
         });
     </script>
 

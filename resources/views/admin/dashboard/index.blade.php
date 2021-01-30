@@ -17,7 +17,7 @@
 
             <div class="Container-fluid container col md-6">
                 <div class="row">
-                    <div class="Container col-4">
+                    <div class="Container col-12">
                         <div class="card">
                             <div class="card-header mb-1">
                                 Admin Dashboard
@@ -25,6 +25,7 @@
                             <div class="card-body">
                                 <div class="container">
                                     <div class="ava">
+                                        <h1 style="text-align: center">Welcome to admin dashboard</h1>
                                         <img src="{{getasset('image/logo-square.png')}}" class="mx-auto d-block"  style="width: 150px; height: 150px; border-radius: 50%; margin-right: 25px; margin-bottom: 10px;">
                                     </div>
                                 </div>

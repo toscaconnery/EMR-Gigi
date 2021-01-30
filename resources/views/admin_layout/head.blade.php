@@ -12,13 +12,13 @@
     <script src="https://kit.fontawesome.com/2e53fa6365.js" crossorigin="anonymous"></script>
    
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{getasset('admin/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{getasset('admin-theme/css/bootstrap.css')}}">
     
     <!-- Main CSS -->
-    <link rel="stylesheet" href="{{getasset('admin/css/admin.css')}}">
+    <link rel="stylesheet" href="{{getasset('admin-theme/css/admin.css')}}">
 
     <!-- Main JS -->
-    <link rel="stylesheet" href="{{getasset('admin/js/admin.js')}}">
+    <link rel="stylesheet" href="{{getasset('admin-theme/js/admin.js')}}">
     
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>

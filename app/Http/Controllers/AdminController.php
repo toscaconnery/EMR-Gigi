@@ -126,14 +126,14 @@ class AdminController extends Controller
         return view('admin.branch.create', compact('jwtToken', 'clinic_id'));
     }
 
-    public function branchDetail(Request $request, $branch_id)
+    public function branchDetail(Request $request, $branchId)
     {
         $jwtToken = $request->session()->get('jwtApiToken');
 
-        return view('admin.branch.detail', compact('jwtToken', 'branch_id'));
+        return view('admin.branch.detail', compact('jwtToken', 'branchId'));
     }
 
-    public function priceList(Request $request, $branch_id)
+    public function priceList(Request $request, $branchId)
     {
         if ( ! Auth::check()) {
             return redirect('/login');
@@ -154,6 +154,6 @@ class AdminController extends Controller
         }
         $jwtToken = $request->session()->get('jwtApiToken');
 
-        return view('admin.price.list', compact('jwtToken'));
+        return view('admin.price.list', compact('jwtToken', 'branchId'));
     }
 }

@@ -85,6 +85,21 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'as'    => 'admin.detailbranch',
         'uses'  => 'Api\BranchController@detail'
     ]);
+
+    Route::get('branch/price/prescription', [
+        'as'    => 'admin.branchPricePrescription',
+        'uses'  => 'Api\PriceController@prescriptionPrice'
+    ]);
+
+    Route::get('branch/price/action', [
+        'as'    => 'admin.branchPriceAction',
+        'uses'  => 'Api\PriceController@actionPrice'
+    ]);
+
+    Route::get('branch/price/item', [
+        'as'    => 'admin.branchPriceItem',
+        'uses'  => 'Api\PriceController@itemPrice'
+    ]);
 });
 
 

@@ -92,5 +92,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|staff']], functi
     Route::get('branch/list/{clinic_id}', 'AdminController@branchList');
     Route::get('branch/detail/{branch_id}', 'AdminController@branchDetail');
     Route::get('branch/create/{clinic_id}', 'AdminController@branchCreate');
-    Route::get('price/list/{branch_id}', 'AdminController@priceList');
+    Route::get('branch/price/{branch_id}', 'AdminController@priceList');
 });

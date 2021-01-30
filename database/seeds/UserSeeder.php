@@ -23,7 +23,8 @@ class UserSeeder extends Seeder
         $staff = User::create([
             'name'  => 'Staff Role',
             'email' => 'staff@role.test',
-            'password'  => bcrypt('12345678')
+            'password'  => bcrypt('12345678'),
+            'hospital_id'   => 1
         ]);
 
         $staff->assignRole('staff');

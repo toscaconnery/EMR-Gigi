@@ -96,7 +96,7 @@ class ClinicController extends Controller
                 $hospitals = $hospitals->get();
                 $onlyOwnedBySelf = false;
             } elseif ($user->hasRole('staff')) {
-                $hospitals = Hospital::where('admin_id', $user->id)
+                $hospitals = Hospital::where('id', $user->hospital_id)
                                         ->take($limit)
                                         ->skip($skip);
                 if ($search != '') {
@@ -111,7 +111,7 @@ class ClinicController extends Controller
                 ];
                 return response()->json($response);
             }
-            $pagination = $this->generatePagination($page, $limit, $user->id, $search, $onlyOwnedBySelf);
+            $pagination = $this->generatePagination($page, $limit, $user, $search, $onlyOwnedBySelf);
         }
         
         $response = [
@@ -143,7 +143,7 @@ class ClinicController extends Controller
         }
     }
 
-    public function generatePagination($page, $limit, $userId, $search, $onlyOwnedBySelf) {
+    public function generatePagination($page, $limit, $user, $search, $onlyOwnedBySelf) {
         if ($onlyOwnedBySelf == false) {
             $dataCount = DB::table('hospital');
             if ($search == '') {
@@ -152,7 +152,7 @@ class ClinicController extends Controller
                 $dataCount = $dataCount->where('name', 'like', '%' . $search . '%')->count();
             }
         } else {
-            $dataCount = DB::table('hospital')->where('admin_id', '=', $userId);
+            $dataCount = DB::table('hospital')->where('id', '=', $user->hospital_id);
             if ($search == '') {
                 $dataCount = $dataCount->count();
             } else {

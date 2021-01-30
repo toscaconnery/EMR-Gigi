@@ -3,7 +3,7 @@
     @include('admin_layout.head')
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
-        <input type="hidden" value="{{$branch_id}}" id="branch_id">
+        <input type="hidden" value="{{$branchId}}" id="branch_id">
 
         @include('admin_layout.sidenav')
 
@@ -206,8 +206,7 @@
                 $('#branch_longitude').val(branch.longitude);
 
                 var base_url = window.location.origin;
-                // $('#manage_price_button').attr('href', base_url + '/admin/prescription/list' + branchId);
-                $('#manage_price_button').attr('href', base_url + '/admin/price/list');
+                $('#manage_price_button').attr('href', base_url + '/admin/branch/price/' + branchId);
                 hideLoadingCircle();
             }
 

@@ -123,20 +123,20 @@ class BranchController extends Controller
         return response()->json($response);
     }
 
-    public function detail(Request $request, $branch_id)
+    public function detail(Request $request, $branchId)
     {
         $user = $this->authUser();
         $branch = null;
 
         if ($user) {
             if ($user->hasRole('admin') || $user->hasRole('staff')) {
-                $branch = Branch::find($branch_id);
+                $branch = Branch::find($branchId);
             }
         }
 
         $response = [
             'data'  => [
-                'status'    => 'success',
+                'status'   => 'success',
                 'branch'   => $branch,
             ],
             'error' => null
