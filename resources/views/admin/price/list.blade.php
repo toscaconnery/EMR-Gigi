@@ -94,7 +94,7 @@
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-            document.getElementById(tableType).style.display = "block";
+            document.getElementById(tableType).style.display = "table";
             evt.currentTarget.className += " active";
         }
     </script>
