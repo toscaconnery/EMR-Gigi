@@ -32,6 +32,8 @@
                                 <th width="400px">Prescription Name</th>
                                 <th width="300px">Price</th>
                                 <th width="300px">Stocks</th>
+                                <th width="300px">Type</th>
+                                <th width="300px">How To Consume</th>
                                 <th width="300px">Action</th>
                             </tr>
                         </thead>
@@ -139,7 +141,6 @@
             }
 
             function fetchAction(baseUrl, branchId, userToken) {
-                console.table('FETCHING ACTION', baseUrl, branchId, userToken)
                 const fetchURL = `${baseUrl}/api/admin/branch/price/action`;
                 const res = axios.get(fetchURL, {
                     headers: {
@@ -189,19 +190,25 @@
 
             function showPrescription(prescriptionList) {
                 var base_url = window.location.origin;
+                var branch_id = $('#branch_id').val();
                 prescriptionList.forEach(function(item) {
                     $('#prescription_placer').before(`
                         <tr height="45px">
                             <td>${item.name}</td>
                             <td>IDR ${item.price}</td>
                             <td>${item.stock}</td>
+                            <td>${ucFirst(item.type)}</td>
+                            <td>${ucFirst(item.how_to_consume)}</td>
                             <td>
-                                <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                                <a href="${base_url}/admin/branch/price/${branch_id}/prescription/edit/${item.id}">
+                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                </a>
+                                <button type="button" class="btn btn-roles btn-delcustom btn-sm trigger-delete" data-id="${item.id}" data-type="prescription">Del</button>
                             </td>
                         </tr>
                     `)
                 });
+                listenDeleteButton();
             }
 
             function showAction(actionList) {
@@ -222,6 +229,7 @@
 
             function showItem(itemList) {
                 var base_url = window.location.origin;
+                var branch_id = $('#branch_id').val();
                 itemList.forEach(function(item) {
                     $('#item_placer').before(`
                         <tr height="45px">
@@ -258,11 +266,45 @@
             function hideLoadingCircle() {
                 $('#loading_circle').hide();
             }
+
+            function ucFirst(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
        
             $('#table-prescription-add-button').on('click', () => {
                 const branchId = $('#branch_id').val();
                 window.location.href = window.location.origin + "/admin/branch/price/" + branchId + "/prescription/add" ;
             })
+
+            function listenDeleteButton()
+            {
+                $('.trigger-delete').on('click', function() {
+                    var baseUrl = window.location.origin;
+                    var type = $(this).data('type');
+                    var componentId = $(this).data('id');
+                    var branchId = $('#branch_id').val();
+                    var userToken = $('#user_token').val();
+                    
+                    const deleteUrl = `${baseUrl}/api/admin/branch/price/${branchId}/${type}/delete/${componentId}`
+                    const res = axios.get(deleteUrl, {
+                        headers: {
+                            'Authorization': `Bearer ${userToken}`
+                        }
+                    }).then(function (response) {
+                        let responseData = response.data.data;
+                        if (responseData.status == 'success') {
+                            location.reload();
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Failed to delete the data.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    });
+                })
+            }
 
             fetchPriceList()
         });

@@ -105,6 +105,16 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'as'    => 'admin.branchPricePrescriptionAdd',
         'uses'  => 'Api\PriceController@prescriptionPriceAdd'
     ]);
+
+    Route::post('branch/price/{branch_id}/prescription/update', [
+        'as'    => 'admin.branchPricePrescriptionUpdate',
+        'uses'  => 'Api\PriceController@prescriptionPriceUpdate'
+    ]);
+
+    Route::get('branch/price/{branch_id}/{item_type}/delete/{item_id}', [
+        'as'    => 'admin.branchPriceDelete',
+        'uses'  => 'Api\PriceController@priceDelete'
+    ]);
 });
 
 

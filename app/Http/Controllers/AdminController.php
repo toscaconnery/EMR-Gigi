@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Hospital;
 use App\Models\Branch;
+use App\Models\Prescription;
 use JWTAuth;
 use Session;
 use Auth;
@@ -153,5 +154,18 @@ class AdminController extends Controller
         $jwtToken = $request->session()->get('jwtApiToken');
 
         return view('admin.price.add-prescription', compact('jwtToken', 'branchId'));
+    }
+
+    public function editPrescription(Request $request, $branchId, $prescriptionId)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $jwtToken = $request->session()->get('jwtApiToken');
+
+        $prescription = Prescription::where('id', $prescriptionId)->first();
+
+        return view('admin.price.edit-prescription', compact('jwtToken', 'branchId', 'prescription'));
     }
 }

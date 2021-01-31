@@ -5,6 +5,7 @@
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
         <input type="hidden" value="{{$branchId}}" id="branch_id">
+        <input type="hidden" value="{{$prescription['id']}}" id="prescription_id">
 
         @include('admin_layout.sidenav')
 
@@ -23,19 +24,19 @@
                         <div class="form-group row">
                             <label for="prescription_name" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="Text" class="form-control form-add mb-2" id="prescription_name" name="prescription_name"/>
+                                <input type="Text" class="form-control form-add mb-2" id="prescription_name" name="prescription_name" value="{{$prescription['name']}}"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="prescription_stock" class="col-sm-2 col-form-label">Stock</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control form-add mb-2" id="prescription_stock" name="prescription_stock"/>
+                                <input type="number" class="form-control form-add mb-2" id="prescription_stock" name="prescription_stock" value="{{$prescription['stock']}}"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="prescription_price" class="col-sm-2 col-form-label">Price</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control form-add mb-2" id="prescription_price" name="prescription_price"/>
+                                <input type="number" class="form-control form-add mb-2" id="prescription_price" name="prescription_price" value="{{$prescription['price']}}"/>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -43,9 +44,9 @@
                             <div class="col-sm-10">
                                 <select id="prescription_type" class="form-control form-add mb-2" name="prescription_type">
                                     <option disabled>Please select item type</option>
-                                    <option value="strip">Strip</option>
-                                    <option value="pack">Pack</option>
-                                    <option value="bottle">Bottle</option>
+                                    <option value="strip" {{$prescription['type'] == 'strip' ? 'selected' : ''}}>Strip</option>
+                                    <option value="pack" {{$prescription['type'] == 'pack' ? 'selected' : ''}}>Pack</option>
+                                    <option value="bottle" {{$prescription['type'] == 'bottle' ? 'selected' : ''}}>Bottle</option>
                                 </select>
                             </div>
                         </div>
@@ -54,26 +55,18 @@
                             <div class="col-sm-10">
                                 <select id="prescription_way_to_consume" class="form-control form-add mb-2" name="prescription_way_to_consume">
                                     <option disabled>Please select how to consume it</option>
-                                    <option value="drink">Drink</option>
-                                    <option value="swallow">Swallow</option>
-                                    <option value="inhale">Inhale</option>
-                                    <option value="injection">Injection</option>
-                                    <option value="patch">Patch</option>
-                                    <option value="drop">Drop</option>
-                                    <option value="other">Other</option>
+                                    <option value="drink" {{$prescription['how_to_consume'] == 'drink' ? 'selected' : ''}}>Drink</option>
+                                    <option value="swallow" {{$prescription['how_to_consume'] == 'swallow' ? 'selected' : ''}}>Swallow</option>
+                                    <option value="inhale" {{$prescription['how_to_consume'] == 'inhale' ? 'selected' : ''}}>Inhale</option>
+                                    <option value="injection" {{$prescription['how_to_consume'] == 'injection' ? 'selected' : ''}}>Injection</option>
+                                    <option value="patch" {{$prescription['how_to_consume'] == 'patch' ? 'selected' : ''}}>Patch</option>
+                                    <option value="drop" {{$prescription['how_to_consume'] == 'drop' ? 'selected' : ''}}>Drop</option>
+                                    <option value="other" {{$prescription['how_to_consume'] == 'other' ? 'selected' : ''}}>Other</option>
                                 </select>
                             </div>
-                            {{-- <div class="col-sm-2">
-                                <select id="prescription_consume_time" class="form-control form-add mb-2">
-                                    <option disabled>Please select when to consume</option>
-                                    <option value="before eat">Before eat</option>
-                                    <option value="after eat">After eat</option>
-                                    <option value="before sleep">Before sleep</option>
-                                </select>
-                            </div> --}}
                         </div>
                         <div class="form-row">
-                            <button class="btn btn-primary mt-4" id="save_prescription">Save Prescription</button>
+                            <button class="btn btn-primary mt-4" id="save_prescription">Update Prescription</button>
                         </div>
                     </div>
                 </div>
@@ -134,8 +127,10 @@
                     toastr.warning(errorMessage)
                 } else {
                     branchId = $('#branch_id').val()
+                    prescriptionId = $('#prescription_id').val()
                     let branchData = {
                         branch_id: branchId,
+                        prescription_id: prescriptionId,
                         name: prescription_name,
                         price: prescription_price,
                         stock: prescription_stock,
@@ -148,7 +143,7 @@
                     const userToken = $('#user_token').val();
                     const branch_id = $('#branch_id').val();
 
-                    const createURL = `${base_url}/api/admin/branch/price/${branch_id}/prescription/add`;
+                    const createURL = `${base_url}/api/admin/branch/price/${branch_id}/prescription/update`;
                     const res = axios.post(createURL, branchData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -159,7 +154,7 @@
                         if (responseData.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Prescription created.',
+                                title: 'Prescription updated.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -167,7 +162,7 @@
                         } else {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to create prescription.',
+                                title: 'Failed to update prescription.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });

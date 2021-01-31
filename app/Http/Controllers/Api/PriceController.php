@@ -79,6 +79,65 @@ class PriceController extends Controller
         return response()->json($response);
     }
 
+    public function prescriptionPriceUpdate(Request $request, $branchId)
+    {
+        $user = $this->authUser();
+
+        $prescriptionArray = [
+            'branch_id' => $branchId,
+            'name'      => $request->name,
+            'stock'     => $request->stock,
+            'price'     => $request->price,
+            'type'      => $request->type,
+            'how_to_consume'    => $request->how_to_consume
+        ];
+
+        $prescriptionValidate = $this->prescriptionValidator($prescriptionArray);
+
+        if ($prescriptionValidate == true) {
+            $prescriptionUpdate = Prescription::where('id', $request->prescription_id)
+                                            ->update($prescriptionArray);
+
+            $response = [
+                'data'  => [
+                    'status'    => 'success'
+                ],
+                'error' => null,
+            ];
+
+        } else {
+            $response = [
+                'data'  => [
+                    'status'    => 'failed'
+                ],
+                'error' => 'error',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    public function priceDelete(Request $request, $branchId, $itemType, $itemId)
+    {
+        $user = $this->authUser();
+
+        if ($itemType == 'prescription') {
+            $delete = Prescription::where('id', $itemId)->delete();
+        } elseif ($itemType == 'action') {
+            $delete = Action::where('id', $itemId)->delete();
+        } elseif ($itemType == 'item') {
+            $delete = Item::where('id', $itemId)->delete();
+        }
+
+        $response = [
+            'data'  => [
+                'status'    => 'success'
+            ],
+            'error' => null,
+        ];
+        return response()->json($response);
+    }
+
     public function actionPrice(Request $request)
     {
         $user = $this->authUser();
