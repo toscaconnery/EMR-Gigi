@@ -15,7 +15,9 @@ class Prescription extends Model
         'branch_id',
         'name',
         'price',
-        'stock'
+        'stock',
+        'type',
+        'how_to_consume'
     ];
 
     protected $dates = [

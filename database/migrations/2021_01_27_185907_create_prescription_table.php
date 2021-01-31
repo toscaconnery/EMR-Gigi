@@ -19,6 +19,8 @@ class CreatePrescriptionTable extends Migration
             $table->string('name', 255);
             $table->bigInteger('price');
             $table->integer('stock');
+            $table->string('type');
+            $table->string('how_to_consume');
             $table->timestamps();
         });
     }

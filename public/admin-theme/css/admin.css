@@ -524,3 +524,10 @@ ul.pagination li a:hover:not(.active) {
 	/* background-color: red !important; */
 	/* margin-bottom: 50px; */
 }
+
+.add-price-button {
+    background-color: #ff7c4c;
+    position: absolute;
+    top: auto;
+    bottom: 10px;
+}

@@ -19,12 +19,7 @@
             </ul>
             
             <div class="container col-lg-12 col md-6">
-                <div class="card col-md-12">
-                    {{-- <div class="row ml-0 mr-0">
-                        <a href="{{url('/admin/clinic/create')}}" class="btn create-button mt-2 mr-0">
-                            Add Price
-                        </a>
-                    </div> --}}
+                <div class="card col-md-12 pb-5">
                     <div class="tab">
                         <button class="tablinks btn create-button mt-2 mr-0 active" onclick="openTable(event, 'table-prescription')">Prescriptions</button>
                         <button class="tablinks btn create-button mt-2 mr-0" onclick="openTable(event, 'table-action')">Actions</button>
@@ -43,6 +38,11 @@
                         <tbody>
                             <tr id="prescription_placer"></tr>
                         </tbody>
+                        <tfoot style="position: relative; height: 100%">
+                            <button class="btn add-price-button" id="table-prescription-add-button">
+                                Add Prescription
+                            </button>
+                        </tfoot>
                     </table>
 
                     <table id="table-action" class="table table-bordered tabcontent" style="display: none">
@@ -56,6 +56,11 @@
                         <tbody>
                             <tr id="action_placer"></tr>
                         </tbody>
+                        <tfoot style="position: relative; height: 100%">
+                            <button class="btn add-price-button" style="display: none" id="table-action-add-button">
+                                Add Action
+                            </button>
+                        </tfoot>
                     </table>
 
                     <table id="table-item" class="table table-bordered tabcontent" style="display: none">
@@ -70,6 +75,11 @@
                         <tbody>
                             <tr id="item_placer"></tr>
                         </tbody>
+                        <tfoot style="position: relative; height: 100%">
+                            <button class="btn add-price-button" style="display: none" id="table-item-add-button">
+                                Add Item
+                            </button>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -87,14 +97,17 @@
         function openTable(evt, tableType) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
+            addbutton = document.getElementsByClassName("add-price-button");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
+                addbutton[i].style.display = "none";
             }
             tablinks = document.getElementsByClassName("tablinks");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
             document.getElementById(tableType).style.display = "table";
+            document.getElementById(tableType + '-add-button').style.display = "block";
             evt.currentTarget.className += " active";
         }
     </script>
@@ -245,85 +258,11 @@
             function hideLoadingCircle() {
                 $('#loading_circle').hide();
             }
-
-            // function showData(hospitalList, pagination) {
-            //     let i = (pagination.page * pagination.limit) - pagination.limit + 1;
-            //     $('tbody tr.tr-list').remove();
-            //     var base_url = window.location.origin;
-            //     hospitalList.forEach(function(item) {
-            //         $('#hospital_placer').before(`
-            //             <tr class="tr-list">
-            //                 <td>${i++}</td>
-            //                 <td><a href="${base_url}/admin/branch/list/${item.id}">${item.name}</a></td>
-            //                 <td>${item.address}</td>
-            //                 <td>+62${item.phone}</td>
-            //                 <td>${item.email}</td>
-            //                 <td>${item.join_date}</td>
-            //                 <td>${item.start_work_date}</td>
-            //             </tr>
-            //         `)
-            //     });
-
-            //     // handlePagination(pagination);
-
-            //     // hideLoadingCircle();
-            // }
-
-            // function handlePagination(pagination) {
-            //     $('#pagination_list a').remove();
-
-            //     if (pagination.lastButton > 1) {
-            //         $('#pagination_list').append(`
-            //             <a href="#" class="pagination-button" direction="1">First</a>
-            //         `);
-            //     }
-
-            //     pagination.index.forEach(function(item) {
-            //         $('#pagination_list').append(`
-            //             <a href="#" class="pagination-button" direction="${item}">${item}</a>
-            //         `);
-            //     });
-
-            //     if (pagination.lastButton > 1) {
-            //         $('#pagination_list').append(`
-            //             <a href="#" class="pagination-button" direction="${pagination.lastButton}">Last</a>
-            //         `);
-            //     }
-
-            //     listenPageChange();
-            // }
-
-            // function listenPageChange() {
-            //     $('.pagination-button').on('click', function(e) {
-            //         let direction = $(this).attr('direction');
-            //         $('#clinic_page').val(direction)
-            //         fetchClinicList();
-            //     })
-            // }
-
-            // var typingTimer;                //timer identifier
-            // var doneTypingInterval = 1000;  //time in ms, 1 second for example
-            // var $search = $('#search');
-            // var $entriesLimit = $('#clinic_limit');
-
-            // $search.on('keyup', function () {
-            //     clearTimeout(typingTimer);
-            //     typingTimer = setTimeout(doneTyping, doneTypingInterval);
-            // });
-
-            // $entriesLimit.on('change', () => {
-            //     fetchClinicList();
-            // });
-
-            //on keydown, clear the countdown 
-            // $search.on('keydown', function () {
-            //     clearTimeout(typingTimer);
-            // });
-
-            //user is "finished typing," do something
-            // function doneTyping () {
-            //     fetchClinicList();
-            // }
+       
+            $('#table-prescription-add-button').on('click', () => {
+                const branchId = $('#branch_id').val();
+                window.location.href = window.location.origin + "/admin/branch/price/" + branchId + "/prescription/add" ;
+            })
 
             fetchPriceList()
         });

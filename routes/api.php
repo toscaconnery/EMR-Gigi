@@ -100,6 +100,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'as'    => 'admin.branchPriceItem',
         'uses'  => 'Api\PriceController@itemPrice'
     ]);
+
+    Route::post('branch/price/{branch_id}/prescription/add', [
+        'as'    => 'admin.branchPricePrescriptionAdd',
+        'uses'  => 'Api\PriceController@prescriptionPriceAdd'
+    ]);
 });
 
 

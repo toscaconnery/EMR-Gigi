@@ -32,7 +32,7 @@ class AdminController extends Controller
     {
         return view('admin.roles');
     }
-    public function addrole()
+    public function addebrole()
     {
         return view('admin.add-role');
     }
@@ -137,23 +137,21 @@ class AdminController extends Controller
     {
         if ( ! Auth::check()) {
             return redirect('/login');
-        } else {
-            $user = Auth::user();
-            // $clinic = null;
-            // $branch = Branch::where('id', $branch_id)
-            //                 ->where('')
-            // if ($user->active_superadmin == false && $clinic_id == null) {
-            //     $clinic = Hospital::where('admin_id', $user->id)
-            //                       ->first();
-            //     return redirect('/admin/branch/list/' . $clinic->id);
-            // }
-            // else {
-            //     $branch = Branch::where('hospital_id', $clinic_id)
-            //                     ->get();
-            // }
         }
+
         $jwtToken = $request->session()->get('jwtApiToken');
 
         return view('admin.price.list', compact('jwtToken', 'branchId'));
+    }
+
+    public function addPrescription(Request $request, $branchId)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $jwtToken = $request->session()->get('jwtApiToken');
+
+        return view('admin.price.add-prescription', compact('jwtToken', 'branchId'));
     }
 }
