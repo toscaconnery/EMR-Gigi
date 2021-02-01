@@ -156,6 +156,17 @@ class AdminController extends Controller
         return view('admin.price.add-prescription', compact('jwtToken', 'branchId'));
     }
 
+    public function addAction(Request $request, $branchId)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $jwtToken = $request->session()->get('jwtApiToken');
+
+        return view('admin.price.add-action', compact('jwtToken', 'branchId'));
+    }
+
     public function editPrescription(Request $request, $branchId, $prescriptionId)
     {
         if ( ! Auth::check()) {
@@ -167,5 +178,18 @@ class AdminController extends Controller
         $prescription = Prescription::where('id', $prescriptionId)->first();
 
         return view('admin.price.edit-prescription', compact('jwtToken', 'branchId', 'prescription'));
+    }
+
+    public function editAction(Request $request, $branchId, $actionId)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $jwtToken = $request->session()->get('jwtApiToken');
+
+        $action = Action::where('id', $actionId)->first();
+
+        return view('admin.price.edit-action', compact('jwtToken', 'branchId', 'action'));
     }
 }

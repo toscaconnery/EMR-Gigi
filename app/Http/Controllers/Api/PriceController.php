@@ -162,6 +162,40 @@ class PriceController extends Controller
         return response()->json($response);
     }
 
+    public function actionPriceAdd(Request $request, $branchId)
+    {
+        $user = $this->authUser();
+
+        $actionArray = [
+            'branch_id' => $branchId,
+            'name'      => $request->name,
+            'price'     => $request->price,
+        ];
+
+        $actionValidate = $this->actionValidator($actionArray);
+
+        if ($actionValidate == true) {
+            $newAction = Action::create($actionArray);
+
+            $response = [
+                'data'  => [
+                    'status'    => 'success'
+                ],
+                'error' => null,
+            ];
+
+        } else {
+            $response = [
+                'data'  => [
+                    'status'    => 'failed'
+                ],
+                'error' => 'error',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
     public function itemPrice(Request $request)
     {
         $user = $this->authUser();
@@ -204,13 +238,12 @@ class PriceController extends Controller
         }
     }
 
-    protected function priceValidator(array $data)
+    protected function actionValidator(array $data)
     {
         $validator = Validator::make($data, [
-            'branch_id'   => ['required'],
-            'name'      => ['required', 'string', 'max:255'],
-            'price'     => ['required'],
-            'stock'  => ['required'],
+            'branch_id'     => ['required'],
+            'name'          => ['required', 'string', 'max:255'],
+            'price'         => ['required'],
         ]);
 
         if ($validator->fails()) {

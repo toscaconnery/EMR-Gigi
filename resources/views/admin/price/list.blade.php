@@ -276,6 +276,11 @@
                 window.location.href = window.location.origin + "/admin/branch/price/" + branchId + "/prescription/add" ;
             })
 
+            $('#table-action-add-button').on('click', () => {
+                const branchId = $('#branch_id').val();
+                window.location.href = window.location.origin + "/admin/branch/price/" + branchId + "/action/add" ;
+            })
+
             function listenDeleteButton()
             {
                 $('.trigger-delete').on('click', function() {

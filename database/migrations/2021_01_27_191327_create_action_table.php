@@ -18,7 +18,6 @@ class CreateActionTable extends Migration
             $table->integer('branch_id')->unsigned();
             $table->string('name', 255);
             $table->bigInteger('price');
-            // $table->integer('stock');
             $table->timestamps();
         });
     }

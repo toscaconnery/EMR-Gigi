@@ -15,7 +15,6 @@ class Action extends Model
         'branch_id',
         'name',
         'price',
-        // 'stock'
     ];
 
     protected $dates = [
