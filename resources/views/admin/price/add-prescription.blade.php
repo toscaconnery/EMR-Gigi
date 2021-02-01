@@ -163,7 +163,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.history.back();
+                            window.location.replace(document.referrer);
                         } else {
                             Swal.fire({
                                 icon: 'warning',
