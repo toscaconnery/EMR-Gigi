@@ -255,6 +255,41 @@ class PriceController extends Controller
         return response()->json($response);
     }
 
+    public function itemPriceAdd(Request $request, $branchId)
+    {
+        $user = $this->authUser();
+
+        $itemArray = [
+            'branch_id' => $branchId,
+            'name'      => $request->name,
+            'stock'     => $request->stock,
+            'price'     => $request->price,
+        ];
+
+        $itemValidate = $this->itemValidator($itemArray);
+
+        if ($itemValidate == true) {
+            $newPrescription = Item::create($itemArray);
+
+            $response = [
+                'data'  => [
+                    'status'    => 'success'
+                ],
+                'error' => null,
+            ];
+
+        } else {
+            $response = [
+                'data'  => [
+                    'status'    => 'failed'
+                ],
+                'error' => 'error',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
     protected function prescriptionValidator(array $data)
     {
         $validator = Validator::make($data, [
@@ -279,6 +314,22 @@ class PriceController extends Controller
             'branch_id'     => ['required'],
             'name'          => ['required', 'string', 'max:255'],
             'price'         => ['required'],
+        ]);
+
+        if ($validator->fails()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    protected function itemValidator(array $data)
+    {
+        $validator = Validator::make($data, [
+            'branch_id'     => ['required'],
+            'name'          => ['required', 'string', 'max:255'],
+            'price'         => ['required'],
+            'stock'         => ['required'],
         ]);
 
         if ($validator->fails()) {

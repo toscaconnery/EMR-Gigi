@@ -168,6 +168,17 @@ class AdminController extends Controller
         return view('admin.price.add-action', compact('jwtToken', 'branchId'));
     }
 
+    public function addItem(Request $request, $branchId)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $jwtToken = $request->session()->get('jwtApiToken');
+
+        return view('admin.price.add-item', compact('jwtToken', 'branchId'));
+    }
+
     public function editPrescription(Request $request, $branchId, $prescriptionId)
     {
         if ( ! Auth::check()) {

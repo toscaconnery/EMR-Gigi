@@ -285,6 +285,11 @@
                 window.location.href = window.location.origin + "/admin/branch/price/" + branchId + "/action/add" ;
             })
 
+            $('#table-item-add-button').on('click', () => {
+                const branchId = $('#branch_id').val();
+                window.location.href = window.location.origin + "/admin/branch/price/" + branchId + "/item/add" ;
+            })
+
             function listenDeleteButton()
             {
                 $('.trigger-delete').on('click', function() {
