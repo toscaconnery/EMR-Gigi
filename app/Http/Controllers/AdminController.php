@@ -7,6 +7,7 @@ use App\Models\Hospital;
 use App\Models\Branch;
 use App\Models\Prescription;
 use App\Models\Action;
+use App\Models\Item;
 use JWTAuth;
 use Session;
 use Auth;
@@ -204,4 +205,19 @@ class AdminController extends Controller
 
         return view('admin.price.edit-action', compact('jwtToken', 'branchId', 'action'));
     }
+
+    public function editItem(Request $request, $branchId, $itemId)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $jwtToken = $request->session()->get('jwtApiToken');
+
+        $item = Item::where('id', $itemId)->first();
+
+        return view('admin.price.edit-item', compact('jwtToken', 'branchId', 'item'));
+    }
+
+    
 }

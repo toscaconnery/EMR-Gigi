@@ -152,6 +152,42 @@ class PriceController extends Controller
         return response()->json($response);
     }
 
+    public function itemPriceUpdate(Request $request, $branchId)
+    {
+        $user = $this->authUser();
+
+        $itemArray = [
+            'branch_id' => $branchId,
+            'name'      => $request->name,
+            'price'     => $request->price,
+            'stock'     => $request->stock
+        ];
+
+        $itemValidate = $this->itemValidator($itemArray);
+
+        if ($itemValidate == true) {
+            $itemUpdate = Item::where('id', $request->item_id)
+                                            ->update($itemArray);
+
+            $response = [
+                'data'  => [
+                    'status'    => 'success'
+                ],
+                'error' => null,
+            ];
+
+        } else {
+            $response = [
+                'data'  => [
+                    'status'    => 'failed'
+                ],
+                'error' => 'error',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
     public function priceDelete(Request $request, $branchId, $itemType, $itemId)
     {
         $user = $this->authUser();
