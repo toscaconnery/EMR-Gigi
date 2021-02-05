@@ -241,12 +241,15 @@
                             <td>IDR ${item.price}</td>
                             <td>${item.stock}</td>
                             <td>
-                                <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                                <a href="${base_url}/admin/branch/price/${branch_id}/item/edit/${item.id}">
+                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                </a>
+                                <button type="button" class="btn btn-roles btn-delcustom btn-sm trigger-delete" data-id="${item.id}" data-type="item">Del</button>
                             </td>
                         </tr>
                     `)
                 });
+                listenDeleteButton();
             }
 
             function fetchPriceList() {
