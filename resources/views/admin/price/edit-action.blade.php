@@ -5,6 +5,7 @@
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
         <input type="hidden" value="{{$branchId}}" id="branch_id">
+        <input type="hidden" value="{{$action['id']}}" id="action_id">
 
         @include('admin_layout.sidenav')
 
@@ -12,9 +13,9 @@
 			@include('admin_layout.navbar')
 
 			<ul class="breadcrumb">
-				<h4 class="mr-auto">Price</h4>
+				<h4 class="mr-auto">Price Edit</h4>
 				<li><a class="active">Price</a></li>
-				<li><a href="#">Add Action</a></li>
+				<li><a href="#">Edit Action</a></li>
             </ul>
             
             <div class="container col-lg-12 col md-6">
@@ -23,17 +24,17 @@
                         <div class="form-group row">
                             <label for="action_name" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="Text" class="form-control form-add mb-2" id="action_name" name="action_name"/>
+                                <input type="Text" class="form-control form-add mb-2" id="action_name" name="action_name" value="{{$action['name']}}"/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="action_price" class="col-sm-2 col-form-label">Price</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control form-add mb-2" id="action_price" name="action_price"/>
+                                <input type="number" class="form-control form-add mb-2" id="action_price" name="action_price" value="{{$action['price']}}"/>
                             </div>
                         </div>
                         <div class="form-row">
-                            <button class="btn btn-primary mt-4" id="save_action">Save Action</button>
+                            <button class="btn btn-primary mt-4" id="save_action">Update Action</button>
                         </div>
                     </div>
                 </div>
@@ -53,6 +54,7 @@
         $(document).ready(function(){
             $('#save_action').on('click', () => {
                 checkFieldsValue();
+                // alert('clicked');
             })
 
             function checkFieldsValue()
@@ -75,38 +77,37 @@
                 if (hasError) {
                     toastr.warning(errorMessage)
                 } else {
-                    branchId = $('#branch_id').val()
+                    const actionId = $('#action_id').val();
+                    const userToken = $('#user_token').val();
+                    const branchId = $('#branch_id').val();
                     let branchData = {
                         branch_id: branchId,
+                        action_id: actionId,
                         name: action_name,
                         price: action_price,
                     }
 
-                    var base_url = window.location.origin
+                    var baseUrl = window.location.origin
 
-                    const userToken = $('#user_token').val();
-                    const branch_id = $('#branch_id').val();
-
-                    const createURL = `${base_url}/api/admin/branch/price/${branch_id}/action/add`;
+                    const createURL = `${baseUrl}/api/admin/branch/price/${branchId}/action/update`;
                     const res = axios.post(createURL, branchData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        console.log(response);
                         let responseData = response.data.data;
                         if (responseData.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Action created.',
+                                title: 'Action updated.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.location.replace(document.referrer);
+                            window.history.back();
                         } else {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to create action.',
+                                title: 'Failed to update action.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });

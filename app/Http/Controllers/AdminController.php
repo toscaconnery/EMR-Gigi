@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Hospital;
 use App\Models\Branch;
 use App\Models\Prescription;
+use App\Models\Action;
 use JWTAuth;
 use Session;
 use Auth;
