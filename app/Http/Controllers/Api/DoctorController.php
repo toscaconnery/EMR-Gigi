@@ -138,6 +138,8 @@ class DoctorController extends Controller
 
         $newUser = User::create($payload);
 
+        $newUser->assignRole('doctor');
+
         return response()->json([
             'data' => [
                 'status'    => 'success'
