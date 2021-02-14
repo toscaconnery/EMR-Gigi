@@ -12,9 +12,9 @@
         <button class="dropdown-btn">Settings <i class="fa fa-caret-down"></i></button>
         <div class="dropdown-container">
             <a href="#">Role</a>
-            <a href="#">User</a>
+            <a href="#" style="color:orangered">User</a>
             <a href="{{url('/admin/doctor/list')}}">Doctor</a>
-            <a href="#">Price</a>
+            <a href="#" style="color:orangered">Price</a>
         </div>
         <button class="dropdown-btn">Reports <i class="fa fa-caret-down"></i></button>
         <div class="dropdown-container">
