@@ -141,6 +141,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'uses'  => 'Api\PriceController@priceDelete'
     ]);
 
+    Route::get('role/list', [
+        'as'    => 'admin.roleList',
+        'uses'  => 'Api\RoleController@roleList'
+    ]);
+
 
     // For form purpose
     Route::get('get-available-branch-option', [
