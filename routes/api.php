@@ -58,6 +58,11 @@ Route::name('doctor.')->prefix('doctor')->group(function () {
         'as'    => 'doctor.update',
         'uses'  => 'Api\DoctorController@update'
     ]);
+
+    Route::post('/register-doctor', [
+        'as'    => 'doctor.registerDoctor',
+        'uses'  => 'Api\DoctorController@registerDoctor'
+    ]);
 });
 
 Route::name('admin.')->prefix('admin')->group(function () {
@@ -134,6 +139,21 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('branch/price/{branch_id}/{item_type}/delete/{item_id}', [
         'as'    => 'admin.branchPriceDelete',
         'uses'  => 'Api\PriceController@priceDelete'
+    ]);
+
+
+    // For form purpose
+    Route::get('get-available-branch-option', [
+        'as'    => 'admin.getAvailableBranchOption',
+        'uses'  => 'Api\BranchController@getAvailableBranchOption'
+    ]);
+    Route::get('get-current-clinic', [
+        'as'    => 'admin.getCurrentClinic',
+        'uses'  => 'Api\ClinicController@getCurrentClinic'
+    ]);
+    Route::get('get-available-action-option', [
+        'as'    => 'admin.getCurrentClinic',
+        'uses'  => 'Api\PriceController@getAvailableActionOption'
     ]);
 });
 

@@ -375,4 +375,25 @@ class PriceController extends Controller
         }
     }
 
+    public function getAvailableActionOption(Request $request)
+    {
+        $user = $this->authUser();
+
+        if ($user->hasRole('admin')) {
+            $branchId = $request->branch_id;
+            $actions = Action::where('branch_id', $branchId)->get();
+            return response()->json([
+                'data'  => [
+                    'actions'   => $actions
+                ],
+                'error' => null
+            ]);
+        } else {
+            return response()->json([
+                'data'  => null,
+                'error' => 'Access denied'
+            ]);
+        }
+    }
+
 }

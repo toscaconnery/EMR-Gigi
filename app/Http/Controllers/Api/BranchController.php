@@ -210,4 +210,24 @@ class BranchController extends Controller
             'index' => $index
         ];
     }
+
+    public function getAvailableBranchOption(Request $request)
+    {
+        $user = $this->authUser();
+
+        if ($user->hasRole('admin')) {
+            $branchs = Branch::where('hospital_id', $user->hospital_id)->get();
+            return response()->json([
+                'data'  => [
+                    'branchs'   => $branchs
+                ],
+                'error' => null
+            ]);
+        } else {
+            return response()->json([
+                'data'  => null,
+                'error' => 'Access denied'
+            ]);
+        }
+    }
 }

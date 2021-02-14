@@ -55,7 +55,7 @@ class AdminController extends Controller
     {
         return view('admin.add-user');
     }
-    public function adddoctor()
+    public function adddoctorx()
     {
         return view('admin.add-doctor');
     }
@@ -217,6 +217,25 @@ class AdminController extends Controller
         $item = Item::where('id', $itemId)->first();
 
         return view('admin.price.edit-item', compact('jwtToken', 'branchId', 'item'));
+    }
+
+    public function addDoctor(Request $request)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+    
+            return view('admin.doctor.add-doctor', compact('jwtToken'));
+        } else {
+            dd('stop');
+            return view('admin.dashboard.no-access');
+        }
+
     }
 
     

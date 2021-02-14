@@ -92,6 +92,30 @@ class DoctorController extends Controller
             'error' => null
         ]);   
     }
+
+    public function registerDoctor(Request $request)
+    {
+        $user = $this->authUser();
+
+        $payload = [
+            'name'  => $request->doctorName,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'gender'=> $request->gender,
+            'password' => Hash::make($request->password),
+            'hospital_id' => $user->hospital_id,
+            'branch_ids' => [
+                $request->branch
+            ]
+        ];
+
+        $newUser = User::create($payload);
+
+        return response()->json([
+            $data = $newUser,
+            'error' => null
+        ]);        
+    }
     
 
     /**

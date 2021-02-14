@@ -191,4 +191,25 @@ class ClinicController extends Controller
             'index' => $index
         ];
     }
+
+    public function getCurrentClinic(Request $request)
+    {
+        $user = $this->authUser();
+
+        if ($user->hasRole('admin')) {
+            // $branchs = Branch::where('hospital_id', $user->hospital_id)->get();
+            $hospital = Hospital::find($user->hospital_id);
+            return response()->json([
+                'data'  => [
+                    'hospital'   => $hospital
+                ],
+                'error' => null
+            ]);
+        } else {
+            return response()->json([
+                'data'  => null,
+                'error' => 'Access denied'
+            ]);
+        }
+    }
 }

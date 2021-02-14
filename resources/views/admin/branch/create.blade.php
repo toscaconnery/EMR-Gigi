@@ -16,10 +16,10 @@
                 <li><a href="#">Create</a></li>
             </ul>
 
-            <div class="Container-fluid container col md-6">
+            <div class="container-fluid container col md-6">
                 <div class="row">
 
-                    <div class="Container col-4">
+                    <div class="container col-4">
                         <div class="card"">
                             <div class="card-header text-white mb-1">
                                 Main Info
