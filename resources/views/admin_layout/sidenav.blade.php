@@ -11,9 +11,9 @@
         <a href="{{url('/admin/branch/list')}}">Branch</a>
         <button class="dropdown-btn">Settings <i class="fa fa-caret-down"></i></button>
         <div class="dropdown-container">
-            <a href="#">Roles</a>
+            <a href="#">Role</a>
             <a href="#">User</a>
-            <a href="#">Doctors</a>
+            <a href="{{url('/admin/doctor/list')}}">Doctor</a>
             <a href="#">Price</a>
         </div>
         <button class="dropdown-btn">Reports <i class="fa fa-caret-down"></i></button>

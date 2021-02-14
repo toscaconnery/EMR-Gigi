@@ -219,7 +219,7 @@ class AdminController extends Controller
         return view('admin.price.edit-item', compact('jwtToken', 'branchId', 'item'));
     }
 
-    public function addDoctor(Request $request)
+    public function doctorCreate(Request $request)
     {
         if ( ! Auth::check()) {
             return redirect('/login');
@@ -230,12 +230,27 @@ class AdminController extends Controller
         if ($user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
     
-            return view('admin.doctor.add-doctor', compact('jwtToken'));
+            return view('admin.doctor.create', compact('jwtToken'));
         } else {
-            dd('stop');
             return view('admin.dashboard.no-access');
         }
+    }
 
+    public function doctorList(Request $request)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+    
+            return view('admin.doctor.list', compact('jwtToken'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
     }
 
     

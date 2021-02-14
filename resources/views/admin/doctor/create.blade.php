@@ -181,7 +181,6 @@
                     errorMessage = ''
                     hasError = false
                 } else {
-                    toastr.warning('validation success')
                     let doctorData = {
                         branch,
                         doctorName,
@@ -212,7 +211,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.history.back();
+                            window.location.href = `${base_url}/admin/doctor/list`;
                         } else {
                             Swal.fire({
                                 icon: 'warning',

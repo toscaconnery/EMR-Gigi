@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
+use DB;
 // use Illuminate\Support\Facades\Validator;
 
 class DoctorController extends Controller
@@ -21,14 +22,40 @@ class DoctorController extends Controller
      *      )
      * )
      */
-    public function doctorList()
+    public function doctorList(Request $request)
     {
         $user = $this->authUser();
 
-        $doctors = User::select('id', 'name', 'email', 'employee_id')
-                        ->where('is_doctor', true)->get();
+        $limit = $request->limit ? $request->limit : 10;
+        $page = $request->page ? $request->page : 1;
+        $skip = ($limit * $page) - $limit;
+        $search = $request->search;
+
+        $doctors = User::whereHas("roles", function($q){ $q->where("name", "doctor"); })
+                        ->where('hospital_id', $user->hospital_id);
+                        
+        if ($search != '') {
+            $doctors = $doctors->where('name', 'like', '%' . $search . '%');
+        }
+
+        $doctorCounterTemplate = clone $doctors;
+
+        $doctors = $doctors->take($limit)
+                            ->skip($skip);
+
+        $doctors = $doctors->get();
+
+        $count = $doctorCounterTemplate->count();
+        $pagination = $this->generatePagination($count, $page, $limit);
+        
         return response()->json([
-            'data'  => $doctors,
+            'data'  => [
+                'doctors'   => $doctors,
+                'status'    => 'success',
+                'limit'     => $limit,
+                'page'      => $page,
+                'pagination' => $pagination,
+            ],
             'error' => null
         ]);
     }
@@ -112,7 +139,9 @@ class DoctorController extends Controller
         $newUser = User::create($payload);
 
         return response()->json([
-            $data = $newUser,
+            'data' => [
+                'status'    => 'success'
+            ],
             'error' => null
         ]);        
     }
@@ -227,6 +256,39 @@ class DoctorController extends Controller
         } else {
             return response()->json($this->createErrorMessage('Cannot find the doctor.'));
         }
+    }
+
+    public function generatePagination($count, $page, $limit) {
+        $index = [];
+        $firstButton = null;
+        $lastButton = null;
+        if ($count > 0) {
+            $firstButton = 1;
+            $lastButton = ceil($count / $limit);
+            $firstIndex = $page - 5;
+            $lastIndex = $page + 5;
+            if ($firstIndex < 1) {
+                $firstIndex = 1;
+            }
+            if ($lastIndex > $lastButton) {
+                $lastIndex = $lastButton;
+            }
+            for ($i = $firstIndex; $i <= $lastIndex; $i++) {
+                array_push($index, $i);
+            }
+        } else {
+            $firstButton = null;
+            $firstButton = null;
+        }
+
+        return [
+            'page'  => $page,
+            'limit' => $limit,
+            'total' => $count,
+            'firstButton' => $firstButton,
+            'lastButton'  => $lastButton,
+            'index' => $index
+        ];
     }
 
 

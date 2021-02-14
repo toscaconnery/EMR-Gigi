@@ -64,7 +64,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|staff']], functi
     Route::get('branch/price/{branch_id}/action/edit/{action_id}', 'AdminController@editAction');
     Route::get('branch/price/{branch_id}/item/add', 'AdminController@addItem');
     Route::get('branch/price/{branch_id}/item/edit/{item_id}', 'AdminController@editItem');
-    Route::get('doctor/add', 'AdminController@addDoctor');
+    Route::get('doctor/create', 'AdminController@doctorCreate');
+    Route::get('doctor/list', 'AdminController@doctorList');
 });
 
 
