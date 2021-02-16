@@ -29,10 +29,8 @@ Route::get('medication-history', 'MedicationController@medicationHistory');
 
 
 ///////////////
-Route::get('/roles', 'AdminController@roles');
 
 Route::get('/users', 'AdminController@users');
-
 Route::get('/add-user','AdminController@adduser');
 
 Route::get('/branch', 'AdminController@branch');                    // done
@@ -41,6 +39,7 @@ Route::get('/add-prescription', 'AdminController@addprescript');    // done
 Route::get('/prescription', 'AdminController@prescription');        // done
 Route::get('/add-doctor', 'AdminController@adddoctorx');            // done
 Route::get('/doctor-list', 'AdminController@doctor');               // done
+Route::get('/roles', 'AdminController@roles');                      // done
 Route::get('/add-role', 'AdminController@addrole');                 // ignored
 
 Route::group(['middleware' => ['role:patient']], function() {
@@ -64,6 +63,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|staff']], functi
     Route::get('branch/price/{branch_id}/item/edit/{item_id}', 'AdminController@editItem');
     Route::get('doctor/create', 'AdminController@doctorCreate');
     Route::get('doctor/list', 'AdminController@doctorList');
+    Route::get('staff/create', 'AdminController@staffCreate');
+    Route::get('staff/list', 'AdminController@staffList');
     Route::get('role/list', 'AdminController@roleList');
 });
 

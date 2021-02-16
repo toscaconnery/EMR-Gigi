@@ -65,6 +65,33 @@ Route::name('doctor.')->prefix('doctor')->group(function () {
     ]);
 });
 
+Route::name('staff.')->prefix('staff')->group(function () {
+    // Route::post('create', [
+    //     'as'    => 'staff.create',
+    //     'uses'  => 'Api\StaffController@create'
+    // ]);
+
+    Route::get('list', [
+        'as'    => 'staff.list',
+        'uses'  => 'Api\StaffController@doctorList'
+    ]);
+
+    Route::get('delete/{id}', [
+        'as'    => 'staff.delete',
+        'uses'  => 'Api\StaffController@delete'
+    ]);
+
+    Route::post('update/{id}', [
+        'as'    => 'staff.update',
+        'uses'  => 'Api\StaffController@update'
+    ]);
+
+    Route::post('/register-doctor', [
+        'as'    => 'staff.registerDoctor',
+        'uses'  => 'Api\StaffController@registerDoctor'
+    ]);
+});
+
 Route::name('admin.')->prefix('admin')->group(function () {
     Route::post('clinic/store', [
         'as'    => 'admin.createclinic',

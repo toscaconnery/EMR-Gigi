@@ -21,7 +21,7 @@
 					<div class="card-header text-white mb-3" style="background-color: #ff9a76">
 						Role List
 					</div>
-                    <div class="m-3">These roles are tied to system code. You can only view the roles.</div>
+                    <div class="m-3" style="font-style: italic; color: gray;">These roles are tied to system code. You can only view the roles.</div>
 					<div class="card-body">
 						<table id="tabel-data" class="table table-bordered table-hover">
 							<thead>
