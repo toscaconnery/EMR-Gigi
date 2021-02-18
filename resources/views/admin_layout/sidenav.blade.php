@@ -14,8 +14,7 @@
             <a href="{{url('/admin/role/list')}}">Role</a>
             <a href="{{url('/admin/doctor/list')}}">Doctor</a>
             <a href="{{url('/admin/staff/list')}}">Staff</a>
-            <a href="#" style="color:orangered">User</a>
-            <a href="#" style="color:orangered">Price</a>
+            <a href="#">Admin</a>
         </div>
         <button class="dropdown-btn">Reports <i class="fa fa-caret-down"></i></button>
         <div class="dropdown-container">

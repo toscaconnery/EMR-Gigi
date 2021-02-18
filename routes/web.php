@@ -30,17 +30,17 @@ Route::get('medication-history', 'MedicationController@medicationHistory');
 
 ///////////////
 
-Route::get('/users', 'AdminController@users');
-Route::get('/add-user','AdminController@adduser');
+// Route::get('/users', 'AdminController@users');
+// Route::get('/add-user','AdminController@adduser');
 
-Route::get('/branch', 'AdminController@branch');                    // done
-Route::get('/branch-list', 'AdminController@branchlist2');          // done
-Route::get('/add-prescription', 'AdminController@addprescript');    // done
-Route::get('/prescription', 'AdminController@prescription');        // done
-Route::get('/add-doctor', 'AdminController@adddoctorx');            // done
-Route::get('/doctor-list', 'AdminController@doctor');               // done
-Route::get('/roles', 'AdminController@roles');                      // done
-Route::get('/add-role', 'AdminController@addrole');                 // ignored
+// Route::get('/branch', 'AdminController@branch');                    // done
+// Route::get('/branch-list', 'AdminController@branchlist2');          // done
+// Route::get('/add-prescription', 'AdminController@addprescript');    // done
+// Route::get('/prescription', 'AdminController@prescription');        // done
+// Route::get('/add-doctor', 'AdminController@adddoctorx');            // done
+// Route::get('/doctor-list', 'AdminController@doctor');               // done
+// Route::get('/roles', 'AdminController@roles');                      // done
+// Route::get('/add-role', 'AdminController@addrole');                 // ignored
 
 Route::group(['middleware' => ['role:patient']], function() {
     Route::get('dashboard', 'AdminController@dashboard');
