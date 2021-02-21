@@ -287,6 +287,23 @@ class AdminController extends Controller
         }
     }
 
+    public function staffCreate(Request $request)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+    
+            return view('admin.staff.create', compact('jwtToken'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+
     
 
 }

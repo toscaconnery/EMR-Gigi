@@ -66,6 +66,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|staff']], functi
     Route::get('staff/create', 'AdminController@staffCreate');
     Route::get('staff/list', 'AdminController@staffList');
     Route::get('role/list', 'AdminController@roleList');
+    Route::get('staff/list', 'AdminController@staffList');
 });
 
 

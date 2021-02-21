@@ -66,14 +66,9 @@ Route::name('doctor.')->prefix('doctor')->group(function () {
 });
 
 Route::name('staff.')->prefix('staff')->group(function () {
-    // Route::post('create', [
-    //     'as'    => 'staff.create',
-    //     'uses'  => 'Api\StaffController@create'
-    // ]);
-
     Route::get('list', [
         'as'    => 'staff.list',
-        'uses'  => 'Api\StaffController@doctorList'
+        'uses'  => 'Api\StaffController@staffList'
     ]);
 
     Route::get('delete/{id}', [
@@ -86,9 +81,9 @@ Route::name('staff.')->prefix('staff')->group(function () {
         'uses'  => 'Api\StaffController@update'
     ]);
 
-    Route::post('/register-doctor', [
-        'as'    => 'staff.registerDoctor',
-        'uses'  => 'Api\StaffController@registerDoctor'
+    Route::post('/register-staff', [
+        'as'    => 'staff.registerStaff',
+        'uses'  => 'Api\StaffController@registerStaff'
     ]);
 });
 

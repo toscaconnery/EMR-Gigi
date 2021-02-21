@@ -1,0 +1,110 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Api\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use App\User;
+
+class StaffController extends Controller
+{
+    public function staffList(Request $request)
+    {
+        $user = $this->authUser();
+
+        $limit = $request->limit ? $request->limit : 10;
+        $page = $request->page ? $request->page : 1;
+        $skip = ($limit * $page) - $limit;
+        $search = $request->search;
+
+        $staffs = User::whereHas("roles", function($q){ $q->where("name", "staff"); })
+                        ->where('hospital_id', $user->hospital_id);
+                        
+        if ($search != '') {
+            $staffs = $staffs->where('name', 'like', '%' . $search . '%');
+        }
+
+        $staffCounterTemplate = clone $staffs;
+
+        $staffs = $staffs->take($limit)
+                            ->skip($skip);
+
+        $staffs = $staffs->get();
+
+        $count = $staffCounterTemplate->count();
+        $pagination = $this->generatePagination($count, $page, $limit);
+        
+        return response()->json([
+            'data'  => [
+                'staffs'   => $staffs,
+                'status'    => 'success',
+                'limit'     => $limit,
+                'page'      => $page,
+                'pagination' => $pagination,
+            ],
+            'error' => null
+        ]);
+    }
+
+    public function registerStaff(Request $request)
+    {
+        $user = $this->authUser();
+
+        $payload = [
+            'name'  => $request->staffName,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'gender'=> $request->gender,
+            'password' => Hash::make($request->password),
+            'hospital_id' => $user->hospital_id,
+            'branch_ids' => [
+                $request->branch
+            ]
+        ];
+
+        $newUser = User::create($payload);
+
+        $newUser->assignRole('staff');
+
+        return response()->json([
+            'data' => [
+                'status'    => 'success'
+            ],
+            'error' => null
+        ]);        
+    }
+
+    public function generatePagination($count, $page, $limit) {
+        $index = [];
+        $firstButton = null;
+        $lastButton = null;
+        if ($count > 0) {
+            $firstButton = 1;
+            $lastButton = ceil($count / $limit);
+            $firstIndex = $page - 5;
+            $lastIndex = $page + 5;
+            if ($firstIndex < 1) {
+                $firstIndex = 1;
+            }
+            if ($lastIndex > $lastButton) {
+                $lastIndex = $lastButton;
+            }
+            for ($i = $firstIndex; $i <= $lastIndex; $i++) {
+                array_push($index, $i);
+            }
+        } else {
+            $firstButton = null;
+            $firstButton = null;
+        }
+
+        return [
+            'page'  => $page,
+            'limit' => $limit,
+            'total' => $count,
+            'firstButton' => $firstButton,
+            'lastButton'  => $lastButton,
+            'index' => $index
+        ];
+    }
+}
