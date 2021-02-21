@@ -46,7 +46,7 @@ Route::group(['middleware' => ['role:patient']], function() {
     Route::get('dashboard', 'AdminController@dashboard');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|staff']], function() {
+Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin|admin|staff']], function() {
     Route::get('dashboard', 'AdminController@dashboard');
 
     // Clinics
