@@ -166,8 +166,6 @@
             });
 
             $('#submit_button').on('click', async function() {
-                console.log('SENDING AXIOS POST REQUEST')
-
                 let hasError = false;
                 let errorMessage = '';
 
@@ -227,7 +225,6 @@
 
                 // Admin password
                 let adminPassword = $('#admin_password').val();
-                console.log(adminPassword)
                 let adminConfirmPassword = $('#admin_password_confirm').val();
 
                 if (adminPassword == '' && adminConfirmPassword != '') {
@@ -272,15 +269,14 @@
                         },
                     }).then(function (response) {
                         console.log(response);
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
+                        if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Clinic created.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.history.back();
+                            window.location.href = `${base_url}/admin/clinic/list`;
                         } else {
                             Swal.fire({
                                 icon: 'warning',

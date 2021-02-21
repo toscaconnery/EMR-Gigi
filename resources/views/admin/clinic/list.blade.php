@@ -32,7 +32,7 @@
                                 <input type="text" class="form-control" placeholder="Search clinic" id="search">
                             </div>
                         </div>
-                        @role('admin')
+                        @role('superadmin')
                             <a href="{{url('/admin/clinic/create')}}" class="btn create-button">
                                 Add Clinic
                             </a>
@@ -111,9 +111,17 @@
                             'search': searchValue
                         }
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
+                        if (response.data.status == 'success') {
+                            let responseData = response.data.data;
                             showData(responseData.hospitals, responseData.pagination);
+                            if (responseData.hospitals.length === 0) {
+                                Swal.fire({
+                                icon: 'info',
+                                title: 'Clinic is empty.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            }
                         } else {
                             hideLoadingCircle();
                             Swal.fire({

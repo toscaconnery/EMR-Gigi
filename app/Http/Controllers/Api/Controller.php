@@ -30,8 +30,19 @@ class Controller extends BaseController
     public function createErrorMessage($message)
     {
         $response = [
-            'data'  => null,
-            'error' => $message
+            'data'      => null,
+            'status'    => 'failed',
+            'error'     => $message
+        ];
+        return $response;
+    }
+
+    public function createResponse($data)
+    {
+        $response = [
+            'data'      => $data,
+            'status'    => 'success',
+            'error'     => null
         ];
         return $response;
     }
