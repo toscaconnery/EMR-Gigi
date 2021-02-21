@@ -304,6 +304,24 @@ class AdminController extends Controller
         }
     }
 
+    public function staffDetail(Request $request, $staff_id)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+            $staffId = $staff_id;
+    
+            return view('admin.staff.detail', compact('jwtToken', 'staffId'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+
     
 
 }

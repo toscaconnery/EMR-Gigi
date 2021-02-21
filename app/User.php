@@ -23,7 +23,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'phone',
         'password',
-        'branch_ids',
+        'branch_id',
         'hospital_id',
         'gender'
     ];
@@ -44,7 +44,6 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'branch_ids'    => 'json',
     ];
 
     public function getJWTIdentifier()

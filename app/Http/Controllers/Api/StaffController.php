@@ -9,7 +9,7 @@ use App\User;
 
 class StaffController extends Controller
 {
-    public function staffList(Request $request)
+    public function list(Request $request)
     {
         $user = $this->authUser();
 
@@ -47,7 +47,7 @@ class StaffController extends Controller
         ]);
     }
 
-    public function registerStaff(Request $request)
+    public function register(Request $request)
     {
         $user = $this->authUser();
 
@@ -58,9 +58,7 @@ class StaffController extends Controller
             'gender'=> $request->gender,
             'password' => Hash::make($request->password),
             'hospital_id' => $user->hospital_id,
-            'branch_ids' => [
-                $request->branch
-            ]
+            'branch_id' => $request->branch
         ];
 
         $newUser = User::create($payload);
@@ -73,6 +71,28 @@ class StaffController extends Controller
             ],
             'error' => null
         ]);        
+    }
+
+    public function detail(Request $request) {
+        $user = $this->authUser();
+
+        $staff = User::find($request->staff_id);
+
+        if ($staff) {
+            if ($staff->hospital_id == $user->hospital_id) {
+                return response()->json([
+                    'data'  => [
+                        'staff'     => $staff,
+                        'status'    => 'success',
+                    ],
+                    'error' => null
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to view this staff'));
+            }
+        } else {
+            return response()->json($this->createErrorMessage('Staff not found'));
+        }
     }
 
     public function generatePagination($count, $page, $limit) {

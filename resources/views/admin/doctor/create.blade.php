@@ -196,7 +196,7 @@
 
                     const userToken = $('#user_token').val();
 
-                    const createURL = `${base_url}/api/doctor/register-doctor`;
+                    const createURL = `${base_url}/api/doctor/register`;
                     const res = axios.post(createURL, doctorData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`

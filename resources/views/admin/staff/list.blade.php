@@ -148,7 +148,7 @@
                     $('#staff_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
-                            <td>${item.name}</td>
+                            <td><a href="${base_url}/admin/staff/detail/${item.id}">${item.name}</a></td>
                             <td>${item.email}</td>
                             <td>+62${item.phone}</td>
                             <td>${gender}</td>

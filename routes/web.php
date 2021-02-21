@@ -48,12 +48,18 @@ Route::group(['middleware' => ['role:patient']], function() {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|staff']], function() {
     Route::get('dashboard', 'AdminController@dashboard');
+
+    // Clinics
     Route::get('clinic/list', 'AdminController@clinicList');
     Route::get('clinic/create', 'AdminController@clinicCreate');
+
+    // Branch
     Route::get('branch/list', 'AdminController@branchList');
     Route::get('branch/list/{clinic_id}', 'AdminController@branchList');
     Route::get('branch/detail/{branch_id}', 'AdminController@branchDetail');
     Route::get('branch/create/{clinic_id}', 'AdminController@branchCreate');
+
+    // Price
     Route::get('branch/price/{branch_id}', 'AdminController@priceList');
     Route::get('branch/price/{branch_id}/prescription/add', 'AdminController@addPrescription');
     Route::get('branch/price/{branch_id}/prescription/edit/{prescription_id}', 'AdminController@editPrescription');
@@ -61,12 +67,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|staff']], functi
     Route::get('branch/price/{branch_id}/action/edit/{action_id}', 'AdminController@editAction');
     Route::get('branch/price/{branch_id}/item/add', 'AdminController@addItem');
     Route::get('branch/price/{branch_id}/item/edit/{item_id}', 'AdminController@editItem');
+
+    // Doctor
     Route::get('doctor/create', 'AdminController@doctorCreate');
     Route::get('doctor/list', 'AdminController@doctorList');
+
+    // Staff
     Route::get('staff/create', 'AdminController@staffCreate');
     Route::get('staff/list', 'AdminController@staffList');
+    Route::get('staff/detail/{staff_id}', 'AdminController@staffDetail');
+
     Route::get('role/list', 'AdminController@roleList');
-    Route::get('staff/list', 'AdminController@staffList');
 });
 
 

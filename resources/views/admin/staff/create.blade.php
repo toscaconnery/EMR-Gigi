@@ -108,16 +108,6 @@
                     pushErrMsg('Staff name is required')
                 }
 
-                // let actions = $('input[name^="action"]:checkbox:checked')
-                // let selectedActions = [];
-                // if (actions.length === 0) {
-                //     pushErrMsg('Action list is required')
-                // } else {
-                //     actions.each(act => {
-                //         selectedActions.push($(actions[act]).val())
-                //     })
-                // }
-
                 let email = $('#email').val()
                 if (email === '') {
                     pushErrMsg('Email is required')
@@ -165,7 +155,7 @@
 
                     const userToken = $('#user_token').val();
 
-                    const createURL = `${base_url}/api/staff/register-staff`;
+                    const createURL = `${base_url}/api/staff/register`;
                     const res = axios.post(createURL, staffData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -193,7 +183,6 @@
                 }
             });
 
-            // Setting form options
             function setBranchOptions()
             {
                 var base_url = window.location.origin;

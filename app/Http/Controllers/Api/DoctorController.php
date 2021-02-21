@@ -22,7 +22,7 @@ class DoctorController extends Controller
      *      )
      * )
      */
-    public function doctorList(Request $request)
+    public function list(Request $request)
     {
         $user = $this->authUser();
 
@@ -120,7 +120,7 @@ class DoctorController extends Controller
         ]);   
     }
 
-    public function registerDoctor(Request $request)
+    public function register(Request $request)
     {
         $user = $this->authUser();
 
@@ -131,9 +131,7 @@ class DoctorController extends Controller
             'gender'=> $request->gender,
             'password' => Hash::make($request->password),
             'hospital_id' => $user->hospital_id,
-            'branch_ids' => [
-                $request->branch
-            ]
+            'branch_id' => $request->branch
         ];
 
         $newUser = User::create($payload);
