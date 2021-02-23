@@ -3,7 +3,6 @@
     @include('admin_layout.head')
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
-        {{-- <input type="hidden" value="{{$clinic_id}}" id="clinic_id"> --}}
         <input type="hidden" value="1" id="branch_page">
 
 		@include('admin_layout.sidenav')
@@ -98,7 +97,6 @@
             function fetchBranchList() {
                 var base_url = window.location.origin;
                 const userToken = $('#user_token').val();
-                // const clinicId = $('#clinic_id').val();
                 var branchLimit = $('#branch_limit').val();
                 var branchPage = $('#branch_page').val();
                 let searchValue = $('#search').val();
@@ -222,12 +220,10 @@
                 fetchBranchList();
             });
 
-            //on keydown, clear the countdown 
             $search.on('keydown', function () {
                 clearTimeout(typingTimer);
             });
 
-            //user is "finished typing," do something
             function doneTyping () {
                 fetchBranchList();
             }

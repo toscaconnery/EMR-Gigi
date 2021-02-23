@@ -106,7 +106,6 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        console.log(response);
                         let responseData = response.data.data;
                         if (responseData.status == 'success') {
                             Swal.fire({

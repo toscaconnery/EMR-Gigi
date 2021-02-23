@@ -124,8 +124,6 @@
                 hasError = true
             }
             $('#save_doctor').on('click', async function() {
-                console.log('submitting')
-
                 let branch = $('#branch').val();
                 if (branch === null) {
                     pushErrMsg('Branch is required')
@@ -137,8 +135,6 @@
                 }
 
                 let actions = $('input[name^="action"]:checkbox:checked')
-                // console.log('ACTIONS : ')
-                // console.log(actions)
                 let selectedActions = [];
                 if (actions.length === 0) {
                     pushErrMsg('Action list is required')
@@ -202,7 +198,6 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        console.log(response);
                         let responseData = response.data.data;
                         if (responseData.status == 'success') {
                             Swal.fire({
@@ -285,7 +280,6 @@
                     }
                 }).then(function (response) {
                     let responseData = response.data.data;
-                    console.log(responseData)
                     responseData.actions.forEach(e => {
                         $('#action_placer').before(`
                             <div class="col-sm-2 action-list-content">

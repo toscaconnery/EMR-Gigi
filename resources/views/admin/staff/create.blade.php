@@ -96,8 +96,6 @@
                 hasError = true
             }
             $('#save_staff').on('click', async function() {
-                console.log('submitting')
-
                 let branch = $('#branch').val();
                 if (branch === null) {
                     pushErrMsg('Branch is required')
@@ -161,7 +159,6 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        console.log(response);
                         let responseData = response.data.data;
                         if (responseData.status == 'success') {
                             Swal.fire({
@@ -223,42 +220,6 @@
                 })
             }
             setClinicValue();
-
-            // function setActionOptions()
-            // {
-            //     $('.action-list-content').remove();
-            //     $('#action_placeholder').remove();
-
-            //     var selectedBranch = $('#branch').val();
-            //     var base_url = window.location.origin;
-            //     const userToken = $('#user_token').val();
-            //     const fetchURL = `${base_url}/api/admin/get-available-action-option`;
-
-            //     const res = axios.get(fetchURL, {
-            //         headers: {
-            //             'Authorization': `Bearer ${userToken}`
-            //         },
-            //         params: {
-            //             'branch_id': selectedBranch
-            //         }
-            //     }).then(function (response) {
-            //         let responseData = response.data.data;
-            //         console.log(responseData)
-            //         responseData.actions.forEach(e => {
-            //             $('#action_placer').before(`
-            //                 <div class="col-sm-2 action-list-content">
-            //                     <input type="checkbox" id="action_option_${e.id}" name="action[${e.id}]" value="${e.id}" data-action_id=${e.id}}>
-            //                     <label for="action_option_${e.id}">${e.name}</label><br>
-            //                 </div>
-            //             `);
-            //         })
-            //     })
-            // }
-
-            // $('#branch').change(function() {
-            //     setActionOptions();
-            // });
-
         });
     </script>
 

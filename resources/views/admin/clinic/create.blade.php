@@ -268,7 +268,6 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        console.log(response);
                         if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
@@ -287,37 +286,7 @@
                         }
                     })
                 }
-
-                // let clinicData = {
-                //     'clinicName': 'Rumah Sakit Ibu dan Anak',
-                //     'clinicEmail': 'rumahsakit@gmail.com'
-                // }
-                // var base_url = window.location.origin
-                // console.log(base_url)
-                // const axios = require('axios');
-                // const res = await axios.post(`${base_url}/api/admin/clinic/store`, clinicData);
-                // const addedTodo = res.data;
-                // console.log('>>> HASIL')
-                // console.log(res);
-                // const userToken = $('#user_token').val();
-                // console.log('USER TOKEN')
-                // console.log(userToken)
-                // const createURL = `${base_url}/api/admin/clinic/store`;
-                // const res = axios.post(createURL, clinicData, {
-                //     headers: {
-                //         'Authorization': `Bearer ${userToken}`
-                //     },
-                // })
             });
-
-            // function getJWTToken() {
-            //     console.log('GETTING JWT TOKEN')
-            //     axios.get('/api/jwt/get-current-token')
-            //         .then((response)=>{
-            //             console.log(response)
-            //             this.users = response.data.users
-            //         })
-            // }
         });
     </script>
 

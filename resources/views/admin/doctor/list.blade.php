@@ -215,12 +215,10 @@
                 fetchDoctorList();
             });
 
-            //on keydown, clear the countdown 
             $search.on('keydown', function () {
                 clearTimeout(typingTimer);
             });
 
-            //user is "finished typing," do something
             function doneTyping () {
                 fetchDoctorList();
             }
