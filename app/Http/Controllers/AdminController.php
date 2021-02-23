@@ -72,21 +72,6 @@ class AdminController extends Controller
 
     public function clinicCreate(Request $request)
     {
-        // dd('oke');
-        // $user = JWTAuth::user();
-        // $value = 'new value of session';
-        // Session::set('variableName', $value);
-        // session()->put('hello', 'hello');
-        // dd($request->session());
-        // dd($user->password);
-        // $email = $user->email;
-        // $password = $user->password;
-        // $credentials = [
-        //     'email' => $email,
-        //     'password' => '12345678'
-        // ];
-        // $token = JWTAuth::attempt($credentials);
-        // dd($token);
         $jwtToken = $request->session()->get('jwtApiToken');
 
         return view('admin.clinic.create', compact('jwtToken'));
@@ -99,34 +84,62 @@ class AdminController extends Controller
         return view('admin.clinic.list', compact('jwtToken'));
     }
 
-    public function branchList(Request $request, $clinic_id = null)
+    public function branchList(Request $request)
     {
         if ( ! Auth::check()) {
             return redirect('/login');
-        } else {
-            $user = Auth::user();
-            $clinic = null;
-            if ($user->active_superadmin == false && $clinic_id == null) {
-                $clinic = Hospital::where('admin_id', $user->id)
-                                  ->first();
-                return redirect('/admin/branch/list/' . $clinic->id);
-            }
-            // else {
-            //     $branch = Branch::where('hospital_id', $clinic_id)
-            //                     ->get();
-            // }
         }
-        // dd($user);
-        $jwtToken = $request->session()->get('jwtApiToken');
 
-        return view('admin.branch.list', compact('jwtToken', 'clinic_id', 'clinic'));
+        $user = Auth::user();
+
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+            return view('admin.branch.list', compact('jwtToken'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+
+
+        // if ( ! Auth::check()) {
+        //     return redirect('/login');
+        // } else {
+        //     $user = Auth::user();
+        //     $clinic = null;
+        //     if ($user->active_superadmin == false && $clinic_id == null) {
+        //         $clinic = Hospital::where('admin_id', $user->id)
+        //                           ->first();
+        //         return redirect('/admin/branch/list/' . $clinic->id);
+        //     }
+        //     // else {
+        //     //     $branch = Branch::where('hospital_id', $clinic_id)
+        //     //                     ->get();
+        //     // }
+        // }
+        // // dd($user);
+        // $jwtToken = $request->session()->get('jwtApiToken');
+
+        // return view('admin.branch.list', compact('jwtToken', 'clinic_id', 'clinic'));
     }
     
-    public function branchCreate(Request $request, $clinic_id)
+    public function branchCreate(Request $request)
     {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
         $jwtToken = $request->session()->get('jwtApiToken');
 
-        return view('admin.branch.create', compact('jwtToken', 'clinic_id'));
+        if ($user->hasRole('superadmin')) {
+            $clinic_id = null;
+            return view('admin.branch.create', compact('jwtToken', 'clinic_id'));
+        } elseif ($user->hasRole('admin')) {
+            $clinic_id = $user->hospital_id;
+            return view('admin.branch.create', compact('jwtToken', 'clinic_id'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
     }
 
     public function branchDetail(Request $request, $branchId)

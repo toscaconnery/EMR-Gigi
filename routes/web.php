@@ -57,7 +57,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin|admin|staff
     Route::get('branch/list', 'AdminController@branchList');
     Route::get('branch/list/{clinic_id}', 'AdminController@branchList');
     Route::get('branch/detail/{branch_id}', 'AdminController@branchDetail');
-    Route::get('branch/create/{clinic_id}', 'AdminController@branchCreate');
+    Route::get('branch/create', 'AdminController@branchCreate');
 
     // Price
     Route::get('branch/price/{branch_id}', 'AdminController@priceList');

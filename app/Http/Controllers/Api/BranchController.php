@@ -71,7 +71,8 @@ class BranchController extends Controller
         $hospital = null;
 
         if ($user) {
-            if ($user->hasRole('admin')) {
+            if ($user->hasRole('superadmin') || $user->hasRole('admin'))
+            {
                 $branchs = Branch::take($limit)
                                  ->skip($skip);
                 if ($hospital_id != null) {
@@ -106,18 +107,15 @@ class BranchController extends Controller
             $pagination = $this->generatePagination($page, $limit, $hospital_id, $search);
         }
         
-        $response = [
-            'data'  => [
-                'status'    => 'success',
-                'branchs'   => $branchs,
-                'hospital'  => $hospital,
-                'limit'     => $limit,
-                'page'      => $page,
-                'pagination' => $pagination,
-                'user'      => $this->authUser(),
-            ],
-            'error' => null
+        $responseData = [
+            'status'    => 'success',
+            'branchs'   => $branchs,
+            'hospital'  => $hospital,
+            'limit'     => $limit,
+            'page'      => $page,
+            'pagination' => $pagination,
         ];
+        $response = $this->createResponse($responseData);
         return response()->json($response);
     }
 
@@ -132,14 +130,11 @@ class BranchController extends Controller
             }
         }
 
-        $response = [
-            'data'  => [
-                'status'   => 'success',
-                'branch'   => $branch,
-            ],
-            'error' => null
+        $responseData = [
+            'branch'   => $branch,
         ];
-        return response()->json($response);
+
+        return response()->json($this->createResponse($responseData));
     }
 
     protected function branchValidator(array $data)
