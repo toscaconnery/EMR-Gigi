@@ -148,9 +148,8 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
-                            showData(responseData.branch, branchId);
+                        if (response.data.status == 'success') {
+                            showData(response.data.data.branch, branchId);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({

@@ -30,7 +30,7 @@ class StaffController extends Controller
         $staffs = $staffs->take($limit)
                             ->skip($skip);
 
-        $staffs = $staffs->get();
+        $staffs = $staffs->with('workBranch')->get();
 
         $count = $staffCounterTemplate->count();
         $pagination = $this->generatePagination($count, $page, $limit);
@@ -38,11 +38,11 @@ class StaffController extends Controller
         return response()->json([
             'data'  => [
                 'staffs'   => $staffs,
-                'status'    => 'success',
                 'limit'     => $limit,
                 'page'      => $page,
                 'pagination' => $pagination,
             ],
+            'status'    => 'success',
             'error' => null
         ]);
     }

@@ -44,6 +44,7 @@
 								<tr>
 									<th>No</th>
 									<th>Name</th>
+                                    <th>Branch</th>
 									<th>Email</th>
 									<th>Phone Number</th>
 									<th>Gender</th>
@@ -109,9 +110,8 @@
                             'search': searchValue
                         }
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
-                            showData(responseData.staffs, responseData.pagination);
+                        if (response.data.status === 'success') {
+                            showData(response.data.data.staffs, response.data.data.pagination);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({
@@ -149,6 +149,7 @@
                         <tr class="tr-list">
                             <td>${i++}</td>
                             <td><a href="${base_url}/admin/staff/detail/${item.id}">${item.name}</a></td>
+                            <td>${item.work_branch.name}</td>
                             <td>${item.email}</td>
                             <td>+62${item.phone}</td>
                             <td>${gender}</td>

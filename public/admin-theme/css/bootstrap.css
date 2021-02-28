@@ -2171,6 +2171,18 @@ textarea.form-control {
   height: auto;
 }
 
+.pr-15-px {
+  padding-right: 15px !important;
+}
+
+.tlr-15 {
+  border-top-left-radius: 15px !important;
+}
+
+.blr-15 {
+  border-bottom-left-radius: 15px !important;
+}
+
 .form-group {
   margin-bottom: 1rem;
 }

@@ -55,4 +55,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function workHospital()
+    {
+        return $this->hasOne(Models\Hospital::class, 'id', 'hospital_id');
+    }
+
+    public function workBranch()
+    {
+        return $this->hasOne(Models\Branch::class, 'id', 'branch_id');
+    }
 }
