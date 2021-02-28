@@ -77,6 +77,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin|admin|staff
     Route::get('staff/list', 'AdminController@staffList');
     Route::get('staff/detail/{staff_id}', 'AdminController@staffDetail');
 
+    // Administrator
+    Route::get('administrator/list', 'AdminController@administratorList');
+
     Route::get('role/list', 'AdminController@roleList');
 });
 

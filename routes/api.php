@@ -65,33 +65,6 @@ Route::name('doctor.')->prefix('doctor')->group(function () {
     ]);
 });
 
-Route::name('staff.')->prefix('staff')->group(function () {
-    // Route::get('detail', [
-    //     'as'    => 'staff.detail',
-    //     'uses'  => 'Api\StaffController@detail'
-    // ]);
-
-    Route::get('list', [
-        'as'    => 'staff.list',
-        'uses'  => 'Api\StaffController@list'
-    ]);
-
-    Route::get('delete/{id}', [
-        'as'    => 'staff.delete',
-        'uses'  => 'Api\StaffController@delete'
-    ]);
-
-    Route::post('update/{id}', [
-        'as'    => 'staff.update',
-        'uses'  => 'Api\StaffController@update'
-    ]);
-
-    Route::post('register', [
-        'as'    => 'staff.register',
-        'uses'  => 'Api\StaffController@register'
-    ]);
-});
-
 Route::name('admin.')->prefix('admin')->group(function () {
     Route::post('clinic/store', [
         'as'    => 'admin.createclinic',
@@ -173,11 +146,31 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'uses'  => 'Api\RoleController@roleList'
     ]);
 
-    // Test staff API
+    // Staff API
     Route::prefix('staff')->group(function () {
         Route::get('detail', [
             'as'    => 'staff.detail',
             'uses'  => 'Api\StaffController@detail'
+        ]);
+
+        Route::get('list', [
+            'as'    => 'staff.list',
+            'uses'  => 'Api\StaffController@list'
+        ]);
+    
+        Route::get('delete/{id}', [
+            'as'    => 'staff.delete',
+            'uses'  => 'Api\StaffController@delete'
+        ]);
+    
+        Route::post('update/{id}', [
+            'as'    => 'staff.update',
+            'uses'  => 'Api\StaffController@update'
+        ]);
+    
+        Route::post('register', [
+            'as'    => 'staff.register',
+            'uses'  => 'Api\StaffController@register'
         ]);
     });
 

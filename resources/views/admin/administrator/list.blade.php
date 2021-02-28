@@ -11,15 +11,15 @@
 			@include('admin_layout.navbar')
 
 			<ul class="breadcrumb">
-				<h4 class="mr-auto">Staff</h4>
-				<li><a class="active">Staff</a></li>
+				<h4 class="mr-auto">Administrator</h4>
+				<li><a class="active">Administrator</a></li>
 				<li><a href="#">List</a></li>
 			</ul>
 
 			<div class="container col-lg-12 col md-6">
 				<div class="card ">
 					<div class="card-header text-white mb-3" style="background-color: #ff9a76">
-						Staff List
+						Administrator List
 					</div>
 					<div class="row ml-0 mr-0">
                         <div class="form-group col-md-3 mb-0">
@@ -29,12 +29,12 @@
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Search staff" id="search">
+                                <input type="text" class="form-control" placeholder="Search administrator" id="search">
                             </div>
                         </div>
                         @role('admin')
-                            <a href="{{url('/admin/staff/create')}}" class="btn create-button">
-                                Add Staff
+                            <a href="{{url('/admin/administrator/create')}}" class="btn create-button">
+                                Add Administrator
                             </a>
                         @endrole
                     </div>
@@ -51,7 +51,7 @@
 								</tr>
 							</thead>
 							<tbody>
-                                <tr id="staff_placer"></tr>
+                                <tr id="administrator_placer"></tr>
 							</tbody>
 						</table>
 						<div class="show">
@@ -89,7 +89,7 @@
 
     <script>
         $(document).ready(function(){
-            function fetchStaffList() {
+            function fetchAdministratorList() {
                 var base_url = window.location.origin;
                 const userToken = $('#user_token').val();
                 var dataLimit = $('#data_limit').val();
@@ -99,7 +99,7 @@
                 if (userToken != '') {
                     showLoadingCircle();
 
-                    const fetchURL = `${base_url}/api/admin/staff/list`;
+                    const fetchURL = `${base_url}/api/administrator/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -111,12 +111,12 @@
                         }
                     }).then(function (response) {
                         if (response.data.status === 'success') {
-                            showData(response.data.data.staffs, response.data.data.pagination);
+                            showData(response.data.data.administrators, response.data.data.pagination);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to fetch staff.',
+                                title: 'Failed to fetch administrator.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -145,10 +145,10 @@
                     } else {
                         gender = 'Female'
                     }
-                    $('#staff_placer').before(`
+                    $('#administrator_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
-                            <td><a href="${base_url}/admin/staff/detail/${item.id}">${item.name}</a></td>
+                            <td><a href="${base_url}/admin/administrator/detail/${item.id}">${item.name}</a></td>
                             <td>${item.work_branch.name}</td>
                             <td>${item.email}</td>
                             <td>+62${item.phone}</td>
@@ -198,7 +198,7 @@
                 $('.pagination-button').on('click', function(e) {
                     let direction = $(this).attr('direction');
                     $('#data_page').val(direction)
-                    fetchStaffList();
+                    fetchAdministratorList();
                 })
             }
 
@@ -213,7 +213,7 @@
             });
 
             $entriesLimit.on('change', () => {
-                fetchStaffList();
+                fetchAdministratorList();
             });
 
             //on keydown, clear the countdown 
@@ -223,10 +223,10 @@
 
             //user is "finished typing," do something
             function doneTyping () {
-                fetchStaffList();
+                fetchAdministratorList();
             }
 
-            fetchStaffList()
+            fetchAdministratorList()
         });
     </script>
 
