@@ -46,7 +46,7 @@ Route::name('doctor.')->prefix('doctor')->group(function () {
 
     Route::get('list', [
         'as'    => 'doctor.list',
-        'uses'  => 'Api\DoctorController@doctorList'
+        'uses'  => 'Api\DoctorController@list'
     ]);
 
     Route::get('delete/{id}', [
@@ -57,6 +57,11 @@ Route::name('doctor.')->prefix('doctor')->group(function () {
     Route::post('update/{id}', [
         'as'    => 'doctor.update',
         'uses'  => 'Api\DoctorController@update'
+    ]);
+
+    Route::post('register', [
+        'as'    => 'doctor.register',
+        'uses'  => 'Api\DoctorController@register'
     ]);
 });
 
@@ -116,9 +121,72 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'uses'  => 'Api\PriceController@actionPriceAdd'
     ]);
 
+    Route::post('branch/price/{branch_id}/action/update', [
+        'as'    => 'admin.branchPriceActionUpdate',
+        'uses'  => 'Api\PriceController@actionPriceUpdate'
+    ]);
+
+    Route::post('branch/price/{branch_id}/item/add', [
+        'as'    => 'admin.branchPriceItemAdd',
+        'uses'  => 'Api\PriceController@itemPriceAdd'
+    ]);
+
+    Route::post('branch/price/{branch_id}/item/update', [
+        'as'    => 'admin.branchPriceItemUpdate',
+        'uses'  => 'Api\PriceController@itemPriceUpdate'
+    ]);
+
     Route::get('branch/price/{branch_id}/{item_type}/delete/{item_id}', [
         'as'    => 'admin.branchPriceDelete',
         'uses'  => 'Api\PriceController@priceDelete'
+    ]);
+
+    Route::get('role/list', [
+        'as'    => 'admin.roleList',
+        'uses'  => 'Api\RoleController@roleList'
+    ]);
+
+    // Staff API
+    Route::prefix('staff')->group(function () {
+        Route::get('detail', [
+            'as'    => 'staff.detail',
+            'uses'  => 'Api\StaffController@detail'
+        ]);
+
+        Route::get('list', [
+            'as'    => 'staff.list',
+            'uses'  => 'Api\StaffController@list'
+        ]);
+    
+        Route::get('delete/{id}', [
+            'as'    => 'staff.delete',
+            'uses'  => 'Api\StaffController@delete'
+        ]);
+    
+        Route::post('update/{id}', [
+            'as'    => 'staff.update',
+            'uses'  => 'Api\StaffController@update'
+        ]);
+    
+        Route::post('register', [
+            'as'    => 'staff.register',
+            'uses'  => 'Api\StaffController@register'
+        ]);
+    });
+
+
+    // For form purpose
+    Route::get('get-available-branch-option', [
+        'as'    => 'admin.getAvailableBranchOption',
+        'uses'  => 'Api\BranchController@getAvailableBranchOption'
+    ]);
+    Route::get('get-current-clinic', [
+        'as'    => 'admin.getCurrentClinic',
+        'uses'  => 'Api\ClinicController@getCurrentClinic'
+    ]);
+    Route::get('get-available-action-option', [
+        'as'    => 'admin.getCurrentClinic',
+        'uses'  => 'Api\PriceController@getAvailableActionOption'
     ]);
 });
 

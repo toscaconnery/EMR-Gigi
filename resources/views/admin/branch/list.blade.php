@@ -3,7 +3,6 @@
     @include('admin_layout.head')
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
-        <input type="hidden" value="{{$clinic_id}}" id="clinic_id">
         <input type="hidden" value="1" id="branch_page">
 
 		@include('admin_layout.sidenav')
@@ -33,13 +32,16 @@
                                 <input type="text" class="form-control" placeholder="Search branch" id="search">
                             </div>
                         </div>
-                        @if($clinic_id != null)
-                            @role('admin')
-                                <a href="{{url('/admin/branch/create/' . $clinic_id)}}" class="btn create-button">
-                                    Add Branch
-                                </a>
-                            @endrole
-                        @endif
+                        @role('admin')
+                            <a href="{{url('/admin/branch/create')}}" class="btn create-button">
+                                Add Branch
+                            </a>
+                        @endrole
+                        @role('superadmin')
+                            <a href="{{url('/admin/branch/create')}}" class="btn create-button">
+                                Add Branch
+                            </a>
+                        @endrole
                     </div>
 					<div class="card-body">
 						<table id="tabel-data" class="table table-bordered table-hover">
@@ -95,7 +97,6 @@
             function fetchBranchList() {
                 var base_url = window.location.origin;
                 const userToken = $('#user_token').val();
-                const clinicId = $('#clinic_id').val();
                 var branchLimit = $('#branch_limit').val();
                 var branchPage = $('#branch_page').val();
                 let searchValue = $('#search').val();
@@ -111,12 +112,12 @@
                         params: {
                             'limit': branchLimit,
                             'page': branchPage,
-                            'clinicId': clinicId,
+                            // 'clinicId': clinicId,
                             'search': searchValue
                         }
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
+                        if (response.data.status == 'success') {
+                            let responseData = response.data.data;
                             if (responseData.hospital !== null) {
                                 $('#hospital_name').text(' - ' + responseData.hospital.name);
                             }
@@ -219,12 +220,10 @@
                 fetchBranchList();
             });
 
-            //on keydown, clear the countdown 
             $search.on('keydown', function () {
                 clearTimeout(typingTimer);
             });
 
-            //user is "finished typing," do something
             function doneTyping () {
                 fetchBranchList();
             }

@@ -2,17 +2,15 @@
 <html>
     @include('admin_layout.head')
     <body>
-        {{-- <input type="hidden" value="{{$jwtToken}}" id="user_token"> --}}
-
 		@include('admin_layout.sidenav')
 
         <div id="main">
             @include('admin_layout.navbar')
 
             <ul class="breadcrumb">
-                <h4 class="mr-auto">Revenue</h4>
-                <li><a class="active">Report</a></li>
-                <li><a href="#">Revenue</a></li>
+                <h4 class="mr-auto">Dashboard</h4>
+                <li><a class="active">Admin</a></li>
+                <li><a href="#">Dashboard</a></li>
             </ul>
 
             <div class="Container-fluid container col md-6">
@@ -25,7 +23,7 @@
                             <div class="card-body">
                                 <div class="container">
                                     <div class="ava">
-                                        <h1 style="text-align: center">Welcome to admin dashboard</h1>
+                                        <h1 style="text-align: center">We couldn't display this page to you</h1>
                                         <img src="{{getasset('image/logo-square.png')}}" class="mx-auto d-block"  style="width: 150px; height: 150px; border-radius: 50%; margin-right: 25px; margin-bottom: 10px;">
                                     </div>
                                 </div>

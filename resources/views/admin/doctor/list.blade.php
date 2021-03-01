@@ -3,7 +3,7 @@
     @include('admin_layout.head')
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
-        <input type="hidden" value="1" id="clinic_page">
+        <input type="hidden" value="1" id="data_page">
 
         @include('admin_layout.sidenav')
 
@@ -11,15 +11,15 @@
 			@include('admin_layout.navbar')
 
 			<ul class="breadcrumb">
-				<h4 class="mr-auto">Clinic</h4>
-				<li><a class="active">Clinic</a></li>
+				<h4 class="mr-auto">Doctor</h4>
+				<li><a class="active">Doctor</a></li>
 				<li><a href="#">List</a></li>
 			</ul>
 
 			<div class="container col-lg-12 col md-6">
 				<div class="card ">
 					<div class="card-header text-white mb-3" style="background-color: #ff9a76">
-						Clinic List
+						Doctor List
 					</div>
 					<div class="row ml-0 mr-0">
                         <div class="form-group col-md-3 mb-0">
@@ -29,12 +29,12 @@
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Search clinic" id="search">
+                                <input type="text" class="form-control" placeholder="Search doctor" id="search">
                             </div>
                         </div>
-                        @role('superadmin')
-                            <a href="{{url('/admin/clinic/create')}}" class="btn create-button">
-                                Add Clinic
+                        @role('admin')
+                            <a href="{{url('/admin/doctor/create')}}" class="btn create-button">
+                                Add Doctor
                             </a>
                         @endrole
                     </div>
@@ -44,22 +44,20 @@
 								<tr>
 									<th>No</th>
 									<th>Name</th>
-									<th>Address</th>
-									<th>Phone Number</th>
 									<th>Email</th>
-									<th>Join Date</th>
-									<th>Start Date</th>
+									<th>Phone Number</th>
+									<th>Gender</th>
 								</tr>
 							</thead>
 							<tbody>
-                                <tr id="hospital_placer"></tr>
+                                <tr id="doctor_placer"></tr>
 							</tbody>
 						</table>
 						<div class="show">
 							<p class="page-conf-left">Show</p>
 							<div class="input-group page-conf-val">
 								<div class="input-group-prepend">
-									<select id="clinic_limit" name="clinic_limit">
+									<select id="data_limit" name="data_limit">
                                         <option value="5" selected>5</option>
 										<option value="10">10</option>
 										<option value="25">25</option>
@@ -90,43 +88,35 @@
 
     <script>
         $(document).ready(function(){
-            function fetchClinicList() {
+            function fetchDoctorList() {
                 var base_url = window.location.origin;
                 const userToken = $('#user_token').val();
-                var clinicLimit = $('#clinic_limit').val();
-                var clinicPage = $('#clinic_page').val();
+                var dataLimit = $('#data_limit').val();
+                var dataPage = $('#data_page').val();
                 let searchValue = $('#search').val();
 
                 if (userToken != '') {
                     showLoadingCircle();
 
-                    const fetchURL = `${base_url}/api/admin/clinic/list`;
+                    const fetchURL = `${base_url}/api/doctor/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
                         },
                         params: {
-                            'limit': clinicLimit,
-                            'page': clinicPage,
+                            'limit': dataLimit,
+                            'page': dataPage,
                             'search': searchValue
                         }
                     }).then(function (response) {
-                        if (response.data.status == 'success') {
-                            let responseData = response.data.data;
-                            showData(responseData.hospitals, responseData.pagination);
-                            if (responseData.hospitals.length === 0) {
-                                Swal.fire({
-                                icon: 'info',
-                                title: 'Clinic is empty.',
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
-                            }
+                        let responseData = response.data.data;
+                        if (responseData.status == 'success') {
+                            showData(responseData.doctors, responseData.pagination);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to fetch clinic.',
+                                title: 'Failed to fetch doctor.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -144,20 +134,24 @@
 
             }
 
-            function showData(hospitalList, pagination) {
+            function showData(dataList, pagination) {
                 let i = (pagination.page * pagination.limit) - pagination.limit + 1;
                 $('tbody tr.tr-list').remove();
                 var base_url = window.location.origin;
-                hospitalList.forEach(function(item) {
-                    $('#hospital_placer').before(`
+                dataList.forEach(function(item) {
+                    let gender = ''
+                    if (item.gender === 'm') {
+                        gender = 'Male'
+                    } else {
+                        gender = 'Female'
+                    }
+                    $('#doctor_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
-                            <td><a href="${base_url}/admin/branch/list/${item.id}">${item.name}</a></td>
-                            <td>${item.address}</td>
-                            <td>+62${item.phone}</td>
+                            <td><a href="${base_url}/admin/doctor/list/${item.id}">${item.name}</a></td>
                             <td>${item.email}</td>
-                            <td>${item.join_date}</td>
-                            <td>${item.start_work_date}</td>
+                            <td>+62${item.phone}</td>
+                            <td>${gender}</td>
                         </tr>
                     `)
                 });
@@ -202,15 +196,15 @@
             function listenPageChange() {
                 $('.pagination-button').on('click', function(e) {
                     let direction = $(this).attr('direction');
-                    $('#clinic_page').val(direction)
-                    fetchClinicList();
+                    $('#data_page').val(direction)
+                    fetchDoctorList();
                 })
             }
 
             var typingTimer;                //timer identifier
             var doneTypingInterval = 1000;  //time in ms, 1 second for example
             var $search = $('#search');
-            var $entriesLimit = $('#clinic_limit');
+            var $entriesLimit = $('#data_limit');
 
             $search.on('keyup', function () {
                 clearTimeout(typingTimer);
@@ -218,7 +212,7 @@
             });
 
             $entriesLimit.on('change', () => {
-                fetchClinicList();
+                fetchDoctorList();
             });
 
             $search.on('keydown', function () {
@@ -226,10 +220,10 @@
             });
 
             function doneTyping () {
-                fetchClinicList();
+                fetchDoctorList();
             }
 
-            fetchClinicList()
+            fetchDoctorList()
         });
     </script>
 

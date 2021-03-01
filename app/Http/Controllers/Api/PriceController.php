@@ -117,6 +117,77 @@ class PriceController extends Controller
         return response()->json($response);
     }
 
+    public function actionPriceUpdate(Request $request, $branchId)
+    {
+        $user = $this->authUser();
+
+        $actionArray = [
+            'branch_id' => $branchId,
+            'name'      => $request->name,
+            'price'     => $request->price,
+        ];
+
+        $actionValidate = $this->actionValidator($actionArray);
+
+        if ($actionValidate == true) {
+            $actionUpdate = Action::where('id', $request->action_id)
+                                            ->update($actionArray);
+
+            $response = [
+                'data'  => [
+                    'status'    => 'success'
+                ],
+                'error' => null,
+            ];
+
+        } else {
+            $response = [
+                'data'  => [
+                    'status'    => 'failed'
+                ],
+                'error' => 'error',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    public function itemPriceUpdate(Request $request, $branchId)
+    {
+        $user = $this->authUser();
+
+        $itemArray = [
+            'branch_id' => $branchId,
+            'name'      => $request->name,
+            'price'     => $request->price,
+            'stock'     => $request->stock
+        ];
+
+        $itemValidate = $this->itemValidator($itemArray);
+
+        if ($itemValidate == true) {
+            $itemUpdate = Item::where('id', $request->item_id)
+                                            ->update($itemArray);
+
+            $response = [
+                'data'  => [
+                    'status'    => 'success'
+                ],
+                'error' => null,
+            ];
+
+        } else {
+            $response = [
+                'data'  => [
+                    'status'    => 'failed'
+                ],
+                'error' => 'error',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
     public function priceDelete(Request $request, $branchId, $itemType, $itemId)
     {
         $user = $this->authUser();
@@ -220,6 +291,41 @@ class PriceController extends Controller
         return response()->json($response);
     }
 
+    public function itemPriceAdd(Request $request, $branchId)
+    {
+        $user = $this->authUser();
+
+        $itemArray = [
+            'branch_id' => $branchId,
+            'name'      => $request->name,
+            'stock'     => $request->stock,
+            'price'     => $request->price,
+        ];
+
+        $itemValidate = $this->itemValidator($itemArray);
+
+        if ($itemValidate == true) {
+            $newPrescription = Item::create($itemArray);
+
+            $response = [
+                'data'  => [
+                    'status'    => 'success'
+                ],
+                'error' => null,
+            ];
+
+        } else {
+            $response = [
+                'data'  => [
+                    'status'    => 'failed'
+                ],
+                'error' => 'error',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
     protected function prescriptionValidator(array $data)
     {
         $validator = Validator::make($data, [
@@ -250,6 +356,43 @@ class PriceController extends Controller
             return false;
         } else {
             return true;
+        }
+    }
+
+    protected function itemValidator(array $data)
+    {
+        $validator = Validator::make($data, [
+            'branch_id'     => ['required'],
+            'name'          => ['required', 'string', 'max:255'],
+            'price'         => ['required'],
+            'stock'         => ['required'],
+        ]);
+
+        if ($validator->fails()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function getAvailableActionOption(Request $request)
+    {
+        $user = $this->authUser();
+
+        if ($user->hasRole('admin')) {
+            $branchId = $request->branch_id;
+            $actions = Action::where('branch_id', $branchId)->get();
+            return response()->json([
+                'data'  => [
+                    'actions'   => $actions
+                ],
+                'error' => null
+            ]);
+        } else {
+            return response()->json([
+                'data'  => null,
+                'error' => 'Access denied'
+            ]);
         }
     }
 

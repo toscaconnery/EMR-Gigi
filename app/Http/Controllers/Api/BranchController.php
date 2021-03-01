@@ -71,8 +71,8 @@ class BranchController extends Controller
         $hospital = null;
 
         if ($user) {
-            if ($user->hasRole('admin')) {
-            // if ($user->active_superadmin == true) {
+            if ($user->hasRole('superadmin') || $user->hasRole('admin'))
+            {
                 $branchs = Branch::take($limit)
                                  ->skip($skip);
                 if ($hospital_id != null) {
@@ -82,7 +82,6 @@ class BranchController extends Controller
                     $branchs->where('name', 'like', '%' . $search . '%');
                 }
                 $branchs =  $branchs->get();
-            // } elseif ($user->active_admin == true && $hospital_id != null) {
             } elseif($user->hasRole('staff')) {
                 $branchs = Branch::where('hospital_id', $hospital_id)
                                     ->take($limit)
@@ -108,18 +107,15 @@ class BranchController extends Controller
             $pagination = $this->generatePagination($page, $limit, $hospital_id, $search);
         }
         
-        $response = [
-            'data'  => [
-                'status'    => 'success',
-                'branchs'   => $branchs,
-                'hospital'  => $hospital,
-                'limit'     => $limit,
-                'page'      => $page,
-                'pagination' => $pagination,
-                'user'      => $this->authUser(),
-            ],
-            'error' => null
+        $responseData = [
+            'status'    => 'success',
+            'branchs'   => $branchs,
+            'hospital'  => $hospital,
+            'limit'     => $limit,
+            'page'      => $page,
+            'pagination' => $pagination,
         ];
+        $response = $this->createResponse($responseData);
         return response()->json($response);
     }
 
@@ -134,14 +130,11 @@ class BranchController extends Controller
             }
         }
 
-        $response = [
-            'data'  => [
-                'status'   => 'success',
-                'branch'   => $branch,
-            ],
-            'error' => null
+        $responseData = [
+            'branch'   => $branch,
         ];
-        return response()->json($response);
+
+        return response()->json($this->createResponse($responseData));
     }
 
     protected function branchValidator(array $data)
@@ -209,5 +202,25 @@ class BranchController extends Controller
             'lastButton'  => $lastButton,
             'index' => $index
         ];
+    }
+
+    public function getAvailableBranchOption(Request $request)
+    {
+        $user = $this->authUser();
+
+        if ($user->hasRole('admin')) {
+            $branchs = Branch::where('hospital_id', $user->hospital_id)->get();
+            return response()->json([
+                'data'  => [
+                    'branchs'   => $branchs
+                ],
+                'error' => null
+            ]);
+        } else {
+            return response()->json([
+                'data'  => null,
+                'error' => 'Access denied'
+            ]);
+        }
     }
 }

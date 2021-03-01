@@ -16,10 +16,10 @@
                 <li><a href="#">Create</a></li>
             </ul>
 
-            <div class="Container-fluid container col md-6">
+            <div class="container-fluid container col md-6">
                 <div class="row">
 
-                    <div class="Container col-4">
+                    <div class="container col-4">
                         <div class="card"">
                             <div class="card-header text-white mb-1">
                                 Main Info
@@ -27,6 +27,12 @@
                             <div class="card-body">
                                 <div class="container col-md-12">
                                     <div class="form-row">
+                                        @role('superadmin')
+                                        <div class="form-group  col-md-12">
+                                            <label for="clinic">Clinic<span>*</span></label>
+                                            <select class="form-control" name="clinic" id="clinic"></select>
+                                        </div>
+                                        @endrole
                                         <div class="form-group  col-md-12">
                                             <label for="branch_name">Name<span>*</span></label>
                                             <input type="text" class="form-control" placeholder="" id="branch_name" name="branch_name">
@@ -81,6 +87,9 @@
                 </div>
             </div>
         </div>
+
+        @include('admin_layout.loading-animation')
+
     </body>
 
     @include('admin_layout.sidenav-script')
@@ -89,13 +98,10 @@
     <script>
         $(document).ready(function(){
             $('#cancel_button').on('click', function() {
-                // alert('cancel button clicked');
                 window.location.href = window.location.origin + "/admin/branch/list";
             })
 
             $('#submit_button').on('click', async function() {
-                console.log('SENDING AXIOS POST REQUEST')
-
                 let hasError = false;
                 let errorMessage = '';
 
@@ -140,18 +146,25 @@
                         branchLongitude
                     }
 
-                    var base_url = window.location.origin
+                    var baseUrl = window.location.origin
 
                     const userToken = $('#user_token').val();
-                    const clinic_id = $('#clinic_id').val();
+                    let clinicId = $('#clinic_id').val();
+                    if (clinicId === '') {
+                        superAdminSelectedClinic = $('#clinic').val();
+                        if (superAdminSelectedClinic === '') {
+                            toastr.warning('Please select a clinic')
+                        } else {
+                            clinicId = superAdminSelectedClinic
+                        }
+                    }
 
-                    const createURL = `${base_url}/api/admin/branch/store/${clinic_id}`;
+                    const createURL = `${baseUrl}/api/admin/branch/store/${clinicId}`;
                     const res = axios.post(createURL, branchData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        console.log(response);
                         let responseData = response.data.data;
                         if (responseData.status == 'success') {
                             Swal.fire({
@@ -160,7 +173,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.history.back();
+                            window.location.href = window.location.origin + "/admin/branch/list";
                         } else {
                             Swal.fire({
                                 icon: 'warning',
@@ -201,7 +214,56 @@
                 }
             }
 
-            getLocation();
+            function fetchClinicList()
+            {
+                let baseUrl = window.location.origin
+                const userToken = $('#user_token').val();
+                const clinicId = $('#clinic_id').val();
+
+                if (clinicId === '') {
+                    showLoadingCircle()
+                    const fetchURL = `${baseUrl}/api/admin/clinic/list`;
+                    const res = axios.get(fetchURL, {
+                        headers: {
+                            'Authorization': `Bearer ${userToken}`
+                        },
+                    }).then(function (response) {
+                        hideLoadingCircle()
+                        if (response.data.status == 'success') {
+                            createClinicOption(response.data.data.hospitals)
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Failed to fetch clinics.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    })
+                    hideLoadingCircle()
+                }
+            }
+
+            function createClinicOption(clinicList)
+            {
+                clinicList.forEach(c => {
+                    let optionText = c.name
+                    let optionValue = c.id
+                    $('#clinic').append(`<option value="${optionValue}">${optionText}</option>`)
+                });
+            }
+
+            function showLoadingCircle() {
+                $('#loading_circle').show()
+            }
+
+            function hideLoadingCircle() {
+                $('#loading_circle').hide()
+            }
+
+            fetchClinicList()
+
+            getLocation()
 
         });
     </script>

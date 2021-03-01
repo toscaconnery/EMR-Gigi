@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('employee_id', 30)->nullable();
             $table->enum('gender', ['m', 'f'])->nullable();
-            $table->json('branch_ids')->nullable();
+            $table->integer('branch_id')->nullable();
             $table->integer('hospital_id')->nullable();             // only for staff/doctor
             $table->string('position')->nullable();
             $table->rememberToken();

@@ -12,29 +12,37 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $admin = User::create([
-            'name'  => 'Admin Role',
-            'email' => 'admin@role.test',
+        $superadmin = User::create([
+            'name'  => 'Superadmin Role',
+            'email' => 'superadmin@role.test',
             'password'  => bcrypt('12345678')
         ]);
 
-        $admin->assignRole('admin');
+        $superadmin->assignRole('superadmin');
 
-        $staff = User::create([
-            'name'  => 'Staff Role',
-            'email' => 'staff@role.test',
-            'password'  => bcrypt('12345678'),
-            'hospital_id'   => 1
-        ]);
+        // $admin = User::create([
+        //     'name'  => 'Admin Role',
+        //     'email' => 'admin@role.test',
+        //     'password'  => bcrypt('12345678')
+        // ]);
 
-        $staff->assignRole('staff');
+        // $admin->assignRole('admin');
 
-        $patient = User::create([
-            'name'  => 'Patient Role',
-            'email' => 'patient@role.test',
-            'password'  => bcrypt('12345678')
-        ]);
+        // $staff = User::create([
+        //     'name'  => 'Staff Role',
+        //     'email' => 'staff@role.test',
+        //     'password'  => bcrypt('12345678'),
+        //     'hospital_id'   => 1
+        // ]);
 
-        $patient->assignRole('patient');
+        // $staff->assignRole('staff');
+
+        // $patient = User::create([
+        //     'name'  => 'Patient Role',
+        //     'email' => 'patient@role.test',
+        //     'password'  => bcrypt('12345678')
+        // ]);
+
+        // $patient->assignRole('patient');
     }
 }

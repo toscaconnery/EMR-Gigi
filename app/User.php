@@ -23,7 +23,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'phone',
         'password',
-        'branch_ids',
+        'branch_id',
         'hospital_id',
         'gender'
     ];
@@ -54,5 +54,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function workHospital()
+    {
+        return $this->hasOne(Models\Hospital::class, 'id', 'hospital_id');
+    }
+
+    public function workBranch()
+    {
+        return $this->hasOne(Models\Branch::class, 'id', 'branch_id');
     }
 }

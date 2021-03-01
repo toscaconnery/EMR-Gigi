@@ -16,10 +16,10 @@
                 <li><a href="#">Detail</a></li>
             </ul>
 
-            <div class="Container-fluid container col md-6">
+            <div class="container-fluid container col md-6">
                 <div class="row">
 
-                    <div class="Container col-4">
+                    <div class="container col-4">
                         <div class="card"">
                             <div class="card-header text-white mb-1">
                                 Main Info
@@ -88,9 +88,6 @@
                             <div class="card-body">
                                 <div class="container col-md-12">
                                     <div class="btn-group-edit btn-group-sm">
-                                        {{-- <button type="button" class="btn btn-danger" id="cancel_button">
-                                            <i class="fas fa-times"></i>Cancel
-                                        </button> --}}
                                         <div class="btn-group-edit btn-group-sm ml-1 mb-2">
                                             <a href="#" id="manage_price_button">
                                                 <button type="button" class="btn btn-custom">
@@ -116,20 +113,6 @@
                     </div>
                 </div>
 
-                {{-- <div class="row mt-4">
-                    <div class="Container col-4">
-                        <div class="card">
-                            <img src="workplace.jpg" alt="Workplace" usemap="#workmap" width="400" height="379">
-
-                            <map name="workmap">
-                                <area shape="rect" coords="34,44,270,350" alt="Computer" href="computer.htm">
-                                <area shape="rect" coords="290,172,333,250" alt="Phone" href="phone.htm">
-                                <area shape="circle" coords="337,300,44" alt="Cup of coffee" href="coffee.htm">
-                            </map>
-                        </div>
-                    </div>
-                </div> --}}
-
             </div>
         </div>
 
@@ -142,11 +125,6 @@
 
     <script>
         $(document).ready(function(){
-            // $('#manage_price_button').on('click', function() {
-            //     alert('cancel button clicked');
-            //     // window.location.href = window.location.origin + "/admin/branch/list";
-            // });
-
             function showLoadingCircle() {
                 $('#loading_circle').show();
             }
@@ -170,12 +148,8 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
-        
-                            console.log('data berhasil didapat')
-
-                            showData(responseData.branch, branchId);
+                        if (response.data.status == 'success') {
+                            showData(response.data.data.branch, branchId);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({

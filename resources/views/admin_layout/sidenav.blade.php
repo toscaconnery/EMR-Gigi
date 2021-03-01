@@ -11,10 +11,10 @@
         <a href="{{url('/admin/branch/list')}}">Branch</a>
         <button class="dropdown-btn">Settings <i class="fa fa-caret-down"></i></button>
         <div class="dropdown-container">
-            <a href="#">Roles</a>
-            <a href="#">User</a>
-            <a href="#">Doctors</a>
-            <a href="#">Price</a>
+            <a href="{{url('/admin/role/list')}}">Role</a>
+            <a href="{{url('/admin/doctor/list')}}">Doctor</a>
+            <a href="{{url('/admin/staff/list')}}">Staff</a>
+            <a href="{{url('/admin/administrator/list')}}">Administrator</a>
         </div>
         <button class="dropdown-btn">Reports <i class="fa fa-caret-down"></i></button>
         <div class="dropdown-container">

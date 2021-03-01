@@ -213,18 +213,22 @@
 
             function showAction(actionList) {
                 var base_url = window.location.origin;
+                var branch_id = $('#branch_id').val();
                 actionList.forEach(function(item) {
                     $('#action_placer').before(`
                         <tr height="45px">
                             <td>${item.name}</td>
                             <td>IDR ${item.price}</td>
                             <td>
-                                <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                                <a href="${base_url}/admin/branch/price/${branch_id}/action/edit/${item.id}">
+                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                </a>
+                                <button type="button" class="btn btn-roles btn-delcustom btn-sm trigger-delete" data-id="${item.id}" data-type="action">Del</button>
                             </td>
                         </tr>
                     `)
                 });
+                listenDeleteButton();
             }
 
             function showItem(itemList) {
@@ -237,12 +241,15 @@
                             <td>IDR ${item.price}</td>
                             <td>${item.stock}</td>
                             <td>
-                                <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
-                                <button type="button" class="btn btn-roles btn-delcustom btn-sm">Del</button>
+                                <a href="${base_url}/admin/branch/price/${branch_id}/item/edit/${item.id}">
+                                    <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
+                                </a>
+                                <button type="button" class="btn btn-roles btn-delcustom btn-sm trigger-delete" data-id="${item.id}" data-type="item">Del</button>
                             </td>
                         </tr>
                     `)
                 });
+                listenDeleteButton();
             }
 
             function fetchPriceList() {
@@ -279,6 +286,11 @@
             $('#table-action-add-button').on('click', () => {
                 const branchId = $('#branch_id').val();
                 window.location.href = window.location.origin + "/admin/branch/price/" + branchId + "/action/add" ;
+            })
+
+            $('#table-item-add-button').on('click', () => {
+                const branchId = $('#branch_id').val();
+                window.location.href = window.location.origin + "/admin/branch/price/" + branchId + "/item/add" ;
             })
 
             function listenDeleteButton()

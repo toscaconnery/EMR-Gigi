@@ -15,7 +15,7 @@
 			<ul class="breadcrumb">
 				<h4 class="mr-auto">Price</h4>
 				<li><a class="active">Price</a></li>
-				<li><a href="#">Add Prescription</a></li>
+				<li><a href="#">Edit Prescription</a></li>
             </ul>
             
             <div class="container col-lg-12 col md-6">
@@ -149,7 +149,6 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        console.log(response);
                         let responseData = response.data.data;
                         if (responseData.status == 'success') {
                             Swal.fire({

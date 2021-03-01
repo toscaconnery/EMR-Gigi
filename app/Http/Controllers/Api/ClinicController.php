@@ -56,22 +56,23 @@ class ClinicController extends Controller
                 'hospital_id'   => $newHospital->id
             ]);
 
-            $newAdmin->assignRole('staff');
+            $newAdmin->assignRole('admin');
 
-            $response = [
-                'data'  => [
-                    'status'    => 'success'
-                ],
-                'error' => null,
-            ];
+            // $response = [
+            //     'data'  => null,
+            //     'status'    => 'success',
+            //     'error' => null,
+            // ];
+            $response = $this->createResponse(null);
 
         } else {
-            $response = [
-                'data'  => [
-                    'status'    => 'failed'
-                ],
-                'error' => 'error',
-            ];
+            // $response = [
+            //     'data'  => [
+            //         'status'    => 'failed'
+            //     ],
+            //     'error' => 'error',
+            // ];
+            $response = $this->createErrorMessage('Failed storing to database');
         }
 
         return response()->json($response);
@@ -87,7 +88,7 @@ class ClinicController extends Controller
         $search = $request->search;
 
         if ($user) {
-            if ($user->hasRole('admin')) {
+            if ($user->hasRole('superadmin')) {
                 $hospitals = Hospital::take($limit)
                                         ->skip($skip);
                 if ($search != '') {
@@ -95,7 +96,7 @@ class ClinicController extends Controller
                 }
                 $hospitals = $hospitals->get();
                 $onlyOwnedBySelf = false;
-            } elseif ($user->hasRole('staff')) {
+            } elseif ($user->hasRole('staff') || $user->hasRole('admin')) {
                 $hospitals = Hospital::where('id', $user->hospital_id)
                                         ->take($limit)
                                         ->skip($skip);
@@ -105,26 +106,25 @@ class ClinicController extends Controller
                 $hospitals = $hospitals->get();
                 $onlyOwnedBySelf = true;
             } else {
-                $response = [
-                    'data'  => null,
-                    'error' => 'Not allowed'
-                ];
+                // $response = [
+                //     'data'      => null,
+                //     'status'    => 'error',
+                //     'error'     => 'Not allowed'
+                // ];
+                $response = $this->createErrorMessage('Not Allowed');
                 return response()->json($response);
             }
             $pagination = $this->generatePagination($page, $limit, $user, $search, $onlyOwnedBySelf);
         }
         
-        $response = [
-            'data'  => [
-                'status'    => 'success',
-                'hospitals'  => $hospitals,
-                'limit'     => $limit,
-                'page'      => $page,
-                'pagination' => $pagination,
-                'user'      => $this->authUser(),
-            ],
-            'error' => null
+        $responseData = [
+            'hospitals'     => $hospitals,
+            'limit'         => $limit,
+            'page'          => $page,
+            'pagination'    => $pagination,
+            // 'user'          => $this->authUser(),
         ];
+        $response = $this->createResponse($responseData);
         return response()->json($response);
     }
 
@@ -190,5 +190,29 @@ class ClinicController extends Controller
             'lastButton'  => $lastButton,
             'index' => $index
         ];
+    }
+
+    public function getCurrentClinic(Request $request)
+    {
+        $user = $this->authUser();
+
+        if ($user->hasRole('admin')) {
+            // $branchs = Branch::where('hospital_id', $user->hospital_id)->get();
+            $hospital = Hospital::find($user->hospital_id);
+            $responseData = $this->createResponse(['hospital' => $hospital]);
+            // return response()->json([
+            //     'data'  => [
+            //         'hospital'   => $hospital
+            //     ],
+            //     'error' => null
+            // ]);
+            return response()->json($responseData);
+        } else {
+            // return response()->json([
+            //     'data'  => null,
+            //     'error' => 'Access denied'
+            // ]);
+            return response()->json($this->createErrorMessage('Access denied'));
+        }
     }
 }

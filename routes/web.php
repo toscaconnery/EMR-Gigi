@@ -13,89 +13,81 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/list-appointment', 'AppointmentController@redirect');
-Route::get('new-register', 'TempController@newRegister');
+Auth::routes();
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
+// Redirector
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
+
+// Main doctor page
 Route::get('list-appointment', 'AppointmentController@listAppointment');
 Route::get('patient-dashboard', 'PatientController@patientDashboard');
 Route::get('soap', 'SoapController@form');
 Route::get('patient-history', 'PatientController@patientHistory');
-
 Route::get('medication-history', 'MedicationController@medicationHistory');
 
-Auth::routes();
-
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index');
-
-
-Route::get('/company', 'AdminController@company');          //moved
-// Route::get('/company2', 'AdminController@company2');
-Route::get('/list-company', 'AdminController@listCompany'); //moved
-
-Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-
-// Route::get('check-user-list', 'TestController@checkUserList');  //testing purpose
 
 ///////////////
-Route::get('/branch', 'AdminController@branch');            //need to  move
-Route::get('/branch-list', 'AdminController@branchlist2');   //need to move
 
-Route::get('/roles', 'AdminController@roles');
+// Route::get('/users', 'AdminController@users');
+// Route::get('/add-user','AdminController@adduser');
 
-Route::get('/users', 'AdminController@users');
-
-Route::get('/doctor-list', 'AdminController@doctor');
-
-Route::get('/prescription', 'AdminController@prescription');    // price
-
-Route::get('/add-role', 'AdminController@addrole');
-
-Route::get('/add-user','AdminController@adduser');
-
-Route::get('/add-doctor', 'AdminController@adddoctor');
-
-Route::get('/add-prescription', 'AdminController@addprescript');
-////////////////////
-
-// Route::name('patient.')->prefix('patient')->group(function () {
-//     Route::get('dashboard', 'PatientController@dashboard');
-// });
-
-// Route::middleware('role:staff')->name('staff.')->prefix('staff')->group(function () {
-//     Route::get('dashboard', 'StaffController@dashboard');
-// });
-// Route::name('admin.')->prefix('admin')->group(['middleware' => ['role:admin|staff'], ])->group(function () {
-// Route::name('admin.')->prefix('admin')->group(['middleware' => ['role:admin|staff'], function() {
-//     Route::get('dashboard', 'AdminController@dashboard');
-//     Route::get('clinic/list', 'AdminController@clinicList');
-//     Route::get('clinic/create', 'AdminController@clinicCreate');
-//     Route::get('branch/list', 'AdminController@branchList');
-//     Route::get('branch/list/{clinic_id}', 'AdminController@branchList');
-//     Route::get('branch/detail/{branch_id}', 'AdminController@branchDetail');
-//     Route::get('branch/create/{clinic_id}', 'AdminController@branchCreate');
-//     Route::get('price/list/{branch_id}', 'AdminController@priceList');
-
-// }]);
-    // Route::get('prescription/create')
-// });
+// Route::get('/branch', 'AdminController@branch');                    // done
+// Route::get('/branch-list', 'AdminController@branchlist2');          // done
+// Route::get('/add-prescription', 'AdminController@addprescript');    // done
+// Route::get('/prescription', 'AdminController@prescription');        // done
+// Route::get('/add-doctor', 'AdminController@adddoctorx');            // done
+// Route::get('/doctor-list', 'AdminController@doctor');               // done
+// Route::get('/roles', 'AdminController@roles');                      // done
+// Route::get('/add-role', 'AdminController@addrole');                 // ignored
 
 Route::group(['middleware' => ['role:patient']], function() {
     Route::get('dashboard', 'AdminController@dashboard');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|staff']], function() {
+Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin|admin|staff']], function() {
     Route::get('dashboard', 'AdminController@dashboard');
+
+    // Clinics
     Route::get('clinic/list', 'AdminController@clinicList');
     Route::get('clinic/create', 'AdminController@clinicCreate');
+
+    // Branch
     Route::get('branch/list', 'AdminController@branchList');
     Route::get('branch/list/{clinic_id}', 'AdminController@branchList');
     Route::get('branch/detail/{branch_id}', 'AdminController@branchDetail');
-    Route::get('branch/create/{clinic_id}', 'AdminController@branchCreate');
+    Route::get('branch/create', 'AdminController@branchCreate');
+
+    // Price
     Route::get('branch/price/{branch_id}', 'AdminController@priceList');
     Route::get('branch/price/{branch_id}/prescription/add', 'AdminController@addPrescription');
     Route::get('branch/price/{branch_id}/prescription/edit/{prescription_id}', 'AdminController@editPrescription');
     Route::get('branch/price/{branch_id}/action/add', 'AdminController@addAction');
     Route::get('branch/price/{branch_id}/action/edit/{action_id}', 'AdminController@editAction');
+    Route::get('branch/price/{branch_id}/item/add', 'AdminController@addItem');
+    Route::get('branch/price/{branch_id}/item/edit/{item_id}', 'AdminController@editItem');
+
+    // Doctor
+    Route::get('doctor/create', 'AdminController@doctorCreate');
+    Route::get('doctor/list', 'AdminController@doctorList');
+
+    // Staff
+    Route::get('staff/create', 'AdminController@staffCreate');
+    Route::get('staff/list', 'AdminController@staffList');
+    Route::get('staff/detail/{staff_id}', 'AdminController@staffDetail');
+
+    // Administrator
+    Route::get('administrator/list', 'AdminController@administratorList');
+
+    Route::get('role/list', 'AdminController@roleList');
+
+    // Reports
     Route::get('reports/revenue', 'AdminController@revenueView');
 });
+
+
+// Dummy
+Route::get('new-register', 'TempController@newRegister');
+Route::get('/company', 'AdminController@company');                  //moved
+Route::get('/list-company', 'AdminController@listCompany');         //moved

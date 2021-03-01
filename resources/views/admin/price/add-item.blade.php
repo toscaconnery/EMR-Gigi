@@ -14,26 +14,32 @@
 			<ul class="breadcrumb">
 				<h4 class="mr-auto">Price</h4>
 				<li><a class="active">Price</a></li>
-				<li><a href="#">Add Action</a></li>
+				<li><a href="#">Add Item</a></li>
             </ul>
             
             <div class="container col-lg-12 col md-6">
                 <div class="card col-md-12">
                     <div class="card-body mt-3 mb-5">
                         <div class="form-group row">
-                            <label for="action_name" class="col-sm-2 col-form-label">Name</label>
+                            <label for="item_name" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="Text" class="form-control form-add mb-2" id="action_name" name="action_name"/>
+                                <input type="Text" class="form-control form-add mb-2" id="item_name" name="item_name"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="action_price" class="col-sm-2 col-form-label">Price</label>
+                            <label for="item_stock" class="col-sm-2 col-form-label">Stock</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control form-add mb-2" id="action_price" name="action_price"/>
+                                <input type="number" class="form-control form-add mb-2" id="item_stock" name="item_stock"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="item_price" class="col-sm-2 col-form-label">Price</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control form-add mb-2" id="item_price" name="item_price"/>
                             </div>
                         </div>
                         <div class="form-row">
-                            <button class="btn btn-primary mt-4" id="save_action">Save Action</button>
+                            <button class="btn btn-primary mt-4" id="save_item">Save Item</button>
                         </div>
                     </div>
                 </div>
@@ -51,7 +57,7 @@
 
     <script>
         $(document).ready(function(){
-            $('#save_action').on('click', () => {
+            $('#save_item').on('click', () => {
                 checkFieldsValue();
             })
 
@@ -60,14 +66,20 @@
                 let hasError = false;
                 let errorMessage = '';
 
-                let action_name = $('#action_name').val()
-                if (action_name == '') {
+                let item_name = $('#item_name').val()
+                if (item_name == '') {
                     hasError = true;
                     errorMessage += '<li>Name is required</li>';
                 }
 
-                let action_price = $('#action_price').val();
-                if (action_price == '') {
+                let item_stock = $('#item_stock').val();
+                if (item_stock == '') {
+                    hasError = true;
+                    errorMessage += '<li>Stock is required</li>';
+                }
+
+                let item_price = $('#item_price').val();
+                if (item_price == '') {
                     hasError = true;
                     errorMessage += '<li>Price is required</li>';
                 }
@@ -78,8 +90,9 @@
                     branchId = $('#branch_id').val()
                     let branchData = {
                         branch_id: branchId,
-                        name: action_name,
-                        price: action_price,
+                        name: item_name,
+                        price: item_price,
+                        stock: item_stock,
                     }
 
                     var base_url = window.location.origin
@@ -87,7 +100,7 @@
                     const userToken = $('#user_token').val();
                     const branch_id = $('#branch_id').val();
 
-                    const createURL = `${base_url}/api/admin/branch/price/${branch_id}/action/add`;
+                    const createURL = `${base_url}/api/admin/branch/price/${branch_id}/item/add`;
                     const res = axios.post(createURL, branchData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -97,7 +110,7 @@
                         if (responseData.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Action created.',
+                                title: 'Item created.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -105,7 +118,7 @@
                         } else {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to create action.',
+                                title: 'Failed to create item.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
