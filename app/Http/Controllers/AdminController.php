@@ -119,7 +119,7 @@ class AdminController extends Controller
 
         return view('admin.branch.list', compact('jwtToken', 'clinic_id', 'clinic'));
     }
-    
+
     public function branchCreate(Request $request, $clinic_id)
     {
         $jwtToken = $request->session()->get('jwtApiToken');
@@ -192,4 +192,10 @@ class AdminController extends Controller
 
         return view('admin.price.edit-action', compact('jwtToken', 'branchId', 'action'));
     }
+
+    public function revenueView()
+    {
+        return view('admin.reports.revenue');
+    }
 }
+
