@@ -63,7 +63,9 @@
                         </div>
                         <div class="form-row row">
                             <div class="button" style="margin-left: auto;padding-right: 4px;">
-                                <button type="button" class="btn btn-add-sch btn-sm" id="save_staff">Edit Staff</button>
+                                <a href="{{url('')}}/admin/staff/edit/{{$staffId}}">
+                                    <button type="button" class="btn btn-add-sch btn-sm" id="save_staff">Edit Staff</button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -80,9 +82,9 @@
         $(document).ready(function(){
             function setClinicValue()
             {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
-                const fetchURL = `${base_url}/api/admin/get-current-clinic`;
+                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
 
                 const res = axios.get(fetchURL, {
                     headers: {
@@ -125,9 +127,9 @@
 
             function setBranchOptions()
             {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
-                const fetchURL = `${base_url}/api/admin/get-available-branch-option`;
+                const fetchURL = `${baseUrl}/api/admin/get-available-branch-option`;
 
                 const res = axios.get(fetchURL, {
                     headers: {

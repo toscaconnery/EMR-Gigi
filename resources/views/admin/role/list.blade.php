@@ -49,13 +49,13 @@
     <script>
         $(document).ready(function(){
             function fetchRoleList() {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
 
                 if (userToken != '') {
                     showLoadingCircle();
 
-                    const fetchURL = `${base_url}/api/admin/role/list`;
+                    const fetchURL = `${baseUrl}/api/admin/role/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`

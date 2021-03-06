@@ -138,12 +138,12 @@
                         how_to_consume: prescription_way_to_consume,
                     }
 
-                    var base_url = window.location.origin
+                    var baseUrl = window.location.origin
 
                     const userToken = $('#user_token').val();
                     const branch_id = $('#branch_id').val();
 
-                    const createURL = `${base_url}/api/admin/branch/price/${branch_id}/prescription/update`;
+                    const createURL = `${baseUrl}/api/admin/branch/price/${branch_id}/prescription/update`;
                     const res = axios.post(createURL, branchData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`

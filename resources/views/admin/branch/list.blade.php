@@ -95,7 +95,7 @@
     <script>
         $(document).ready(function(){
             function fetchBranchList() {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
                 var branchLimit = $('#branch_limit').val();
                 var branchPage = $('#branch_page').val();
@@ -104,7 +104,7 @@
                 if (userToken != '') {
                     showLoadingCircle();
 
-                    const fetchURL = `${base_url}/api/admin/branch/list`;
+                    const fetchURL = `${baseUrl}/api/admin/branch/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -148,12 +148,12 @@
             function showData(branchList, pagination) {
                 let i = (pagination.page * pagination.limit) - pagination.limit + 1;
                 $('tbody tr.tr-list').remove();
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 branchList.forEach(function(item) {
                     $('#branch_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
-                            <td><a href="${base_url}/admin/branch/detail/${item.id}">${item.name}</a></td>
+                            <td><a href="${baseUrl}/admin/branch/detail/${item.id}">${item.name}</a></td>
                             <td>${item.address}</td>
                             <td>${item.phone}</td>
                             <td>${item.created_at}</td>

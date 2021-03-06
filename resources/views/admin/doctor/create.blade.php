@@ -188,11 +188,11 @@
                         confirmPassword
                     }
     
-                    var base_url = window.location.origin
+                    var baseUrl = window.location.origin
 
                     const userToken = $('#user_token').val();
 
-                    const createURL = `${base_url}/api/doctor/register`;
+                    const createURL = `${baseUrl}/api/doctor/register`;
                     const res = axios.post(createURL, doctorData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -206,7 +206,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.location.href = `${base_url}/admin/doctor/list`;
+                            window.location.href = `${baseUrl}/admin/doctor/list`;
                         } else {
                             Swal.fire({
                                 icon: 'warning',
@@ -222,9 +222,9 @@
             // Setting form options
             function setBranchOptions()
             {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
-                const fetchURL = `${base_url}/api/admin/get-available-branch-option`;
+                const fetchURL = `${baseUrl}/api/admin/get-available-branch-option`;
 
                 const res = axios.get(fetchURL, {
                     headers: {
@@ -246,9 +246,9 @@
 
             function setClinicValue()
             {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
-                const fetchURL = `${base_url}/api/admin/get-current-clinic`;
+                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
 
                 const res = axios.get(fetchURL, {
                     headers: {
@@ -267,9 +267,9 @@
                 $('#action_placeholder').remove();
 
                 var selectedBranch = $('#branch').val();
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
-                const fetchURL = `${base_url}/api/admin/get-available-action-option`;
+                const fetchURL = `${baseUrl}/api/admin/get-available-action-option`;
 
                 const res = axios.get(fetchURL, {
                     headers: {

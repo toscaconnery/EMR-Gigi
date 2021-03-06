@@ -99,12 +99,12 @@
                         stock: item_stock,
                     }
 
-                    var base_url = window.location.origin
+                    var baseUrl = window.location.origin
 
                     const userToken = $('#user_token').val();
                     const branch_id = $('#branch_id').val();
 
-                    const createURL = `${base_url}/api/admin/branch/price/${branch_id}/item/update`;
+                    const createURL = `${baseUrl}/api/admin/branch/price/${branch_id}/item/update`;
                     const res = axios.post(createURL, branchData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`

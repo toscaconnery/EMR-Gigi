@@ -89,7 +89,7 @@
     <script>
         $(document).ready(function(){
             function fetchDoctorList() {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
                 var dataLimit = $('#data_limit').val();
                 var dataPage = $('#data_page').val();
@@ -98,7 +98,7 @@
                 if (userToken != '') {
                     showLoadingCircle();
 
-                    const fetchURL = `${base_url}/api/doctor/list`;
+                    const fetchURL = `${baseUrl}/api/doctor/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -137,7 +137,7 @@
             function showData(dataList, pagination) {
                 let i = (pagination.page * pagination.limit) - pagination.limit + 1;
                 $('tbody tr.tr-list').remove();
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 dataList.forEach(function(item) {
                     let gender = ''
                     if (item.gender === 'm') {
@@ -148,7 +148,7 @@
                     $('#doctor_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
-                            <td><a href="${base_url}/admin/doctor/list/${item.id}">${item.name}</a></td>
+                            <td><a href="${baseUrl}/admin/doctor/list/${item.id}">${item.name}</a></td>
                             <td>${item.email}</td>
                             <td>+62${item.phone}</td>
                             <td>${gender}</td>

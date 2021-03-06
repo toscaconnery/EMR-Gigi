@@ -258,11 +258,11 @@
                         adminConfirmPassword
                     }
 
-                    var base_url = window.location.origin
+                    var baseUrl = window.location.origin
 
                     const userToken = $('#user_token').val();
 
-                    const createURL = `${base_url}/api/admin/clinic/store`;
+                    const createURL = `${baseUrl}/api/admin/clinic/store`;
                     const res = axios.post(createURL, clinicData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -275,7 +275,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.location.href = `${base_url}/admin/clinic/list`;
+                            window.location.href = `${baseUrl}/admin/clinic/list`;
                         } else {
                             Swal.fire({
                                 icon: 'warning',
