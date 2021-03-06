@@ -109,7 +109,36 @@ class StaffController extends Controller
                     'error'     => null
                 ]);
             } else {
-                return response()->json($this->createErrorMessage('You have no access to view this staff'));
+                return response()->json($this->createErrorMessage('You have no access to delete this staff'));
+            }
+        } else {
+            return response()->json($this->createErrorMessage('Staff not found'));
+        }
+    }
+
+    public function update(Request $request) {
+        $user = $this->authUser();
+
+        $staff = User::find($request->staffId);
+
+        if ($staff) {
+            if ($staff->hospital_id == $user->hospital_id) {
+                $staff->name = $request->staffName;
+                $staff->email = $request->email;
+                $staff->phone = $request->phone;
+                $staff->gender = $request->gender;
+                if ($request->password != '') {
+                    $staff->password = bcrypt($request->password);
+                }
+                $staff->save();
+
+                return response()->json([
+                    'data'      => null,
+                    'status'    => 'success',
+                    'error'     => null
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to edit this staff'));
             }
         } else {
             return response()->json($this->createErrorMessage('Staff not found'));

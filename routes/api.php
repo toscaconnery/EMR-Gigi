@@ -163,7 +163,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             'uses'  => 'Api\StaffController@delete'
         ]);
     
-        Route::post('update/{id}', [
+        Route::post('update', [
             'as'    => 'staff.update',
             'uses'  => 'Api\StaffController@update'
         ]);

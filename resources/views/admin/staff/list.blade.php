@@ -90,6 +90,19 @@
 
     <script>
         $(document).ready(function(){
+            function listenEditButton() {
+                $('.edit-button').on('click', function() {
+                    let staffId = $(this).data('user-id')
+                    let staffData = {
+                        staffId
+                    }
+                    var baseUrl = window.location.origin
+                    const userToken = $('#user_token').val()
+                    const editURL = `${baseUrl}/admin/staff/edit/${staffId}`
+                    window.location.href = editURL
+                })
+            }
+
             function listenDeleteButton() {
                 $('.delete-button').on('click', function() {
                     let staffId = $(this).data('user-id')
@@ -110,31 +123,31 @@
                                 title: 'Staff deleted.',
                                 showConfirmButton: false,
                                 timer: 1500
-                            });
-                            window.location.href = window.location.origin + "/admin/staff/list";
+                            })
+                            window.location.href = window.location.origin + "/admin/staff/list"
                         } else {
                             Swal.fire({
                                 icon: 'warning',
                                 title: 'Failed to delete staff.',
                                 showConfirmButton: false,
                                 timer: 1500
-                            });
+                            })
                         }
                     })
                 })
             }
 
             function fetchStaffList() {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                var dataLimit = $('#data_limit').val();
-                var dataPage = $('#data_page').val();
-                let searchValue = $('#search').val();
+                var baseUrl = window.location.origin
+                const userToken = $('#user_token').val()
+                var dataLimit = $('#data_limit').val()
+                var dataPage = $('#data_page').val()
+                let searchValue = $('#search').val()
 
                 if (userToken != '') {
-                    showLoadingCircle();
+                    showLoadingCircle()
 
-                    const fetchURL = `${baseUrl}/api/admin/staff/list`;
+                    const fetchURL = `${baseUrl}/api/admin/staff/list`
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -146,33 +159,33 @@
                         }
                     }).then(function (response) {
                         if (response.data.status === 'success') {
-                            showData(response.data.data.staffs, response.data.data.pagination);
+                            showData(response.data.data.staffs, response.data.data.pagination)
                         } else {
-                            hideLoadingCircle();
+                            hideLoadingCircle()
                             Swal.fire({
                                 icon: 'warning',
                                 title: 'Failed to fetch staff.',
                                 showConfirmButton: false,
                                 timer: 1500
-                            });
+                            })
                         }
                     })
                 } else {
-                    hideLoadingCircle();
+                    hideLoadingCircle()
                     Swal.fire({
                         icon: 'warning',
                         title: 'You are not logged in',
                         showConfirmButton: false,
                         timer: 1500
-                    });
+                    })
                 }
 
             }
 
             function showData(dataList, pagination) {
-                let i = (pagination.page * pagination.limit) - pagination.limit + 1;
-                $('tbody tr.tr-list').remove();
-                var baseUrl = window.location.origin;
+                let i = (pagination.page * pagination.limit) - pagination.limit + 1
+                $('tbody tr.tr-list').remove()
+                var baseUrl = window.location.origin
                 dataList.forEach(function(item) {
                     let gender = ''
                     if (item.gender === 'm') {
@@ -189,86 +202,88 @@
                             <td>+62${item.phone}</td>
                             <td>${gender}</td>
                             <td>
-                                <button class="btn btn-primary update-button"><i class="fas fa-wrench" style="padding: 0;"></i></button>
+                                <button class="btn btn-primary edit-button" data-user-id="${item.id}"><i class="fas fa-wrench" style="padding: 0;"></i></button>
                                 <button class="btn btn-primary delete-button" data-user-id="${item.id}"><i class="fas fa-trash-alt" style="padding: 0;"></i></button>
                             </td>
                         </tr>
                     `)
-                });
+                })
 
-                handlePagination(pagination);
+                handlePagination(pagination)
 
-                hideLoadingCircle();
+                hideLoadingCircle()
 
-                listenDeleteButton();
+                listenDeleteButton()
+                
+                listenEditButton()
             }
 
             function handlePagination(pagination) {
-                $('#pagination_list a').remove();
+                $('#pagination_list a').remove()
 
                 if (pagination.lastButton > 1) {
                     $('#pagination_list').append(`
                         <a href="#" class="pagination-button" direction="1">First</a>
-                    `);
+                    `)
                 }
 
                 pagination.index.forEach(function(item) {
                     $('#pagination_list').append(`
                         <a href="#" class="pagination-button" direction="${item}">${item}</a>
-                    `);
-                });
+                    `)
+                })
 
                 if (pagination.lastButton > 1) {
                     $('#pagination_list').append(`
                         <a href="#" class="pagination-button" direction="${pagination.lastButton}">Last</a>
-                    `);
+                    `)
                 }
 
-                listenPageChange();
+                listenPageChange()
             }
 
             function showLoadingCircle() {
-                $('#loading_circle').show();
+                $('#loading_circle').show()
             }
 
             function hideLoadingCircle() {
-                $('#loading_circle').hide();
+                $('#loading_circle').hide()
             }
 
             function listenPageChange() {
                 $('.pagination-button').on('click', function(e) {
-                    let direction = $(this).attr('direction');
+                    let direction = $(this).attr('direction')
                     $('#data_page').val(direction)
-                    fetchStaffList();
+                    fetchStaffList()
                 })
             }
 
-            var typingTimer;                //timer identifier
-            var doneTypingInterval = 1000;  //time in ms, 1 second for example
-            var $search = $('#search');
-            var $entriesLimit = $('#data_limit');
+            var typingTimer                 //timer identifier
+            var doneTypingInterval = 1000   //time in ms, 1 second for example
+            var $search = $('#search')
+            var $entriesLimit = $('#data_limit')
 
             $search.on('keyup', function () {
-                clearTimeout(typingTimer);
-                typingTimer = setTimeout(doneTyping, doneTypingInterval);
-            });
+                clearTimeout(typingTimer)
+                typingTimer = setTimeout(doneTyping, doneTypingInterval)
+            })
 
             $entriesLimit.on('change', () => {
-                fetchStaffList();
-            });
+                fetchStaffList()
+            })
 
             //on keydown, clear the countdown 
             $search.on('keydown', function () {
-                clearTimeout(typingTimer);
-            });
+                clearTimeout(typingTimer)
+            })
 
             //user is "finished typing," do something
             function doneTyping () {
-                fetchStaffList();
+                fetchStaffList()
             }
 
             fetchStaffList()
-        });
+        })
     </script>
 
 </html>

@@ -140,8 +140,10 @@
                     errorMessage = ''
                     hasError = false
                 } else {
+                    const staffId = $('#staff_id').val()
                     let staffData = {
                         // branch,
+                        staffId,
                         staffName,
                         email,
                         phone,
@@ -154,17 +156,16 @@
 
                     const userToken = $('#user_token').val();
 
-                    const createURL = `${baseUrl}/api/admin/staff/register`;
-                    const res = axios.post(createURL, staffData, {
+                    const updatedURL = `${baseUrl}/api/admin/staff/update`
+                    const res = axios.post(updatedURL, staffData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
+                        if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Staff created.',
+                                title: 'Staff edited.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -172,7 +173,7 @@
                         } else {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to create staff.',
+                                title: 'Failed to edit staff.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -183,9 +184,9 @@
 
             function setClinicValue()
             {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
+                var baseUrl = window.location.origin
+                const userToken = $('#user_token').val()
+                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`
 
                 const res = axios.get(fetchURL, {
                     headers: {
