@@ -357,16 +357,16 @@ ul.pagination li a:hover:not(.active) {
 }
 
 .btn-primary {
-    background-color: #ff9b76 !important;
-    border-color: #ff9b76;
-    color: #2b2b2b;
-    box-shadow: 1px 1px 4px #632d1a;
-    padding: 10px, 20px;
+    background-color: #09C6A0 !important;
+    border-color: #09C6A0;
+    box-shadow: 1px 2px 5px #7f7f7f;
+    padding: 6px 16px;
 
 }
 
 .btn-primary:hover {
-    border-color: #ff9b76;
+    background-color: tomato !important;
+    border-color: tomato;
 }
 
 .form-add {
@@ -538,22 +538,28 @@ ul.pagination li a:hover:not(.active) {
 }
 
 .create-button {
-    background-color: #ff9b76;
-    color: #2b2b2b;
-    width: 150px;
+    background-color: #09C6A0;
+    color: #fff;
+    width: 130px;
     margin-left: auto;
     right: 0;
     margin-right: 10px;
-    box-shadow: 1px 1px 4px #632d1a;
+    box-shadow: 1px 2px 5px #7f7f7f;
     height: 80%;
 }
 
+.create-button:hover {
+    background-color: tomato;
+    color: #fff !important;
+}
+
 .create-button.active {
-    background-color: #ff7c4c;
+    background-color: tomato;
+    color: #fff !important;
 }
 
 .tablinks.create-button {
-    color: #1f1f1f;
+    color: #fff;
     font-weight: 600;
     /* background-color: red !important; */
     /* margin-bottom: 50px; */
