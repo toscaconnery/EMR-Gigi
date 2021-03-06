@@ -48,6 +48,7 @@
 									<th>Email</th>
 									<th>Phone Number</th>
 									<th>Gender</th>
+                                    <th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -89,8 +90,42 @@
 
     <script>
         $(document).ready(function(){
+            function listenDeleteButton() {
+                $('.delete-button').on('click', function() {
+                    let staffId = $(this).data('user-id')
+                    let staffData = {
+                        staffId
+                    }
+                    var baseUrl = window.location.origin
+                    const userToken = $('#user_token').val()
+                    const deleteURL = `${baseUrl}/api/admin/staff/delete/`
+                    const res = axios.post(deleteURL, staffData, {
+                        headers: {
+                            'Authorization': `Bearer ${userToken}`
+                        },
+                    }).then(function (response) {
+                        if (response.data.status == 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Staff deleted.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            window.location.href = window.location.origin + "/admin/staff/list";
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Failed to delete staff.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    })
+                })
+            }
+
             function fetchStaffList() {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
                 var dataLimit = $('#data_limit').val();
                 var dataPage = $('#data_page').val();
@@ -99,7 +134,7 @@
                 if (userToken != '') {
                     showLoadingCircle();
 
-                    const fetchURL = `${base_url}/api/admin/staff/list`;
+                    const fetchURL = `${baseUrl}/api/admin/staff/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -137,7 +172,7 @@
             function showData(dataList, pagination) {
                 let i = (pagination.page * pagination.limit) - pagination.limit + 1;
                 $('tbody tr.tr-list').remove();
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 dataList.forEach(function(item) {
                     let gender = ''
                     if (item.gender === 'm') {
@@ -148,11 +183,15 @@
                     $('#staff_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
-                            <td><a href="${base_url}/admin/staff/detail/${item.id}">${item.name}</a></td>
+                            <td><a href="${baseUrl}/admin/staff/detail/${item.id}">${item.name}</a></td>
                             <td>${item.work_branch.name}</td>
                             <td>${item.email}</td>
                             <td>+62${item.phone}</td>
                             <td>${gender}</td>
+                            <td>
+                                <button class="btn btn-primary update-button"><i class="fas fa-wrench" style="padding: 0;"></i></button>
+                                <button class="btn btn-primary delete-button" data-user-id="${item.id}"><i class="fas fa-trash-alt" style="padding: 0;"></i></button>
+                            </td>
                         </tr>
                     `)
                 });
@@ -160,6 +199,8 @@
                 handlePagination(pagination);
 
                 hideLoadingCircle();
+
+                listenDeleteButton();
             }
 
             function handlePagination(pagination) {

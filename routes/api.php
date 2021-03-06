@@ -158,7 +158,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             'uses'  => 'Api\StaffController@list'
         ]);
     
-        Route::get('delete/{id}', [
+        Route::post('delete', [
             'as'    => 'staff.delete',
             'uses'  => 'Api\StaffController@delete'
         ]);

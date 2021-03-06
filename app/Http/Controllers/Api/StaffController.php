@@ -76,16 +76,37 @@ class StaffController extends Controller
     public function detail(Request $request) {
         $user = $this->authUser();
 
-        $staff = User::find($request->staff_id);
+        $staff = User::find($request->staffId);
 
         if ($staff) {
             if ($staff->hospital_id == $user->hospital_id) {
                 return response()->json([
                     'data'  => [
                         'staff'     => $staff,
-                        'status'    => 'success',
                     ],
+                    'status'    => 'success',
                     'error' => null
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to view this staff'));
+            }
+        } else {
+            return response()->json($this->createErrorMessage('Staff not found'));
+        }
+    }
+
+    public function delete(Request $request) {
+        $user = $this->authUser();
+
+        $staff = User::find($request->staffId);
+
+        if ($staff) {
+            if ($staff->hospital_id == $user->hospital_id) {
+                $staff->delete();
+                return response()->json([
+                    'data'      => null,
+                    'status'    => 'success',
+                    'error'     => null
                 ]);
             } else {
                 return response()->json($this->createErrorMessage('You have no access to view this staff'));
