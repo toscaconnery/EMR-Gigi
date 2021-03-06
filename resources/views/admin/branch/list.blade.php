@@ -73,14 +73,14 @@
 							</div>
 							<p>entries</p>
                         </div>
-                        
+
                         <div class="show">
                             <ul class="pagination">
                                 <li id="pagination_list">
                                 </li>
                             </ul>
                         </div>
-					</div> 
+					</div>
 				</div>
 			</div>
         </div>
@@ -88,7 +88,7 @@
         @include('admin_layout.loading-animation')
 
     </body>
-    
+
     @include('admin_layout.sidenav-script')
     @include('admin_layout.footscript')
 

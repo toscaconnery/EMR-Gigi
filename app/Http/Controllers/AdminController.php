@@ -120,7 +120,7 @@ class AdminController extends Controller
 
         // return view('admin.branch.list', compact('jwtToken', 'clinic_id', 'clinic'));
     }
-    
+
     public function branchCreate(Request $request)
     {
         if ( ! Auth::check()) {
@@ -219,6 +219,11 @@ class AdminController extends Controller
         return view('admin.price.edit-action', compact('jwtToken', 'branchId', 'action'));
     }
 
+    public function revenueView()
+    {
+        return view('admin.reports.revenue');
+    }
+
     public function editItem(Request $request, $branchId, $itemId)
     {
         if ( ! Auth::check()) {
@@ -242,7 +247,7 @@ class AdminController extends Controller
 
         if ($user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
-    
+
             return view('admin.doctor.create', compact('jwtToken'));
         } else {
             return view('admin.dashboard.no-access');
@@ -259,7 +264,7 @@ class AdminController extends Controller
 
         if ($user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
-    
+
             return view('admin.doctor.list', compact('jwtToken'));
         } else {
             return view('admin.dashboard.no-access');
@@ -276,7 +281,7 @@ class AdminController extends Controller
 
         if ($user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
-    
+
             return view('admin.role.list', compact('jwtToken'));
         } else {
             return view('admin.dashboard.no-access');
@@ -293,7 +298,7 @@ class AdminController extends Controller
 
         if ($user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
-    
+
             return view('admin.staff.list', compact('jwtToken'));
         } else {
             return view('admin.dashboard.no-access');
@@ -310,7 +315,7 @@ class AdminController extends Controller
 
         if ($user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
-    
+
             return view('admin.administrator.list', compact('jwtToken'));
         } else {
             return view('admin.dashboard.no-access');
@@ -327,7 +332,7 @@ class AdminController extends Controller
 
         if ($user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
-    
+
             return view('admin.staff.create', compact('jwtToken'));
         } else {
             return view('admin.dashboard.no-access');
@@ -345,13 +350,13 @@ class AdminController extends Controller
         if ($user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
             $staffId = $staff_id;
-    
+
             return view('admin.staff.detail', compact('jwtToken', 'staffId'));
         } else {
             return view('admin.dashboard.no-access');
         }
     }
 
-    
+
 
 }
