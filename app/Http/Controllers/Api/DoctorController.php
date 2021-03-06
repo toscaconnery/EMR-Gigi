@@ -49,14 +49,14 @@ class DoctorController extends Controller
         $pagination = $this->generatePagination($count, $page, $limit);
         
         return response()->json([
-            'data'  => [
-                'doctors'   => $doctors,
-                'status'    => 'success',
-                'limit'     => $limit,
-                'page'      => $page,
-                'pagination' => $pagination,
+            'data'      => [
+                'doctors'       => $doctors,
+                'limit'         => $limit,
+                'page'          => $page,
+                'pagination'    => $pagination,
             ],
-            'error' => null
+            'status'    => 'success',
+            'error'     => null
         ]);
     }
 
@@ -167,24 +167,25 @@ class DoctorController extends Controller
      *      )
      * )
      */
-    public function delete($doctor_id)
-    {
+
+    public function delete(Request $request) {
         $user = $this->authUser();
 
-        $doctor = User::where('active_doctor', true)
-                        ->where('id', $doctor_id)
-                        ->first();
+        $doctor = User::find($request->doctorId);
+
         if ($doctor) {
-            $doctor->delete();
-            return response()->json([
-                'data'  => [
-                    'messages'  => 'Doctor deleted',
-                    'status'    => 'success'
-                ],
-                'error' => null
-            ]);
+            if ($doctor->hospital_id == $user->hospital_id) {
+                $doctor->delete();
+                return response()->json([
+                    'data'      => null,
+                    'status'    => 'success',
+                    'error'     => null
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to delete this doctor'));
+            }
         } else {
-            return response()->json($this->createErrorMessage('Cannot find the doctor.'));
+            return response()->json($this->createErrorMessage('Doctor not found'));
         }
     }
 

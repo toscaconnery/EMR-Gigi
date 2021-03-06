@@ -53,12 +53,6 @@
                                 <input type="phone" id="phone" class="form-control form-add" placeholder="Please input the staff phone number" autocomplete="off">
                             </div>
                         </div>
-                        {{-- <div class="form-group row">
-                            <label for="phone" class="col-sm-2 col-form-label">Phone</label>
-                            <div class="col-sm-10">
-                                <input type="phone" id="phone" class="form-control form-add mb-2" placeholder="Please input the staff phone number" autocomplete="off">
-                            </div>
-                        </div> --}}
                         <div class="form-group row">
                             <label for="gender" class="col-sm-2 col-form-label">Gender</label>
                             <div class="col-sm-10">

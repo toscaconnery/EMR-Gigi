@@ -38,33 +38,6 @@ Route::get('/jwt/get-current-token', [
     'uses'  => 'Api\SessionController@getJWTToken'
 ]);
 
-Route::name('doctor.')->prefix('doctor')->group(function () {
-    Route::post('create', [
-        'as'    => 'doctor.create',
-        'uses'  => 'Api\DoctorController@create'
-    ]);
-
-    Route::get('list', [
-        'as'    => 'doctor.list',
-        'uses'  => 'Api\DoctorController@list'
-    ]);
-
-    Route::get('delete/{id}', [
-        'as'    => 'doctor.delete',
-        'uses'  => 'Api\DoctorController@delete'
-    ]);
-
-    Route::post('update/{id}', [
-        'as'    => 'doctor.update',
-        'uses'  => 'Api\DoctorController@update'
-    ]);
-
-    Route::post('register', [
-        'as'    => 'doctor.register',
-        'uses'  => 'Api\DoctorController@register'
-    ]);
-});
-
 Route::name('admin.')->prefix('admin')->group(function () {
     Route::post('clinic/store', [
         'as'    => 'admin.createclinic',
@@ -145,6 +118,34 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'as'    => 'admin.roleList',
         'uses'  => 'Api\RoleController@roleList'
     ]);
+
+    // Doctor API
+    Route::prefix('doctor')->group(function () {
+        Route::post('create', [
+            'as'    => 'doctor.create',
+            'uses'  => 'Api\DoctorController@create'
+        ]);
+    
+        Route::get('list', [
+            'as'    => 'doctor.list',
+            'uses'  => 'Api\DoctorController@list'
+        ]);
+    
+        Route::post('delete', [
+            'as'    => 'doctor.delete',
+            'uses'  => 'Api\DoctorController@delete'
+        ]);
+    
+        Route::post('update/{id}', [
+            'as'    => 'doctor.update',
+            'uses'  => 'Api\DoctorController@update'
+        ]);
+    
+        Route::post('register', [
+            'as'    => 'doctor.register',
+            'uses'  => 'Api\DoctorController@register'
+        ]);
+    });
 
     // Staff API
     Route::prefix('staff')->group(function () {
