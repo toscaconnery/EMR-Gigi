@@ -106,11 +106,19 @@
                         'Authorization': `Bearer ${userToken}`
                     },
                     params: {
-                        'staff_id': staffId
+                        'staffId': staffId
                     }
                 }).then(function (response) {
-                    let responseData = response.data.data;
-                    showData(responseData.staff)
+                    if (response.data.status == 'success') {
+                        showData(response.data.data.staff)
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Failed to fetch staff.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
                 })
 
             }
@@ -126,15 +134,22 @@
                         'Authorization': `Bearer ${userToken}`
                     },
                 }).then(function (response) {
-                    let responseData = response.data.data;
-
-                    var branchSelect = document.getElementById("branch");
-                    responseData.branchs.forEach(e => {
-                        var newBranchOption = document.createElement('option');
-                        newBranchOption.text = e.name;
-                        newBranchOption.value = e.id;
-                        branchSelect.add(newBranchOption);
-                    })
+                    if (response.data.status == 'success') {
+                        var branchSelect = document.getElementById("branch");
+                        response.data.data.branchs.forEach(e => {
+                            var newBranchOption = document.createElement('option');
+                            newBranchOption.text = e.name;
+                            newBranchOption.value = e.id;
+                            branchSelect.add(newBranchOption);
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Failed to fetch branchs.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
                 })
 
                 fetchDetailData()
@@ -143,7 +158,8 @@
 
             function showData(data)
             {
-                $('#branch').val(data.branch)
+                console.log(data)
+                $('#branch').val(data.branch_id)
                 $('#staff_name').val(data.name)
                 $('#email').val(data.email)
                 $('#phone').val(data.phone)

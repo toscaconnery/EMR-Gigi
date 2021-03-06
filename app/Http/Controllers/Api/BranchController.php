@@ -214,13 +214,11 @@ class BranchController extends Controller
                 'data'  => [
                     'branchs'   => $branchs
                 ],
-                'error' => null
+                'status'    => 'success',
+                'error'     => null
             ]);
         } else {
-            return response()->json([
-                'data'  => null,
-                'error' => 'Access denied'
-            ]);
+            return response()->json($this->createErrorMessage('Access denied'));
         }
     }
 }
