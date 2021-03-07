@@ -121,6 +121,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
     // Doctor API
     Route::prefix('doctor')->group(function () {
+        Route::get('detail', [
+            'as'    => 'doctor.detail',
+            'uses'  => 'Api\DoctorController@detail'
+        ]);
+
         Route::post('create', [
             'as'    => 'doctor.create',
             'uses'  => 'Api\DoctorController@create'

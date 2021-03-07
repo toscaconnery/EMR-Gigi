@@ -271,6 +271,24 @@ class AdminController extends Controller
         }
     }
 
+    public function doctorDetail(Request $request, $doctor_id)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+            $doctorId = $doctor_id;
+
+            return view('admin.doctor.detail', compact('jwtToken', 'doctorId'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+
     public function roleList(Request $request)
     {
         if ( ! Auth::check()) {

@@ -89,6 +89,19 @@
 
     <script>
         $(document).ready(function(){
+            function listenEditButton() {
+                $('.edit-button').on('click', function() {
+                    let doctorId = $(this).data('user-id')
+                    let doctorData = {
+                        doctorId
+                    }
+                    var baseUrl = window.location.origin
+                    const userToken = $('#user_token').val()
+                    const editURL = `${baseUrl}/admin/doctor/edit/${doctorId}`
+                    window.location.href = editURL
+                })
+            }
+
             function listenDeleteButton() {
                 $('.delete-button').on('click', function() {
                     let doctorId = $(this).data('user-id')
@@ -182,7 +195,7 @@
                     $('#doctor_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
-                            <td><a href="${baseUrl}/admin/doctor/list/${item.id}">${item.name}</a></td>
+                            <td><a href="${baseUrl}/admin/doctor/detail/${item.id}">${item.name}</a></td>
                             <td>${item.email}</td>
                             <td>+62${item.phone}</td>
                             <td>${gender}</td>
@@ -199,6 +212,8 @@
                 hideLoadingCircle()
 
                 listenDeleteButton()
+
+                listenEditButton()
             }
 
             function handlePagination(pagination) {

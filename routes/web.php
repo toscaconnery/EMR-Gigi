@@ -71,6 +71,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin|admin|staff
     // Doctor
     Route::get('doctor/create', 'AdminController@doctorCreate');
     Route::get('doctor/list', 'AdminController@doctorList');
+    Route::get('doctor/detail/{doctor_id}', 'AdminController@doctorDetail');
+    Route::get('doctor/edit/{doctor_id}', 'AdminController@doctorEdit');
 
     // Staff
     Route::get('staff/create', 'AdminController@staffCreate');

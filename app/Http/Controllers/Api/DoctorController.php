@@ -259,6 +259,28 @@ class DoctorController extends Controller
         }
     }
 
+    public function detail(Request $request) {
+        $user = $this->authUser();
+
+        $doctor = User::find($request->doctorId);
+
+        if ($doctor) {
+            if ($doctor->hospital_id == $user->hospital_id) {
+                return response()->json([
+                    'data'  => [
+                        'doctor'     => $doctor,
+                    ],
+                    'status'    => 'success',
+                    'error' => null
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to view this doctor'));
+            }
+        } else {
+            return response()->json($this->createErrorMessage('Doctor not found'));
+        }
+    }
+
     public function generatePagination($count, $page, $limit) {
         $index = [];
         $firstButton = null;
