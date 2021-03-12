@@ -3,7 +3,7 @@
     @include('admin_layout.head')
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
-        <input type="hidden" value="{{$staffId}}" id="staff_id">
+        <input type="hidden" value="{{$doctorId}}" id="doctor_id">
 
         @include('admin_layout.sidenav')
 
@@ -11,9 +11,9 @@
             @include('admin_layout.navbar')
 
             <ul class="breadcrumb">
-                <h4 class="mr-auto">Staff Form</h4>
-                <li><a class="active">Staff</a></li>
-                <li><a href="#">Edit</a></li>
+                <h4 class="mr-auto">Doctor Form</h4>
+                <li><a class="active">Doctor</a></li>
+                <li><a href="#">Detail</a></li>
             </ul>
 
             <div class="container-fluid">
@@ -34,9 +34,18 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="staff_name" class="col-sm-2 col-form-label">Staff Name</label>
+                            <label for="doctor_name" class="col-sm-2 col-form-label">Doctor Name</label>
                             <div class="col-sm-10">
-                                <input type="text" id="staff_name" class="form-control form-add mb-2" autocomplete="off">
+                                <input type="text" id="doctor_name" class="form-control form-add mb-2" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputdoctors" class="col-sm-2 col-form-label">Action</label>
+                            <div class="col-sm-10 row">
+                                <span class="form-add mb-2 ml-3" style="color: gray" id="action_placeholder">
+                                    <i>Please select a branch.</i>
+                                </span>
+                                <span id="action_placer"></span>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -54,6 +63,12 @@
                                 <input type="phone" id="phone" class="form-control form-add" placeholder="Please input the staff phone number" autocomplete="off">
                             </div>
                         </div>
+                        {{-- <div class="form-group row">
+                            <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                            <div class="col-sm-10">
+                                <input type="phone" id="phone" class="form-control form-add mb-2" autocomplete="off">
+                            </div>
+                        </div> --}}
                         <div class="form-group row">
                             <label for="gender" class="col-sm-2 col-form-label">Gender</label>
                             <div class="col-sm-10">
@@ -78,7 +93,7 @@
                         </div>
                         <div class="form-row row">
                             <div class="button" style="margin-left: auto;padding-right: 4px;">
-                                <button type="button" class="btn btn-add-sch btn-sm" id="save_staff">Save Data</button>
+                                <button type="button" class="btn btn-add-sch btn-sm" id="save_doctor">Save Data</button>
                             </div>
                         </div>
                     </div>
@@ -99,16 +114,26 @@
                 errorMessage += '<li>' + newError + '</li>'
                 hasError = true
             }
-            
-            $('#save_staff').on('click', async function() {
+            $('#save_doctor').on('click', async function() {
+                console.log('HERE')
                 // let branch = $('#branch').val();
                 // if (branch === null) {
                 //     pushErrMsg('Branch is required')
                 // }
 
-                let staffName = $('#staff_name').val();
-                if (staffName === '') {
-                    pushErrMsg('Staff name is required')
+                let doctorName = $('#doctor_name').val();
+                if (doctorName === '') {
+                    pushErrMsg('Doctor name is required')
+                }
+
+                let actions = $('input[name^="action"]:checkbox:checked')
+                let selectedActions = [];
+                if (actions.length === 0) {
+                    pushErrMsg('Action list is required')
+                } else {
+                    actions.each(act => {
+                        selectedActions.push($(actions[act]).val())
+                    })
                 }
 
                 let email = $('#email').val()
@@ -143,11 +168,10 @@
                     errorMessage = ''
                     hasError = false
                 } else {
-                    const staffId = $('#staff_id').val()
-                    let staffData = {
+                    let doctorData = {
                         // branch,
-                        staffId,
-                        staffName,
+                        doctorName,
+                        selectedActions,
                         email,
                         phone,
                         gender,
@@ -159,8 +183,8 @@
 
                     const userToken = $('#user_token').val();
 
-                    const updatedURL = `${baseUrl}/api/admin/staff/update`
-                    const res = axios.post(updatedURL, staffData, {
+                    const updateURL = `${baseUrl}/api/admin/doctor/update`;
+                    const res = axios.post(updateURL, doctorData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
                         },
@@ -168,15 +192,15 @@
                         if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Staff edited.',
+                                title: 'Doctor created.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.location.href = `${baseUrl}/admin/staff/list`;
+                            window.location.href = `${baseUrl}/admin/doctor/list`;
                         } else {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to edit staff.',
+                                title: 'Failed to create doctor.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -185,11 +209,45 @@
                 }
             });
 
+            function setActionOptions()
+            {
+                // The branch is already selected
+                $('.action-list-content').remove();
+                $('#action_placeholder').remove();
+
+                var selectedBranch = $('#branch').val();
+                var baseUrl = window.location.origin;
+                const userToken = $('#user_token').val();
+                const fetchURL = `${baseUrl}/api/admin/get-available-action-option`;
+
+                const res = axios.get(fetchURL, {
+                    headers: {
+                        'Authorization': `Bearer ${userToken}`
+                    },
+                    params: {
+                        'branch_id': selectedBranch
+                    }
+                }).then(function (response) {
+                    console.log('ACTION FETCHEDf')
+                    console.log(response.data)
+                    let responseContent = response.data;
+                    responseContent.data.actions.forEach(e => {
+                        $('#action_placer').before(`
+                            <div class="col-sm-2 action-list-content">
+                                <input type="checkbox" id="action_option_${e.id}" name="action[${e.id}]" value="${e.id}" data-action_id=${e.id}}>
+                                <label for="action_option_${e.id}">${e.name}</label><br>
+                            </div>
+                        `);
+                    })
+                })
+            }
+            setActionOptions()
+
             function setClinicValue()
             {
-                var baseUrl = window.location.origin
-                const userToken = $('#user_token').val()
-                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`
+                var baseUrl = window.location.origin;
+                const userToken = $('#user_token').val();
+                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
 
                 const res = axios.get(fetchURL, {
                     headers: {
@@ -205,23 +263,23 @@
             function fetchDetailData()
             {
                 var baseUrl = window.location.origin;
-                const staffId = $('#staff_id').val();
+                const doctorId = $('#doctor_id').val();
                 const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/staff/detail`;
+                const fetchURL = `${baseUrl}/api/admin/doctor/detail`;
                 const res = axios.get(fetchURL, {
                     headers: {
                         'Authorization': `Bearer ${userToken}`
                     },
                     params: {
-                        'staffId': staffId
+                        'doctorId': doctorId
                     }
                 }).then(function (response) {
                     if (response.data.status == 'success') {
-                        showData(response.data.data.staff)
+                        showData(response.data.data.doctor)
                     } else {
                         Swal.fire({
                             icon: 'warning',
-                            title: 'Failed to fetch staff.',
+                            title: 'Failed to fetch doctor.',
                             showConfirmButton: false,
                             timer: 1500
                         });
@@ -267,7 +325,7 @@
             {
                 console.log(data)
                 $('#branch').val(data.branch_id)
-                $('#staff_name').val(data.name)
+                $('#doctor_name').val(data.name)
                 $('#email').val(data.email)
                 $('#phone').val(data.phone)
                 $('select[id="gender"]').val(data.gender);

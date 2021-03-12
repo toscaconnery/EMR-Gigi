@@ -111,10 +111,10 @@
                             'search': searchValue
                         }
                     }).then(function (response) {
-                        if (response.data.status == 'success') {
-                            let responseData = response.data.data;
-                            showData(responseData.hospitals, responseData.pagination);
-                            if (responseData.hospitals.length === 0) {
+                        let responseContent = response.data;
+                        if (responseContent.status == 'success') {
+                            showData(responseContent.data.hospitals, responseContent.data.pagination);
+                            if (responseContent.data.hospitals.length === 0) {
                                 Swal.fire({
                                 icon: 'info',
                                 title: 'Clinic is empty.',

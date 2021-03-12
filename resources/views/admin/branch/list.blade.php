@@ -116,13 +116,13 @@
                             'search': searchValue
                         }
                     }).then(function (response) {
+                        let responseContent = response.data;
                         if (response.data.status == 'success') {
-                            let responseData = response.data.data;
-                            if (responseData.hospital !== null) {
-                                $('#hospital_name').text(' - ' + responseData.hospital.name);
+                            if (responseContent.data.hospital !== null) {
+                                $('#hospital_name').text(' - ' + responseContent.data.hospital.name);
                             }
 
-                            showData(responseData.branchs, responseData.pagination);
+                            showData(responseContent.data.branchs, responseContent.data.pagination);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({

@@ -140,8 +140,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
             'as'    => 'doctor.delete',
             'uses'  => 'Api\DoctorController@delete'
         ]);
-    
-        Route::post('update/{id}', [
+
+        Route::post('update', [
             'as'    => 'doctor.update',
             'uses'  => 'Api\DoctorController@update'
         ]);

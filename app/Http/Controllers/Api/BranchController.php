@@ -41,17 +41,15 @@ class BranchController extends Controller
             $newBranch = Branch::create($branchArray);
 
             $response = [
-                'data'  => [
-                    'status'    => 'success'
-                ],
-                'error' => null,
+                'data'      => null,
+                'status'    => 'success',
+                'error'     => null,
             ];
         } else {
             $response = [
-                'data'  => [
-                    'status'    => 'failed'
-                ],
-                'error' => 'error',
+                'data'      => null,
+                'status'    => 'failed',
+                'error'     => 'invalid',
             ];
         }
 
@@ -114,6 +112,7 @@ class BranchController extends Controller
             'limit'     => $limit,
             'page'      => $page,
             'pagination' => $pagination,
+            'error'    => null,
         ];
         $response = $this->createResponse($responseData);
         return response()->json($response);

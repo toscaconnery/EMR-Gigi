@@ -126,9 +126,8 @@
                         'branch_id': branchId
                     }
                 }).then(function (response) {
-                    let responseData = response.data.data;
-                    if (responseData.status == 'success') {
-                        showPrescription(responseData.prescriptionlist);
+                    if (response.data.status == 'success') {
+                        showPrescription(response.data.data.prescriptionlist);
                     } else {
                         Swal.fire({
                             icon: 'warning',
@@ -150,9 +149,8 @@
                         'branch_id': branchId
                     }
                 }).then(function (response) {
-                    let responseData = response.data.data;
-                    if (responseData.status == 'success') {
-                        showAction(responseData.actionlist);
+                    if (response.data.status == 'success') {
+                        showAction(response.data.actionlist);
                     } else {
                         Swal.fire({
                             icon: 'warning',
@@ -174,9 +172,8 @@
                         'branch_id': branchId
                     }
                 }).then(function (response) {
-                    let responseData = response.data.data;
-                    if (responseData.status == 'success') {
-                        showItem(responseData.itemlist);
+                    if (response.data.status == 'success') {
+                        showItem(response.data.itemlist);
                     } else {
                         Swal.fire({
                             icon: 'warning',
@@ -308,8 +305,7 @@
                             'Authorization': `Bearer ${userToken}`
                         }
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
+                        if (response.data.status == 'success') {
                             location.reload();
                         } else {
                             Swal.fire({

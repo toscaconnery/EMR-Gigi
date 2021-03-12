@@ -163,8 +163,7 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
+                        if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Staff created.',
@@ -195,10 +194,10 @@
                         'Authorization': `Bearer ${userToken}`
                     },
                 }).then(function (response) {
-                    let responseData = response.data.data;
+                    let responseContent = response.data;
 
                     var branchSelect = document.getElementById("branch");
-                    responseData.branchs.forEach(e => {
+                    responseContent.data.branchs.forEach(e => {
                         var newBranchOption = document.createElement('option');
                         newBranchOption.text = e.name;
                         newBranchOption.value = e.id;
@@ -219,8 +218,8 @@
                         'Authorization': `Bearer ${userToken}`
                     },
                 }).then(function (response) {
-                    let responseData = response.data.data;
-                    var clinic = $('#clinic').val(responseData.hospital.name)
+                    let responseContent = response.data;
+                    var clinic = $('#clinic').val(responseContent.data.hospital.name)
                 })
             }
             setClinicValue();

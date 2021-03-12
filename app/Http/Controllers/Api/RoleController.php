@@ -15,11 +15,11 @@ class RoleController extends Controller
         $roles = \Spatie\Permission\Models\Role::all();
 
         return response()->json([
-            'data'  => [
-                'roles'   => $roles,
-                'status'  => 'success',
+            'data'      => [
+                'roles' => $roles,
             ],
-            'error' => null
+            'status'    => 'success',
+            'error'     => null
         ]);
     }
 }

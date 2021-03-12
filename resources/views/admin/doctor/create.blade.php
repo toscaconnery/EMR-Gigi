@@ -53,6 +53,15 @@
                                 <input type="email" id="email" class="form-control form-add mb-2" placeholder="Please input the doctor email address, it will be used for login credential" autocomplete="off" value="">
                             </div>
                         </div>
+                        {{-- <div class="form-group row">
+                            <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                            <div class="input-group col-sm-10 pr-15-px">
+                                <div class="input-group-prepend form-add">
+                                    <span class="input-group-text tlr-15 blr-15">+62</span>
+                                </div>
+                                <input type="phone" id="phone" class="form-control form-add" placeholder="Please input the doctor phone number" autocomplete="off">
+                            </div>
+                        </div> --}}
                         <div class="form-group row">
                             <label for="phone" class="col-sm-2 col-form-label">Phone</label>
                             <div class="input-group col-sm-10 pr-15-px">
@@ -201,8 +210,7 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
+                        if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Doctor created.',
@@ -234,10 +242,10 @@
                         'Authorization': `Bearer ${userToken}`
                     },
                 }).then(function (response) {
-                    let responseData = response.data.data;
+                    let responseContent = response.data;
 
                     var branchSelect = document.getElementById("branch");
-                    responseData.branchs.forEach(e => {
+                    responseContent.data.branchs.forEach(e => {
                         var newBranchOption = document.createElement('option');
                         newBranchOption.text = e.name;
                         newBranchOption.value = e.id;
@@ -258,8 +266,8 @@
                         'Authorization': `Bearer ${userToken}`
                     },
                 }).then(function (response) {
-                    let responseData = response.data.data;
-                    var clinic = $('#clinic').val(responseData.hospital.name)
+                    let responseContent = response.data;
+                    var clinic = $('#clinic').val(responseContent.data.hospital.name)
                 })
             }
             setClinicValue();
@@ -282,8 +290,8 @@
                         'branch_id': selectedBranch
                     }
                 }).then(function (response) {
-                    let responseData = response.data.data;
-                    responseData.actions.forEach(e => {
+                    let responseContent = response.data;
+                    responseContent.data.actions.forEach(e => {
                         $('#action_placer').before(`
                             <div class="col-sm-2 action-list-content">
                                 <input type="checkbox" id="action_option_${e.id}" name="action[${e.id}]" value="${e.id}" data-action_id=${e.id}}>

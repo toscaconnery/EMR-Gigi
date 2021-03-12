@@ -115,8 +115,9 @@ class DoctorController extends Controller
         $newUser = User::create($payload);
 
         return response()->json([
-            $data = $newUser,
-            'error' => null
+            'data'      => $newUser,
+            'status'    => 'success',
+            'error'     => null
         ]);   
     }
 
@@ -139,10 +140,9 @@ class DoctorController extends Controller
         $newUser->assignRole('doctor');
 
         return response()->json([
-            'data' => [
-                'status'    => 'success'
-            ],
-            'error' => null
+            'data'      => null,
+            'status'    => 'success',
+            'error'     => null
         ]);        
     }
     
@@ -233,29 +233,32 @@ class DoctorController extends Controller
      *      ),
      * )
      */
-    public function update(Request $request, $doctor_id) {
+    public function update(Request $request) {
         $user = $this->authUser();
 
-        $doctor = User::where('active_doctor', true)
-                        ->where('id', $doctor_id)
-                        ->first();
+        $doctor = User::find($request->staffId);
 
         if ($doctor) {
-            $payload = [
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ];
-            $doctor->update($payload);
-            return response()->json([
-                'data'  => [
-                    'messages'  => 'Doctor updated',
-                    'status'    => 'success'
-                ],
-                'error' => null
-            ]);
+            if ($doctor->hospital_id == $user->hospital_id) {
+                $doctor->name = $request->staffName;
+                $doctor->email = $request->email;
+                $doctor->phone = $request->phone;
+                $doctor->gender = $request->gender;
+                if ($request->password != '') {
+                    $doctor->password = bcrypt($request->password);
+                }
+                $doctor->save();
+
+                return response()->json([
+                    'data'      => null,
+                    'status'    => 'success',
+                    'error'     => null
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to edit this staff'));
+            }
         } else {
-            return response()->json($this->createErrorMessage('Cannot find the doctor.'));
+            return response()->json($this->createErrorMessage('Staff not found'));
         }
     }
 
@@ -316,27 +319,27 @@ class DoctorController extends Controller
 
 
     // STILL IN DEVELOPMENT, NOT WORKING YET
-    public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
-    {
-        $validator = $this->getValidationFactory()->make($request->all(), $rules, $messages, $customAttributes);
+    // public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
+    // {
+    //     $validator = $this->getValidationFactory()->make($request->all(), $rules, $messages, $customAttributes);
 
-        if ($validator->fails()) {
-            // $this->formatValidationErrors($validator);
-            return response()->json($validator);
-        }
-        else {
-            return response()->json([
-                'data' => 'ok',
-                'error' => null
-            ]);
-        }
-    }
+    //     if ($validator->fails()) {
+    //         // $this->formatValidationErrors($validator);
+    //         return response()->json($validator);
+    //     }
+    //     else {
+    //         return response()->json([
+    //             'data' => 'ok',
+    //             'error' => null
+    //         ]);
+    //     }
+    // }
 
-    public function self()
-    {
-        $user = $this->authUser();
+    // public function self()
+    // {
+    //     $user = $this->authUser();
 
-        $doctor = auth()->user()->isdoctor;
-        return $doctor;
-    }
+    //     $doctor = auth()->user()->isdoctor;
+    //     return $doctor;
+    // }
 }

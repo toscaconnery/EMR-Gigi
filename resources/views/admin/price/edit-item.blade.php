@@ -110,8 +110,7 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
+                        if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Item updated.',

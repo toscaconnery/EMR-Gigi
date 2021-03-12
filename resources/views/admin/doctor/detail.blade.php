@@ -47,8 +47,11 @@
                         </div>
                         <div class="form-group row">
                             <label for="phone" class="col-sm-2 col-form-label">Phone</label>
-                            <div class="col-sm-10">
-                                <input type="phone" id="phone" class="form-control form-add mb-2" autocomplete="off" disabled>
+                            <div class="input-group col-sm-10 pr-15-px">
+                                <div class="input-group-prepend form-add">
+                                    <span class="input-group-text tlr-15 blr-15">+62</span>
+                                </div>
+                                <input type="phone" id="phone" class="form-control form-add" placeholder="Please input the staff phone number" autocomplete="off" disabled>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -91,8 +94,8 @@
                         'Authorization': `Bearer ${userToken}`
                     },
                 }).then(function (response) {
-                    let responseData = response.data.data;
-                    var clinic = $('#clinic').val(responseData.hospital.name)
+                    let responseContent = response.data;
+                    var clinic = $('#clinic').val(responseContent.data.hospital.name)
                 })
             }
             setClinicValue();

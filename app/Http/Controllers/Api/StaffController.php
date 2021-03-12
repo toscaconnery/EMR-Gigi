@@ -43,7 +43,7 @@ class StaffController extends Controller
                 'pagination' => $pagination,
             ],
             'status'    => 'success',
-            'error' => null
+            'error'     => null
         ]);
     }
 
@@ -66,10 +66,9 @@ class StaffController extends Controller
         $newUser->assignRole('staff');
 
         return response()->json([
-            'data' => [
-                'status'    => 'success'
-            ],
-            'error' => null
+            'data'      => null,
+            'status'    => 'success',
+            'error'     => null
         ]);        
     }
 
@@ -81,11 +80,11 @@ class StaffController extends Controller
         if ($staff) {
             if ($staff->hospital_id == $user->hospital_id) {
                 return response()->json([
-                    'data'  => [
+                    'data'      => [
                         'staff'     => $staff,
                     ],
                     'status'    => 'success',
-                    'error' => null
+                    'error'     => null
                 ]);
             } else {
                 return response()->json($this->createErrorMessage('You have no access to view this staff'));

@@ -61,9 +61,8 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
-                            showData(responseData.roles);
+                        if (response.data.status == 'success') {
+                            showData(response.data.roles);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({
