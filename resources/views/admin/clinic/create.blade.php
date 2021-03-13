@@ -162,8 +162,9 @@
             
             $('.datepicker').datepicker({
                 format: 'dd/mm/yyyy',
+                autoclose: true,
                 // startDate: '-3d'
-            });
+            })
 
             $('#submit_button').on('click', async function() {
                 let hasError = false;
