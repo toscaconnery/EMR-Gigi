@@ -42,6 +42,10 @@ Route::get('medication-history', 'MedicationController@medicationHistory');
 // Route::get('/roles', 'AdminController@roles');                      // done
 // Route::get('/add-role', 'AdminController@addrole');                 // ignored
 
+Route::group(['prefix' => 'download'], function() {
+    Route::get('/medical-resume', 'FileController@medicalResume');
+});
+
 Route::group(['middleware' => ['role:patient']], function() {
     Route::get('dashboard', 'AdminController@dashboard');
 });
@@ -91,6 +95,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin|admin|staff
 
 
 // Dummy
-Route::get('new-register', 'TempController@newRegister');
-Route::get('/company', 'AdminController@company');                  //moved
-Route::get('/list-company', 'AdminController@listCompany');         //moved
+// Route::get('new-register', 'TempController@newRegister');
+// Route::get('/company', 'AdminController@company');                  //moved
+// Route::get('/list-company', 'AdminController@listCompany');         //moved
