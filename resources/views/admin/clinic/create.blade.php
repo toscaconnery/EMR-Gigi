@@ -56,7 +56,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="clinic_email">Clinic Email<span>*</span></label>
-                                            <input type="email" class="form-control" id="clinic_email" name="clinic_email" placeholder="Email address" autocomplete="new-password">
+                                            <input type="email" class="form-control email" id="clinic_email" name="clinic_email" placeholder="Email address" autocomplete="new-password">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="clinic_phone_number">Clinic Phone<span>*</span></label>
@@ -100,7 +100,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="admin_email">Admin Email<span>*</span></label>
-                                            <input type="email" class="form-control" id="admin_email" name="admin_email" placeholder="Email address" autocomplete="off">
+                                            <input type="email" class="form-control email" id="admin_email" name="admin_email" placeholder="Email address" autocomplete="off">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="admin_phone_number">Admin Phone<span>*</span></label>
@@ -178,6 +178,15 @@
                 $('#admin_phone_number').val(clean)
             })
 
+            $('.email').on('blur', function() {
+                let valid = validateEmail(this.value)
+                if (valid === false) {
+                    if (this.value !== '') {
+                        toastr.warning('Email not valid')
+                    }
+                }
+            })
+
             $('#submit_button').on('click', async function() {
                 let hasError = false;
                 let errorMessage = '';
@@ -192,6 +201,12 @@
                 if (clinicEmail == '') {
                     hasError = true;
                     errorMessage += '<li>Clinic email is required</li>';
+                } else {
+                    let validClinicEmail = validateEmail(clinicEmail)
+                    if (validClinicEmail === false) {
+                        hasError = true;
+                        errorMessage += '<li>Clinic email is not valid</li>';
+                    }
                 }
 
                 let clinicPhone = $('#clinic_phone_number').val();
@@ -228,7 +243,14 @@
                 if (adminEmail == '') {
                     hasError = true;
                     errorMessage += '<li>Admin email is required</li>';
+                } else {
+                    let validAdminEmail = validateEmail(adminEmail)
+                    if (validAdminEmail === false) {
+                        hasError = true;
+                        errorMessage += '<li>Admin email is not valid</li>';
+                    }
                 }
+
 
                 let adminPhone = $('#admin_phone_number').val();
                 if (adminPhone == '') {
@@ -300,6 +322,12 @@
                     })
                 }
             });
+
+            function validateEmail(email) {
+                const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
+            }
+
         });
     </script>
 
