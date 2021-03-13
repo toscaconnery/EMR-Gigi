@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/2e53fa6365.js" crossorigin="anonymous"></script>
     <script src="theme/js/vendor/modernizr-2.8.3.min.js"></script>
     
-    <link rel="icon" href="{{getasset('image/emrgigi.ico')}}">
+    <link rel="icon" href="{{getasset('image/16x16.ico')}}">
     <link rel="stylesheet" href="theme/css/bootstrap.min.css">
     <link rel="stylesheet" href="theme/css/adminpro-custon-icon.css">
     <link rel="stylesheet" href="theme/css/meanmenu.min.css">
