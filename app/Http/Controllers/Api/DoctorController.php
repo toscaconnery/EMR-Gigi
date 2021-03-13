@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Models\DoctorAction;
 use App\User;
 use Auth;
 use DB;
@@ -100,26 +101,34 @@ class DoctorController extends Controller
      *      ),
      * )
      */
-    public function create(Request $request)
-    {
-        $user = $this->authUser();
+    // public function create(Request $request)
+    // {
+    //     $user = $this->authUser();
+        
 
-        $payload = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'gender' => $request->gender,
-            'active_doctor' => 1,
-        ];
 
-        $newUser = User::create($payload);
+    //     $payload = [
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //         'gender' => $request->gender,
+    //         'active_doctor' => 1,
+    //     ];
 
-        return response()->json([
-            'data'      => $newUser,
-            'status'    => 'success',
-            'error'     => null
-        ]);   
-    }
+    //     return response()->json([
+    //         'test'  => $request->action,
+    //         'status' => 'testing'
+    //     ]);
+        
+    //     $newUser = User::create($payload);
+
+
+    //     return response()->json([
+    //         'data'      => $newUser,
+    //         'status'    => 'success',
+    //         'error'     => null
+    //     ]);   
+    // }
 
     public function register(Request $request)
     {
@@ -136,6 +145,13 @@ class DoctorController extends Controller
         ];
 
         $newUser = User::create($payload);
+
+        foreach($request->selectedActions as $sact) {
+            DoctorAction::create([
+                'doctor_id' => $newUser->id,
+                'action_id' => $sact
+            ]);
+        }
 
         $newUser->assignRole('doctor');
 
@@ -236,11 +252,13 @@ class DoctorController extends Controller
     public function update(Request $request) {
         $user = $this->authUser();
 
-        $doctor = User::find($request->staffId);
+        $doctor = User::find($request->doctorId);
 
         if ($doctor) {
             if ($doctor->hospital_id == $user->hospital_id) {
-                $doctor->name = $request->staffName;
+                $actions = DoctorAction::where('doctor_id', $request->doctorId)->get();
+
+                $doctor->name = $request->doctorName;
                 $doctor->email = $request->email;
                 $doctor->phone = $request->phone;
                 $doctor->gender = $request->gender;
@@ -249,10 +267,29 @@ class DoctorController extends Controller
                 }
                 $doctor->save();
 
+                $currentActions = [];
+
+                // Delete all actions that not in use
+                foreach($actions as $act) {
+                    array_push($currentActions, $act->action_id);
+                    if ( ! in_array($act->action_id, $request->selectedActions)) {
+                        $act->delete();
+                    }
+                }
+                // Create if doctor action does not exists
+                foreach($request->selectedActions as $sa) {
+                    if ( ! in_array($sa, $currentActions)) {
+                        DoctorAction::create([
+                            'doctor_id' => $request->doctorId,
+                            'action_id' => $sa
+                        ]);
+                    }
+                }
+
                 return response()->json([
                     'data'      => null,
                     'status'    => 'success',
-                    'error'     => null
+                    'error'     => null,
                 ]);
             } else {
                 return response()->json($this->createErrorMessage('You have no access to edit this staff'));
@@ -269,9 +306,11 @@ class DoctorController extends Controller
 
         if ($doctor) {
             if ($doctor->hospital_id == $user->hospital_id) {
+                $actions = DoctorAction::where('doctor_id', $request->doctorId)->get();
                 return response()->json([
                     'data'  => [
-                        'doctor'     => $doctor,
+                        'doctor'    => $doctor,
+                        'actions'   => $actions,
                     ],
                     'status'    => 'success',
                     'error' => null

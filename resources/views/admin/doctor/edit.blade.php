@@ -115,13 +115,14 @@
                 hasError = true
             }
             $('#save_doctor').on('click', async function() {
-                console.log('HERE')
                 // let branch = $('#branch').val();
                 // if (branch === null) {
                 //     pushErrMsg('Branch is required')
                 // }
 
-                let doctorName = $('#doctor_name').val();
+                const doctorId = $('#doctor_id').val()
+
+                let doctorName = $('#doctor_name').val()
                 if (doctorName === '') {
                     pushErrMsg('Doctor name is required')
                 }
@@ -169,7 +170,7 @@
                     hasError = false
                 } else {
                     let doctorData = {
-                        // branch,
+                        doctorId,
                         doctorName,
                         selectedActions,
                         email,
@@ -192,7 +193,7 @@
                         if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Doctor created.',
+                                title: 'Doctor updated.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -200,7 +201,7 @@
                         } else {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to create doctor.',
+                                title: 'Failed to edit doctor.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -209,7 +210,7 @@
                 }
             });
 
-            function setActionOptions()
+            function setActionOptions(selectedActions)
             {
                 // The branch is already selected
                 $('.action-list-content').remove();
@@ -228,20 +229,26 @@
                         'branch_id': selectedBranch
                     }
                 }).then(function (response) {
-                    console.log('ACTION FETCHEDf')
-                    console.log(response.data)
+                    let formatSelectedActions = []
+                    for (let i = 0; i < selectedActions.length; i++) {
+                        formatSelectedActions.push(selectedActions[i].action_id)
+                    }
+
                     let responseContent = response.data;
                     responseContent.data.actions.forEach(e => {
+                        let checkedString = ''
+                        if (formatSelectedActions.includes(e.id)) {
+                            checkedString = 'checked '
+                        }
                         $('#action_placer').before(`
                             <div class="col-sm-2 action-list-content">
-                                <input type="checkbox" id="action_option_${e.id}" name="action[${e.id}]" value="${e.id}" data-action_id=${e.id}}>
+                                <input type="checkbox" id="action_option_${e.id}" name="action[${e.id}]" value="${e.id}" class="action-checkbox" data-action_id="${e.id}" ${checkedString}>
                                 <label for="action_option_${e.id}">${e.name}</label><br>
                             </div>
                         `);
                     })
                 })
             }
-            setActionOptions()
 
             function setClinicValue()
             {
@@ -276,6 +283,8 @@
                 }).then(function (response) {
                     if (response.data.status == 'success') {
                         showData(response.data.data.doctor)
+                        setActionOptions(response.data.data.actions)
+                        // selectActions(response.data.data.actions)
                     } else {
                         Swal.fire({
                             icon: 'warning',
@@ -316,13 +325,11 @@
                         });
                     }
                 })
-
                 fetchDetailData()
             }
             setBranchOptions();
 
-            function showData(data)
-            {
+            function showData(data) {
                 console.log(data)
                 $('#branch').val(data.branch_id)
                 $('#doctor_name').val(data.name)

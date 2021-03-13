@@ -149,8 +149,10 @@
                         'branch_id': branchId
                     }
                 }).then(function (response) {
+                    console.log('this is action')
+                    console.log(response.data)
                     if (response.data.status == 'success') {
-                        showAction(response.data.actionlist);
+                        showAction(response.data.data.actionlist);
                     } else {
                         Swal.fire({
                             icon: 'warning',

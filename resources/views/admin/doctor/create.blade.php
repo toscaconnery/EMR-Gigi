@@ -242,10 +242,14 @@
                         'Authorization': `Bearer ${userToken}`
                     },
                 }).then(function (response) {
+                    console.log('BRANCH FETCHED')
                     let responseContent = response.data;
+                    console.log(responseContent)
 
                     var branchSelect = document.getElementById("branch");
                     responseContent.data.branchs.forEach(e => {
+                        console.log('e > ')
+                        console.log(e)
                         var newBranchOption = document.createElement('option');
                         newBranchOption.text = e.name;
                         newBranchOption.value = e.id;
