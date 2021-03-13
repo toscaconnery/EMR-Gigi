@@ -166,6 +166,18 @@
                 // startDate: '-3d'
             })
 
+            $('#clinic_phone_number').on('keyup', () => {
+                let content = $('#clinic_phone_number').val()
+                let clean = content.replace(/\D/g,'')
+                $('#clinic_phone_number').val(clean)
+            })
+
+            $('#admin_phone_number').on('keyup', () => {
+                let content = $('#admin_phone_number').val()
+                let clean = content.replace(/\D/g,'')
+                $('#admin_phone_number').val(clean)
+            })
+
             $('#submit_button').on('click', async function() {
                 let hasError = false;
                 let errorMessage = '';
