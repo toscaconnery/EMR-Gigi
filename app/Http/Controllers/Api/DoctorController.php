@@ -33,7 +33,8 @@ class DoctorController extends Controller
         $search = $request->search;
 
         $doctors = User::whereHas("roles", function($q){ $q->where("name", "doctor"); })
-                        ->where('hospital_id', $user->hospital_id);
+                        ->where('hospital_id', $user->hospital_id)
+                        ->with('workBranch');
                         
         if ($search != '') {
             $doctors = $doctors->where('name', 'like', '%' . $search . '%');

@@ -44,6 +44,7 @@
 								<tr>
 									<th>No</th>
 									<th>Name</th>
+                                    <th>Branch</th>
 									<th>Email</th>
 									<th>Phone Number</th>
 									<th>Gender</th>
@@ -196,6 +197,7 @@
                         <tr class="tr-list">
                             <td>${i++}</td>
                             <td><a href="${baseUrl}/admin/doctor/detail/${item.id}">${item.name}</a></td>
+                            <td>${item.work_branch.name}</td>
                             <td>${item.email}</td>
                             <td>+62${item.phone}</td>
                             <td>${gender}</td>
