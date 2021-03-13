@@ -62,7 +62,7 @@
                         },
                     }).then(function (response) {
                         if (response.data.status == 'success') {
-                            showData(response.data.roles);
+                            showData(response.data.data.roles);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({
