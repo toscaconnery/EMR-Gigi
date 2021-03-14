@@ -248,8 +248,6 @@
 
                     var branchSelect = document.getElementById("branch");
                     responseContent.data.branchs.forEach(e => {
-                        console.log('e > ')
-                        console.log(e)
                         var newBranchOption = document.createElement('option');
                         newBranchOption.text = e.name;
                         newBranchOption.value = e.id;

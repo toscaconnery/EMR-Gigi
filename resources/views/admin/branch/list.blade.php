@@ -4,6 +4,9 @@
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
         <input type="hidden" value="1" id="branch_page">
+        @role('superadmin')
+            <input type="hidden" value="" id="clinic_id">
+        @endrole
 
 		@include('admin_layout.sidenav')
 
@@ -23,6 +26,13 @@
                     </div>
                     <div class="row ml-0 mr-0">
                         <div class="form-group col-md-3 mb-0">
+                            <div class="input-group">
+                                @role('superadmin')
+                                    <select name="" id="clinic_filter" class="form-control">
+                                        <option value="" disabled selected>Filter by clinic</option>
+                                    </select>
+                                @endrole
+                            </div>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <button class="btn btn-outline-secondary" disabled type="button">
@@ -101,8 +111,15 @@
                 var branchPage = $('#branch_page').val();
                 let searchValue = $('#search').val();
 
+                var selectedClinic = $('#clinic_id').val();
+
                 if (userToken != '') {
                     showLoadingCircle();
+
+                    clinicId = null
+                    if (selectedClinic !== '') {
+                        clinicId = selectedClinic
+                    }
 
                     const fetchURL = `${baseUrl}/api/admin/branch/list`;
                     const res = axios.get(fetchURL, {
@@ -112,7 +129,7 @@
                         params: {
                             'limit': branchLimit,
                             'page': branchPage,
-                            // 'clinicId': clinicId,
+                            'clinicId': clinicId,
                             'search': searchValue
                         }
                     }).then(function (response) {
@@ -205,6 +222,40 @@
                     fetchBranchList();
                 })
             }
+
+            function fetchClinicList() {
+                if ($('#clinic_filter').length > 0) {
+                    var baseUrl = window.location.origin;
+                    const userToken = $('#user_token').val();
+                    if (userToken != '') {
+                        const fetchURL = `${baseUrl}/api/admin/clinic/list/for-options`;
+                        const res = axios.get(fetchURL, {
+                            headers: {
+                                'Authorization': `Bearer ${userToken}`
+                            }
+                        }).then(function (response) {
+                            if (response.data.status == 'success') {
+                                if (response.data.data.hospitals !== null) {
+                                    let responseContent = response.data.data.hospitals
+                                    var clinicSelect = document.getElementById("clinic_filter")
+                                    for (let i = 0; i < responseContent.length; i++) {
+                                        var newClinicOption = document.createElement('option');
+                                        newClinicOption.text = responseContent[i].name;
+                                        newClinicOption.value = responseContent[i].id;
+                                        clinicSelect.add(newClinicOption);
+                                    }
+                                }
+
+                                $('#clinic_filter').on('change', function() {
+                                    $('#clinic_id').val(this.value)
+                                    fetchBranchList()
+                                })
+                            }
+                        })
+                    }
+                }
+            }
+            fetchClinicList()
 
             var typingTimer;                //timer identifier
             var doneTypingInterval = 1000;  //time in ms, 1 second for example

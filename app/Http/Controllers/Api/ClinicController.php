@@ -69,6 +69,28 @@ class ClinicController extends Controller
         return response()->json($response);
     }
 
+    public function listForOptions(Request $request)
+    {
+        $user = $this->authUser();
+
+        if ($user) {
+            if ($user->hasRole('superadmin')) {
+                $hospitals = Hospital::select('id', 'name')
+                                     ->get();
+                $responseData = [
+                    'hospitals'     => $hospitals,
+                ];
+                $response = $this->createResponse($responseData);
+                return response()->json($response);
+            }
+        }
+        return response()->json([
+            'data'  => null,
+            'status'=> 'error',
+            'error' => 'Not allowed'
+        ]);
+    }
+
     public function list(Request $request)
     {
         $user = $this->authUser();
@@ -108,7 +130,6 @@ class ClinicController extends Controller
             'limit'         => $limit,
             'page'          => $page,
             'pagination'    => $pagination,
-            // 'user'          => $this->authUser(),
         ];
         $response = $this->createResponse($responseData);
         return response()->json($response);

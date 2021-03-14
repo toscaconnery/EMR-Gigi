@@ -49,6 +49,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'uses'  => 'Api\ClinicController@list'
     ]);
 
+    Route::get('clinic/list/for-options', [
+        'as'    => 'admin.getclinicforoptions',
+        'uses'  => 'Api\ClinicController@listForOptions'
+    ]);
+
     Route::get('branch/list', [
         'as'    => 'admin.getbranch',
         'uses'  => 'Api\BranchController@list'
