@@ -157,7 +157,7 @@
     <script>
         $(document).ready(function(){
             $('#cancel_button').on('click', function() {
-                alert('cancel button clicked');
+                window.location.href = window.location.origin + "/admin/clinic/list";
             })
             
             $('.datepicker').datepicker({
