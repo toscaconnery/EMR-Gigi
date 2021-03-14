@@ -262,7 +262,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('superadmin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
 
             return view('admin.doctor.list', compact('jwtToken'));
