@@ -33,7 +33,7 @@
                                         </div>
                                         <div class="form-group  col-md-12">
                                             <label for="branch_phone_number">Phone Number</label>
-                                            <input type="Telp" class="form-control" id="branch_phone_number" name="branch_phone_number" placeholder="" disabled>
+                                            <input type="tel" class="form-control" id="branch_phone_number" name="branch_phone_number" placeholder="" disabled>
                                         </div>
                                     </div>
                                     {{-- <div class="btn-group-edit btn-group-sm">

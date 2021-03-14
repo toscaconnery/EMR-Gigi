@@ -69,7 +69,7 @@ class BranchController extends Controller
         $hospital = null;
 
         if ($user) {
-            if ($user->hasRole('superadmin') || $user->hasRole('admin'))
+            if ($user->hasRole('superadmin'))
             {
                 $branchs = Branch::take($limit)
                                  ->skip($skip);
@@ -80,7 +80,17 @@ class BranchController extends Controller
                     $branchs->where('name', 'like', '%' . $search . '%');
                 }
                 $branchs =  $branchs->get();
+            } elseif ($user->hasRole('admin')) {
+                $hospital_id = $user->hospital_id;
+                $branchs = Branch::where('hospital_id', $hospital_id)
+                                 ->take($limit)
+                                 ->skip($skip);
+                if ($search != '') {
+                    $branchs->where('name', 'like', '%' . $search . '%');
+                }
+                $branchs =  $branchs->get();
             } elseif($user->hasRole('staff')) {
+                $hospital_id = $user->hospital_id;
                 $branchs = Branch::where('hospital_id', $hospital_id)
                                     ->take($limit)
                                     ->skip($skip);

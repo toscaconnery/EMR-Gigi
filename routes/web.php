@@ -27,21 +27,6 @@ Route::get('soap', 'SoapController@form');
 Route::get('patient-history', 'PatientController@patientHistory');
 Route::get('medication-history', 'MedicationController@medicationHistory');
 
-
-///////////////
-
-// Route::get('/users', 'AdminController@users');
-// Route::get('/add-user','AdminController@adduser');
-
-// Route::get('/branch', 'AdminController@branch');                    // done
-// Route::get('/branch-list', 'AdminController@branchlist2');          // done
-// Route::get('/add-prescription', 'AdminController@addprescript');    // done
-// Route::get('/prescription', 'AdminController@prescription');        // done
-// Route::get('/add-doctor', 'AdminController@adddoctorx');            // done
-// Route::get('/doctor-list', 'AdminController@doctor');               // done
-// Route::get('/roles', 'AdminController@roles');                      // done
-// Route::get('/add-role', 'AdminController@addrole');                 // ignored
-
 Route::group(['prefix' => 'download'], function() {
     Route::get('/medical-resume', 'FileController@medicalResume');
 });
@@ -98,3 +83,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin|admin|staff
 // Route::get('new-register', 'TempController@newRegister');
 // Route::get('/company', 'AdminController@company');                  //moved
 // Route::get('/list-company', 'AdminController@listCompany');         //moved
+
+///////////////
+
+// Route::get('/users', 'AdminController@users');
+// Route::get('/add-user','AdminController@adduser');
+
+// Route::get('/branch', 'AdminController@branch');                    // done
+// Route::get('/branch-list', 'AdminController@branchlist2');          // done
+// Route::get('/add-prescription', 'AdminController@addprescript');    // done
+// Route::get('/prescription', 'AdminController@prescription');        // done
+// Route::get('/add-doctor', 'AdminController@adddoctorx');            // done
+// Route::get('/doctor-list', 'AdminController@doctor');               // done
+// Route::get('/roles', 'AdminController@roles');                      // done
+// Route::get('/add-role', 'AdminController@addrole');                 // ignored

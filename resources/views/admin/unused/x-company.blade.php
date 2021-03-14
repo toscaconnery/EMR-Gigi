@@ -98,7 +98,7 @@
                                                 <option value="malay">+60</option>
                                             </select>
                                             </div>
-                                            <input type="Telp" class="form-control" id="inputnumber" placeholder="081220805453">
+                                            <input type="tel" class="form-control" id="inputnumber" placeholder="081220805453">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">

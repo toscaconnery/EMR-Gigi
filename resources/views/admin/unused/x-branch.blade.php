@@ -69,7 +69,7 @@
 							    </div>
 							    <div class="form-group  col-md-12">
 							    	<label for="inputphone">Phone Number</label>
-							     	<input type="Telp" class="form-control" id="inputnumber" placeholder="">
+							     	<input type="tel" class="form-control" id="inputnumber" placeholder="">
 							    </div>
 							</div>
 							<div class="btn-group-edit btn-group-sm">
