@@ -12,6 +12,7 @@ use DB;
 
 class DoctorController extends Controller
 {
+    // test
     /**
      * @OA\Get(
      *      path="/api/doctor/list",
