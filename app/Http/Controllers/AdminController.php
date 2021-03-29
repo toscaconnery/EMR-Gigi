@@ -349,10 +349,27 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
 
             return view('admin.administrator.list', compact('jwtToken'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+
+    public function administratorCreate(Request $request)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+
+            return view('admin.administrator.create', compact('jwtToken'));
         } else {
             return view('admin.dashboard.no-access');
         }

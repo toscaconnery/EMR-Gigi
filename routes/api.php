@@ -185,6 +185,18 @@ Route::name('admin.')->prefix('admin')->group(function () {
         ]);
     });
 
+    // Administrator API
+    Route::prefix('administrator')->group(function () {
+        Route::get('list', [
+            'as'    => 'administrator.list',
+            'uses'  => 'Api\AdministratorController@list'
+        ]);
+        Route::post('register', [
+            'as'    => 'administrator.register',
+            'uses'  => 'Api\AdministratorController@register'
+        ]);
+    });
+
 
     // For form purpose
     Route::get('get-available-branch-option', [

@@ -44,7 +44,6 @@
 								<tr>
 									<th>No</th>
 									<th>Name</th>
-                                    <th>Branch</th>
 									<th>Email</th>
 									<th>Phone Number</th>
 									<th>Gender</th>
@@ -99,7 +98,7 @@
                 if (userToken != '') {
                     showLoadingCircle();
 
-                    const fetchURL = `${baseUrl}/api/administrator/list`;
+                    const fetchURL = `${baseUrl}/api/admin/administrator/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -149,7 +148,6 @@
                         <tr class="tr-list">
                             <td>${i++}</td>
                             <td><a href="${baseUrl}/admin/administrator/detail/${item.id}">${item.name}</a></td>
-                            <td>${item.work_branch.name}</td>
                             <td>${item.email}</td>
                             <td>+62${item.phone}</td>
                             <td>${gender}</td>

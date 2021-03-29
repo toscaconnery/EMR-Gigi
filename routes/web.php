@@ -70,6 +70,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin|admin|staff
     Route::get('staff/edit/{staff_id}', 'AdminController@staffEdit');
 
     // Administrator
+    Route::get('administrator/create', 'AdminController@administratorCreate');
     Route::get('administrator/list', 'AdminController@administratorList');
 
     Route::get('role/list', 'AdminController@roleList');
