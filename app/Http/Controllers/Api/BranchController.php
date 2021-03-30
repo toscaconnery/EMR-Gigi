@@ -226,6 +226,15 @@ class BranchController extends Controller
                 'status'    => 'success',
                 'error'     => null
             ]);
+        } else if($user->hasRole('superadmin')) {
+            $branchs = Branch::get();
+            return response()->json([
+                'data'  => [
+                    'branchs'   => $branchs
+                ],
+                'status'    => 'success',
+                'error'     => null
+            ]);
         } else {
             return response()->json($this->createErrorMessage('Access denied'));
         }

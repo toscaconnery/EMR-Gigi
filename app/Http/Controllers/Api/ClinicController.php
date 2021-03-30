@@ -225,6 +225,12 @@ class ClinicController extends Controller
             $hospital = Hospital::find($user->hospital_id);
             $responseData = $this->createResponse(['hospital' => $hospital]);
             return response()->json($responseData);
+        } else if($user->hasRole('superadmin')) {
+            $userFindId = $request->userFindId;
+            $userFindData = User::find($userFindId);
+            $hospital = Hospital::find($userFindData->hospital_id);
+            $responseData = $this->createResponse(['hospital' => $hospital]);
+            return response()->json($responseData);
         } else {
             return response()->json($this->createErrorMessage('Access denied'));
         }

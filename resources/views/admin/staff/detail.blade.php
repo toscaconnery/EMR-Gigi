@@ -85,14 +85,18 @@
         $(document).ready(function(){
             function setClinicValue()
             {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
+                var baseUrl = window.location.origin
+                const staffId = $('#staff_id').val()
+                const userToken = $('#user_token').val()
+                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`
 
                 const res = axios.get(fetchURL, {
                     headers: {
                         'Authorization': `Bearer ${userToken}`
                     },
+                    params: {
+                        'userFindId': staffId
+                    }
                 }).then(function (response) {
                     let responseContent = response.data;
                     var clinic = $('#clinic').val(responseContent.data.hospital.name)
@@ -102,10 +106,10 @@
 
             function fetchDetailData()
             {
-                var baseUrl = window.location.origin;
-                const staffId = $('#staff_id').val();
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/staff/detail`;
+                var baseUrl = window.location.origin
+                const staffId = $('#staff_id').val()
+                const userToken = $('#user_token').val()
+                const fetchURL = `${baseUrl}/api/admin/staff/detail`
                 const res = axios.get(fetchURL, {
                     headers: {
                         'Authorization': `Bearer ${userToken}`
@@ -130,9 +134,9 @@
 
             function setBranchOptions()
             {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-available-branch-option`;
+                var baseUrl = window.location.origin
+                const userToken = $('#user_token').val()
+                const fetchURL = `${baseUrl}/api/admin/get-available-branch-option`
 
                 const res = axios.get(fetchURL, {
                     headers: {
@@ -140,12 +144,12 @@
                     },
                 }).then(function (response) {
                     if (response.data.status == 'success') {
-                        var branchSelect = document.getElementById("branch");
+                        var branchSelect = document.getElementById("branch")
                         response.data.data.branchs.forEach(e => {
-                            var newBranchOption = document.createElement('option');
-                            newBranchOption.text = e.name;
-                            newBranchOption.value = e.id;
-                            branchSelect.add(newBranchOption);
+                            var newBranchOption = document.createElement('option')
+                            newBranchOption.text = e.name
+                            newBranchOption.value = e.id
+                            branchSelect.add(newBranchOption)
                         })
                     } else {
                         Swal.fire({
@@ -163,12 +167,11 @@
 
             function showData(data)
             {
-                console.log(data)
                 $('#branch').val(data.branch_id)
                 $('#staff_name').val(data.name)
                 $('#email').val(data.email)
                 $('#phone').val(data.phone)
-                $('select[id="gender"]').val(data.gender);
+                $('select[id="gender"]').val(data.gender)
             }
 
         });

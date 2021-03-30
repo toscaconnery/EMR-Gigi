@@ -18,8 +18,12 @@ class StaffController extends Controller
         $skip = ($limit * $page) - $limit;
         $search = $request->search;
 
-        $staffs = User::whereHas("roles", function($q){ $q->where("name", "staff"); })
-                        ->where('hospital_id', $user->hospital_id);
+
+        $staffs = User::whereHas("roles", function($q){ $q->where("name", "staff"); });
+
+        if ($user->hasRole('admin')) {
+            $staffs->where('hospital_id', $user->hospital_id);
+        }
                         
         if ($search != '') {
             $staffs = $staffs->where('name', 'like', '%' . $search . '%');
@@ -78,7 +82,7 @@ class StaffController extends Controller
         $staff = User::find($request->staffId);
 
         if ($staff) {
-            if ($staff->hospital_id == $user->hospital_id) {
+            if ($staff->hospital_id == $user->hospital_id || $user->hasRole('superadmin')) {
                 return response()->json([
                     'data'      => [
                         'staff'     => $staff,
