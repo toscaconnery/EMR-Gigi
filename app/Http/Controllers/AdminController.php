@@ -375,6 +375,42 @@ class AdminController extends Controller
         }
     }
 
+    public function administratorDetail(Request $request, $administrator_id)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+            $administratorId = $administrator_id;
+
+            return view('admin.administrator.detail', compact('jwtToken', 'administratorId'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+    
+    public function administratorEdit(Request $request, $administrator_id)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+            $administratorId = $administrator_id;
+
+            return view('admin.administrator.edit', compact('jwtToken', 'administratorId'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+
     public function staffCreate(Request $request)
     {
         if ( ! Auth::check()) {

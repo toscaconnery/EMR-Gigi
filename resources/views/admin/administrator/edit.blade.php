@@ -3,7 +3,7 @@
     @include('admin_layout.head')
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
-        <input type="hidden" value="{{$doctorId}}" id="doctor_id">
+        <input type="hidden" value="{{$administratorId}}" id="administrator_id">
 
         @include('admin_layout.sidenav')
 
@@ -11,8 +11,8 @@
             @include('admin_layout.navbar')
 
             <ul class="breadcrumb">
-                <h4 class="mr-auto">Doctor Form</h4>
-                <li><a class="active">Doctor</a></li>
+                <h4 class="mr-auto">Administrator Form</h4>
+                <li><a class="active">Administrator</a></li>
                 <li><a href="#">Edit</a></li>
             </ul>
 
@@ -26,26 +26,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="branch" class="col-sm-2 col-form-label">Branch</label>
+                            <label for="administrator_name" class="col-sm-2 col-form-label">Administrator Name</label>
                             <div class="col-sm-10">
-                                <select id="branch" class="form-control form-add mb-2" disabled>
-                                    <option selected disabled></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="doctor_name" class="col-sm-2 col-form-label">Doctor Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="doctor_name" class="form-control form-add mb-2" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputdoctors" class="col-sm-2 col-form-label">Action</label>
-                            <div class="col-sm-10 row">
-                                <span class="form-add mb-2 ml-3" style="color: gray" id="action_placeholder">
-                                    <i>Please select a branch.</i>
-                                </span>
-                                <span id="action_placer"></span>
+                                <input type="text" id="administrator_name" class="form-control form-add mb-2" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -63,12 +46,6 @@
                                 <input type="phone" id="phone" class="form-control form-add" placeholder="Please input the staff phone number" autocomplete="off">
                             </div>
                         </div>
-                        {{-- <div class="form-group row">
-                            <label for="phone" class="col-sm-2 col-form-label">Phone</label>
-                            <div class="col-sm-10">
-                                <input type="phone" id="phone" class="form-control form-add mb-2" autocomplete="off">
-                            </div>
-                        </div> --}}
                         <div class="form-group row">
                             <label for="gender" class="col-sm-2 col-form-label">Gender</label>
                             <div class="col-sm-10">
@@ -93,7 +70,7 @@
                         </div>
                         <div class="form-row row">
                             <div class="button" style="margin-left: auto;padding-right: 4px;">
-                                <button type="button" class="btn btn-add-sch btn-sm" id="save_doctor">Save Data</button>
+                                <button type="button" class="btn btn-add-sch btn-sm" id="save_administrator">Save Data</button>
                             </div>
                         </div>
                     </div>
@@ -114,27 +91,12 @@
                 errorMessage += '<li>' + newError + '</li>'
                 hasError = true
             }
-            $('#save_doctor').on('click', async function() {
-                // let branch = $('#branch').val();
-                // if (branch === null) {
-                //     pushErrMsg('Branch is required')
-                // }
+            $('#save_administrator').on('click', async function() {
+                const administratorId = $('#administrator_id').val()
 
-                const doctorId = $('#doctor_id').val()
-
-                let doctorName = $('#doctor_name').val()
-                if (doctorName === '') {
-                    pushErrMsg('Doctor name is required')
-                }
-
-                let actions = $('input[name^="action"]:checkbox:checked')
-                let selectedActions = [];
-                if (actions.length === 0) {
-                    pushErrMsg('Action list is required')
-                } else {
-                    actions.each(act => {
-                        selectedActions.push($(actions[act]).val())
-                    })
+                let administratorName = $('#administrator_name').val()
+                if (administratorName === '') {
+                    pushErrMsg('Administrator name is required')
                 }
 
                 let email = $('#email').val()
@@ -169,10 +131,9 @@
                     errorMessage = ''
                     hasError = false
                 } else {
-                    let doctorData = {
-                        doctorId,
-                        doctorName,
-                        selectedActions,
+                    let administratorData = {
+                        administratorId,
+                        administratorName,
                         email,
                         phone,
                         gender,
@@ -184,8 +145,8 @@
 
                     const userToken = $('#user_token').val();
 
-                    const updateURL = `${baseUrl}/api/admin/doctor/update`;
-                    const res = axios.post(updateURL, doctorData, {
+                    const updateURL = `${baseUrl}/api/admin/administrator/update`;
+                    const res = axios.post(updateURL, administratorData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
                         },
@@ -193,15 +154,15 @@
                         if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Doctor updated.',
+                                title: 'Administrator updated.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.location.href = `${baseUrl}/admin/doctor/list`;
+                            window.location.href = `${baseUrl}/admin/administrator/list`;
                         } else {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to edit doctor.',
+                                title: 'Failed to edit administrator.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -209,46 +170,6 @@
                     })
                 }
             });
-
-            function setActionOptions(selectedActions)
-            {
-                // The branch is already selected
-                $('.action-list-content').remove();
-                $('#action_placeholder').remove();
-
-                var selectedBranch = $('#branch').val();
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-available-action-option`;
-
-                const res = axios.get(fetchURL, {
-                    headers: {
-                        'Authorization': `Bearer ${userToken}`
-                    },
-                    params: {
-                        'branch_id': selectedBranch
-                    }
-                }).then(function (response) {
-                    let formatSelectedActions = []
-                    for (let i = 0; i < selectedActions.length; i++) {
-                        formatSelectedActions.push(selectedActions[i].action_id)
-                    }
-
-                    let responseContent = response.data;
-                    responseContent.data.actions.forEach(e => {
-                        let checkedString = ''
-                        if (formatSelectedActions.includes(e.id)) {
-                            checkedString = 'checked '
-                        }
-                        $('#action_placer').before(`
-                            <div class="col-sm-2 action-list-content">
-                                <input type="checkbox" id="action_option_${e.id}" name="action[${e.id}]" value="${e.id}" class="action-checkbox" data-action_id="${e.id}" ${checkedString}>
-                                <label for="action_option_${e.id}">${e.name}</label><br>
-                            </div>
-                        `);
-                    })
-                })
-            }
 
             function setClinicValue()
             {
@@ -270,25 +191,23 @@
             function fetchDetailData()
             {
                 var baseUrl = window.location.origin;
-                const doctorId = $('#doctor_id').val();
+                const administratorId = $('#administrator_id').val();
                 const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/doctor/detail`;
+                const fetchURL = `${baseUrl}/api/admin/administrator/detail`;
                 const res = axios.get(fetchURL, {
                     headers: {
                         'Authorization': `Bearer ${userToken}`
                     },
                     params: {
-                        'doctorId': doctorId
+                        'administratorId': administratorId
                     }
                 }).then(function (response) {
                     if (response.data.status == 'success') {
-                        showData(response.data.data.doctor)
-                        setActionOptions(response.data.data.actions)
-                        // selectActions(response.data.data.actions)
+                        showData(response.data.data.administrator)
                     } else {
                         Swal.fire({
                             icon: 'warning',
-                            title: 'Failed to fetch doctor.',
+                            title: 'Failed to fetch administrator.',
                             showConfirmButton: false,
                             timer: 1500
                         });
@@ -297,42 +216,43 @@
 
             }
 
-            function setBranchOptions()
-            {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-available-branch-option`;
+            // function setBranchOptions()
+            // {
+            //     var baseUrl = window.location.origin;
+            //     const userToken = $('#user_token').val();
+            //     const fetchURL = `${baseUrl}/api/admin/get-available-branch-option`;
 
-                const res = axios.get(fetchURL, {
-                    headers: {
-                        'Authorization': `Bearer ${userToken}`
-                    },
-                }).then(function (response) {
-                    if (response.data.status == 'success') {
-                        var branchSelect = document.getElementById("branch");
-                        response.data.data.branchs.forEach(e => {
-                            var newBranchOption = document.createElement('option');
-                            newBranchOption.text = e.name;
-                            newBranchOption.value = e.id;
-                            branchSelect.add(newBranchOption);
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Failed to fetch branchs.',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }
-                })
-                fetchDetailData()
-            }
-            setBranchOptions();
+            //     const res = axios.get(fetchURL, {
+            //         headers: {
+            //             'Authorization': `Bearer ${userToken}`
+            //         },
+            //     }).then(function (response) {
+            //         if (response.data.status == 'success') {
+            //             var branchSelect = document.getElementById("branch");
+            //             response.data.data.branchs.forEach(e => {
+            //                 var newBranchOption = document.createElement('option');
+            //                 newBranchOption.text = e.name;
+            //                 newBranchOption.value = e.id;
+            //                 branchSelect.add(newBranchOption);
+            //             })
+            //         } else {
+            //             Swal.fire({
+            //                 icon: 'warning',
+            //                 title: 'Failed to fetch branchs.',
+            //                 showConfirmButton: false,
+            //                 timer: 1500
+            //             });
+            //         }
+            //     })
+            // }
+            // setBranchOptions();
+            
+            fetchDetailData()
 
             function showData(data) {
                 console.log(data)
-                $('#branch').val(data.branch_id)
-                $('#doctor_name').val(data.name)
+                // $('#branch').val(data.branch_id)
+                $('#administrator_name').val(data.name)
                 $('#email').val(data.email)
                 $('#phone').val(data.phone)
                 $('select[id="gender"]').val(data.gender);

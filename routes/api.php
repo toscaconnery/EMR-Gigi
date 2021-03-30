@@ -187,10 +187,26 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
     // Administrator API
     Route::prefix('administrator')->group(function () {
+        Route::get('detail', [
+            'as'    => 'staff.detail',
+            'uses'  => 'Api\AdministratorController@detail'
+        ]);
+
         Route::get('list', [
             'as'    => 'administrator.list',
             'uses'  => 'Api\AdministratorController@list'
         ]);
+
+        Route::post('delete', [
+            'as'    => 'administrator.delete',
+            'uses'  => 'Api\AdministratorController@delete'
+        ]);
+    
+        Route::post('update', [
+            'as'    => 'administrator.update',
+            'uses'  => 'Api\AdministratorController@update'
+        ]);
+
         Route::post('register', [
             'as'    => 'administrator.register',
             'uses'  => 'Api\AdministratorController@register'

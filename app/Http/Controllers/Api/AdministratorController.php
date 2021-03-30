@@ -78,6 +78,78 @@ class AdministratorController extends Controller
         ]);    
     }
 
+    public function detail(Request $request) {
+        $user = $this->authUser();
+
+        $administrator = User::find($request->administratorId);
+
+        if ($administrator) {
+            if ($administrator->hospital_id == $user->hospital_id) {
+                return response()->json([
+                    'data'      => [
+                        'administrator'     => $administrator,
+                    ],
+                    'status'    => 'success',
+                    'error'     => null
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to view this administrator'));
+            }
+        } else {
+            return response()->json($this->createErrorMessage('Administrator not found'));
+        }
+    }
+
+    public function delete(Request $request) {
+        $user = $this->authUser();
+
+        $administrator = User::find($request->administratorId);
+
+        if ($administrator) {
+            if ($administrator->hospital_id == $user->hospital_id) {
+                $administrator->delete();
+                return response()->json([
+                    'data'      => null,
+                    'status'    => 'success',
+                    'error'     => null
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to delete this administrator'));
+            }
+        } else {
+            return response()->json($this->createErrorMessage('Administrator not found'));
+        }
+    }
+
+    public function update(Request $request) {
+        $user = $this->authUser();
+
+        $administrator = User::find($request->administratorId);
+
+        if ($administrator) {
+            if ($administrator->hospital_id == $user->hospital_id) {
+                $administrator->name = $request->administratorName;
+                $administrator->email = $request->email;
+                $administrator->phone = $request->phone;
+                $administrator->gender = $request->gender;
+                if ($request->password != '') {
+                    $administrator->password = bcrypt($request->password);
+                }
+                $administrator->save();
+
+                return response()->json([
+                    'data'      => null,
+                    'status'    => 'success',
+                    'error'     => null
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to edit this administrator'));
+            }
+        } else {
+            return response()->json($this->createErrorMessage('Administrator not found'));
+        }
+    }
+
     public function generatePagination($count, $page, $limit) {
         $index = [];
         $firstButton = null;
