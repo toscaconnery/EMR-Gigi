@@ -141,7 +141,6 @@ nav ul li a:hover {
 
 
 .card {
-    z-index: 1;
     border-radius: 0px;
 }
 
@@ -595,4 +594,8 @@ ul.pagination li a:hover:not(.active) {
     text-align: center;
     margin: auto;
     padding-top: 28px
+}
+
+.form-control {
+    border-radius: 1rem !important;
 }
