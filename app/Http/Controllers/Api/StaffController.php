@@ -55,97 +55,122 @@ class StaffController extends Controller
     {
         $user = $this->authUser();
 
-        $payload = [
-            'name'  => $request->staffName,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'gender'=> $request->gender,
-            'password' => Hash::make($request->password),
-            'hospital_id' => $user->hospital_id,
-            'branch_id' => $request->branch
-        ];
+        if ($user->hasRole('superadmin') ||  $user->hasRole('admin')) {     
+            if ($user->hasRole('superadmin')) {
+                // need to set the hospital_id
+                $hospitalId = 1000;
+            } else {
+                $hospitalId = $user->hospital_id;
+            }
+            $payload = [
+                'name'  => $request->staffName,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'gender'=> $request->gender,
+                'password' => Hash::make($request->password),
+                'hospital_id' => $hospitalId,
+                'branch_id' => $request->branch
+            ];
+    
+            $newUser = User::create($payload);
+    
+            $newUser->assignRole('staff');
+    
+            return response()->json([
+                'data'      => null,
+                'status'    => 'success',
+                'error'     => null
+            ]);
+        } else {
+            return response()->json($this->createErrorMessage('Not allowed'));
+        }
 
-        $newUser = User::create($payload);
-
-        $newUser->assignRole('staff');
-
-        return response()->json([
-            'data'      => null,
-            'status'    => 'success',
-            'error'     => null
-        ]);        
     }
 
     public function detail(Request $request) {
         $user = $this->authUser();
 
-        $staff = User::find($request->staffId);
-
-        if ($staff) {
-            if ($staff->hospital_id == $user->hospital_id || $user->hasRole('superadmin')) {
-                return response()->json([
-                    'data'      => [
-                        'staff'     => $staff,
-                    ],
-                    'status'    => 'success',
-                    'error'     => null
-                ]);
+        if ($user->hasRole('superadmin') ||  $user->hasRole('admin')) {
+            $staff = User::find($request->staffId);
+    
+            if ($staff) {
+                if ($staff->hospital_id == $user->hospital_id || $user->hasRole('superadmin')) {
+                    return response()->json([
+                        'data'      => [
+                            'staff'     => $staff,
+                        ],
+                        'status'    => 'success',
+                        'error'     => null
+                    ]);
+                } else {
+                    return response()->json($this->createErrorMessage('You have no access to view this staff'));
+                }
             } else {
-                return response()->json($this->createErrorMessage('You have no access to view this staff'));
+                return response()->json($this->createErrorMessage('Staff not found'));
             }
         } else {
-            return response()->json($this->createErrorMessage('Staff not found'));
+            return response()->json($this->createErrorMessage('Not allowed'));
         }
     }
 
     public function delete(Request $request) {
         $user = $this->authUser();
 
-        $staff = User::find($request->staffId);
-
-        if ($staff) {
-            if ($staff->hospital_id == $user->hospital_id) {
-                $staff->delete();
-                return response()->json([
-                    'data'      => null,
-                    'status'    => 'success',
-                    'error'     => null
-                ]);
+        if ($user->hasRole('superadmin') ||  $user->hasRole('admin')) {
+            $staff = User::find($request->staffId);
+    
+            if ($staff) {
+                if ($staff->hospital_id == $user->hospital_id || $user->hasRole('superadmin')) {
+                    $staff->delete();
+                    return response()->json([
+                        'data'      => null,
+                        'status'    => 'success',
+                        'error'     => null
+                    ]);
+                } else {
+                    return response()->json($this->createErrorMessage('You have no access to delete this staff'));
+                }
             } else {
-                return response()->json($this->createErrorMessage('You have no access to delete this staff'));
+                return response()->json($this->createErrorMessage('Staff not found'));
             }
         } else {
-            return response()->json($this->createErrorMessage('Staff not found'));
+            return response()->json($this->createErrorMessage('Not allowed'));
         }
+
     }
 
     public function update(Request $request) {
         $user = $this->authUser();
 
-        $staff = User::find($request->staffId);
-
-        if ($staff) {
-            if ($staff->hospital_id == $user->hospital_id) {
-                $staff->name = $request->staffName;
-                $staff->email = $request->email;
-                $staff->phone = $request->phone;
-                $staff->gender = $request->gender;
-                if ($request->password != '') {
-                    $staff->password = bcrypt($request->password);
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+            $staff = User::find($request->staffId);
+    
+            if ($staff) {
+                if ($staff->hospital_id == $user->hospital_id || $user->hasRole('superadmin')) {
+                    $staff->name = $request->staffName;
+                    $staff->email = $request->email;
+                    $staff->phone = $request->phone;
+                    $staff->gender = $request->gender;
+                    if ($request->password != '') {
+                        $staff->password = bcrypt($request->password);
+                    }
+                    $staff->save();
+    
+                    return response()->json([
+                        'data'      => null,
+                        'status'    => 'success',
+                        'error'     => null
+                    ]);
+                } else {
+                    return response()->json($this->createErrorMessage('You have no access to edit this staff'));
                 }
-                $staff->save();
-
-                return response()->json([
-                    'data'      => null,
-                    'status'    => 'success',
-                    'error'     => null
-                ]);
             } else {
-                return response()->json($this->createErrorMessage('You have no access to edit this staff'));
+                return response()->json($this->createErrorMessage('Staff not found'));
             }
         } else {
-            return response()->json($this->createErrorMessage('Staff not found'));
+            return response()->json($this->createErrorMessage('Not allowed'));
         }
+
     }
 
     public function generatePagination($count, $page, $limit) {
