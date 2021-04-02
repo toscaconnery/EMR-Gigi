@@ -143,19 +143,18 @@
                         how_to_consume: prescription_way_to_consume,
                     }
 
-                    var base_url = window.location.origin
+                    var baseUrl = window.location.origin
 
                     const userToken = $('#user_token').val();
                     const branch_id = $('#branch_id').val();
 
-                    const createURL = `${base_url}/api/admin/branch/price/${branch_id}/prescription/add`;
+                    const createURL = `${baseUrl}/api/admin/branch/price/${branch_id}/prescription/add`;
                     const res = axios.post(createURL, branchData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
+                        if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Prescription created.',

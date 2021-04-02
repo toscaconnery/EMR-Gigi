@@ -41,17 +41,15 @@ class BranchController extends Controller
             $newBranch = Branch::create($branchArray);
 
             $response = [
-                'data'  => [
-                    'status'    => 'success'
-                ],
-                'error' => null,
+                'data'      => null,
+                'status'    => 'success',
+                'error'     => null,
             ];
         } else {
             $response = [
-                'data'  => [
-                    'status'    => 'failed'
-                ],
-                'error' => 'error',
+                'data'      => null,
+                'status'    => 'failed',
+                'error'     => 'invalid',
             ];
         }
 
@@ -71,7 +69,7 @@ class BranchController extends Controller
         $hospital = null;
 
         if ($user) {
-            if ($user->hasRole('superadmin') || $user->hasRole('admin'))
+            if ($user->hasRole('superadmin'))
             {
                 $branchs = Branch::take($limit)
                                  ->skip($skip);
@@ -82,7 +80,17 @@ class BranchController extends Controller
                     $branchs->where('name', 'like', '%' . $search . '%');
                 }
                 $branchs =  $branchs->get();
+            } elseif ($user->hasRole('admin')) {
+                $hospital_id = $user->hospital_id;
+                $branchs = Branch::where('hospital_id', $hospital_id)
+                                 ->take($limit)
+                                 ->skip($skip);
+                if ($search != '') {
+                    $branchs->where('name', 'like', '%' . $search . '%');
+                }
+                $branchs =  $branchs->get();
             } elseif($user->hasRole('staff')) {
+                $hospital_id = $user->hospital_id;
                 $branchs = Branch::where('hospital_id', $hospital_id)
                                     ->take($limit)
                                     ->skip($skip);
@@ -114,6 +122,7 @@ class BranchController extends Controller
             'limit'     => $limit,
             'page'      => $page,
             'pagination' => $pagination,
+            'error'    => null,
         ];
         $response = $this->createResponse($responseData);
         return response()->json($response);
@@ -214,13 +223,20 @@ class BranchController extends Controller
                 'data'  => [
                     'branchs'   => $branchs
                 ],
-                'error' => null
+                'status'    => 'success',
+                'error'     => null
+            ]);
+        } else if($user->hasRole('superadmin')) {
+            $branchs = Branch::get();
+            return response()->json([
+                'data'  => [
+                    'branchs'   => $branchs
+                ],
+                'status'    => 'success',
+                'error'     => null
             ]);
         } else {
-            return response()->json([
-                'data'  => null,
-                'error' => 'Access denied'
-            ]);
+            return response()->json($this->createErrorMessage('Access denied'));
         }
     }
 }

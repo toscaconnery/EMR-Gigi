@@ -262,10 +262,46 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('superadmin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
 
             return view('admin.doctor.list', compact('jwtToken'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+
+    public function doctorDetail(Request $request, $doctor_id)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+            $doctorId = $doctor_id;
+
+            return view('admin.doctor.detail', compact('jwtToken', 'doctorId'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+
+    public function doctorEdit(Request $request, $doctor_id)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+            $doctorId = $doctor_id;
+
+            return view('admin.doctor.edit', compact('jwtToken', 'doctorId'));
         } else {
             return view('admin.dashboard.no-access');
         }
@@ -279,7 +315,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('superadmin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
 
             return view('admin.role.list', compact('jwtToken'));
@@ -296,7 +332,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
 
             return view('admin.staff.list', compact('jwtToken'));
@@ -313,10 +349,63 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
 
             return view('admin.administrator.list', compact('jwtToken'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+
+    public function administratorCreate(Request $request)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+
+            return view('admin.administrator.create', compact('jwtToken'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+
+    public function administratorDetail(Request $request, $administrator_id)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+            $administratorId = $administrator_id;
+
+            return view('admin.administrator.detail', compact('jwtToken', 'administratorId'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+    
+    public function administratorEdit(Request $request, $administrator_id)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+            $administratorId = $administrator_id;
+
+            return view('admin.administrator.edit', compact('jwtToken', 'administratorId'));
         } else {
             return view('admin.dashboard.no-access');
         }
@@ -347,7 +436,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
             $staffId = $staff_id;
 
@@ -356,6 +445,26 @@ class AdminController extends Controller
             return view('admin.dashboard.no-access');
         }
     }
+
+    public function staffEdit(Request $request, $staff_id)
+    {
+        if ( ! Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            $jwtToken = $request->session()->get('jwtApiToken');
+            $staffId = $staff_id;
+
+            return view('admin.staff.edit', compact('jwtToken', 'staffId'));
+        } else {
+            return view('admin.dashboard.no-access');
+        }
+    }
+
+
 
 
 

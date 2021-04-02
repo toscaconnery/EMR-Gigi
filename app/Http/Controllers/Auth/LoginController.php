@@ -48,7 +48,7 @@ class LoginController extends Controller
         $jwtToken = $this->getJWTTokenForAPI($request->email, $request->password);
         session()->put('jwtApiToken', $jwtToken);
 
-        if ($user->hasRole('admin') || $user->hasRole('staff')) {
+        if ($user->hasRole('admin') || $user->hasRole('staff') || $user->hasRole('superadmin')) {
             return redirect('/admin/dashboard');
         }
 

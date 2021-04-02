@@ -38,33 +38,6 @@ Route::get('/jwt/get-current-token', [
     'uses'  => 'Api\SessionController@getJWTToken'
 ]);
 
-Route::name('doctor.')->prefix('doctor')->group(function () {
-    Route::post('create', [
-        'as'    => 'doctor.create',
-        'uses'  => 'Api\DoctorController@create'
-    ]);
-
-    Route::get('list', [
-        'as'    => 'doctor.list',
-        'uses'  => 'Api\DoctorController@list'
-    ]);
-
-    Route::get('delete/{id}', [
-        'as'    => 'doctor.delete',
-        'uses'  => 'Api\DoctorController@delete'
-    ]);
-
-    Route::post('update/{id}', [
-        'as'    => 'doctor.update',
-        'uses'  => 'Api\DoctorController@update'
-    ]);
-
-    Route::post('register', [
-        'as'    => 'doctor.register',
-        'uses'  => 'Api\DoctorController@register'
-    ]);
-});
-
 Route::name('admin.')->prefix('admin')->group(function () {
     Route::post('clinic/store', [
         'as'    => 'admin.createclinic',
@@ -74,6 +47,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('clinic/list', [
         'as'    => 'admin.getclinic',
         'uses'  => 'Api\ClinicController@list'
+    ]);
+
+    Route::get('clinic/list/for-options', [
+        'as'    => 'admin.getclinicforoptions',
+        'uses'  => 'Api\ClinicController@listForOptions'
     ]);
 
     Route::get('branch/list', [
@@ -146,6 +124,39 @@ Route::name('admin.')->prefix('admin')->group(function () {
         'uses'  => 'Api\RoleController@roleList'
     ]);
 
+    // Doctor API
+    Route::prefix('doctor')->group(function () {
+        Route::get('detail', [
+            'as'    => 'doctor.detail',
+            'uses'  => 'Api\DoctorController@detail'
+        ]);
+
+        Route::post('create', [
+            'as'    => 'doctor.create',
+            'uses'  => 'Api\DoctorController@create'
+        ]);
+    
+        Route::get('list', [
+            'as'    => 'doctor.list',
+            'uses'  => 'Api\DoctorController@list'
+        ]);
+    
+        Route::post('delete', [
+            'as'    => 'doctor.delete',
+            'uses'  => 'Api\DoctorController@delete'
+        ]);
+
+        Route::post('update', [
+            'as'    => 'doctor.update',
+            'uses'  => 'Api\DoctorController@update'
+        ]);
+    
+        Route::post('register', [
+            'as'    => 'doctor.register',
+            'uses'  => 'Api\DoctorController@register'
+        ]);
+    });
+
     // Staff API
     Route::prefix('staff')->group(function () {
         Route::get('detail', [
@@ -158,12 +169,12 @@ Route::name('admin.')->prefix('admin')->group(function () {
             'uses'  => 'Api\StaffController@list'
         ]);
     
-        Route::get('delete/{id}', [
+        Route::post('delete', [
             'as'    => 'staff.delete',
             'uses'  => 'Api\StaffController@delete'
         ]);
     
-        Route::post('update/{id}', [
+        Route::post('update', [
             'as'    => 'staff.update',
             'uses'  => 'Api\StaffController@update'
         ]);
@@ -171,6 +182,34 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::post('register', [
             'as'    => 'staff.register',
             'uses'  => 'Api\StaffController@register'
+        ]);
+    });
+
+    // Administrator API
+    Route::prefix('administrator')->group(function () {
+        Route::get('detail', [
+            'as'    => 'staff.detail',
+            'uses'  => 'Api\AdministratorController@detail'
+        ]);
+
+        Route::get('list', [
+            'as'    => 'administrator.list',
+            'uses'  => 'Api\AdministratorController@list'
+        ]);
+
+        Route::post('delete', [
+            'as'    => 'administrator.delete',
+            'uses'  => 'Api\AdministratorController@delete'
+        ]);
+    
+        Route::post('update', [
+            'as'    => 'administrator.update',
+            'uses'  => 'Api\AdministratorController@update'
+        ]);
+
+        Route::post('register', [
+            'as'    => 'administrator.register',
+            'uses'  => 'Api\AdministratorController@register'
         ]);
     });
 

@@ -126,9 +126,8 @@
                         'branch_id': branchId
                     }
                 }).then(function (response) {
-                    let responseData = response.data.data;
-                    if (responseData.status == 'success') {
-                        showPrescription(responseData.prescriptionlist);
+                    if (response.data.status == 'success') {
+                        showPrescription(response.data.data.prescriptionlist);
                     } else {
                         Swal.fire({
                             icon: 'warning',
@@ -150,9 +149,10 @@
                         'branch_id': branchId
                     }
                 }).then(function (response) {
-                    let responseData = response.data.data;
-                    if (responseData.status == 'success') {
-                        showAction(responseData.actionlist);
+                    console.log('this is action')
+                    console.log(response.data)
+                    if (response.data.status == 'success') {
+                        showAction(response.data.data.actionlist);
                     } else {
                         Swal.fire({
                             icon: 'warning',
@@ -174,9 +174,8 @@
                         'branch_id': branchId
                     }
                 }).then(function (response) {
-                    let responseData = response.data.data;
-                    if (responseData.status == 'success') {
-                        showItem(responseData.itemlist);
+                    if (response.data.status == 'success') {
+                        showItem(response.data.itemlist);
                     } else {
                         Swal.fire({
                             icon: 'warning',
@@ -189,7 +188,7 @@
             }
 
             function showPrescription(prescriptionList) {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 var branch_id = $('#branch_id').val();
                 prescriptionList.forEach(function(item) {
                     $('#prescription_placer').before(`
@@ -200,7 +199,7 @@
                             <td>${ucFirst(item.type)}</td>
                             <td>${ucFirst(item.how_to_consume)}</td>
                             <td>
-                                <a href="${base_url}/admin/branch/price/${branch_id}/prescription/edit/${item.id}">
+                                <a href="${baseUrl}/admin/branch/price/${branch_id}/prescription/edit/${item.id}">
                                     <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
                                 </a>
                                 <button type="button" class="btn btn-roles btn-delcustom btn-sm trigger-delete" data-id="${item.id}" data-type="prescription">Del</button>
@@ -212,7 +211,7 @@
             }
 
             function showAction(actionList) {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 var branch_id = $('#branch_id').val();
                 actionList.forEach(function(item) {
                     $('#action_placer').before(`
@@ -220,7 +219,7 @@
                             <td>${item.name}</td>
                             <td>IDR ${item.price}</td>
                             <td>
-                                <a href="${base_url}/admin/branch/price/${branch_id}/action/edit/${item.id}">
+                                <a href="${baseUrl}/admin/branch/price/${branch_id}/action/edit/${item.id}">
                                     <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
                                 </a>
                                 <button type="button" class="btn btn-roles btn-delcustom btn-sm trigger-delete" data-id="${item.id}" data-type="action">Del</button>
@@ -232,7 +231,7 @@
             }
 
             function showItem(itemList) {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 var branch_id = $('#branch_id').val();
                 itemList.forEach(function(item) {
                     $('#item_placer').before(`
@@ -241,7 +240,7 @@
                             <td>IDR ${item.price}</td>
                             <td>${item.stock}</td>
                             <td>
-                                <a href="${base_url}/admin/branch/price/${branch_id}/item/edit/${item.id}">
+                                <a href="${baseUrl}/admin/branch/price/${branch_id}/item/edit/${item.id}">
                                     <button type="button" class="btn btn-roles btn-edtcustom btn-sm">Edit</button>
                                 </a>
                                 <button type="button" class="btn btn-roles btn-delcustom btn-sm trigger-delete" data-id="${item.id}" data-type="item">Del</button>
@@ -308,8 +307,7 @@
                             'Authorization': `Bearer ${userToken}`
                         }
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
+                        if (response.data.status == 'success') {
                             location.reload();
                         } else {
                             Swal.fire({

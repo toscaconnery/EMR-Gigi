@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Models\DoctorAction;
 use App\User;
 use Auth;
 use DB;
@@ -11,17 +12,6 @@ use DB;
 
 class DoctorController extends Controller
 {
-    /**
-     * @OA\Get(
-     *      path="/api/doctor/list",
-     *      tags={"doctor"},
-     *      description="Get doctors list",
-     *      @OA\Response(
-     *          response="200",
-     *          description="Display a listing of doctors."
-     *      )
-     * )
-     */
     public function list(Request $request)
     {
         $user = $this->authUser();
@@ -31,8 +21,13 @@ class DoctorController extends Controller
         $skip = ($limit * $page) - $limit;
         $search = $request->search;
 
-        $doctors = User::whereHas("roles", function($q){ $q->where("name", "doctor"); })
-                        ->where('hospital_id', $user->hospital_id);
+        $doctors = User::whereHas("roles", function($q){ $q->where("name", "doctor"); });
+
+        if ($user->hasRole('admin')) {
+            $doctors->where('hospital_id', $user->hospital_id);
+        }
+                        
+        $doctors->with('workBranch');
                         
         if ($search != '') {
             $doctors = $doctors->where('name', 'like', '%' . $search . '%');
@@ -49,75 +44,15 @@ class DoctorController extends Controller
         $pagination = $this->generatePagination($count, $page, $limit);
         
         return response()->json([
-            'data'  => [
-                'doctors'   => $doctors,
-                'status'    => 'success',
-                'limit'     => $limit,
-                'page'      => $page,
-                'pagination' => $pagination,
+            'data'      => [
+                'doctors'       => $doctors,
+                'limit'         => $limit,
+                'page'          => $page,
+                'pagination'    => $pagination,
             ],
-            'error' => null
+            'status'    => 'success',
+            'error'     => null
         ]);
-    }
-
-    /**
-     * @OA\Post(
-     *      path="/api/doctor/create",
-     *      tags={"doctor"},
-     *      description="Register a new doctor",
-     *      @OA\RequestBody(
-     *          required=true,
-     *          @OA\MediaType(
-     *              mediaType="multipart/form-data",
-     *              @OA\Schema(
-     *                  type="object",
-     *                  @OA\Property(
-     *                      property="name",
-     *                      description="Doctor name",
-     *                      type="string"
-     *                  ),
-     *                  @OA\Property(
-     *                      property="email",
-     *                      description="Doctor email, used for login",
-     *                      type="email",
-     *                  ),
-     *                  @OA\Property(
-     *                      property="password",
-     *                      description="Doctor password, used for login",
-     *                      type="password"
-     *                  ),
-     *                  @OA\Property(
-     *                      property="gender",
-     *                      description="Doctor gender (f/m)",
-     *                      type="enum"
-     *                  ),
-     *              )
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response="200",
-     *          description="New doctor added to database."
-     *      ),
-     * )
-     */
-    public function create(Request $request)
-    {
-        $user = $this->authUser();
-
-        $payload = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'gender' => $request->gender,
-            'active_doctor' => 1,
-        ];
-
-        $newUser = User::create($payload);
-
-        return response()->json([
-            $data = $newUser,
-            'error' => null
-        ]);   
     }
 
     public function register(Request $request)
@@ -136,125 +71,114 @@ class DoctorController extends Controller
 
         $newUser = User::create($payload);
 
+        foreach($request->selectedActions as $sact) {
+            DoctorAction::create([
+                'doctor_id' => $newUser->id,
+                'action_id' => $sact
+            ]);
+        }
+
         $newUser->assignRole('doctor');
 
         return response()->json([
-            'data' => [
-                'status'    => 'success'
-            ],
-            'error' => null
+            'data'      => null,
+            'status'    => 'success',
+            'error'     => null
         ]);        
     }
-    
 
-    /**
-     * @OA\Get(
-     *      path="/api/doctor/delete/{doctor_id}",
-     *      tags={"doctor"},
-     *      description="Remove a doctor",
-     *      @OA\Parameter(
-     *          name="doctor_id",
-     *          in="query",
-     *          description="ID of doctor that you want to delete",
-     *          required=true,
-     *          @OA\Schema(
-     *              type="integer",
-     *          ),
-     *      ),
-     *      @OA\Response(
-     *          response="200",
-     *          description="Doctor deleted."
-     *      )
-     * )
-     */
-    public function delete($doctor_id)
-    {
+    public function delete(Request $request) {
         $user = $this->authUser();
 
-        $doctor = User::where('active_doctor', true)
-                        ->where('id', $doctor_id)
-                        ->first();
+        $doctor = User::find($request->doctorId);
+
         if ($doctor) {
-            $doctor->delete();
-            return response()->json([
-                'data'  => [
-                    'messages'  => 'Doctor deleted',
-                    'status'    => 'success'
-                ],
-                'error' => null
-            ]);
+            if ($doctor->hospital_id == $user->hospital_id) {
+                $doctor->delete();
+                return response()->json([
+                    'data'      => null,
+                    'status'    => 'success',
+                    'error'     => null
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to delete this doctor'));
+            }
         } else {
-            return response()->json($this->createErrorMessage('Cannot find the doctor.'));
+            return response()->json($this->createErrorMessage('Doctor not found'));
         }
     }
 
-        /**
-     * @OA\Post(
-     *      path="/api/doctor/update/{doctor_id}",
-     *      tags={"doctor"},
-     *      description="Update doctor data",
-     *      @OA\RequestBody(
-     *          required=true,
-     *          @OA\MediaType(
-     *              mediaType="multipart/form-data",
-     *              @OA\Schema(
-     *                  type="object",
-     *                  @OA\Property(
-     *                      property="name",
-     *                      description="Doctor name",
-     *                      type="string"
-     *                  ),
-     *                  @OA\Property(
-     *                      property="email",
-     *                      description="Doctor email, used for login",
-     *                      type="email",
-     *                  ),
-     *                  @OA\Property(
-     *                      property="password",
-     *                      description="Doctor password, used for login",
-     *                      type="password"
-     *                  ),
-     *              )
-     *          )
-     *      ),
-     *      @OA\Parameter(
-     *          name="doctor_id",
-     *          in="query",
-     *          description="ID of doctor that you want to update",
-     *          required=true,
-     *          @OA\Schema(
-     *              type="integer",
-     *          ),
-     *      ),
-     *      @OA\Response(
-     *          response="200",
-     *          description="Doctor data updated."
-     *      ),
-     * )
-     */
-    public function update(Request $request, $doctor_id) {
+    public function update(Request $request) {
         $user = $this->authUser();
 
-        $doctor = User::where('active_doctor', true)
-                        ->where('id', $doctor_id)
-                        ->first();
+        $doctor = User::find($request->doctorId);
 
         if ($doctor) {
-            $payload = [
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-            ];
-            $doctor->update($payload);
-            return response()->json([
-                'data'  => [
-                    'messages'  => 'Doctor updated',
-                    'status'    => 'success'
-                ],
-                'error' => null
-            ]);
+            if ($doctor->hospital_id == $user->hospital_id) {
+                $actions = DoctorAction::where('doctor_id', $request->doctorId)->get();
+
+                $doctor->name = $request->doctorName;
+                $doctor->email = $request->email;
+                $doctor->phone = $request->phone;
+                $doctor->gender = $request->gender;
+                if ($request->password != '') {
+                    $doctor->password = bcrypt($request->password);
+                }
+                $doctor->save();
+
+                $currentActions = [];
+
+                // Delete all actions that not in use
+                foreach($actions as $act) {
+                    array_push($currentActions, $act->action_id);
+                    if ( ! in_array($act->action_id, $request->selectedActions)) {
+                        $act->delete();
+                    }
+                }
+                // Create if doctor action does not exists
+                foreach($request->selectedActions as $sa) {
+                    if ( ! in_array($sa, $currentActions)) {
+                        DoctorAction::create([
+                            'doctor_id' => $request->doctorId,
+                            'action_id' => $sa
+                        ]);
+                    }
+                }
+
+                return response()->json([
+                    'data'      => null,
+                    'status'    => 'success',
+                    'error'     => null,
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to edit this staff'));
+            }
         } else {
-            return response()->json($this->createErrorMessage('Cannot find the doctor.'));
+            return response()->json($this->createErrorMessage('Staff not found'));
+        }
+    }
+
+    public function detail(Request $request) {
+        $user = $this->authUser();
+
+        $doctor = User::find($request->doctorId);
+
+        if ($doctor) {
+            if ($doctor->hospital_id == $user->hospital_id) {
+                $actions = DoctorAction::where('doctor_id', $request->doctorId)->get();
+                return response()->json([
+                    'data'  => [
+                        'doctor'    => $doctor,
+                        'actions'   => $actions,
+                    ],
+                    'status'    => 'success',
+                    'error' => null
+                ]);
+            } else {
+                return response()->json($this->createErrorMessage('You have no access to view this doctor'));
+            }
+        } else {
+            return response()->json($this->createErrorMessage('Doctor not found'));
         }
     }
 
@@ -289,31 +213,5 @@ class DoctorController extends Controller
             'lastButton'  => $lastButton,
             'index' => $index
         ];
-    }
-
-
-    // STILL IN DEVELOPMENT, NOT WORKING YET
-    public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
-    {
-        $validator = $this->getValidationFactory()->make($request->all(), $rules, $messages, $customAttributes);
-
-        if ($validator->fails()) {
-            // $this->formatValidationErrors($validator);
-            return response()->json($validator);
-        }
-        else {
-            return response()->json([
-                'data' => 'ok',
-                'error' => null
-            ]);
-        }
-    }
-
-    public function self()
-    {
-        $user = $this->authUser();
-
-        $doctor = auth()->user()->isdoctor;
-        return $doctor;
     }
 }

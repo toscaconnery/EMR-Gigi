@@ -4,6 +4,9 @@
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
         <input type="hidden" value="1" id="branch_page">
+        @role('superadmin')
+            <input type="hidden" value="" id="clinic_id">
+        @endrole
 
 		@include('admin_layout.sidenav')
 
@@ -23,6 +26,13 @@
                     </div>
                     <div class="row ml-0 mr-0">
                         <div class="form-group col-md-3 mb-0">
+                            <div class="input-group">
+                                @role('superadmin')
+                                    <select name="" id="clinic_filter" class="form-control">
+                                        <option value="" disabled selected>Filter by clinic</option>
+                                    </select>
+                                @endrole
+                            </div>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <button class="btn btn-outline-secondary" disabled type="button">
@@ -95,16 +105,23 @@
     <script>
         $(document).ready(function(){
             function fetchBranchList() {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
                 var branchLimit = $('#branch_limit').val();
                 var branchPage = $('#branch_page').val();
                 let searchValue = $('#search').val();
 
+                var selectedClinic = $('#clinic_id').val();
+
                 if (userToken != '') {
                     showLoadingCircle();
 
-                    const fetchURL = `${base_url}/api/admin/branch/list`;
+                    clinicId = null
+                    if (selectedClinic !== '') {
+                        clinicId = selectedClinic
+                    }
+
+                    const fetchURL = `${baseUrl}/api/admin/branch/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -112,17 +129,17 @@
                         params: {
                             'limit': branchLimit,
                             'page': branchPage,
-                            // 'clinicId': clinicId,
+                            'clinicId': clinicId,
                             'search': searchValue
                         }
                     }).then(function (response) {
+                        let responseContent = response.data;
                         if (response.data.status == 'success') {
-                            let responseData = response.data.data;
-                            if (responseData.hospital !== null) {
-                                $('#hospital_name').text(' - ' + responseData.hospital.name);
+                            if (responseContent.data.hospital !== null) {
+                                $('#hospital_name').text(' - ' + responseContent.data.hospital.name);
                             }
 
-                            showData(responseData.branchs, responseData.pagination);
+                            showData(responseContent.data.branchs, responseContent.data.pagination);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({
@@ -148,12 +165,12 @@
             function showData(branchList, pagination) {
                 let i = (pagination.page * pagination.limit) - pagination.limit + 1;
                 $('tbody tr.tr-list').remove();
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 branchList.forEach(function(item) {
                     $('#branch_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
-                            <td><a href="${base_url}/admin/branch/detail/${item.id}">${item.name}</a></td>
+                            <td><a href="${baseUrl}/admin/branch/detail/${item.id}">${item.name}</a></td>
                             <td>${item.address}</td>
                             <td>${item.phone}</td>
                             <td>${item.created_at}</td>
@@ -205,6 +222,40 @@
                     fetchBranchList();
                 })
             }
+
+            function fetchClinicList() {
+                if ($('#clinic_filter').length > 0) {
+                    var baseUrl = window.location.origin;
+                    const userToken = $('#user_token').val();
+                    if (userToken != '') {
+                        const fetchURL = `${baseUrl}/api/admin/clinic/list/for-options`;
+                        const res = axios.get(fetchURL, {
+                            headers: {
+                                'Authorization': `Bearer ${userToken}`
+                            }
+                        }).then(function (response) {
+                            if (response.data.status == 'success') {
+                                if (response.data.data.hospitals !== null) {
+                                    let responseContent = response.data.data.hospitals
+                                    var clinicSelect = document.getElementById("clinic_filter")
+                                    for (let i = 0; i < responseContent.length; i++) {
+                                        var newClinicOption = document.createElement('option');
+                                        newClinicOption.text = responseContent[i].name;
+                                        newClinicOption.value = responseContent[i].id;
+                                        clinicSelect.add(newClinicOption);
+                                    }
+                                }
+
+                                $('#clinic_filter').on('change', function() {
+                                    $('#clinic_id').val(this.value)
+                                    fetchBranchList()
+                                })
+                            }
+                        })
+                    }
+                }
+            }
+            fetchClinicList()
 
             var typingTimer;                //timer identifier
             var doneTypingInterval = 1000;  //time in ms, 1 second for example

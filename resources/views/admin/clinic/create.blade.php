@@ -56,7 +56,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="clinic_email">Clinic Email<span>*</span></label>
-                                            <input type="email" class="form-control" id="clinic_email" name="clinic_email" placeholder="Email address" autocomplete="new-password">
+                                            <input type="email" class="form-control email" id="clinic_email" name="clinic_email" placeholder="Email address" autocomplete="new-password">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="clinic_phone_number">Clinic Phone<span>*</span></label>
@@ -100,7 +100,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="admin_email">Admin Email<span>*</span></label>
-                                            <input type="email" class="form-control" id="admin_email" name="admin_email" placeholder="Email address" autocomplete="off">
+                                            <input type="email" class="form-control email" id="admin_email" name="admin_email" placeholder="Email address" autocomplete="off">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="admin_phone_number">Admin Phone<span>*</span></label>
@@ -157,13 +157,35 @@
     <script>
         $(document).ready(function(){
             $('#cancel_button').on('click', function() {
-                alert('cancel button clicked');
+                window.location.href = window.location.origin + "/admin/clinic/list";
             })
             
             $('.datepicker').datepicker({
                 format: 'dd/mm/yyyy',
+                autoclose: true,
                 // startDate: '-3d'
-            });
+            })
+
+            $('#clinic_phone_number').on('keyup', () => {
+                let content = $('#clinic_phone_number').val()
+                let clean = content.replace(/\D/g,'')
+                $('#clinic_phone_number').val(clean)
+            })
+
+            $('#admin_phone_number').on('keyup', () => {
+                let content = $('#admin_phone_number').val()
+                let clean = content.replace(/\D/g,'')
+                $('#admin_phone_number').val(clean)
+            })
+
+            $('.email').on('blur', function() {
+                let valid = validateEmail(this.value)
+                if (valid === false) {
+                    if (this.value !== '') {
+                        toastr.warning('Email not valid')
+                    }
+                }
+            })
 
             $('#submit_button').on('click', async function() {
                 let hasError = false;
@@ -179,6 +201,12 @@
                 if (clinicEmail == '') {
                     hasError = true;
                     errorMessage += '<li>Clinic email is required</li>';
+                } else {
+                    let validClinicEmail = validateEmail(clinicEmail)
+                    if (validClinicEmail === false) {
+                        hasError = true;
+                        errorMessage += '<li>Clinic email is not valid</li>';
+                    }
                 }
 
                 let clinicPhone = $('#clinic_phone_number').val();
@@ -215,7 +243,14 @@
                 if (adminEmail == '') {
                     hasError = true;
                     errorMessage += '<li>Admin email is required</li>';
+                } else {
+                    let validAdminEmail = validateEmail(adminEmail)
+                    if (validAdminEmail === false) {
+                        hasError = true;
+                        errorMessage += '<li>Admin email is not valid</li>';
+                    }
                 }
+
 
                 let adminPhone = $('#admin_phone_number').val();
                 if (adminPhone == '') {
@@ -258,11 +293,11 @@
                         adminConfirmPassword
                     }
 
-                    var base_url = window.location.origin
+                    var baseUrl = window.location.origin
 
                     const userToken = $('#user_token').val();
 
-                    const createURL = `${base_url}/api/admin/clinic/store`;
+                    const createURL = `${baseUrl}/api/admin/clinic/store`;
                     const res = axios.post(createURL, clinicData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -275,7 +310,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.location.href = `${base_url}/admin/clinic/list`;
+                            window.location.href = `${baseUrl}/admin/clinic/list`;
                         } else {
                             Swal.fire({
                                 icon: 'warning',
@@ -287,6 +322,12 @@
                     })
                 }
             });
+
+            function validateEmail(email) {
+                const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
+            }
+
         });
     </script>
 

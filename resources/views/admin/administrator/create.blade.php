@@ -10,8 +10,8 @@
             @include('admin_layout.navbar')
 
             <ul class="breadcrumb">
-                <h4 class="mr-auto">Staff Form</h4>
-                <li><a class="active">Staff</a></li>
+                <h4 class="mr-auto">Administrator Form</h4>
+                <li><a class="active">Administrator</a></li>
                 <li><a href="#">Add</a></li>
             </ul>
 
@@ -25,23 +25,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="branch" class="col-sm-2 col-form-label">Branch</label>
+                            <label for="administrator_name" class="col-sm-2 col-form-label">Administrator Name</label>
                             <div class="col-sm-10">
-                                <select id="branch" class="form-control form-add mb-2">
-                                    <option selected disabled>Please select a branch</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="staff_name" class="col-sm-2 col-form-label">Staff Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" id="staff_name" class="form-control form-add mb-2" placeholder="Please input staff name" autocomplete="off">
+                                <input type="text" id="administrator_name" class="form-control form-add mb-2" placeholder="Please input administrator name" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="email" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
-                                <input type="email" id="email" class="form-control form-add mb-2" placeholder="Please input the staff email address, it will be used for login credential" autocomplete="off" value="">
+                                <input type="email" id="email" class="form-control form-add mb-2" placeholder="Please input the administrator email address, it will be used for login credential" autocomplete="off" value="">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -50,7 +42,7 @@
                                 <div class="input-group-prepend form-add">
                                     <span class="input-group-text tlr-15 blr-15">+62</span>
                                 </div>
-                                <input type="phone" id="phone" class="form-control form-add" placeholder="Please input the staff phone number" autocomplete="off">
+                                <input type="phone" id="phone" class="form-control form-add" placeholder="Please input the administrator phone number" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -66,18 +58,18 @@
                         <div class="form-group row">
                             <label for="password" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
-                                <input type="password" id="password" class="form-control form-add mb-2" placeholder="Please input staff password" autocomplete="new-password">
+                                <input type="password" id="password" class="form-control form-add mb-2" placeholder="Please input administrator password" autocomplete="new-password">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="confirm_password" class="col-sm-2 col-form-label">Password Confirmation</label>
                             <div class="col-sm-10">
-                                <input type="password" id="confirm_password" class="form-control form-add mb-2" placeholder="Please input staff password confirmation" autocomplete="new-password">
+                                <input type="password" id="confirm_password" class="form-control form-add mb-2" placeholder="Please input administrator password confirmation" autocomplete="new-password">
                             </div>
                         </div>
                         <div class="form-row row">
                             <div class="button" style="margin-left: auto;padding-right: 4px;">
-                                <button type="button" class="btn btn-add-sch btn-sm" id="save_staff">Add Staff</button>
+                                <button type="button" class="btn btn-add-sch btn-sm" id="save_administrator">Add Administrator</button>
                             </div>
                         </div>
                     </div>
@@ -99,15 +91,10 @@
                 hasError = true
             }
 
-            $('#save_staff').on('click', async function() {
-                let branch = $('#branch').val();
-                if (branch === null) {
-                    pushErrMsg('Branch is required')
-                }
-
-                let staffName = $('#staff_name').val();
-                if (staffName === '') {
-                    pushErrMsg('Staff name is required')
+            $('#save_administrator').on('click', async function() {
+                let administratorName = $('#administrator_name').val();
+                if (administratorName === '') {
+                    pushErrMsg('Administrator name is required')
                 }
 
                 let email = $('#email').val()
@@ -143,9 +130,8 @@
                     errorMessage = ''
                     hasError = false
                 } else {
-                    let staffData = {
-                        branch,
-                        staffName,
+                    let administratorData = {
+                        administratorName,
                         email,
                         phone,
                         gender,
@@ -157,8 +143,8 @@
 
                     const userToken = $('#user_token').val();
 
-                    const createURL = `${baseUrl}/api/admin/staff/register`;
-                    const res = axios.post(createURL, staffData, {
+                    const createURL = `${baseUrl}/api/admin/administrator/register`;
+                    const res = axios.post(createURL, administratorData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
                         },
@@ -166,15 +152,15 @@
                         if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Staff created.',
+                                title: 'Administrator created.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.location.href = `${baseUrl}/admin/staff/list`;
+                            window.location.href = `${baseUrl}/admin/administrator/list`;
                         } else {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Failed to create staff.',
+                                title: 'Failed to create administrator.',
                                 showConfirmButton: false,
                                 timer: 1500
                             });
@@ -182,30 +168,6 @@
                     })
                 }
             });
-
-            function setBranchOptions()
-            {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-available-branch-option`;
-
-                const res = axios.get(fetchURL, {
-                    headers: {
-                        'Authorization': `Bearer ${userToken}`
-                    },
-                }).then(function (response) {
-                    let responseContent = response.data;
-
-                    var branchSelect = document.getElementById("branch");
-                    responseContent.data.branchs.forEach(e => {
-                        var newBranchOption = document.createElement('option');
-                        newBranchOption.text = e.name;
-                        newBranchOption.value = e.id;
-                        branchSelect.add(newBranchOption);
-                    })
-                })
-            }
-            setBranchOptions();
 
             function setClinicValue()
             {

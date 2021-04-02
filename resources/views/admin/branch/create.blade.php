@@ -39,7 +39,7 @@
                                         </div>
                                         <div class="form-group  col-md-12">
                                             <label for="branch_phone_number">Phone Number</label>
-                                            <input type="Telp" class="form-control" id="branch_phone_number" name="branch_phone_number" placeholder="">
+                                            <input type="tel" class="form-control" id="branch_phone_number" name="branch_phone_number" placeholder="">
                                         </div>
                                     </div>
                                     <div class="btn-group-edit btn-group-sm">
@@ -165,8 +165,7 @@
                             'Authorization': `Bearer ${userToken}`
                         },
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
+                        if (response.data.status == 'success') {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Branch created.',
@@ -182,9 +181,52 @@
                                 timer: 1500
                             });
                         }
+                    }).catch(function (error) {
+                        console.log('HAVE ERROR')
+                        if (error.response) {
+                            // Request made and server responded
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
+                        } else if (error.request) {
+                            // The request was made but no response was received
+                            console.log(error.request);
+                        } else {
+                            // Something happened in setting up the request that triggered an Error
+                            console.log('Error', error.message);
+                        }
                     })
                 }
             });
+
+            $('#branch_latitude').on('change', function() {
+                console.log(this.value)
+                if (this.value > 90) {
+                    toastr.warning('Latitude cannot be greater than 90.')
+                    this.value = ''
+                }
+                if (this.value < -90) {
+                    toastr.warning('Latitude cannot be less than -90.')
+                    this.value = ''
+                }
+            })
+
+            $('#branch_longitude').on('change', function() {
+                if (this.value > 180) {
+                    toastr.warning('Longitude cannot be greater than 180.')
+                    this.value = ''
+                }
+                if (this.value < -180) {
+                    toastr.warning('Longitude cannot be less than -180.')
+                    this.value = ''
+                }
+            })
+
+            $('#branch_phone_number').on('keyup', () => {
+                let content = $('#branch_phone_number').val()
+                let clean = content.replace(/\D/g,'')
+                $('#branch_phone_number').val(clean)
+            })
 
             function showPosition(position) {
                 $('#branch_latitude').val(position.coords.latitude)

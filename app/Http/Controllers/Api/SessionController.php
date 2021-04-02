@@ -13,12 +13,11 @@ class SessionController extends Controller
     {
         
         $jwtToken = $request->session()->get('jwtApiToken');
-        // dd($jwtToken);
-        // $jwtToken = $request->session()->get('jwtApiToken');
 
         return response()->json([
-            'data'  => $jwtToken,
-            'error' => null
+            'data'      => $jwtToken,
+            'status'    => 'success',
+            'error'     => null
         ]);
     }
 }

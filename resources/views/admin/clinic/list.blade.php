@@ -91,7 +91,7 @@
     <script>
         $(document).ready(function(){
             function fetchClinicList() {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
                 var clinicLimit = $('#clinic_limit').val();
                 var clinicPage = $('#clinic_page').val();
@@ -100,7 +100,7 @@
                 if (userToken != '') {
                     showLoadingCircle();
 
-                    const fetchURL = `${base_url}/api/admin/clinic/list`;
+                    const fetchURL = `${baseUrl}/api/admin/clinic/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -111,10 +111,10 @@
                             'search': searchValue
                         }
                     }).then(function (response) {
-                        if (response.data.status == 'success') {
-                            let responseData = response.data.data;
-                            showData(responseData.hospitals, responseData.pagination);
-                            if (responseData.hospitals.length === 0) {
+                        let responseContent = response.data;
+                        if (responseContent.status == 'success') {
+                            showData(responseContent.data.hospitals, responseContent.data.pagination);
+                            if (responseContent.data.hospitals.length === 0) {
                                 Swal.fire({
                                 icon: 'info',
                                 title: 'Clinic is empty.',
@@ -147,12 +147,12 @@
             function showData(hospitalList, pagination) {
                 let i = (pagination.page * pagination.limit) - pagination.limit + 1;
                 $('tbody tr.tr-list').remove();
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 hospitalList.forEach(function(item) {
                     $('#hospital_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
-                            <td><a href="${base_url}/admin/branch/list/${item.id}">${item.name}</a></td>
+                            <td><a href="${baseUrl}/admin/branch/list/${item.id}">${item.name}</a></td>
                             <td>${item.address}</td>
                             <td>+62${item.phone}</td>
                             <td>${item.email}</td>

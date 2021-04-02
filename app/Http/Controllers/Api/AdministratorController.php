@@ -1,13 +1,15 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+// use App\Models\DoctorAction;
 use App\User;
+use Auth;
+use DB;
 
-class StaffController extends Controller
+class AdministratorController extends Controller
 {
     public function list(Request $request)
     {
@@ -18,33 +20,34 @@ class StaffController extends Controller
         $skip = ($limit * $page) - $limit;
         $search = $request->search;
 
-
-        $staffs = User::whereHas("roles", function($q){ $q->where("name", "staff"); });
+        $administrators = User::whereHas("roles", function($q){ $q->where("name", "admin"); });
 
         if ($user->hasRole('admin')) {
-            $staffs->where('hospital_id', $user->hospital_id);
+            $administrators->where('hospital_id', $user->hospital_id);
         }
                         
+        $administrators->with('workBranch');
+                        
         if ($search != '') {
-            $staffs = $staffs->where('name', 'like', '%' . $search . '%');
+            $administrators = $administrators->where('name', 'like', '%' . $search . '%');
         }
 
-        $staffCounterTemplate = clone $staffs;
+        $administratorCounterTemplate = clone $administrators;
 
-        $staffs = $staffs->take($limit)
-                            ->skip($skip);
+        $administrators = $administrators->take($limit)
+                                         ->skip($skip);
 
-        $staffs = $staffs->with('workBranch')->get();
+        $administrators = $administrators->get();
 
-        $count = $staffCounterTemplate->count();
+        $count = $administratorCounterTemplate->count();
         $pagination = $this->generatePagination($count, $page, $limit);
         
         return response()->json([
-            'data'  => [
-                'staffs'   => $staffs,
-                'limit'     => $limit,
-                'page'      => $page,
-                'pagination' => $pagination,
+            'data'      => [
+                'administrators'    => $administrators,
+                'limit'             => $limit,
+                'page'              => $page,
+                'pagination'        => $pagination,
             ],
             'status'    => 'success',
             'error'     => null
@@ -56,84 +59,83 @@ class StaffController extends Controller
         $user = $this->authUser();
 
         $payload = [
-            'name'  => $request->staffName,
+            'name'  => $request->administratorName,
             'email' => $request->email,
             'phone' => $request->phone,
             'gender'=> $request->gender,
             'password' => Hash::make($request->password),
             'hospital_id' => $user->hospital_id,
-            'branch_id' => $request->branch
         ];
 
         $newUser = User::create($payload);
 
-        $newUser->assignRole('staff');
+        $newUser->assignRole('admin');
 
         return response()->json([
             'data'      => null,
             'status'    => 'success',
             'error'     => null
-        ]);        
+        ]);    
     }
 
     public function detail(Request $request) {
         $user = $this->authUser();
 
-        $staff = User::find($request->staffId);
+        $administrator = User::find($request->administratorId);
 
-        if ($staff) {
-            if ($staff->hospital_id == $user->hospital_id || $user->hasRole('superadmin')) {
+        if ($administrator) {
+            if ($administrator->hospital_id == $user->hospital_id) {
                 return response()->json([
                     'data'      => [
-                        'staff'     => $staff,
+                        'administrator'     => $administrator,
                     ],
                     'status'    => 'success',
                     'error'     => null
                 ]);
             } else {
-                return response()->json($this->createErrorMessage('You have no access to view this staff'));
+                return response()->json($this->createErrorMessage('You have no access to view this administrator'));
             }
         } else {
-            return response()->json($this->createErrorMessage('Staff not found'));
+            return response()->json($this->createErrorMessage('Administrator not found'));
         }
     }
 
     public function delete(Request $request) {
         $user = $this->authUser();
 
-        $staff = User::find($request->staffId);
+        $administrator = User::find($request->administratorId);
 
-        if ($staff) {
-            if ($staff->hospital_id == $user->hospital_id) {
-                $staff->delete();
+        if ($administrator) {
+            if ($administrator->hospital_id == $user->hospital_id) {
+                $administrator->delete();
                 return response()->json([
                     'data'      => null,
                     'status'    => 'success',
                     'error'     => null
                 ]);
             } else {
-                return response()->json($this->createErrorMessage('You have no access to delete this staff'));
+                return response()->json($this->createErrorMessage('You have no access to delete this administrator'));
             }
         } else {
-            return response()->json($this->createErrorMessage('Staff not found'));
+            return response()->json($this->createErrorMessage('Administrator not found'));
         }
     }
 
     public function update(Request $request) {
         $user = $this->authUser();
 
-        $staff = User::find($request->staffId);
+        $administrator = User::find($request->administratorId);
 
-        if ($staff) {
-            if ($staff->hospital_id == $user->hospital_id) {
-                $staff->name = $request->staffName;
-                $staff->email = $request->email;
-                $staff->phone = $request->phone;
-                $staff->gender = $request->gender;
+        if ($administrator) {
+            if ($administrator->hospital_id == $user->hospital_id) {
+                $administrator->name = $request->administratorName;
+                $administrator->email = $request->email;
+                $administrator->phone = $request->phone;
+                $administrator->gender = $request->gender;
                 if ($request->password != '') {
-                    $staff->password = bcrypt($request->password);
+                    $administrator->password = bcrypt($request->password);
                 }
-                $staff->save();
+                $administrator->save();
 
                 return response()->json([
                     'data'      => null,
@@ -141,10 +143,10 @@ class StaffController extends Controller
                     'error'     => null
                 ]);
             } else {
-                return response()->json($this->createErrorMessage('You have no access to edit this staff'));
+                return response()->json($this->createErrorMessage('You have no access to edit this administrator'));
             }
         } else {
-            return response()->json($this->createErrorMessage('Staff not found'));
+            return response()->json($this->createErrorMessage('Administrator not found'));
         }
     }
 

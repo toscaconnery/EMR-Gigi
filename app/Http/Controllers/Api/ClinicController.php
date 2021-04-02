@@ -45,7 +45,9 @@ class ClinicController extends Controller
         
         $adminValidate = $this->adminValidator($adminArray);
 
-        if ($adminValidate == true && ! $hospitalExists) {
+        $hospitalValidate = $this->hospitalValidator($clinicArray);
+
+        if ($adminValidate == true && $hospitalValidate == true && ! $hospitalExists) {
             $newHospital = Hospital::create($clinicArray);
 
             $newAdmin = User::create([
@@ -58,24 +60,35 @@ class ClinicController extends Controller
 
             $newAdmin->assignRole('admin');
 
-            // $response = [
-            //     'data'  => null,
-            //     'status'    => 'success',
-            //     'error' => null,
-            // ];
             $response = $this->createResponse(null);
 
         } else {
-            // $response = [
-            //     'data'  => [
-            //         'status'    => 'failed'
-            //     ],
-            //     'error' => 'error',
-            // ];
             $response = $this->createErrorMessage('Failed storing to database');
         }
 
         return response()->json($response);
+    }
+
+    public function listForOptions(Request $request)
+    {
+        $user = $this->authUser();
+
+        if ($user) {
+            if ($user->hasRole('superadmin')) {
+                $hospitals = Hospital::select('id', 'name')
+                                     ->get();
+                $responseData = [
+                    'hospitals'     => $hospitals,
+                ];
+                $response = $this->createResponse($responseData);
+                return response()->json($response);
+            }
+        }
+        return response()->json([
+            'data'  => null,
+            'status'=> 'error',
+            'error' => 'Not allowed'
+        ]);
     }
 
     public function list(Request $request)
@@ -106,11 +119,6 @@ class ClinicController extends Controller
                 $hospitals = $hospitals->get();
                 $onlyOwnedBySelf = true;
             } else {
-                // $response = [
-                //     'data'      => null,
-                //     'status'    => 'error',
-                //     'error'     => 'Not allowed'
-                // ];
                 $response = $this->createErrorMessage('Not Allowed');
                 return response()->json($response);
             }
@@ -122,7 +130,6 @@ class ClinicController extends Controller
             'limit'         => $limit,
             'page'          => $page,
             'pagination'    => $pagination,
-            // 'user'          => $this->authUser(),
         ];
         $response = $this->createResponse($responseData);
         return response()->json($response);
@@ -134,6 +141,24 @@ class ClinicController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        if ($validator->fails()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    protected function hospitalValidator(array $data)
+    {
+        $validator =  Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:hospital'],
+            'phone' => ['required', 'string'],
+            'address' => ['required', 'string', 'max:255'],
+            'join_date' => ['required'],
+            'start_work_date' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -197,21 +222,16 @@ class ClinicController extends Controller
         $user = $this->authUser();
 
         if ($user->hasRole('admin')) {
-            // $branchs = Branch::where('hospital_id', $user->hospital_id)->get();
             $hospital = Hospital::find($user->hospital_id);
             $responseData = $this->createResponse(['hospital' => $hospital]);
-            // return response()->json([
-            //     'data'  => [
-            //         'hospital'   => $hospital
-            //     ],
-            //     'error' => null
-            // ]);
+            return response()->json($responseData);
+        } else if($user->hasRole('superadmin')) {
+            $userFindId = $request->userFindId;
+            $userFindData = User::find($userFindId);
+            $hospital = Hospital::find($userFindData->hospital_id);
+            $responseData = $this->createResponse(['hospital' => $hospital]);
             return response()->json($responseData);
         } else {
-            // return response()->json([
-            //     'data'  => null,
-            //     'error' => 'Access denied'
-            // ]);
             return response()->json($this->createErrorMessage('Access denied'));
         }
     }

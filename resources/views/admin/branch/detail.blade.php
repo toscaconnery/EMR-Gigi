@@ -33,7 +33,7 @@
                                         </div>
                                         <div class="form-group  col-md-12">
                                             <label for="branch_phone_number">Phone Number</label>
-                                            <input type="Telp" class="form-control" id="branch_phone_number" name="branch_phone_number" placeholder="" disabled>
+                                            <input type="tel" class="form-control" id="branch_phone_number" name="branch_phone_number" placeholder="" disabled>
                                         </div>
                                     </div>
                                     {{-- <div class="btn-group-edit btn-group-sm">
@@ -135,14 +135,14 @@
 
             function fetchBranchDetail()
             {
-                var base_url = window.location.origin;
+                var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
                 const branchId = $('#branch_id').val();
 
                 if (userToken != '') {
                     showLoadingCircle();
 
-                    const fetchURL = `${base_url}/api/admin/branch/detail/${branchId}`;
+                    const fetchURL = `${baseUrl}/api/admin/branch/detail/${branchId}`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -179,8 +179,8 @@
                 $('#branch_latitude').val(branch.latitude);
                 $('#branch_longitude').val(branch.longitude);
 
-                var base_url = window.location.origin;
-                $('#manage_price_button').attr('href', base_url + '/admin/branch/price/' + branchId);
+                var baseUrl = window.location.origin;
+                $('#manage_price_button').attr('href', baseUrl + '/admin/branch/price/' + branchId);
                 hideLoadingCircle();
             }
 

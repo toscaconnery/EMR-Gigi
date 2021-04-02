@@ -27,20 +27,9 @@ Route::get('soap', 'SoapController@form');
 Route::get('patient-history', 'PatientController@patientHistory');
 Route::get('medication-history', 'MedicationController@medicationHistory');
 
-
-///////////////
-
-// Route::get('/users', 'AdminController@users');
-// Route::get('/add-user','AdminController@adduser');
-
-// Route::get('/branch', 'AdminController@branch');                    // done
-// Route::get('/branch-list', 'AdminController@branchlist2');          // done
-// Route::get('/add-prescription', 'AdminController@addprescript');    // done
-// Route::get('/prescription', 'AdminController@prescription');        // done
-// Route::get('/add-doctor', 'AdminController@adddoctorx');            // done
-// Route::get('/doctor-list', 'AdminController@doctor');               // done
-// Route::get('/roles', 'AdminController@roles');                      // done
-// Route::get('/add-role', 'AdminController@addrole');                 // ignored
+Route::group(['prefix' => 'download'], function() {
+    Route::get('/medical-resume', 'FileController@medicalResume');
+});
 
 Route::group(['middleware' => ['role:patient']], function() {
     Route::get('dashboard', 'AdminController@dashboard');
@@ -71,14 +60,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin|admin|staff
     // Doctor
     Route::get('doctor/create', 'AdminController@doctorCreate');
     Route::get('doctor/list', 'AdminController@doctorList');
+    Route::get('doctor/detail/{doctor_id}', 'AdminController@doctorDetail');
+    Route::get('doctor/edit/{doctor_id}', 'AdminController@doctorEdit');
 
     // Staff
     Route::get('staff/create', 'AdminController@staffCreate');
     Route::get('staff/list', 'AdminController@staffList');
     Route::get('staff/detail/{staff_id}', 'AdminController@staffDetail');
+    Route::get('staff/edit/{staff_id}', 'AdminController@staffEdit');
 
     // Administrator
+    Route::get('administrator/create', 'AdminController@administratorCreate');
     Route::get('administrator/list', 'AdminController@administratorList');
+    Route::get('administrator/detail/{administrator_id}', 'AdminController@administratorDetail');
+    Route::get('administrator/edit/{administrator_id}', 'AdminController@administratorEdit');
 
     Route::get('role/list', 'AdminController@roleList');
 
@@ -88,6 +83,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin|admin|staff
 
 
 // Dummy
-Route::get('new-register', 'TempController@newRegister');
-Route::get('/company', 'AdminController@company');                  //moved
-Route::get('/list-company', 'AdminController@listCompany');         //moved
+// Route::get('new-register', 'TempController@newRegister');
+// Route::get('/company', 'AdminController@company');                  //moved
+// Route::get('/list-company', 'AdminController@listCompany');         //moved
+
+///////////////
+
+// Route::get('/users', 'AdminController@users');
+// Route::get('/add-user','AdminController@adduser');
+
+// Route::get('/branch', 'AdminController@branch');                    // done
+// Route::get('/branch-list', 'AdminController@branchlist2');          // done
+// Route::get('/add-prescription', 'AdminController@addprescript');    // done
+// Route::get('/prescription', 'AdminController@prescription');        // done
+// Route::get('/add-doctor', 'AdminController@adddoctorx');            // done
+// Route::get('/doctor-list', 'AdminController@doctor');               // done
+// Route::get('/roles', 'AdminController@roles');                      // done
+// Route::get('/add-role', 'AdminController@addrole');                 // ignored

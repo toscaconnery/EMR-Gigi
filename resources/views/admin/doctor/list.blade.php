@@ -44,9 +44,11 @@
 								<tr>
 									<th>No</th>
 									<th>Name</th>
+                                    <th>Branch</th>
 									<th>Email</th>
 									<th>Phone Number</th>
 									<th>Gender</th>
+                                    <th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -88,17 +90,64 @@
 
     <script>
         $(document).ready(function(){
+            function listenEditButton() {
+                $('.edit-button').on('click', function() {
+                    let doctorId = $(this).data('user-id')
+                    let doctorData = {
+                        doctorId
+                    }
+                    var baseUrl = window.location.origin
+                    const userToken = $('#user_token').val()
+                    const editURL = `${baseUrl}/admin/doctor/edit/${doctorId}`
+                    window.location.href = editURL
+                })
+            }
+
+            function listenDeleteButton() {
+                $('.delete-button').on('click', function() {
+                    let doctorId = $(this).data('user-id')
+                    let doctorData = {
+                        doctorId
+                    }
+                    var baseUrl = window.location.origin
+                    const userToken = $('#user_token').val()
+                    const deleteURL = `${baseUrl}/api/admin/doctor/delete/`
+                    const res = axios.post(deleteURL, doctorData, {
+                        headers: {
+                            'Authorization': `Bearer ${userToken}`
+                        },
+                    }).then(function (response) {
+                        if (response.data.status == 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Doctor deleted.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            window.location.href = window.location.origin + "/admin/doctor/list"
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Failed to delete doctor.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                    })
+                })
+            }
+
             function fetchDoctorList() {
-                var base_url = window.location.origin;
-                const userToken = $('#user_token').val();
-                var dataLimit = $('#data_limit').val();
-                var dataPage = $('#data_page').val();
-                let searchValue = $('#search').val();
+                var baseUrl = window.location.origin;
+                const userToken = $('#user_token').val()
+                var dataLimit = $('#data_limit').val()
+                var dataPage = $('#data_page').val()
+                let searchValue = $('#search').val()
 
                 if (userToken != '') {
-                    showLoadingCircle();
+                    showLoadingCircle()
 
-                    const fetchURL = `${base_url}/api/doctor/list`;
+                    const fetchURL = `${baseUrl}/api/admin/doctor/list`;
                     const res = axios.get(fetchURL, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -109,9 +158,8 @@
                             'search': searchValue
                         }
                     }).then(function (response) {
-                        let responseData = response.data.data;
-                        if (responseData.status == 'success') {
-                            showData(responseData.doctors, responseData.pagination);
+                        if (response.data.status == 'success') {
+                            showData(response.data.data.doctors, response.data.data.pagination);
                         } else {
                             hideLoadingCircle();
                             Swal.fire({
@@ -119,7 +167,7 @@
                                 title: 'Failed to fetch doctor.',
                                 showConfirmButton: false,
                                 timer: 1500
-                            });
+                            })
                         }
                     })
                 } else {
@@ -129,15 +177,15 @@
                         title: 'You are not logged in',
                         showConfirmButton: false,
                         timer: 1500
-                    });
+                    })
                 }
 
             }
 
             function showData(dataList, pagination) {
-                let i = (pagination.page * pagination.limit) - pagination.limit + 1;
-                $('tbody tr.tr-list').remove();
-                var base_url = window.location.origin;
+                let i = (pagination.page * pagination.limit) - pagination.limit + 1
+                $('tbody tr.tr-list').remove()
+                var baseUrl = window.location.origin
                 dataList.forEach(function(item) {
                     let gender = ''
                     if (item.gender === 'm') {
@@ -148,79 +196,88 @@
                     $('#doctor_placer').before(`
                         <tr class="tr-list">
                             <td>${i++}</td>
-                            <td><a href="${base_url}/admin/doctor/list/${item.id}">${item.name}</a></td>
+                            <td><a href="${baseUrl}/admin/doctor/detail/${item.id}">${item.name}</a></td>
+                            <td>${item.work_branch.name}</td>
                             <td>${item.email}</td>
                             <td>+62${item.phone}</td>
                             <td>${gender}</td>
+                            <td>
+                                <button class="btn btn-primary edit-button" data-user-id="${item.id}"><i class="fas fa-wrench" style="padding: 0;"></i></button>
+                                <button class="btn btn-primary delete-button" data-user-id="${item.id}"><i class="fas fa-trash-alt" style="padding: 0;"></i></button>
+                            </td>
                         </tr>
                     `)
                 });
 
-                handlePagination(pagination);
+                handlePagination(pagination)
 
-                hideLoadingCircle();
+                hideLoadingCircle()
+
+                listenDeleteButton()
+
+                listenEditButton()
             }
 
             function handlePagination(pagination) {
-                $('#pagination_list a').remove();
+                $('#pagination_list a').remove()
 
                 if (pagination.lastButton > 1) {
                     $('#pagination_list').append(`
                         <a href="#" class="pagination-button" direction="1">First</a>
-                    `);
+                    `)
                 }
 
                 pagination.index.forEach(function(item) {
                     $('#pagination_list').append(`
                         <a href="#" class="pagination-button" direction="${item}">${item}</a>
-                    `);
+                    `)
                 });
 
                 if (pagination.lastButton > 1) {
                     $('#pagination_list').append(`
                         <a href="#" class="pagination-button" direction="${pagination.lastButton}">Last</a>
-                    `);
+                    `)
                 }
 
                 listenPageChange();
             }
 
             function showLoadingCircle() {
-                $('#loading_circle').show();
+                $('#loading_circle').show()
             }
 
             function hideLoadingCircle() {
-                $('#loading_circle').hide();
+                $('#loading_circle').hide()
             }
 
             function listenPageChange() {
                 $('.pagination-button').on('click', function(e) {
-                    let direction = $(this).attr('direction');
+                    let direction = $(this).attr('direction')
                     $('#data_page').val(direction)
-                    fetchDoctorList();
+                    fetchDoctorList()
                 })
             }
 
-            var typingTimer;                //timer identifier
-            var doneTypingInterval = 1000;  //time in ms, 1 second for example
-            var $search = $('#search');
-            var $entriesLimit = $('#data_limit');
+            var typingTimer                 //timer identifier
+            var doneTypingInterval = 1000   //time in ms, 1 second for example
+            var $search = $('#search')
+            var $entriesLimit = $('#data_limit')
 
             $search.on('keyup', function () {
-                clearTimeout(typingTimer);
-                typingTimer = setTimeout(doneTyping, doneTypingInterval);
-            });
+                clearTimeout(typingTimer)
+                typingTimer = setTimeout(doneTyping, doneTypingInterval)
+            })
 
             $entriesLimit.on('change', () => {
-                fetchDoctorList();
+                fetchDoctorList()
             });
 
             $search.on('keydown', function () {
-                clearTimeout(typingTimer);
+                clearTimeout(typingTimer)
             });
 
             function doneTyping () {
-                fetchDoctorList();
+                fetchDoctorList()
             }
 
             fetchDoctorList()

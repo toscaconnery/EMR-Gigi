@@ -33,11 +33,11 @@ class PriceController extends Controller
         }
 
         $response = [
-            'data'  => [
-                'status'    => 'success',
+            'data'      => [
                 'prescriptionlist'    => $prescriptions,
             ],
-            'error' => null
+            'status'    => 'success',
+            'error'     => null
         ];
         return response()->json($response);
     }
@@ -61,18 +61,16 @@ class PriceController extends Controller
             $newPrescription = Prescription::create($prescriptionArray);
 
             $response = [
-                'data'  => [
-                    'status'    => 'success'
-                ],
-                'error' => null,
+                'data'      => null,
+                'status'    => 'success',
+                'error'     => null,
             ];
 
         } else {
             $response = [
-                'data'  => [
-                    'status'    => 'failed'
-                ],
-                'error' => 'error',
+                'data'      => null,
+                'status'    => 'failed',
+                'error'     => 'invalid',
             ];
         }
 
@@ -99,18 +97,16 @@ class PriceController extends Controller
                                             ->update($prescriptionArray);
 
             $response = [
-                'data'  => [
-                    'status'    => 'success'
-                ],
-                'error' => null,
+                'data'      => null,
+                'status'    => 'success',
+                'error'     => null,
             ];
 
         } else {
             $response = [
-                'data'  => [
-                    'status'    => 'failed'
-                ],
-                'error' => 'error',
+                'data'      => null,
+                'status'    => 'failed',
+                'error'     => 'invalid',
             ];
         }
 
@@ -134,18 +130,16 @@ class PriceController extends Controller
                                             ->update($actionArray);
 
             $response = [
-                'data'  => [
-                    'status'    => 'success'
-                ],
-                'error' => null,
+                'data'      => null,
+                'status'    => 'success',
+                'error'     => null,
             ];
 
         } else {
             $response = [
-                'data'  => [
-                    'status'    => 'failed'
-                ],
-                'error' => 'error',
+                'data'      => null,
+                'status'    => 'failed',
+                'error'     => 'invalid',
             ];
         }
 
@@ -170,18 +164,16 @@ class PriceController extends Controller
                                             ->update($itemArray);
 
             $response = [
-                'data'  => [
-                    'status'    => 'success'
-                ],
-                'error' => null,
+                'data'      => null,
+                'status'    => 'success',
+                'error'     => null,
             ];
 
         } else {
             $response = [
-                'data'  => [
-                    'status'    => 'failed'
-                ],
-                'error' => 'error',
+                'data'      => null,
+                'status'    => 'failed',
+                'error'     => 'invalid',
             ];
         }
 
@@ -201,10 +193,9 @@ class PriceController extends Controller
         }
 
         $response = [
-            'data'  => [
-                'status'    => 'success'
-            ],
-            'error' => null,
+            'data'      => null,
+            'status'    => 'success',
+            'error'     => null,
         ];
         return response()->json($response);
     }
@@ -225,9 +216,9 @@ class PriceController extends Controller
 
         $response = [
             'data'  => [
-                'status'    => 'success',
                 'actionlist'    => $actions,
             ],
+            'status'    => 'success',
             'error' => null
         ];
         return response()->json($response);
@@ -249,18 +240,16 @@ class PriceController extends Controller
             $newAction = Action::create($actionArray);
 
             $response = [
-                'data'  => [
-                    'status'    => 'success'
-                ],
-                'error' => null,
+                'data'      => null,
+                'status'    => 'success',
+                'error'     => null,
             ];
 
         } else {
             $response = [
-                'data'  => [
-                    'status'    => 'failed'
-                ],
-                'error' => 'error',
+                'data'      => null,
+                'status'    => 'failed',
+                'error'     => 'invalid',
             ];
         }
 
@@ -283,10 +272,10 @@ class PriceController extends Controller
 
         $response = [
             'data'  => [
-                'status'    => 'success',
                 'itemlist'    => $items,
             ],
-            'error' => null
+            'status'    => 'success',
+            'error'     => null
         ];
         return response()->json($response);
     }
@@ -308,18 +297,16 @@ class PriceController extends Controller
             $newPrescription = Item::create($itemArray);
 
             $response = [
-                'data'  => [
-                    'status'    => 'success'
-                ],
-                'error' => null,
+                'data'      => null,
+                'status'    => 'success',
+                'error'     => null,
             ];
 
         } else {
             $response = [
-                'data'  => [
-                    'status'    => 'failed'
-                ],
-                'error' => 'error',
+                'data'      => null,
+                'status'    => 'failed',
+                'error'     => 'error',
             ];
         }
 
@@ -383,15 +370,17 @@ class PriceController extends Controller
             $branchId = $request->branch_id;
             $actions = Action::where('branch_id', $branchId)->get();
             return response()->json([
-                'data'  => [
+                'data'      => [
                     'actions'   => $actions
                 ],
-                'error' => null
+                'status'    => 'success',
+                'error'     => null
             ]);
         } else {
             return response()->json([
-                'data'  => null,
-                'error' => 'Access denied'
+                'data'      => null,
+                'status'    => 'failed',
+                'error'     => 'Access denied'
             ]);
         }
     }
