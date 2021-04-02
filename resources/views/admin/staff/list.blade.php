@@ -37,6 +37,11 @@
                                 Add Staff
                             </a>
                         @endrole
+                        @role('superadmin')
+                            <a href="{{url('/admin/staff/create')}}" class="btn create-button">
+                                Add Staff
+                            </a>
+                        @endrole
                     </div>
 					<div class="card-body">
 						<table id="tabel-data" class="table table-bordered table-hover">

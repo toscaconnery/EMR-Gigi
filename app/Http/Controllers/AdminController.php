@@ -419,7 +419,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
 
             return view('admin.staff.create', compact('jwtToken'));
@@ -454,7 +454,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
             $staffId = $staff_id;
 

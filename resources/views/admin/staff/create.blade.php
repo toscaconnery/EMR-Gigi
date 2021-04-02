@@ -21,9 +21,18 @@
                         <div class="form-group row">
                             <label for="clinic" class="col-sm-2 col-form-label">Clinic</label>
                             <div class="col-sm-10">
-                                <input type="text" id="clinic" class="form-control form-add mb-2" value="" disabled>
+                                @role('admin')
+                                    <input type="text" id="clinic" class="form-control form-add mb-2" value="" disabled>
+                                @endrole
+                                @role('superadmin')
+                                    <select id="clinic" class="form-control form-add mb-2">
+                                        <option selected disabled>Please select a clinic</option>
+                                    </select>
+                                    <input type="hidden" id="is_superadmin" value="true">
+                                @endrole
                             </div>
                         </div>
+                        
                         <div class="form-group row">
                             <label for="branch" class="col-sm-2 col-form-label">Branch</label>
                             <div class="col-sm-10">
@@ -100,6 +109,13 @@
             }
 
             $('#save_staff').on('click', async function() {
+                if (isSuperadmin()) {
+                    let clinic = $('#clinic').val()
+                    if (clinic === null) {
+                        pushErrMsg('Clinic is required')
+                    }
+                }
+
                 let branch = $('#branch').val();
                 if (branch === null) {
                     pushErrMsg('Branch is required')
@@ -152,12 +168,15 @@
                         password,
                         confirmPassword
                     }
+                    if (isSuperadmin()) {
+                        staffData['clinic'] = clinic
+                    }
     
                     var baseUrl = window.location.origin
 
-                    const userToken = $('#user_token').val();
+                    const userToken = $('#user_token').val()
 
-                    const createURL = `${baseUrl}/api/admin/staff/register`;
+                    const createURL = `${baseUrl}/api/admin/staff/register`
                     const res = axios.post(createURL, staffData, {
                         headers: {
                             'Authorization': `Bearer ${userToken}`
@@ -170,59 +189,105 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.location.href = `${baseUrl}/admin/staff/list`;
+                            window.location.href = `${baseUrl}/admin/staff/list`
                         } else {
                             Swal.fire({
                                 icon: 'warning',
                                 title: 'Failed to create staff.',
                                 showConfirmButton: false,
                                 timer: 1500
-                            });
+                            })
                         }
                     })
                 }
-            });
+            })
 
-            function setBranchOptions()
+            function setBranchOptions(hospitalId)
             {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-available-branch-option`;
+                var baseUrl = window.location.origin
+                const userToken = $('#user_token').val()
+                const fetchURL = `${baseUrl}/api/admin/get-available-branch-option`
 
                 const res = axios.get(fetchURL, {
                     headers: {
                         'Authorization': `Bearer ${userToken}`
                     },
+                    params: {
+                        'hospitalId': hospitalId
+                    }
                 }).then(function (response) {
-                    let responseContent = response.data;
+                    let responseContent = response.data
 
-                    var branchSelect = document.getElementById("branch");
+                    var branchSelect = document.getElementById("branch")
                     responseContent.data.branchs.forEach(e => {
-                        var newBranchOption = document.createElement('option');
-                        newBranchOption.text = e.name;
-                        newBranchOption.value = e.id;
-                        branchSelect.add(newBranchOption);
+                        var newBranchOption = document.createElement('option')
+                        newBranchOption.text = e.name
+                        newBranchOption.value = e.id
+                        branchSelect.add(newBranchOption)
                     })
                 })
             }
-            setBranchOptions();
+
+            function isSuperadmin()
+            {
+                var isSuperadmin = $('#is_superadmin')
+                if (isSuperadmin.length > 0) {
+                    return true
+                } else {
+                    return false
+                }
+            }
 
             function setClinicValue()
             {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
+                var baseUrl = window.location.origin
+                const userToken = $('#user_token').val()
+                
+                if (isSuperadmin()) {
+                    let fetchURL = `${baseUrl}/api/admin/clinic/list`
 
-                const res = axios.get(fetchURL, {
-                    headers: {
-                        'Authorization': `Bearer ${userToken}`
-                    },
-                }).then(function (response) {
-                    let responseContent = response.data;
-                    var clinic = $('#clinic').val(responseContent.data.hospital.name)
-                })
+                    const res = axios.get(fetchURL, {
+                        headers: {
+                            'Authorization': `Bearer ${userToken}`
+                        }
+                    }).then(function (response) {
+                        let responseContent = response.data
+                        clinicSelect = document.getElementById("clinic")
+                        console.log('CLINIC')
+                        console.log(responseContent)
+
+                        responseContent.data.hospitals.forEach(e => {
+                            var newClinicOption = document.createElement('option')
+                            newClinicOption.text = e.name
+                            newClinicOption.value = e.id
+                            clinicSelect.add(newClinicOption)
+                        })
+                        $('#clinic').on('change', function() {
+                            let selectedClinic = $('#clinic').val()
+                            $('#branch').empty()
+                            setBranchOptions(selectedClinic)
+                        })
+                    })
+                } else {
+                    let staffId = ''
+                    let fetchURL = `${baseUrl}/api/admin/get-current-clinic`
+
+                    const res = axios.get(fetchURL, {
+                        headers: {
+                            'Authorization': `Bearer ${userToken}`
+                        }
+                    }).then(function (response) {
+                        let responseContent = response.data
+                        var clinic = $('#clinic').val(responseContent.data.hospital.name)
+                        setBranchOptions(null)
+                    })
+                }
+
+                
+                
+
             }
-            setClinicValue();
+            setClinicValue()
         });
     </script>
 

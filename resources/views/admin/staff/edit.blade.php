@@ -188,6 +188,7 @@
             function setClinicValue()
             {
                 var baseUrl = window.location.origin
+                const staffId = $('#staff_id').val()
                 const userToken = $('#user_token').val()
                 const fetchURL = `${baseUrl}/api/admin/get-current-clinic`
 
@@ -195,6 +196,9 @@
                     headers: {
                         'Authorization': `Bearer ${userToken}`
                     },
+                    params: {
+                        'userFindId': staffId
+                    }
                 }).then(function (response) {
                     let responseContent = response.data;
                     var clinic = $('#clinic').val(responseContent.data.hospital.name)

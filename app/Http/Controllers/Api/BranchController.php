@@ -227,7 +227,11 @@ class BranchController extends Controller
                 'error'     => null
             ]);
         } else if($user->hasRole('superadmin')) {
-            $branchs = Branch::get();
+            if (isset($request->hospitalId)) {
+                $branchs = Branch::where('hospital_id', $request->hospitalId)->get();
+            } else {
+                $branchs = Branch::get();
+            }
             return response()->json([
                 'data'  => [
                     'branchs'   => $branchs
