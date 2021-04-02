@@ -29,7 +29,7 @@
 
                                           <!-- Modal -->
                                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
+                                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="exampleModalLabel">Payment Method</h5>
@@ -38,10 +38,57 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                    ...
+                                                        <table class="table table-bordered table-hover list-bank">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">LIST BANK</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th scope="row">
+                                                                        <div class="col-5">
+                                                                            <p>Bank Mandiri</p>
+                                                                        </div>
+                                                                        <div class="col-5">
+                                                                            <button type="button" class="btn btn-primary" href="#">Remove</button>
+                                                                        </div>
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">
+                                                                        <div class="col-5">
+                                                                            <p>Bank BCA</p>
+                                                                        </div>
+                                                                        <div class="col-5">
+                                                                            <button type="button" class="btn btn-primary" href="#">Remove</button>
+                                                                        </div>
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">
+                                                                        <div class="col-5">
+                                                                            <p>Bank BRI</p>
+                                                                        </div>
+                                                                        <div class="col-5">
+                                                                            <button type="button" class="btn btn-primary" href="#">Remove</button>
+                                                                        </div>
+                                                                    </th>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
+
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-primary">Add</button>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group row">
+                                                                <label for="typeText" class="col-form-label"><small>Bank Name</small></label>
+                                                                <div class="col-sm-9">
+                                                                    <input type="text" class="form-control" id="typeText" placeholder="Bank Name..">
+                                                                </div>
+                                                                <button type="button" class="btn btn-primary">Add</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

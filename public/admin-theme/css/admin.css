@@ -595,3 +595,13 @@ ul.pagination li a:hover:not(.active) {
     margin: auto;
     padding-top: 28px
 }
+
+.list-bank div {
+    display: inline-block;
+}
+
+thead {
+    background-color: #ff7c4c;
+    text-align: center;
+    color: #fff;
+}
