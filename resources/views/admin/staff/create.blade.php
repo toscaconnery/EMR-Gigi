@@ -217,14 +217,23 @@
                     }
                 }).then(function (response) {
                     let responseContent = response.data
+                    if (responseContent.data.branchs.length === 0) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Clinic doesn\'t have any branch.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else {
+                        var branchSelect = document.getElementById("branch")
+                        responseContent.data.branchs.forEach(e => {
+                            var newBranchOption = document.createElement('option')
+                            newBranchOption.text = e.name
+                            newBranchOption.value = e.id
+                            branchSelect.add(newBranchOption)
+                        })
+                    }
 
-                    var branchSelect = document.getElementById("branch")
-                    responseContent.data.branchs.forEach(e => {
-                        var newBranchOption = document.createElement('option')
-                        newBranchOption.text = e.name
-                        newBranchOption.value = e.id
-                        branchSelect.add(newBranchOption)
-                    })
                 })
             }
 
