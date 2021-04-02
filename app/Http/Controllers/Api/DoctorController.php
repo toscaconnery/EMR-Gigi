@@ -16,169 +16,196 @@ class DoctorController extends Controller
     {
         $user = $this->authUser();
 
-        $limit = $request->limit ? $request->limit : 10;
-        $page = $request->page ? $request->page : 1;
-        $skip = ($limit * $page) - $limit;
-        $search = $request->search;
-
-        $doctors = User::whereHas("roles", function($q){ $q->where("name", "doctor"); });
-
-        if ($user->hasRole('admin')) {
-            $doctors->where('hospital_id', $user->hospital_id);
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+            $limit = $request->limit ? $request->limit : 10;
+            $page = $request->page ? $request->page : 1;
+            $skip = ($limit * $page) - $limit;
+            $search = $request->search;
+    
+            $doctors = User::whereHas("roles", function($q){ $q->where("name", "doctor"); });
+    
+            if ($user->hasRole('admin')) {
+                $doctors->where('hospital_id', $user->hospital_id);
+            }
+                            
+            $doctors->with('workBranch');
+                            
+            if ($search != '') {
+                $doctors = $doctors->where('name', 'like', '%' . $search . '%');
+            }
+    
+            $doctorCounterTemplate = clone $doctors;
+    
+            $doctors = $doctors->take($limit)
+                                ->skip($skip);
+    
+            $doctors = $doctors->get();
+    
+            $count = $doctorCounterTemplate->count();
+            $pagination = $this->generatePagination($count, $page, $limit);
+            
+            return response()->json([
+                'data'      => [
+                    'doctors'       => $doctors,
+                    'limit'         => $limit,
+                    'page'          => $page,
+                    'pagination'    => $pagination,
+                ],
+                'status'    => 'success',
+                'error'     => null
+            ]);
+        } else {
+            return response()->json($this->createErrorMessage('Not allowed'));
         }
-                        
-        $doctors->with('workBranch');
-                        
-        if ($search != '') {
-            $doctors = $doctors->where('name', 'like', '%' . $search . '%');
-        }
 
-        $doctorCounterTemplate = clone $doctors;
-
-        $doctors = $doctors->take($limit)
-                            ->skip($skip);
-
-        $doctors = $doctors->get();
-
-        $count = $doctorCounterTemplate->count();
-        $pagination = $this->generatePagination($count, $page, $limit);
-        
-        return response()->json([
-            'data'      => [
-                'doctors'       => $doctors,
-                'limit'         => $limit,
-                'page'          => $page,
-                'pagination'    => $pagination,
-            ],
-            'status'    => 'success',
-            'error'     => null
-        ]);
     }
 
     public function register(Request $request)
     {
         $user = $this->authUser();
 
-        $payload = [
-            'name'  => $request->doctorName,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'gender'=> $request->gender,
-            'password' => Hash::make($request->password),
-            'hospital_id' => $user->hospital_id,
-            'branch_id' => $request->branch
-        ];
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+            if ($user->hasRole('superadmin')) {
+                $hospitalId = $request->clinic;
+            } else {
+                $hospitalId = $user->hospital_id;
+            }
+            $payload = [
+                'name'  => $request->doctorName,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'gender'=> $request->gender,
+                'password' => Hash::make($request->password),
+                'hospital_id' => $hospitalId,
+                'branch_id' => $request->branch
+            ];
 
-        $newUser = User::create($payload);
+            $newUser = User::create($payload);
 
-        foreach($request->selectedActions as $sact) {
-            DoctorAction::create([
-                'doctor_id' => $newUser->id,
-                'action_id' => $sact
-            ]);
+            foreach($request->selectedActions as $sact) {
+                DoctorAction::create([
+                    'doctor_id' => $newUser->id,
+                    'action_id' => $sact
+                ]);
+            }
+
+            $newUser->assignRole('doctor');
+
+            return response()->json([
+                'data'      => null,
+                'status'    => 'success',
+                'error'     => null
+            ]);        
+        } else {
+            return response()->json($this->createErrorMessage('Not allowed'));
         }
 
-        $newUser->assignRole('doctor');
-
-        return response()->json([
-            'data'      => null,
-            'status'    => 'success',
-            'error'     => null
-        ]);        
     }
 
     public function delete(Request $request) {
         $user = $this->authUser();
 
-        $doctor = User::find($request->doctorId);
-
-        if ($doctor) {
-            if ($doctor->hospital_id == $user->hospital_id) {
-                $doctor->delete();
-                return response()->json([
-                    'data'      => null,
-                    'status'    => 'success',
-                    'error'     => null
-                ]);
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+            $doctor = User::find($request->doctorId);
+    
+            if ($doctor) {
+                if ($doctor->hospital_id == $user->hospital_id || $user->hasRole('superadmin')) {
+                    $doctor->delete();
+                    return response()->json([
+                        'data'      => null,
+                        'status'    => 'success',
+                        'error'     => null
+                    ]);
+                } else {
+                    return response()->json($this->createErrorMessage('You have no access to delete this doctor'));
+                }
             } else {
-                return response()->json($this->createErrorMessage('You have no access to delete this doctor'));
+                return response()->json($this->createErrorMessage('Doctor not found'));
             }
         } else {
-            return response()->json($this->createErrorMessage('Doctor not found'));
+            return response()->json($this->createErrorMessage('Not allowed'));
         }
     }
 
     public function update(Request $request) {
         $user = $this->authUser();
 
-        $doctor = User::find($request->doctorId);
-
-        if ($doctor) {
-            if ($doctor->hospital_id == $user->hospital_id) {
-                $actions = DoctorAction::where('doctor_id', $request->doctorId)->get();
-
-                $doctor->name = $request->doctorName;
-                $doctor->email = $request->email;
-                $doctor->phone = $request->phone;
-                $doctor->gender = $request->gender;
-                if ($request->password != '') {
-                    $doctor->password = bcrypt($request->password);
-                }
-                $doctor->save();
-
-                $currentActions = [];
-
-                // Delete all actions that not in use
-                foreach($actions as $act) {
-                    array_push($currentActions, $act->action_id);
-                    if ( ! in_array($act->action_id, $request->selectedActions)) {
-                        $act->delete();
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+            $doctor = User::find($request->doctorId);
+    
+            if ($doctor) {
+                if ($doctor->hospital_id == $user->hospital_id || $user->hasRole('superadmin')) {
+                    $actions = DoctorAction::where('doctor_id', $request->doctorId)->get();
+    
+                    $doctor->name = $request->doctorName;
+                    $doctor->email = $request->email;
+                    $doctor->phone = $request->phone;
+                    $doctor->gender = $request->gender;
+                    if ($request->password != '') {
+                        $doctor->password = bcrypt($request->password);
                     }
-                }
-                // Create if doctor action does not exists
-                foreach($request->selectedActions as $sa) {
-                    if ( ! in_array($sa, $currentActions)) {
-                        DoctorAction::create([
-                            'doctor_id' => $request->doctorId,
-                            'action_id' => $sa
-                        ]);
+                    $doctor->save();
+    
+                    $currentActions = [];
+    
+                    // Delete all actions that not in use
+                    foreach($actions as $act) {
+                        array_push($currentActions, $act->action_id);
+                        if ( ! in_array($act->action_id, $request->selectedActions)) {
+                            $act->delete();
+                        }
                     }
+                    // Create if doctor action does not exists
+                    foreach($request->selectedActions as $sa) {
+                        if ( ! in_array($sa, $currentActions)) {
+                            DoctorAction::create([
+                                'doctor_id' => $request->doctorId,
+                                'action_id' => $sa
+                            ]);
+                        }
+                    }
+    
+                    return response()->json([
+                        'data'      => null,
+                        'status'    => 'success',
+                        'error'     => null,
+                    ]);
+                } else {
+                    return response()->json($this->createErrorMessage('You have no access to edit this doctor'));
                 }
-
-                return response()->json([
-                    'data'      => null,
-                    'status'    => 'success',
-                    'error'     => null,
-                ]);
             } else {
-                return response()->json($this->createErrorMessage('You have no access to edit this staff'));
+                return response()->json($this->createErrorMessage('Doctor not found'));
             }
         } else {
-            return response()->json($this->createErrorMessage('Staff not found'));
+            return response()->json($this->createErrorMessage('Not allowed'));
         }
     }
 
     public function detail(Request $request) {
         $user = $this->authUser();
 
-        $doctor = User::find($request->doctorId);
-
-        if ($doctor) {
-            if ($doctor->hospital_id == $user->hospital_id) {
-                $actions = DoctorAction::where('doctor_id', $request->doctorId)->get();
-                return response()->json([
-                    'data'  => [
-                        'doctor'    => $doctor,
-                        'actions'   => $actions,
-                    ],
-                    'status'    => 'success',
-                    'error' => null
-                ]);
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+            $doctor = User::find($request->doctorId);
+    
+            if ($doctor) {
+                if ($doctor->hospital_id == $user->hospital_id || $user->hasRole('superadmin')) {
+                    $actions = DoctorAction::where('doctor_id', $request->doctorId)->get();
+                    return response()->json([
+                        'data'  => [
+                            'doctor'    => $doctor,
+                            'actions'   => $actions,
+                        ],
+                        'status'    => 'success',
+                        'error' => null
+                    ]);
+                } else {
+                    return response()->json($this->createErrorMessage('You have no access to view this doctor'));
+                }
             } else {
-                return response()->json($this->createErrorMessage('You have no access to view this doctor'));
+                return response()->json($this->createErrorMessage('Doctor not found'));
             }
         } else {
-            return response()->json($this->createErrorMessage('Doctor not found'));
+            return response()->json($this->createErrorMessage('Not allowed'));
         }
     }
 

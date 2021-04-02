@@ -11,44 +11,47 @@ class StaffController extends Controller
 {
     public function list(Request $request)
     {
-        $user = $this->authUser();
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+            $user = $this->authUser();
 
-        $limit = $request->limit ? $request->limit : 10;
-        $page = $request->page ? $request->page : 1;
-        $skip = ($limit * $page) - $limit;
-        $search = $request->search;
+            $limit = $request->limit ? $request->limit : 10;
+            $page = $request->page ? $request->page : 1;
+            $skip = ($limit * $page) - $limit;
+            $search = $request->search;
 
+            $staffs = User::whereHas("roles", function($q){ $q->where("name", "staff"); });
 
-        $staffs = User::whereHas("roles", function($q){ $q->where("name", "staff"); });
+            if ($user->hasRole('admin')) {
+                $staffs->where('hospital_id', $user->hospital_id);
+            }
+                            
+            if ($search != '') {
+                $staffs = $staffs->where('name', 'like', '%' . $search . '%');
+            }
 
-        if ($user->hasRole('admin')) {
-            $staffs->where('hospital_id', $user->hospital_id);
+            $staffCounterTemplate = clone $staffs;
+
+            $staffs = $staffs->take($limit)
+                                ->skip($skip);
+
+            $staffs = $staffs->with('workBranch')->get();
+
+            $count = $staffCounterTemplate->count();
+            $pagination = $this->generatePagination($count, $page, $limit);
+            
+            return response()->json([
+                'data'  => [
+                    'staffs'   => $staffs,
+                    'limit'     => $limit,
+                    'page'      => $page,
+                    'pagination' => $pagination,
+                ],
+                'status'    => 'success',
+                'error'     => null
+            ]);
+        } else {
+            return response()->json($this->createErrorMessage('Not allowed'));
         }
-                        
-        if ($search != '') {
-            $staffs = $staffs->where('name', 'like', '%' . $search . '%');
-        }
-
-        $staffCounterTemplate = clone $staffs;
-
-        $staffs = $staffs->take($limit)
-                            ->skip($skip);
-
-        $staffs = $staffs->with('workBranch')->get();
-
-        $count = $staffCounterTemplate->count();
-        $pagination = $this->generatePagination($count, $page, $limit);
-        
-        return response()->json([
-            'data'  => [
-                'staffs'   => $staffs,
-                'limit'     => $limit,
-                'page'      => $page,
-                'pagination' => $pagination,
-            ],
-            'status'    => 'success',
-            'error'     => null
-        ]);
     }
 
     public function register(Request $request)
