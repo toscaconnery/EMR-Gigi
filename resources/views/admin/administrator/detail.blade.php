@@ -77,16 +77,21 @@
         $(document).ready(function(){
             function setClinicValue()
             {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
+                var baseUrl = window.location.origin
+                const administratorId = $('#administrator_id').val()
+                const userToken = $('#user_token').val()
+                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`
 
                 const res = axios.get(fetchURL, {
                     headers: {
                         'Authorization': `Bearer ${userToken}`
                     },
+                    params: {
+                        'userFindId': administratorId
+                    }
                 }).then(function (response) {
                     let responseContent = response.data;
+                    console.log('clinic fetched', responseContent)
                     var clinic = $('#clinic').val(responseContent.data.hospital.name)
                 })
             }

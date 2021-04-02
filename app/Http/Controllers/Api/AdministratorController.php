@@ -15,43 +15,48 @@ class AdministratorController extends Controller
     {
         $user = $this->authUser();
 
-        $limit = $request->limit ? $request->limit : 10;
-        $page = $request->page ? $request->page : 1;
-        $skip = ($limit * $page) - $limit;
-        $search = $request->search;
-
-        $administrators = User::whereHas("roles", function($q){ $q->where("name", "admin"); });
-
-        if ($user->hasRole('admin')) {
-            $administrators->where('hospital_id', $user->hospital_id);
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+            $limit = $request->limit ? $request->limit : 10;
+            $page = $request->page ? $request->page : 1;
+            $skip = ($limit * $page) - $limit;
+            $search = $request->search;
+    
+            $administrators = User::whereHas("roles", function($q){ $q->where("name", "admin"); });
+    
+            if ($user->hasRole('admin')) {
+                $administrators->where('hospital_id', $user->hospital_id);
+            }
+                            
+            $administrators->with('workBranch');
+                            
+            if ($search != '') {
+                $administrators = $administrators->where('name', 'like', '%' . $search . '%');
+            }
+    
+            $administratorCounterTemplate = clone $administrators;
+    
+            $administrators = $administrators->take($limit)
+                                             ->skip($skip);
+    
+            $administrators = $administrators->get();
+    
+            $count = $administratorCounterTemplate->count();
+            $pagination = $this->generatePagination($count, $page, $limit);
+            
+            return response()->json([
+                'data'      => [
+                    'administrators'    => $administrators,
+                    'limit'             => $limit,
+                    'page'              => $page,
+                    'pagination'        => $pagination,
+                ],
+                'status'    => 'success',
+                'error'     => null
+            ]);
+        } else {
+            return response()->json($this->createErrorMessage('Not allowed'));
         }
-                        
-        $administrators->with('workBranch');
-                        
-        if ($search != '') {
-            $administrators = $administrators->where('name', 'like', '%' . $search . '%');
-        }
 
-        $administratorCounterTemplate = clone $administrators;
-
-        $administrators = $administrators->take($limit)
-                                         ->skip($skip);
-
-        $administrators = $administrators->get();
-
-        $count = $administratorCounterTemplate->count();
-        $pagination = $this->generatePagination($count, $page, $limit);
-        
-        return response()->json([
-            'data'      => [
-                'administrators'    => $administrators,
-                'limit'             => $limit,
-                'page'              => $page,
-                'pagination'        => $pagination,
-            ],
-            'status'    => 'success',
-            'error'     => null
-        ]);
     }
 
     public function register(Request $request)
@@ -60,8 +65,10 @@ class AdministratorController extends Controller
 
         if ($user->hasRole('superadmin')) {
             $hospitalId = $request->clinic;
-        } else {
+        } else if ($user->hasRole('admin')) {
             $hospitalId = $user->hospital_id;
+        } else {
+            return response()->json($this->createErrorMessage('Not allowed'));
         }
 
         $payload = [
@@ -114,22 +121,25 @@ class AdministratorController extends Controller
     public function delete(Request $request) {
         $user = $this->authUser();
 
-        $administrator = User::find($request->administratorId);
-
-        if ($administrator) {
-            if ($administrator->hospital_id == $user->hospital_id) {
-                $administrator->delete();
-                return response()->json([
-                    'data'      => null,
-                    'status'    => 'success',
-                    'error'     => null
-                ]);
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
+            $administrator = User::find($request->administratorId);
+    
+            if ($administrator) {
+                if ($administrator->hospital_id == $user->hospital_id || $user->hasRole('superadmin')) {
+                    $administrator->delete();
+                    return response()->json([
+                        'data'      => null,
+                        'status'    => 'success',
+                        'error'     => null
+                    ]);
+                } else {
+                    return response()->json($this->createErrorMessage('You have no access to delete this administrator'));
+                }
             } else {
-                return response()->json($this->createErrorMessage('You have no access to delete this administrator'));
+                return response()->json($this->createErrorMessage('Administrator not found'));
             }
-        } else {
-            return response()->json($this->createErrorMessage('Administrator not found'));
         }
+
     }
 
     public function update(Request $request) {
