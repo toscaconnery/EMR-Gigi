@@ -20,7 +20,7 @@
                 <div class="row">
 
                     <div class="container col-4">
-                        <div class="card"">
+                        <div class="card">
                             <div class="card-header text-white mb-1">
                                 Main Info
                             </div>
@@ -44,13 +44,13 @@
                                             <button type="button" class="btn btn-custom dropdown-toggle" data-toggle="dropdown" id="submit_button">
                                                 <i class="far fa-save"></i>Save
                                             </button>
-                                        </div>	
+                                        </div>
                                     </div> --}}
                                 </div>
                             </div>
                         </div>
                     </div>
-        
+
                     <form class="container col responsive" id="create_branch">
                         <div class="card">
                             <div class="card-header text-white mb-1">
@@ -94,7 +94,7 @@
                                                     <i class="fas fa-cog"></i>Manage Price
                                                 </button>
                                             </a>
-                                        </div>	
+                                        </div>
                                     </div>
                                 </div>
                             </div>
