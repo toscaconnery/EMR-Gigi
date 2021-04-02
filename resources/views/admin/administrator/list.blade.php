@@ -33,7 +33,12 @@
                             </div>
                         </div>
                         @role('admin')
-                            <a href="{{url('/admin/administrator/create')}}" class="btn create-button">
+                            <a href="{{url('/admin/administrator/create')}}" class="btn create-button w-auto">
+                                Add Administrator
+                            </a>
+                        @endrole
+                        @role('superadmin')
+                            <a href="{{url('/admin/administrator/create')}}" class="btn create-button w-auto">
                                 Add Administrator
                             </a>
                         @endrole

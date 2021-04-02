@@ -536,6 +536,10 @@ ul.pagination li a:hover:not(.active) {
     }
 }
 
+.w-auto {
+    width: auto !important;
+}
+
 .create-button {
     background-color: #09C6A0;
     color: #fff;

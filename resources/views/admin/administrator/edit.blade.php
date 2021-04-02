@@ -43,7 +43,7 @@
                                 <div class="input-group-prepend form-add">
                                     <span class="input-group-text tlr-15 blr-15">+62</span>
                                 </div>
-                                <input type="phone" id="phone" class="form-control form-add" placeholder="Please input the staff phone number" autocomplete="off">
+                                <input type="phone" id="phone" class="form-control form-add" placeholder="Please input the administrator phone number" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -173,19 +173,25 @@
 
             function setClinicValue()
             {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
+                var baseUrl = window.location.origin
+                const administratorId = $('#administrator_id').val()
+                const userToken = $('#user_token').val()
+                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`
 
                 const res = axios.get(fetchURL, {
                     headers: {
                         'Authorization': `Bearer ${userToken}`
                     },
+                    params: {
+                        'userFindId': administratorId
+                    }
                 }).then(function (response) {
                     let responseContent = response.data;
+                    console.log('clinic fetched', responseContent)
                     var clinic = $('#clinic').val(responseContent.data.hospital.name)
                 })
             }
+            
             setClinicValue();
 
             function fetchDetailData()
@@ -215,37 +221,6 @@
                 })
 
             }
-
-            // function setBranchOptions()
-            // {
-            //     var baseUrl = window.location.origin;
-            //     const userToken = $('#user_token').val();
-            //     const fetchURL = `${baseUrl}/api/admin/get-available-branch-option`;
-
-            //     const res = axios.get(fetchURL, {
-            //         headers: {
-            //             'Authorization': `Bearer ${userToken}`
-            //         },
-            //     }).then(function (response) {
-            //         if (response.data.status == 'success') {
-            //             var branchSelect = document.getElementById("branch");
-            //             response.data.data.branchs.forEach(e => {
-            //                 var newBranchOption = document.createElement('option');
-            //                 newBranchOption.text = e.name;
-            //                 newBranchOption.value = e.id;
-            //                 branchSelect.add(newBranchOption);
-            //             })
-            //         } else {
-            //             Swal.fire({
-            //                 icon: 'warning',
-            //                 title: 'Failed to fetch branchs.',
-            //                 showConfirmButton: false,
-            //                 timer: 1500
-            //             });
-            //         }
-            //     })
-            // }
-            // setBranchOptions();
             
             fetchDetailData()
 

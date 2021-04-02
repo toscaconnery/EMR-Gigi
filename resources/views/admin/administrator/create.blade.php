@@ -21,7 +21,15 @@
                         <div class="form-group row">
                             <label for="clinic" class="col-sm-2 col-form-label">Clinic</label>
                             <div class="col-sm-10">
-                                <input type="text" id="clinic" class="form-control form-add mb-2" value="" disabled>
+                                @role('admin')
+                                    <input type="text" id="clinic" class="form-control form-add mb-2" value="" disabled>
+                                @endrole
+                                @role('superadmin')
+                                    <select id="clinic" class="form-control form-add mb-2">
+                                        <option selected disabled>Please select a clinic</option>
+                                    </select>
+                                    <input type="hidden" id="is_superadmin" value="true">
+                                @endrole
                             </div>
                         </div>
                         <div class="form-group row">
@@ -92,6 +100,13 @@
             }
 
             $('#save_administrator').on('click', async function() {
+                let clinic = $('#clinic').val()
+                if (isSuperadmin()) {
+                    if (clinic === null) {
+                        pushErrMsg('Clinic is required')
+                    }
+                }
+
                 let administratorName = $('#administrator_name').val();
                 if (administratorName === '') {
                     pushErrMsg('Administrator name is required')
@@ -124,9 +139,13 @@
                     pushErrMsg('Password doesn\'t match')
                 }
 
+                console.log(hasError, errorMessage)
+
                 
                 if (hasError) {
-                    toastr.warning(errorMessage)
+                    // alert('error')
+                    // toastr.warning(errorMessage)
+                    showWarning(errorMessage)
                     errorMessage = ''
                     hasError = false
                 } else {
@@ -138,6 +157,11 @@
                         password,
                         confirmPassword
                     }
+                    if (isSuperadmin()) {
+                        administratorData['clinic'] = clinic
+                    }
+    
+                    console.log(administratorData);
     
                     var baseUrl = window.location.origin
 
@@ -169,20 +193,64 @@
                 }
             });
 
+            function showWarning(message)
+            {
+                message = '<ol style="list-style-position: outside;">' + message + '</ol>'
+                toastr.warning(message)
+            }
+
+            function isSuperadmin()
+            {
+                var isSuperadmin = $('#is_superadmin')
+                if (isSuperadmin.length > 0) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+
             function setClinicValue()
             {
                 var baseUrl = window.location.origin;
                 const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
 
-                const res = axios.get(fetchURL, {
-                    headers: {
-                        'Authorization': `Bearer ${userToken}`
-                    },
-                }).then(function (response) {
-                    let responseContent = response.data;
-                    var clinic = $('#clinic').val(responseContent.data.hospital.name)
-                })
+                if (isSuperadmin()) {
+                    let fetchURL = `${baseUrl}/api/admin/clinic/list`
+
+                    const res = axios.get(fetchURL, {
+                        headers: {
+                            'Authorization': `Bearer ${userToken}`
+                        }
+                    }).then(function (response) {
+                        let responseContent = response.data
+                        clinicSelect = document.getElementById("clinic")
+                        console.log('CLINIC')
+                        console.log(responseContent)
+
+                        responseContent.data.hospitals.forEach(e => {
+                            var newClinicOption = document.createElement('option')
+                            newClinicOption.text = e.name
+                            newClinicOption.value = e.id
+                            clinicSelect.add(newClinicOption)
+                        })
+                        $('#clinic').on('change', function() {
+                            let selectedClinic = $('#clinic').val()
+                            $('#branch').empty()
+                        })
+                    })
+                } else {
+                    const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
+
+                    const res = axios.get(fetchURL, {
+                        headers: {
+                            'Authorization': `Bearer ${userToken}`
+                        },
+                    }).then(function (response) {
+                        let responseContent = response.data;
+                        var clinic = $('#clinic').val(responseContent.data.hospital.name)
+                    })
+                }
+
             }
             setClinicValue();
         });

@@ -57,8 +57,7 @@ class StaffController extends Controller
 
         if ($user->hasRole('superadmin') ||  $user->hasRole('admin')) {     
             if ($user->hasRole('superadmin')) {
-                // need to set the hospital_id
-                $hospitalId = 1000;
+                $hospitalId = $request->clinic;
             } else {
                 $hospitalId = $user->hospital_id;
             }
