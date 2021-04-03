@@ -11,8 +11,8 @@ class StaffController extends Controller
 {
     public function list(Request $request)
     {
+        $user = $this->authUser();
         if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
-            $user = $this->authUser();
 
             $limit = $request->limit ? $request->limit : 10;
             $page = $request->page ? $request->page : 1;
