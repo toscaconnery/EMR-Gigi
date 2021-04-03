@@ -296,7 +296,7 @@
                     responseContent.data.actions.forEach(e => {
                         $('#action_placer').before(`
                             <div class="col-sm-2 action-list-content">
-                                <input type="checkbox" id="action_option_${e.id}" name="action[${e.id}]" value="${e.id}" data-action_id=${e.id}}>
+                                <input type="checkbox" id="action_option_${e.id}" name="action[${e.id}]" value="${e.id}" data-action_id=${e.id}>
                                 <label for="action_option_${e.id}">${e.name}</label><br>
                             </div>
                         `);

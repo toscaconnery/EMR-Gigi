@@ -279,7 +279,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('superadmin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
             $doctorId = $doctor_id;
 
@@ -297,7 +297,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('superadmin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
             $doctorId = $doctor_id;
 

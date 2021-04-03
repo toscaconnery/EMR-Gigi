@@ -366,7 +366,7 @@ class PriceController extends Controller
     {
         $user = $this->authUser();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('superadmin')) {
             $branchId = $request->branch_id;
             $actions = Action::where('branch_id', $branchId)->get();
             return response()->json([
