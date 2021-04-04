@@ -169,6 +169,7 @@ nav ul li a:hover {
 .breadcrumb {
     background-color: white;
     padding: 10px 16px;
+    padding-left: 20px;
     list-style: none;
 }
 

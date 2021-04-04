@@ -10,11 +10,11 @@
         <div id="main">
             @include('admin_layout.navbar')
 
-            <ul class="breadcrumb">
-                <h4 class="mr-auto">Administrator Form</h4>
-                <li><a class="active">Administrator</a></li>
-                <li><a href="#">Detail</a></li>
-            </ul>
+            <ul class="breadcrumb mr-auto">
+				<li><a class="active">Administrator</a></li>
+				<li><a href="{{url('/admin/administrator/list')}}">List</a></li>
+                <li><a href="{{url('/admin/administrator/detail/' . $administratorId)}}">Detail</a></li>
+			</ul>
 
             <div class="container-fluid">
                 <div class="card col-md-12">

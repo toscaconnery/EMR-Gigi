@@ -9,11 +9,11 @@
         <div id="main">
             @include('admin_layout.navbar')
 
-            <ul class="breadcrumb">
-                <h4 class="mr-auto">Doctor Form</h4>
-                <li><a class="active">Doctor</a></li>
-                <li><a href="#">Add</a></li>
-            </ul>
+            <ul class="breadcrumb mr-auto">
+				<li><a class="active">Doctor</a></li>
+				<li><a href="{{url('/admin/doctor/list')}}">List</a></li>
+                <li><a href="{{url('/admin/doctor/create')}}">Create</a></li>
+			</ul>
 
             <div class="container-fluid">
                 <div class="card col-md-12">

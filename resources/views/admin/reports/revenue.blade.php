@@ -9,11 +9,11 @@
         <div id="main">
             @include('admin_layout.navbar')
 
-            <ul class="breadcrumb">
-                <h4 class="mr-auto">Revenue</h4>
-                <li><a class="active">Report</a></li>
-                <li><a href="#">Revenue</a></li>
-            </ul>
+            <ul class="breadcrumb mr-auto">
+				<li><a class="active">Report</a></li>
+				<li><a href="{{url('/admin/reports/revenue')}}">Revenue</a></li>
+			</ul>
+
 
             <div class="Container-fluid container col md-6">
                 <div class="row">

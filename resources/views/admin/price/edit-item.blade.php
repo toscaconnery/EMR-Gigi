@@ -12,11 +12,13 @@
 		<div id="main">
 			@include('admin_layout.navbar')
 
-			<ul class="breadcrumb">
-				<h4 class="mr-auto">Price</h4>
-				<li><a class="active">Price</a></li>
-				<li><a href="#">Edit Item</a></li>
-            </ul>
+            <ul class="breadcrumb mr-auto">
+				<li><a class="active">Branch</a></li>
+				<li><a href="{{url('/admin/branch/list')}}">List</a></li>
+                <li><a href="{{url('/admin/branch/detail/' . $branchId)}}">Detail</a></li>
+                <li><a href="{{url('/admin/branch/price/' . $branchId)}}">Price List</a></li>
+                <li><a href="{{url('/admin/branch/price/' . $branchId . '/item/edit/' . $item['id'])}}">Edit Item</a></li>
+			</ul>
             
             <div class="container col-lg-12 col md-6">
                 <div class="card col-md-12">
@@ -117,7 +119,8 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            window.history.back();
+                            const redirectURL = `${baseUrl}/admin/branch/price/${branchId}`
+                            window.location.href = redirectURL
                         } else {
                             Swal.fire({
                                 icon: 'warning',

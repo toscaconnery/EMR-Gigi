@@ -10,10 +10,9 @@
 		<div id="main">
 			@include('admin_layout.navbar')
 
-			<ul class="breadcrumb">
-				<h4 class="mr-auto">Staff</h4>
+			<ul class="breadcrumb mr-auto">
 				<li><a class="active">Staff</a></li>
-				<li><a href="#">List</a></li>
+				<li><a href="{{url('/admin/staff/list')}}">List</a></li>
 			</ul>
 
 			<div class="container col-lg-12 col md-6">
