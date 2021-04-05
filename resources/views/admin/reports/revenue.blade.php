@@ -51,7 +51,7 @@
                                                                             <p>Bank Mandiri</p>
                                                                         </div>
                                                                         <div class="col-5">
-                                                                            <button type="button" class="btn btn-primary" href="#">Remove</button>
+                                                                            <button type="button" class="btn btn-primary btn-bank" href="#">Remove</button>
                                                                         </div>
                                                                     </th>
                                                                 </tr>
@@ -61,7 +61,7 @@
                                                                             <p>Bank BCA</p>
                                                                         </div>
                                                                         <div class="col-5">
-                                                                            <button type="button" class="btn btn-primary" href="#">Remove</button>
+                                                                            <button type="button" class="btn btn-primary btn-bank" href="#">Remove</button>
                                                                         </div>
                                                                     </th>
                                                                 </tr>
@@ -71,7 +71,7 @@
                                                                             <p>Bank BRI</p>
                                                                         </div>
                                                                         <div class="col-5">
-                                                                            <button type="button" class="btn btn-primary" href="#">Remove</button>
+                                                                            <button type="button" class="btn btn-primary btn-bank" href="#">Remove</button>
                                                                         </div>
                                                                     </th>
                                                                 </tr>

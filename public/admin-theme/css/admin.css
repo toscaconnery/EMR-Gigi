@@ -363,6 +363,10 @@ ul.pagination li a:hover:not(.active) {
 
 }
 
+.btn-bank {
+    margin-left: 100%;
+}
+
 .btn-primary:hover {
     background-color: #0ddcb2 !important;
     border-color: #0ddcb2;
