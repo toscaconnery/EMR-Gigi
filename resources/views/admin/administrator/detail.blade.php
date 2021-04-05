@@ -10,11 +10,11 @@
         <div id="main">
             @include('admin_layout.navbar')
 
-            <ul class="breadcrumb">
-                <h4 class="mr-auto">Administrator Form</h4>
-                <li><a class="active">Administrator</a></li>
-                <li><a href="#">Detail</a></li>
-            </ul>
+            <ul class="breadcrumb mr-auto">
+				<li><a class="active">Administrator</a></li>
+				<li><a href="{{url('/admin/administrator/list')}}">List</a></li>
+                <li><a href="{{url('/admin/administrator/detail/' . $administratorId)}}">Detail</a></li>
+			</ul>
 
             <div class="container-fluid">
                 <div class="card col-md-12">
@@ -77,16 +77,21 @@
         $(document).ready(function(){
             function setClinicValue()
             {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
+                var baseUrl = window.location.origin
+                const administratorId = $('#administrator_id').val()
+                const userToken = $('#user_token').val()
+                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`
 
                 const res = axios.get(fetchURL, {
                     headers: {
                         'Authorization': `Bearer ${userToken}`
                     },
+                    params: {
+                        'userFindId': administratorId
+                    }
                 }).then(function (response) {
                     let responseContent = response.data;
+                    console.log('clinic fetched', responseContent)
                     var clinic = $('#clinic').val(responseContent.data.hospital.name)
                 })
             }

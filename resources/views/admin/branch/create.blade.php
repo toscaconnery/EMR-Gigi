@@ -10,11 +10,11 @@
         <div id="main">
             @include('admin_layout.navbar')
 
-            <ul class="breadcrumb">
-                <h4 class="mr-auto">Branch Form</h4>
-                <li><a class="active">Branch</a></li>
-                <li><a href="#">Create</a></li>
-            </ul>
+            <ul class="breadcrumb mr-auto">
+				<li><a class="active">Branch</a></li>
+				<li><a href="{{url('/admin/branch/list')}}">List</a></li>
+                <li><a href="{{url('/admin/branch/create')}}">Create</a></li>
+			</ul>
 
             <div class="container-fluid container col md-6">
                 <div class="row">
@@ -28,10 +28,16 @@
                                 <div class="container col-md-12">
                                     <div class="form-row">
                                         @role('superadmin')
-                                        <div class="form-group  col-md-12">
-                                            <label for="clinic">Clinic<span>*</span></label>
-                                            <select class="form-control" name="clinic" id="clinic"></select>
-                                        </div>
+                                            <div class="form-group  col-md-12">
+                                                <label for="clinic">Clinic<span>*</span></label>
+                                                <select class="form-control" name="clinic" id="clinic"></select>
+                                            </div>
+                                        @endrole
+                                        @role('admin')
+                                            <div class="form-group  col-md-12">
+                                                <label for="clinic_name">Clinic</label>
+                                                <input type="text" class="form-control" placeholder="" id="clinic_name" name="clinic_name" value="{{$clinic_name}}" disabled>
+                                            </div>
                                         @endrole
                                         <div class="form-group  col-md-12">
                                             <label for="branch_name">Name<span>*</span></label>

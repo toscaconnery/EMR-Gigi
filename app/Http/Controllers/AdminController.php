@@ -98,27 +98,6 @@ class AdminController extends Controller
         } else {
             return view('admin.dashboard.no-access');
         }
-
-
-        // if ( ! Auth::check()) {
-        //     return redirect('/login');
-        // } else {
-        //     $user = Auth::user();
-        //     $clinic = null;
-        //     if ($user->active_superadmin == false && $clinic_id == null) {
-        //         $clinic = Hospital::where('admin_id', $user->id)
-        //                           ->first();
-        //         return redirect('/admin/branch/list/' . $clinic->id);
-        //     }
-        //     // else {
-        //     //     $branch = Branch::where('hospital_id', $clinic_id)
-        //     //                     ->get();
-        //     // }
-        // }
-        // // dd($user);
-        // $jwtToken = $request->session()->get('jwtApiToken');
-
-        // return view('admin.branch.list', compact('jwtToken', 'clinic_id', 'clinic'));
     }
 
     public function branchCreate(Request $request)
@@ -136,7 +115,9 @@ class AdminController extends Controller
             return view('admin.branch.create', compact('jwtToken', 'clinic_id'));
         } elseif ($user->hasRole('admin')) {
             $clinic_id = $user->hospital_id;
-            return view('admin.branch.create', compact('jwtToken', 'clinic_id'));
+            $clinic = Hospital::find($clinic_id);
+            $clinic_name = $clinic->name;
+            return view('admin.branch.create', compact('jwtToken', 'clinic_id', 'clinic_name'));
         } else {
             return view('admin.dashboard.no-access');
         }
@@ -279,7 +260,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('superadmin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
             $doctorId = $doctor_id;
 
@@ -297,7 +278,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('admin') || $user->hasRole('superadmin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
             $doctorId = $doctor_id;
 
@@ -366,7 +347,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
 
             return view('admin.administrator.create', compact('jwtToken'));
@@ -383,7 +364,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
             $administratorId = $administrator_id;
 
@@ -401,7 +382,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('admin')) {
+        if ($user->hasRole('superadmin') || $user->hasRole('admin')) {
             $jwtToken = $request->session()->get('jwtApiToken');
             $administratorId = $administrator_id;
 

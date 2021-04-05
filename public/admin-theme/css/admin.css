@@ -169,6 +169,7 @@ nav ul li a:hover {
 .breadcrumb {
     background-color: white;
     padding: 10px 16px;
+    padding-left: 20px;
     list-style: none;
 }
 
@@ -538,6 +539,10 @@ ul.pagination li a:hover:not(.active) {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.w-auto {
+    width: auto !important;
 }
 
 .create-button {

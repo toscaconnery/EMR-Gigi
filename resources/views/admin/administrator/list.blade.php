@@ -10,10 +10,9 @@
 		<div id="main">
 			@include('admin_layout.navbar')
 
-			<ul class="breadcrumb">
-				<h4 class="mr-auto">Administrator</h4>
+            <ul class="breadcrumb mr-auto">
 				<li><a class="active">Administrator</a></li>
-				<li><a href="#">List</a></li>
+				<li><a href="{{url('/admin/administrator/list')}}">List</a></li>
 			</ul>
 
 			<div class="container col-lg-12 col md-6">
@@ -33,7 +32,12 @@
                             </div>
                         </div>
                         @role('admin')
-                            <a href="{{url('/admin/administrator/create')}}" class="btn create-button">
+                            <a href="{{url('/admin/administrator/create')}}" class="btn create-button w-auto">
+                                Add Administrator
+                            </a>
+                        @endrole
+                        @role('superadmin')
+                            <a href="{{url('/admin/administrator/create')}}" class="btn create-button w-auto">
                                 Add Administrator
                             </a>
                         @endrole

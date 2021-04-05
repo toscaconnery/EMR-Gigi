@@ -10,11 +10,11 @@
         <div id="main">
             @include('admin_layout.navbar')
 
-            <ul class="breadcrumb">
-                <h4 class="mr-auto">Doctor Form</h4>
-                <li><a class="active">Doctor</a></li>
-                <li><a href="#">Detail</a></li>
-            </ul>
+            <ul class="breadcrumb mr-auto">
+				<li><a class="active">Doctor</a></li>
+				<li><a href="{{url('/admin/doctor/list')}}">List</a></li>
+                <li><a href="{{url('/admin/doctor/detail/' . $doctorId )}}">Detail</a></li>
+			</ul>
 
             <div class="container-fluid">
                 <div class="card col-md-12">
@@ -40,6 +40,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="inputdoctors" class="col-sm-2 col-form-label">Action</label>
+                            <div class="col-sm-10 row">
+                                <span class="form-add mb-2 ml-3" style="color: gray" id="action_placeholder">
+                                    <i>Fetching actions...</i>
+                                </span>
+                                <span id="action_placer"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="email" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
                                 <input type="email" id="email" class="form-control form-add mb-2" autocomplete="off" value="" disabled>
@@ -51,7 +60,7 @@
                                 <div class="input-group-prepend form-add">
                                     <span class="input-group-text tlr-15 blr-15">+62</span>
                                 </div>
-                                <input type="phone" id="phone" class="form-control form-add" placeholder="Please input the staff phone number" autocomplete="off" disabled>
+                                <input type="phone" id="phone" class="form-control form-add" placeholder="Please input the doctor phone number" autocomplete="off" disabled>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -85,20 +94,72 @@
         $(document).ready(function(){
             function setClinicValue()
             {
-                var baseUrl = window.location.origin;
-                const userToken = $('#user_token').val();
-                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`;
+                var baseUrl = window.location.origin
+                const doctorId = $('#doctor_id').val()
+                const userToken = $('#user_token').val()
+                const fetchURL = `${baseUrl}/api/admin/get-current-clinic`
 
                 const res = axios.get(fetchURL, {
                     headers: {
                         'Authorization': `Bearer ${userToken}`
                     },
+                    params: {
+                        'userFindId': doctorId
+                    }
                 }).then(function (response) {
                     let responseContent = response.data;
                     var clinic = $('#clinic').val(responseContent.data.hospital.name)
                 })
             }
             setClinicValue();
+
+            function setActionOptions(selectedActions)
+            {
+                $('.action-list-content').remove();
+                $('#action_placeholder').remove();
+
+                var selectedBranch = $('#branch').val();
+                console.log('x', selectedBranch)
+                console.log('x2', $('#branch'))
+                var baseUrl = window.location.origin;
+                const userToken = $('#user_token').val();
+                const fetchURL = `${baseUrl}/api/admin/get-available-action-option`;
+
+                const res = axios.get(fetchURL, {
+                    headers: {
+                        'Authorization': `Bearer ${userToken}`
+                    },
+                    params: {
+                        'branch_id': selectedBranch
+                    }
+                }).then(function (response) {
+                    let responseContent = response.data;
+                    console.log('s', selectedActions)
+                    console.log('s2', responseContent.data.actions)
+                    responseContent.data.actions.forEach(e => {
+                        let isSelected = checkIfActionSelected(selectedActions,e)
+                        $('#action_placer').before(`
+                            <div class="col-sm-2 action-list-content">
+                                <input type="checkbox" id="action_option_${e.id}" name="action[${e.id}]" value="${e.id}" data-action_id=${e.id} ${isSelected} disabled>
+                                <label for="action_option_${e.id}">${e.name}</label><br>
+                            </div>
+                        `);
+                    })
+                })
+            }
+            // setActionOptions()
+
+            function checkIfActionSelected(selectedActionList, actionOption) {
+                // console.log('a', actionOption)
+                let isSelected = ''
+                selectedActionList.forEach(e => {
+                    // console.log('t', e)
+                    if (e.action_id === actionOption.id) {
+                        isSelected = 'checked'
+                    }
+                })
+                return isSelected
+            }
 
             function fetchDetailData()
             {
@@ -115,7 +176,8 @@
                     }
                 }).then(function (response) {
                     if (response.data.status == 'success') {
-                        showData(response.data.data.doctor)
+                        console.log('y',response.data.data)
+                        showData(response.data.data.doctor, response.data.data.actions)
                     } else {
                         Swal.fire({
                             icon: 'warning',
@@ -161,7 +223,7 @@
             }
             setBranchOptions();
 
-            function showData(data)
+            function showData(data, actions)
             {
                 console.log(data)
                 $('#branch').val(data.branch_id)
@@ -169,6 +231,7 @@
                 $('#email').val(data.email)
                 $('#phone').val(data.phone)
                 $('select[id="gender"]').val(data.gender);
+                setActionOptions(actions)
             }
 
         });

@@ -7,11 +7,9 @@
         <div id="main">
             @include('admin_layout.navbar')
 
-            <ul class="breadcrumb">
-                <h4 class="mr-auto">Dashboard</h4>
-                <li><a class="active">Admin</a></li>
-                <li><a href="#">Dashboard</a></li>
-            </ul>
+            <ul class="breadcrumb mr-auto">
+				<li><a class="active">Dashboard</a></li>
+			</ul>
 
             <div class="Container-fluid container col md-6">
                 <div class="row">

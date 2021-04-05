@@ -4,7 +4,6 @@
     @include('admin_layout.head')
     <body>
         <input type="hidden" value="{{$jwtToken}}" id="user_token">
-        <input type="hidden" value="1" id="clinic_page">    {{-- delete --}}
         <input type="hidden" value="{{$branchId}}" id="branch_id">
 
         @include('admin_layout.sidenav')
@@ -12,11 +11,13 @@
 		<div id="main">
 			@include('admin_layout.navbar')
 
-			<ul class="breadcrumb">
-				<h4 class="mr-auto">Price</h4>
-				<li><a class="active">Price</a></li>
-				<li><a href="#">List</a></li>
-            </ul>
+            <ul class="breadcrumb mr-auto">
+				<li><a class="active">Branch</a></li>
+				<li><a href="{{url('/admin/branch/list')}}">List</a></li>
+                <li><a href="{{url('/admin/branch/detail/' . $branchId)}}">Detail</a></li>
+                <li><a href="{{url('/admin/branch/price/' . $branchId)}}">Price List</a></li>
+			</ul>
+
             
             <div class="container col-lg-12 col md-6">
                 <div class="card col-md-12 pb-5">
@@ -175,7 +176,7 @@
                     }
                 }).then(function (response) {
                     if (response.data.status == 'success') {
-                        showItem(response.data.itemlist);
+                        showItem(response.data.data.itemlist);
                     } else {
                         Swal.fire({
                             icon: 'warning',
