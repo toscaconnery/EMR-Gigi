@@ -594,7 +594,14 @@ ul.pagination li a:hover:not(.active) {
     color: white;
     text-align: center;
     margin: auto;
-    padding-top: 35px
+    padding-top: 15px
+}
+
+.box h4 {
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    margin: auto;
 }
 
 .box p {
@@ -602,7 +609,7 @@ ul.pagination li a:hover:not(.active) {
     color: white;
     text-align: center;
     margin: auto;
-    padding-top: 28px
+    padding-top: 20px
 }
 
 .list-bank div {

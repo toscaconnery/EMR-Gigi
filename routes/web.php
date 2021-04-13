@@ -79,6 +79,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin|admin|staff
 
     // Reports
     Route::get('reports/revenue', 'AdminController@revenueView');
+    Route::get('reports/patients', 'AdminController@patientsView');
 });
 
 

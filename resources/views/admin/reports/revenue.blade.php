@@ -82,9 +82,9 @@
                                                     <div class="modal-footer">
                                                         <div class="col-md-12">
                                                             <div class="form-group row">
-                                                                <label for="typeText" class="col-form-label"><small>Bank Name</small></label>
+                                                                <label for="bank" class="col-form-label"><small>Bank Name</small></label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" id="typeText" placeholder="Bank Name..">
+                                                                    <input type="text" class="form-control" id="bank" placeholder="Bank Name..">
                                                                 </div>
                                                                 <button type="button" class="btn btn-primary">Add</button>
                                                             </div>

@@ -205,6 +205,11 @@ class AdminController extends Controller
         return view('admin.reports.revenue');
     }
 
+    public function patientsView()
+    {
+        return view('admin.reports.patients');
+    }
+
     public function editItem(Request $request, $branchId, $itemId)
     {
         if ( ! Auth::check()) {
@@ -373,7 +378,7 @@ class AdminController extends Controller
             return view('admin.dashboard.no-access');
         }
     }
-    
+
     public function administratorEdit(Request $request, $administrator_id)
     {
         if ( ! Auth::check()) {

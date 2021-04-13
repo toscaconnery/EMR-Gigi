@@ -18,7 +18,7 @@
         </div>
         <button class="dropdown-btn">Reports <i class="fa fa-caret-down"></i></button>
         <div class="dropdown-container">
-            <a href="#">Patients</a>
+            <a href="{{url('/admin/reports/patients')}}">Patients</a>
             <a href="{{url('/admin/reports/revenue')}}">Revenue</a>
         </div>
         <a href="#">Cashier</a>
