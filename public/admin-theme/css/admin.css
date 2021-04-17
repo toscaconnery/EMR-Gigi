@@ -548,7 +548,8 @@ ul.pagination li a:hover:not(.active) {
 .create-button {
     background-color: #09C6A0;
     color: #fff;
-    width: 130px;
+    padding-left: 20px;
+    padding-right: 20px;
     margin-left: auto;
     right: 0;
     margin-right: 10px;

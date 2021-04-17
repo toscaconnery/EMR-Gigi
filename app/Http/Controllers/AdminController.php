@@ -210,6 +210,11 @@ class AdminController extends Controller
         return view('admin.reports.patients');
     }
 
+    public function patientView()
+    {
+        return view('admin.reports.patient');
+    }
+
     public function editItem(Request $request, $branchId, $itemId)
     {
         if ( ! Auth::check()) {

@@ -23,7 +23,6 @@
                                 Report Patients( EMR )
                             </div>
                             <div class="card-body">
-
                                 <div class="container">
                                     <div class="row ml-auto mr-auto justify-content-between">
                                         <div class="col-md-2 box">
@@ -69,7 +68,7 @@
                                     </div>
 
                                     <div class="form-group row justify-content-end mt-4">
-                                        <label for="patients">Date:</label>
+                                        <label for="patients">Date</label>
                                         <div class="col-md-3">
                                             <input type="date" class="form-control" id="patients" placeholder="From">
                                         </div>
@@ -92,24 +91,29 @@
                                                 <td>1</td>
                                                 <td>Mark</td>
                                                 <td>05 - Apr - 2020</td>
-                                                <td><button type="button" class="btn btn-primary">View</button></td>
+                                                <td><a href="{{url('/admin/reports/patient')}}" class="btn create-button">
+                                                    View
+                                                </a></td>
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>Jacob</td>
                                                 <td>05 - Apr - 2020</td>
-                                                <td><button type="button" class="btn btn-primary">View</button></td>
+                                                <td><a href="{{url('/admin/reports/patient')}}" class="btn create-button">
+                                                    View
+                                                </a></td>
                                             </tr>
                                             <tr>
                                                 <td>3</td>
                                                 <td>Fredd</td>
                                                 <td>05 - Apr - 2020</td>
-                                                <td><button type="button" class="btn btn-primary">View</button></td>
+                                                <td><a href="{{url('/admin/reports/patient')}}" class="btn create-button">
+                                                    View
+                                                </a></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
                     </div>
