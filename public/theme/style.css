@@ -4598,6 +4598,10 @@ nav.active img.hospital-logo-long {
     border: none;
 }
 
+.login-input:disabled {
+	background-color: #94daf5;
+}
+
 .login-input-container {
 	position: relative;
 	width: 100%;
@@ -4689,6 +4693,27 @@ nav.active img.hospital-logo-long {
 	height: 600px;
 	top: 48%;
 	margin-top: -300px;
+}
+
+.register-form-container-new {
+	font-weight: 700;
+	background: white;
+	border-radius: 12px;
+	padding: 40px;
+	width: 800px;
+	left: 50%;
+	margin-left: -400px;
+	position: absolute;
+	height: 600px;
+	top: 48%;
+	margin-top: -300px;
+}
+
+@media (max-width: 768px) {
+	.register-form-container-new {
+		width: 400px;
+		margin-left: -200px;
+	}
 }
 
 .register-link {

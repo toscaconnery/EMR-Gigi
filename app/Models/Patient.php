@@ -11,16 +11,23 @@ class Patient extends Model
     protected $primaryKey = 'id';
 
     protected $casts = [
-        'dob' => 'date:hh:mm'
+        'tanggal_lahir' => 'date:hh:mm'
     ];
 
     protected $fillable = [
-        'name',
-        'gender',
-        'phone',
-        'mr_number',
-        'admission_number',
-        'dob'
+        'no_ktp',
+        'nama_depan',
+        'nama_belakang',
+        'email',
+        'no_telp',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'alamat',
+        'pekerjaan',
+        'alergi',
+        'username',
+        'jenis_kelamin',
+        'mr_number'
     ];
 
     public $timestamps = true;

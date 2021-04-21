@@ -65,7 +65,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'name' => $data['name'] . 'dummy',
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'is_doctor' => true

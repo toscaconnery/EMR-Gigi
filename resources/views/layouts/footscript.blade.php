@@ -73,3 +73,5 @@
     ============================================ -->
 <script src="theme/js/Lobibox.js"></script>
 <script src="theme/js/notification-active.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
