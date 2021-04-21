@@ -4714,6 +4714,10 @@ nav.active img.hospital-logo-long {
 		width: 400px;
 		margin-left: -200px;
 	}
+
+	.clean-register-button {
+		width: 100px;
+	}
 }
 
 .register-link {
@@ -4736,7 +4740,7 @@ nav.active img.hospital-logo-long {
 	font-size: 12px;
 	font-weight: 500;
 	margin-left: 20px;
-	color: rgba(6, 142, 201, 0.43);
+	color: rgba(6, 142, 201, 0.9);
 	font-weight: 700;
 }
 

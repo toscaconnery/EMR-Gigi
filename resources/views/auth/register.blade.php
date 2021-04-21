@@ -35,6 +35,28 @@
         justify-content: center;
         margin-top: 20px;
     }
+
+    @media (max-width: 768px) {
+        .left-button {
+            left: 0 !important;
+            margin-left: 0 !important;
+        }
+
+        .right-button {
+            left: unset;
+            right: 0 !important;
+        }
+    }
+
+    select:required:invalid {
+        color: gray;
+    }
+    option[value=""][disabled] {
+        display: none;
+    }
+    option {
+        color: black;
+    }
 </style>
 
 <body class="materialdesign">
@@ -114,12 +136,12 @@
                                         <div class="col-lg-1"></div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="button-container">
                                         <div class="col-lg-6">
-                                            <button type="button" id="to_login_page" class="clean-register-button" style="background-color: #e7eff6">Login</button>
+                                            <button type="button" id="to_login_page" class="clean-register-button left-button" style="background-color: #e7eff6">Login</button>
                                         </div>
                                         <div class="col-lg-6">
-                                            <button type="button" class="clean-register-button to-page-2">Lanjut</button>
+                                            <button type="button" class="clean-register-button to-page-2 right-button">Lanjut</button>
                                         </div>
                                     </div>
                                 </div>
@@ -184,19 +206,19 @@
                                         <div class="col-lg-10">
                                             <span class="register-placeholder">Tanggal Lahir</span>
                                             <div class="login-input-container">
-                                                <input type="text" class="login-input" name="tanggal_lahir" id="tanggal_lahir" placeholder="Tanggal Lahir"/>
+                                                <input type="date" class="login-input" name="tanggal_lahir" id="tanggal_lahir" placeholder="Tanggal Lahir"/>
                                                 <span class="shadow-input"></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-1"></div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="button-container">
                                         <div class="col-lg-6">
-                                            <button type="button" class="clean-register-button to-page-1">Kembali</button>
+                                            <button type="button" class="clean-register-button to-page-1 left-button">Kembali</button>
                                         </div>
                                         <div class="col-lg-6">
-                                            <button type="button" class="clean-register-button to-page-3">Lanjut</button>
+                                            <button type="button" class="clean-register-button to-page-3 right-button">Lanjut</button>
                                         </div>
                                     </div>
                                 </div>
@@ -226,7 +248,6 @@
                                             <span class="register-placeholder">Jenis Kelamin</span>
                                             <div class="login-input-container">
                                                 <select name="jenis_kelamin" class="login-input" id="jenis_kelamin">
-                                                    <option value="" selected disabled>Silahkan pilih salah satu</option>
                                                     <option value="">Laki-laki</option>
                                                     <option value="">Perempuan</option>
                                                 </select>
@@ -254,9 +275,8 @@
                                             <span class="register-placeholder">Alergi</span>
                                             <div class="login-input-container">
                                                 <select name="alergi_status" class="login-input" id="alergi_status">
-                                                    <option value="" selected disabled>Silahkan pilih salah satu</option>
-                                                    <option value="1">Punya alergi</option>
                                                     <option value="0">Tidak ada alergi</option>
+                                                    <option value="1">Punya alergi</option>
                                                 </select>
                                                 <span class="shadow-input"></span>
                                             </div>
@@ -276,12 +296,12 @@
                                         <div class="col-lg-1"></div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="button-container">
                                         <div class="col-lg-6">
-                                            <button type="button" class="clean-register-button to-page-2">Kembali</button>
+                                            <button type="button" class="clean-register-button to-page-2 left-button">Kembali</button>
                                         </div>
                                         <div class="col-lg-6">
-                                            <button type="button" class="clean-register-button to-page-4">Lanjut</button>
+                                            <button type="button" class="clean-register-button to-page-4 right-button">Lanjut</button>
                                         </div>
                                     </div>
                                 </div>
@@ -342,12 +362,12 @@
                                         <div class="col-lg-1"></div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="button-container">
                                         <div class="col-lg-6">
-                                            <button type="button" class="clean-register-button to-page-3">Kembali</button>
+                                            <button type="button" class="clean-register-button to-page-3 left-button">Kembali</button>
                                         </div>
                                         <div class="col-lg-6">
-                                            <button type="button" id="save_button" class="clean-register-button">Daftar</button>
+                                            <button type="button" id="save_button" class="clean-register-button right-button">Daftar</button>
                                         </div>
                                     </div>
                                 </div>
