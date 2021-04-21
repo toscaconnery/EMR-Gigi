@@ -36,7 +36,7 @@
         margin-top: 20px;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
         .left-button {
             left: 0 !important;
             margin-left: 0 !important;
@@ -67,7 +67,7 @@
             <div class="login-form-area mg-t-30 mg-b-40">
                 <div class="container-fluid">
                     <div class="row">
-                        <form id="adminpro-form" method="POST" class="adminpro-form" action="{{ route('register') }}">
+                        <form id="adminpro-form" class="adminpro-form">
                             @csrf
                             <div class="col-lg-8 register-form-container-new" id="page_1">
                                 <div class="login-bg">
@@ -437,6 +437,10 @@
         })
         
         $('#save_button').on('click', () => {
+            // check input
+
+
+            // submitting input
             let baseUrl = window.location.origin
             const createURL = `${baseUrl}/register`
 

@@ -4720,6 +4720,13 @@ nav.active img.hospital-logo-long {
 	}
 }
 
+@media (max-width: 320px) {
+	.register-form-container-new {
+		width: 300px;
+		margin-left: -150px;
+	}
+}
+
 .register-link {
 	position: absolute;
 	left: 0;
