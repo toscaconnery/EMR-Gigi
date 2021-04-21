@@ -4736,7 +4736,12 @@ nav.active img.hospital-logo-long {
 	font-size: 12px;
 	font-weight: 500;
 	margin-left: 20px;
-	color: rgba(30, 144, 194, 0.43);
+	color: rgba(6, 142, 201, 0.43);
+	font-weight: 700;
+}
+
+::placeholder {
+	color: #b1b1b1;
 }
 
 /* Change the white to any color ;) */
